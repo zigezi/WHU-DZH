@@ -1,0 +1,42 @@
+# 项目依赖清单（Requirements）
+# 生成时间: 2026-08-06
+# 项目根目录: /home/admin/user-app
+# 说明: 本文件列出项目全部运行依赖。后端基于 Node.js + Express，前端基于 Vue 3 + Vite。
+#       安装请使用 npm（Node.js v22+）。本文件同时保留 package.json 中声明的版本范围。
+
+## 运行时环境
+- Node.js >= 22
+- npm >= 10
+- PostgreSQL >= 16（Docker 镜像 postgres:16-alpine）
+- curl（后端通过系统 curl 调用 Moonshot API，规避 TLS 指纹风控）
+
+## 后端依赖（backend/package.json）
+express                         4.22.2     # Web 服务框架
+cors                            2.8.6      # 跨域支持
+pg                              8.22.0     # PostgreSQL 客户端
+bcryptjs                        2.4.3      # 密码哈希（注册/登录）
+jsonwebtoken                    9.0.3      # JWT 签发与校验
+svg-captcha                     1.4.0      # 图形验证码生成（SVG）
+dotenv                          16.6.1     # 读取 .env 配置
+archiver                        8.0.0      # session 产物文件夹 ZIP 打包（v8 ESM 新 API，用 new ZipArchive()）
+
+## 前端依赖（frontend/package.json）
+vue                             3.5.41     # 前端框架（Composition API + <script setup>）
+marked                          18.0.9     # 对话中 AI 回复的 Markdown 渲染
+
+## 前端构建工具（devDependencies）
+vite                            8.2.0      # 构建/开发服务器
+@vitejs/plugin-vue              6.0.8      # Vue 单文件组件插件
+
+## 安装命令
+# 后端
+cd backend
+npm install
+
+# 前端
+cd frontend
+npm install
+
+## 校验
+- 后端启动成功标志: 日志输出 "Database tables "users", "sessions", "messages" ready" 与 "Server running on http://0.0.0.0:3000"
+- 前端构建产物: frontend/dist（由后端 Express 静态托管，无需单独部署 Web 服务器）

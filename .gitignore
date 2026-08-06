@@ -1,0 +1,21 @@
+# 依赖
+node_modules/
+
+# 环境变量（含密钥）
+backend/.env
+
+# 构建产物
+frontend/dist/
+
+# 日志
+*.log
+nohup.out
+
+# 系统
+.DS_Store
+
+# 第三方上游克隆（不随本项目提交）
+OpenSpec/
+
+# 会话产物（含用户数据，按需决定是否提交）
+# workspace/

@@ -1,0 +1,137 @@
+# 部署说明（Deployment）
+
+## 0. 架构总览
+
+- 单服务部署：Express 后端（监听 0.0.0.0:3000）同时承载 REST API 与前端静态文件（frontend/dist），对外只需开放一个端口 3000。
+- 数据库：PostgreSQL 16（Docker 容器 userdb，监听 127.0.0.1:5432，仅本机可连）。
+- AI：Moonshot API（api.moonshot.cn/v1），后端经系统 curl 调用。
+- 产物目录：workspace/ 下每个会话一个时间戳文件夹。
+
+## 1. 前置条件
+
+- Node.js >= 22，npm >= 10
+- Docker（可选：仅用于运行 PostgreSQL 容器）
+- curl
+- 操作系统：Linux（本文以 Alibaba Cloud Linux / 通用 x64 Linux 为例）
+
+## 2. 启动 PostgreSQL（Docker）
+
+```bash
+docker run -d --name userdb \
+  -e POSTGRES_USER=appuser \
+  -e POSTGRES_PASSWORD=apppass \
+  -e POSTGRES_DB=authdb \
+  -p 127.0.0.1:5432:5432 \
+  -v auth-pgdata:/var/lib/postgresql/data \
+  postgres:16-alpine
+```
+
+- 国内网络拉取官方镜像超时时可改用镜像：`docker.m.daocloud.io/postgres:16-alpine`
+- 表结构（users / sessions / messages）由后端启动时自动创建（`src/db.js` 的 initDb），无需手工建表。
+
+## 3. 安装依赖
+
+```bash
+# 后端
+cd /home/admin/user-app/backend && npm install
+
+# 前端
+cd /home/admin/user-app/frontend && npm install
+```
+
+## 4. 配置后端环境变量（backend/.env）
+
+```env
+PORT=3000
+PGHOST=127.0.0.1
+PGPORT=5432
+PGUSER=appuser
+PGPASSWORD=apppass
+PGDATABASE=authdb
+JWT_SECRET=<更换为强随机密钥>
+
+MOONSHOT_API_KEY=sk-xxxxxxxxxxxxxxx   # Moonshot 平台密钥
+MOONSHOT_BASE_URL=https://api.moonshot.cn/v1
+MOONSHOT_MODEL=moonshot-v1-8k          # 反问/需求生成模型
+MOONSHOT_EARS_MODEL=moonshot-v1-32k    # EARS 转换模型（需大上下文）
+EARS_PROMPT_FILE=/home/admin/user-app/ears-convert.prompt.md
+WORKSPACE_DIR=/home/admin/user-app/workspace
+```
+
+- `.env` 含敏感信息，请勿提交到版本库。
+
+## 5. 构建前端
+
+```bash
+cd /home/admin/user-app/frontend && npm run build
+# 产物: frontend/dist，由后端 Express 静态托管
+```
+
+## 6. 启动后端
+
+```bash
+cd /home/admin/user-app/backend && node src/index.js
+# 或 npm start
+```
+
+启动成功标志（日志）：
+```
+Database tables "users", "sessions", "messages" ready
+Server running on http://0.0.0.0:3000
+```
+
+### 6.1 后台常驻运行（SSH 断开不退出）
+
+```bash
+cd /home/admin/user-app/backend
+setsid bash -c 'node src/index.js >/tmp/backend.log 2>&1 </dev/null &'
+```
+
+## 7. 访问
+
+- 本机：http://localhost:3000
+- 局域网：http://<服务器内网IP>:3000
+- 如需公网访问：云控制台安全组放行 3000 端口，或配置端口转发 / Nginx 反代。
+
+## 8. 常用运维命令
+
+```bash
+# 查看进程
+pgrep -ax node | grep "src/index.js"
+
+# 停止
+PID=$(pgrep -ax node | grep "src/index.js" | awk '{print $1}'); [ -n "$PID" ] && kill "$PID"
+
+# 重启 = 停止后重新执行第 6.1 节命令
+# 注意：不要使用 `pkill -f "src/index.js"`，会误匹配自身 shell 导致会话挂起
+
+# 查看日志
+tail -f /tmp/backend.log
+
+# 数据库状态
+docker exec userdb pg_isready -U appuser
+```
+
+## 9. 数据备份
+
+```bash
+# 数据库（SQL 导出）
+docker exec userdb pg_dump -U appuser -d authdb > authdb-$(date +%F).sql
+
+# 会话产物
+tar czf workspace-$(date +%F).tar.gz -C /home/admin/user-app workspace
+```
+
+## 10. 关键踩坑记录（务必阅读）
+
+1. **Moonshot WAF / TLS 指纹**：`api.moonshot.cn` 会按 TLS 指纹拦截 Node 内置 `fetch`（undici），返回 HTML 验证页而非 JSON。后端 `src/ai.js` 一律改用系统 `curl` 调用，切勿换回 fetch/undici。
+2. **archiver v8**：`archiver` 已升级为 ESM 新 API（`new ZipArchive()`），旧用法 `archiver('zip')` 会报 "archiver is not a function"。通过 `createRequire` 引入。
+3. **EARS 模型上下文**：EARS 转换输入（提示词 19.5KB）+ 输出文档（约 10KB）远超 8k 上下文，必须使用大上下文模型（默认 moonshot-v1-32k）。
+4. **数据库迁移**：`messages` 表早期无 session_id/role 列，initDb 已包含 `ALTER TABLE ... ADD COLUMN IF NOT EXISTS`，旧库启动即自动补列。
+5. **端口冲突**：3000 被占用时修改 `.env` 的 PORT 并重启；需同步确认防火墙/安全组放行新端口。
+
+## 11. 参考样例
+
+- `workspace/session-20260806-144557/` 内含一份完整样例：
+  - `requirements-20260806-145045.md`（需求分析）
+  - `snake-game-ears.md`（参考 EARS 转换结果）
