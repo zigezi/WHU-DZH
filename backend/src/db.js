@@ -46,5 +46,28 @@ export async function initDb() {
   await pool.query(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS role TEXT NOT NULL DEFAULT 'user';`);
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_messages_session ON messages(session_id, created_at);`);
 
-  console.log('Database tables "users", "sessions", "messages" ready');
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS builds (
+      id SERIAL PRIMARY KEY,
+      session_id INTEGER REFERENCES sessions(id),
+      user_id INTEGER REFERENCES users(id),
+      status VARCHAR(32) NOT NULL DEFAULT 'queued',
+      iterations INTEGER NOT NULL DEFAULT 0,
+      error_summary TEXT,
+      created_at TIMESTAMP DEFAULT NOW(),
+      finished_at TIMESTAMP
+    );
+    CREATE TABLE IF NOT EXISTS build_events (
+      id SERIAL PRIMARY KEY,
+      build_id INTEGER REFERENCES builds(id),
+      agent VARCHAR(32),
+      event_type VARCHAR(32),
+      content TEXT,
+      created_at TIMESTAMP DEFAULT NOW()
+    );
+    CREATE INDEX IF NOT EXISTS idx_builds_session ON builds(session_id, created_at);
+    CREATE INDEX IF NOT EXISTS idx_build_events_build ON build_events(build_id, id);
+  `);
+
+  console.log('Database tables "users", "sessions", "messages", "builds", "build_events" ready');
 }

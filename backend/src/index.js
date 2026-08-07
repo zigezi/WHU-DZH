@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import authRouter from './routes/auth.js';
 import sessionsRouter from './routes/sessions.js';
+import buildRouter, { previewRouter } from './routes/build.js';
 import { initDb } from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -15,10 +16,12 @@ app.use(express.json());
 
 app.use('/api', authRouter);
 app.use('/api', sessionsRouter);
+app.use('/api', buildRouter);
+app.use('/preview', previewRouter);
 
 const dist = path.join(__dirname, '../../frontend/dist');
 app.use(express.static(dist));
-app.get(/^\/(?!api).*/, (_req, res) => {
+app.get(/^\/(?!api)(?!preview).*/, (_req, res) => {
   res.sendFile(path.join(dist, 'index.html'));
 });
 

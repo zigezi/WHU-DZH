@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { marked } from 'marked'
+import BuildPanel from './BuildPanel.vue'
 
 const props = defineProps({
   user: { type: Object, required: true },
@@ -20,6 +21,10 @@ const earsConverting = ref(false)
 const archivedFile = ref('')
 const input = ref('')
 const listRef = ref(null)
+const buildPanelOpen = ref(false)
+const buildInfo = ref(null)
+const building = ref(false)
+const buildError = ref('')
 
 function api(path, options = {}) {
   return fetch(`${apiBase}${path}`, {
@@ -54,6 +59,10 @@ async function openSession(id) {
   current.value = sessions.value.find((s) => s.id === id) || current.value
   current.value.messages = data.messages
   current.value.archivedFile = ''
+  buildInfo.value = null
+  buildError.value = ''
+  const bres = await api(`/sessions/${id}/build`)
+  if (bres.ok) buildInfo.value = (await bres.json())
   scrollDown()
 }
 
@@ -135,6 +144,8 @@ async function earsConvert() {
       return
     }
     alert(`✅ 低歧义 EARS 需求已生成：\n${data.file}\n\n正在下载整个会话文件夹…`)
+    const bres = await api(`/sessions/${current.value.id}/build`)
+    if (bres.ok) buildInfo.value = (await bres.json())
     current.value.messages.push({
       id: `ears-${Date.now()}`,
       role: 'assistant',
@@ -171,6 +182,29 @@ async function download() {
     alert('下载失败，请稍后重试')
   } finally {
     downloading.value = false
+  }
+}
+
+async function triggerBuild() {
+  if (!current.value || building.value) return
+  building.value = true
+  buildError.value = ''
+  try {
+    const res = await api(`/sessions/${current.value.id}/build`, { method: 'POST' })
+    if (res.status === 401) return emit('logout')
+    const data = await res.json()
+    if (!res.ok) {
+      buildError.value = data.message || '触发构建失败'
+      alert(buildError.value)
+      return
+    }
+    buildInfo.value = { ...(buildInfo.value || {}), build: { id: data.buildId, status: 'queued', iterations: 0 } }
+    buildPanelOpen.value = true
+  } catch {
+    buildError.value = '触发构建失败，请稍后重试'
+    alert(buildError.value)
+  } finally {
+    building.value = false
   }
 }
 
@@ -242,6 +276,14 @@ onMounted(async () => {
           >
             {{ earsConverting ? 'EARS转换中…' : '⬇ 下载低歧义EARS需求' }}
           </button>
+          <button
+            v-if="buildInfo && buildInfo.ears && !(buildInfo.build && ['passed','failed'].includes(buildInfo.build.status))"
+            class="btn-build"
+            :disabled="building"
+            @click="triggerBuild"
+          >
+            {{ building ? '构建中…' : '⚙ 生成应用' }}
+          </button>
           </div>
         </header>
 
@@ -253,6 +295,13 @@ onMounted(async () => {
             <div v-if="m.role !== 'user'" class="avatar">OS</div>
             <div class="bubble" v-html="renderMd(m.content)"></div>
           </div>
+        </div>
+
+        <div class="build-area" v-if="buildInfo && buildInfo.ears">
+          <button class="build-toggle" @click="buildPanelOpen = !buildPanelOpen">
+            {{ buildPanelOpen ? '▾ 收起构建面板' : '▸ 展开构建面板（生成应用 / 修改 / 预览 / 版本）' }}
+          </button>
+          <BuildPanel v-if="buildPanelOpen" :session-id="current.id" :token="props.token" />
         </div>
 
         <footer class="chat-input" v-if="current.status !== 'archived'">
@@ -373,6 +422,21 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   background: #fff;
+  min-height: 0;
+}
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.build-area {
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
 }
 .chat-header {
   display: flex;
@@ -380,6 +444,33 @@ onMounted(async () => {
   align-items: center;
   padding: 16px 20px;
   border-bottom: 1px solid #eee;
+}
+.build-toggle {
+  padding: 8px 16px;
+  border: none;
+  background: #f6f7fb;
+  color: #667eea;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+}
+.build-toggle:hover {
+  background: #eef1ff;
+}
+.btn-build {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #667eea;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-build:hover {
+  opacity: 0.9;
+}
+.btn-build:disabled {
+  opacity: 0.5;
 }
 .who {
   font-weight: 700;
