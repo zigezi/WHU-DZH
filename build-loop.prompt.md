@@ -2,7 +2,7 @@
 
 > 本文件是给编码代理（opencode）执行的实施任务书。
 > 用法：在 NL2EARS 仓库根目录启动 opencode，输入「请按照 build-loop.prompt.md 完成 v1 构建子系统的实现」。
-> 版本: 1.1（已并入首轮工程审查的 18 项修复）
+> 版本: 1.3（并入工程审查 18 项修复 + 上下文预算拆分策略）
 
 ---
 
@@ -42,6 +42,21 @@
 - **同时最多 1 个沙箱在跑**：实现一个进程内串行队列，其余构建请求排队（状态 queued）；
 - Preview **不得使用容器**：Express 静态托管 + iframe `sandbox="allow-scripts"` 实现（**禁止添加 allow-same-origin**，原因见 2.4）；
 - 沙箱断网，一切依赖必须离线可用：只使用预置的 `node:20-alpine` 镜像，runtime 允许清单 v1 仅 `["static-web"]`，manifest 出现其他值直接拒绝。
+
+---
+
+## 一·五、上下文预算与拆分策略（最高优先级，所有 LLM 调用必须遵守）
+
+平台运行时所有 Moonshot 调用按以下规则设计，**单次调用输入预算 ≤ 24k tokens，超预算必须先裁剪再调用，禁止直接发送后等 API 报错**：
+
+1. **模型选择**：代码生成/调试默认 `kimi-k2`（或 `moonshot-v1-128k`，通过 `.env` 的 `MODEL_CODEGEN` 配置，禁止硬编码模型名）。32k 模型仅用于反问等短文本场景。
+2. **EARS 蒸馏（每次构建只做一次）**：调 LLM 前先用**确定性代码**（正则/段落解析，非 LLM）从 EARS 文档抽取「代码生成摘要」：术语表全文 + 全局规则 + 所有 FR 的一句话索引 + TBD 默认值表全文。**EARS 全文不进入常规调用**，仅在「修改指令与需求冲突仲裁」时才带相关 FR 段落。
+3. **分文件生成（替代一次性全量输出）**：`generateApp` 拆成两个函数——
+   - `planApp(earsDigest)`：输出 manifest JSON `{files: [{path, purpose, exports}], entry, runtime}`，**不含代码**；
+   - `generateFile(earsDigest, manifest, targetFile)`：每次调用只生成**一个文件**，输入 = 蒸馏摘要 + manifest + 目标文件的 purpose/exports + 已生成文件的路径与导出签名（**不带其他文件正文**）。
+4. **debugFix 上下文裁剪**：输入只含 ① stderr 尾部 50 行 ② 报错栈中涉及的文件正文（单文件超 8k tokens 时只带报错行 ±50 行及文件头部）③ 相关 FR 段落；**其余文件只给「路径 + 导出签名」一行骨架**，不带正文。
+5. **incrementalModify 同上**：先让 LLM 输出「需要读哪几个文件」的清单，再只带这些文件出补丁（两段式，禁止默认全量文件进上下文）。
+6. **超限降级**：任何调用前估算输入（≈字符数/1.5），超 24k tokens 必须按上述规则裁剪并在 `build_events` 记录裁剪动作；裁剪后仍超限 → 该构建标记 failed 并给出明确原因，不得静默截断。
 
 ---
 
@@ -97,7 +112,7 @@ CREATE TABLE IF NOT EXISTS build_events (
 
 1. 校验会话属主 + 会话目录存在 `*-ears.md`（取最新一份），不存在返回 409 提示先完成 EARS 转换；
 2. 创建 `workspace/session-<ts>/build/`，在其中 `git init`，**随后立即执行仓库级 `git config user.email builder@localhost && git config user.name builder`**（新机器无全局 identity，不配则 commit 必炸）。系统无 git 时降级为每轮整目录快照 `.versions/<n>/`，降级模式下**补丁一律改用「文件全文覆写」方式应用**；
-3. status=coding：调 `ai.js` 新增的 `generateApp(earsContent)`（见 2.5），产出 JSON：`{files: [{path, content}], entry: "index.html", runtime: "static-web"}`。逐文件写入 build/（写前路径净化：拒绝绝对路径与 `..`）。git commit `v0: initial generation`；
+3. status=coding：先做 EARS 蒸馏（一·五第 2 条，缓存到 build/ 外，不进 git），再按「`planApp` 出 manifest → 逐文件 `generateFile`」生成（见 2.5）。逐文件写入 build/（写前路径净化：拒绝绝对路径与 `..`）。git commit `v0: initial generation`；
 4. status=validating：`sandbox.runValidation()`；
 5. 通过 → status=passed，写 `manifest.json`（files 清单、entry、iterations、最终 commit；**manifest.json 加入 ZIP 与文件树的排除清单**），结束；
 6. 失败 → 修复循环（最多 8 轮，`builds.iterations` 递增）：
@@ -143,12 +158,15 @@ CREATE TABLE IF NOT EXISTS build_events (
 - 响应头：`Content-Security-Policy: default-src 'self' 'unsafe-inline'; img-src 'self' data:`；
 - iframe 侧只用 `sandbox="allow-scripts"`。**禁止加 allow-same-origin**：preview 与平台同源，加上后生成的不可信代码可读平台 localStorage 里的 JWT，沙箱形同虚设。
 
-### 2.5 `backend/src/ai.js` 新增三个函数（沿用 curl 封装，模型 `moonshot-v1-32k`）
+### 2.5 `backend/src/ai.js` 新增函数（沿用 curl 封装；模型由 `.env` 的 `MODEL_CODEGEN` 配置，默认 `kimi-k2`，**禁止硬编码**）
 
-- `generateApp(earsContent)`：system prompt 要点——严格按 EARS 规格实现，术语表中的常量/坐标/时序/TBD 默认值必须原样采用；只输出规定 JSON，禁止输出解释；`index.html` 入口；**文件数量尽量少（建议 ≤6 个），优先内联，禁止留截断注释**（32k 输出截断是 JSON 解析失败最大来源）；不使用任何外部 CDN/网络资源（沙箱断网）；**禁止 ESM import/export 与 `<script type="module">`**（统一 CommonJS 语法，沙箱按此检查）；**所有 localStorage/sessionStorage/cookie 访问必须 try/catch 并降级为内存实现**（Preview 运行在禁用存储的 sandbox iframe 中，直接访问会抛 SecurityError 导致白屏）。
-- `debugFix(earsPart, stderrTail, involvedFiles)`：你是调试器；输出最小 unified diff；禁止重写整个文件；禁止为消除报错而删除/弱化 EARS 需求对应的功能；报错与需求冲突时以 EARS 原文为准。
-- `incrementalModify(instruction, earsContent, currentFiles)`：同上；修改指令与 EARS 冲突时按 EARS 执行并在日志标注。
-- 三者统一：JSON/diff 解析失败重试 1 次（回喂解析错误）；每次调用 token 用量写 `build_events`。
+所有函数的输入裁剪遵守「一·五、上下文预算与拆分策略」。system prompt 公共约束（每个函数都要带）——严格按 EARS 蒸馏摘要实现，其中常量/坐标/时序/TBD 默认值必须原样采用；不使用任何外部 CDN/网络资源（沙箱断网）；**禁止 ESM import/export 与 `<script type="module">`**；**所有 localStorage/sessionStorage/cookie 访问必须 try/catch 并降级为内存实现**（Preview 运行在禁用存储的 sandbox iframe 中，直接访问会抛 SecurityError 导致白屏）。
+
+- `planApp(earsDigest)` → manifest JSON `{files: [{path, purpose, exports}], entry: "index.html", runtime: "static-web"}`，不含代码；**文件数量尽量少（建议 ≤6 个），优先内联**。
+- `generateFile(earsDigest, manifest, targetFile, generatedSignatures)` → 单文件代码文本；输入按一·五第 3 条组装；禁止留截断/省略注释（如 `// 其余代码不变`），文件必须完整可运行。
+- `debugFix(earsRelevantFr, stderrTail, involvedFiles, otherFileSignatures)`：你是调试器；输出最小 unified diff；禁止重写整个文件；禁止为消除报错而删除/弱化 EARS 需求对应的功能；报错与需求冲突时以 EARS 原文为准。
+- `incrementalModify(instruction, earsDigest, selectedFiles)`：两段式——第一段只带「文件清单 + 指令」让模型返回需读文件列表，第二段带选中文件出 diff；修改指令与 EARS 冲突时按 EARS 执行并在日志标注。
+- 统一：JSON/diff 解析失败重试 1 次（回喂解析错误）；每次调用的模型名与 token 用量写 `build_events`。
 
 ---
 

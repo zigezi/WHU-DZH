@@ -25,6 +25,8 @@ const buildPanelOpen = ref(false)
 const buildInfo = ref(null)
 const building = ref(false)
 const buildError = ref('')
+const deployState = ref(null)
+const deploying = ref(false)
 
 function api(path, options = {}) {
   return fetch(`${apiBase}${path}`, {
@@ -61,8 +63,10 @@ async function openSession(id) {
   current.value.archivedFile = ''
   buildInfo.value = null
   buildError.value = ''
+  deployState.value = null
   const bres = await api(`/sessions/${id}/build`)
   if (bres.ok) buildInfo.value = (await bres.json())
+  await loadDeployState()
   scrollDown()
 }
 
@@ -208,6 +212,35 @@ async function triggerBuild() {
   }
 }
 
+async function loadDeployState() {
+  if (!current.value) return
+  const res = await api(`/sessions/${current.value.id}/container`)
+  if (res.status === 401) return emit('logout')
+  if (res.ok) deployState.value = (await res.json()).deploy
+}
+
+// 拉起测试容器：复用构建产物部署到 Docker 容器，外部可访问；再次拉起会先注销旧容器。
+async function deployContainer() {
+  if (!current.value || deploying.value) return
+  deploying.value = true
+  try {
+    const res = await api(`/sessions/${current.value.id}/container`, { method: 'POST' })
+    if (res.status === 401) return emit('logout')
+    const data = await res.json()
+    if (!res.ok) {
+      alert(data.message || '拉起测试容器失败')
+      return
+    }
+deployState.value = { ...data, status: 'running' }
+    alert(`✅ 测试容器已拉起：${data.url}`)
+    await loadDeployState()
+  } catch {
+    alert('拉起测试容器失败，请稍后重试')
+  } finally {
+    deploying.value = false
+  }
+}
+
 onMounted(async () => {
   await loadSessions()
   if (sessions.value.length === 0) {
@@ -222,6 +255,18 @@ onMounted(async () => {
   <div class="chat-page">
     <aside class="sidebar">
       <button class="btn-new" :disabled="loading" @click="newSession">＋ 新建对话</button>
+      <button class="btn-deploy" :disabled="deploying" @click="deployContainer">
+        {{ deploying ? '拉起中…' : '🚀 拉起测试容器' }}
+      </button>
+      <div v-if="deployState" class="deploy-box">
+        <div class="deploy-row">
+          <span class="dot" :class="deployState.status"></span>
+          <span>{{ deployState.status === 'running' ? '测试容器运行中' : deployState.status }}</span>
+        </div>
+        <a v-if="deployState.url" class="deploy-link" :href="deployState.url" target="_blank" rel="noopener">
+          端口 {{ deployState.host_port }} → 打开 ↗
+        </a>
+      </div>
       <h3 class="user">{{ user.username }}</h3>
       <ul class="sess-list">
         <li
@@ -350,6 +395,55 @@ onMounted(async () => {
 }
 .btn-new:disabled {
   opacity: 0.6;
+}
+.btn-deploy {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #e67e22;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-deploy:hover {
+  opacity: 0.9;
+}
+.btn-deploy:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.deploy-box {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+.deploy-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.deploy-box .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #bbb;
+}
+.deploy-box .dot.running {
+  background: #2ecc71;
+}
+.deploy-box .dot.failed,
+.deploy-box .dot.error {
+  background: #e74c3c;
+}
+.deploy-link {
+  color: #fff;
+  text-decoration: underline;
+  word-break: break-all;
 }
 .user {
   color: #fff;

@@ -67,7 +67,18 @@ export async function initDb() {
     );
     CREATE INDEX IF NOT EXISTS idx_builds_session ON builds(session_id, created_at);
     CREATE INDEX IF NOT EXISTS idx_build_events_build ON build_events(build_id, id);
+
+    CREATE TABLE IF NOT EXISTS test_containers (
+      id SERIAL PRIMARY KEY,
+      session_id INTEGER REFERENCES sessions(id),
+      user_id INTEGER REFERENCES users(id),
+      container_id VARCHAR(64),
+      host_port INTEGER,
+      url TEXT,
+      status VARCHAR(16) DEFAULT 'running',
+      created_at TIMESTAMP DEFAULT NOW()
+    );
   `);
 
-  console.log('Database tables "users", "sessions", "messages", "builds", "build_events" ready');
+  console.log('Database tables "users", "sessions", "messages", "builds", "build_events", "test_containers" ready');
 }

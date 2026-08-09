@@ -82,7 +82,18 @@ async function requireBuildForUser(buildId, userId) {
 }
 
 const router = Router();
-router.use(authenticate);
+// 普通接口走 Authorization 头；events/preview 用 EventSource/iframe，只能带 ?token=，故 query token 也放行。
+router.use((req, res, next) => {
+  if (req.query && typeof req.query.token === 'string' && req.query.token) {
+    try {
+      req.user = jwt.verify(req.query.token, JWT_SECRET);
+      return next();
+    } catch {
+      return res.status(401).json({ message: '登录已过期' });
+    }
+  }
+  return authenticate(req, res, next);
+});
 
 // 构建状态查询（前端面板入口判断用）
 router.get('/sessions/:id/build', async (req, res) => {

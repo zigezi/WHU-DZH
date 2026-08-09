@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import authRouter from './routes/auth.js';
 import sessionsRouter from './routes/sessions.js';
 import buildRouter, { previewRouter } from './routes/build.js';
+import containerRouter from './routes/container.js';
 import { initDb } from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -15,8 +16,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', authRouter);
-app.use('/api', sessionsRouter);
+// buildRouter（含 query/cookie token 鉴权）必须先于 sessionsRouter 挂载，否则
+// sessionsRouter 的全局 header-only authenticate 会把 /api/*?token= 提前 401 掉。
 app.use('/api', buildRouter);
+app.use('/api', containerRouter);
+app.use('/api', sessionsRouter);
 app.use('/preview', previewRouter);
 
 const dist = path.join(__dirname, '../../frontend/dist');

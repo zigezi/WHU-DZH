@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pool } from './db.js';
 import { runValidation, isBuildDirAllowed, CONTAINER_IMAGE } from './sandbox.js';
-import { generateApp, debugFix, rewriteFile, incrementalModify } from './ai.js';
+import { planApp, generateFile, debugFix, rewriteFile, incrementalModify, distillEars } from './ai.js';
 
 const execFileP = promisify(execFile);
 
@@ -40,9 +40,10 @@ async function getBuild(buildId) {
 }
 
 async function setStatus(buildId, status) {
+  const terminal = ['passed', 'failed'].includes(status);
   await pool.query(
-    `UPDATE builds SET status=$1, finished_at = CASE WHEN $1 IN ('passed','failed') THEN now() ELSE finished_at END WHERE id=$2`,
-    [status, buildId],
+    `UPDATE builds SET status=$1, finished_at = CASE WHEN $2 THEN now() ELSE finished_at END WHERE id=$3`,
+    [status, terminal, buildId],
   );
 }
 
@@ -127,6 +128,31 @@ async function collectFilesText(buildDir) {
   return { text, files };
 }
 
+// 从 manifest.json（若存在）读取每文件的 purpose/exports，读取全文内容，组装 fileMetas。
+async function collectFileMetas(buildDir) {
+  const rels = await listProjectFiles(buildDir);
+  const metas = new Map();
+  try {
+    const manifest = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8'));
+    for (const f of manifest.files || []) {
+      metas.set(f.path, { purpose: f.purpose || '', exports: f.exports || '' });
+    }
+  } catch {
+    /* 无 manifest 则 fallback 到空元信息 */
+  }
+  const out = [];
+  for (const rel of rels) {
+    try {
+      const content = await readFileSafe(buildDir, rel);
+      const meta = metas.get(rel) || {};
+      out.push({ path: rel, purpose: meta.purpose || '', exports: meta.exports || '', content });
+    } catch {
+      /* 跳过不可读文件 */
+    }
+  }
+  return out;
+}
+
 // ---------- git 辅助 ----------
 
 async function git(buildDir, args) {
@@ -170,15 +196,16 @@ async function saveSnapshot(buildDir, tag) {
 }
 
 async function commitState(buildDir, mode, message) {
+  const msg = cleanCommitMessage(message);
   if (mode === 'git') {
     await git(buildDir, ['add', '-A']);
-    await git(buildDir, ['commit', '-m', message, '--allow-empty']).catch(async (e) => {
+    await git(buildDir, ['commit', '-m', msg, '--allow-empty']).catch(async (e) => {
       // 无任何变更时 git commit 会失败，允许空提交作为状态记录
-      await git(buildDir, ['commit', '--allow-empty', '-m', message]);
+      await git(buildDir, ['commit', '--allow-empty', '-m', msg]);
     });
     return await git(buildDir, ['rev-parse', 'HEAD']);
   }
-  return String(await saveSnapshot(buildDir, message));
+  return String(await saveSnapshot(buildDir, msg));
 }
 
 async function gitApplyPatch(buildDir, diff) {
@@ -209,6 +236,11 @@ function firstLine(text) {
   return (text || '').split('\n').find((l) => l.trim()) || '';
 }
 
+// 清洗 commit 消息中的 NUL/控制字符（沙箱输出可能含 docker 帧头等二进制），防止 execFile 报 null bytes 错误。
+function cleanCommitMessage(msg) {
+  return String(msg || '').replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, 200) || 'wip';
+}
+
 function guessInvolvedFile(buildDir, errTail) {
   const m = /\/app\/([\w.\-/]+\.(?:js|html|cjs))/i.exec(errTail || '');
   if (m) {
@@ -223,30 +255,70 @@ function guessInvolvedFile(buildDir, errTail) {
   return 'index.html';
 }
 
+// 从报错尾部提取涉及文件并在 buildDir 读取其内容（其余文件只给路径+导出签名骨架，见 otherFileSignatures）。
+async function collectInvolvedFiles(buildDir, errTail) {
+  const rels = new Set();
+  const re = /\/app\/([\w.\-/]+\.(?:js|html|cjs))/gi;
+  let m;
+  while ((m = re.exec(errTail || ''))) rels.add(m[1]);
+  if (rels.size === 0) rels.add(guessInvolvedFile(buildDir, errTail));
+  const out = [];
+  for (const rel of rels) {
+    try {
+      const content = await readFileSafe(buildDir, rel);
+      out.push({ path: rel, content });
+    } catch {
+      out.push({ path: rel, content: '' });
+    }
+  }
+  return out;
+}
+
+async function otherFileSignatures(buildDir, involvedRels) {
+  const all = await listProjectFiles(buildDir);
+  return all
+    .filter((rel) => !involvedRels.includes(rel))
+    .map((rel) => `${rel}: <导出签名待模型自查>`);
+}
+
+async function distillSessionDigest(dir, earsFile) {
+  const earsContent = await fs.readFile(path.join(dir, earsFile), 'utf8');
+  const cacheFile = path.join(dir, `${earsFile}.digest`);
+  try {
+    const cached = await fs.readFile(cacheFile, 'utf8');
+    if (cached) return cached;
+  } catch {
+    /* 无缓存则重新蒸馏 */
+  }
+  const digest = distillEars(earsContent);
+  await fs.writeFile(cacheFile, digest, 'utf8').catch(() => {});
+  return digest;
+}
+
 // ---------- 修复循环 ----------
 
-async function applyFullRewrite(buildId, buildDir, earsContent, errTail, targetRel) {
+async function applyFullRewrite(buildId, buildDir, earsDigest, errTail, targetRel, instruction) {
   const rel = targetRel || guessInvolvedFile(buildDir, errTail);
   const current = await readFileSafe(buildDir, rel).catch(() => '');
-  const newContent = await rewriteFile(buildId, rel, current, earsContent, errTail);
+  const newContent = await rewriteFile(buildId, rel, current, earsDigest, errTail, instruction);
   await writeFileSafe(buildDir, rel, newContent);
-  await logBuildEvent(buildId, 'debugger', 'file', `全文覆写 ${rel}`);
+  await logBuildEvent(buildId, 'debugger', 'file', `全文覆写 ${rel}${instruction ? '（携带修改指令）' : ''}`);
   return true;
 }
 
 // 在 snapshot 模式下 diff 仅用于定位受影响文件，一律全文覆写应用。
-async function applyRepairDiff(buildId, buildDir, earsContent, errTail, diff, mode) {
+async function applyRepairDiff(buildId, buildDir, earsDigest, errTail, diff, mode) {
   if (mode === 'snapshot') {
     const targets = diffTargetPaths(diff);
     if (targets.length === 0) return false;
-    for (const rel of targets) await applyFullRewrite(buildId, buildDir, earsContent, errTail, rel);
+    for (const rel of targets) await applyFullRewrite(buildId, buildDir, earsDigest, errTail, rel);
     return true;
   }
   return gitApplyPatch(buildDir, diff);
 }
 
 // 修复循环：验证 → 失败则 debugging → 出补丁应用 → 复验。最多 MAX_ITERATIONS 轮。
-async function repairLoop(buildId, buildDir, earsContent, mode) {
+async function repairLoop(buildId, buildDir, earsDigest, mode) {
   let iterations = 0;
   while (true) {
     await setStatus(buildId, 'validating');
@@ -275,24 +347,27 @@ async function repairLoop(buildId, buildDir, earsContent, mode) {
     await setStatus(buildId, 'debugging');
     await logBuildEvent(buildId, 'debugger', 'status', 'debugging');
 
+    const involved = await collectInvolvedFiles(buildDir, tail);
+    const otherSigs = await otherFileSignatures(buildDir, involved.map((f) => f.path));
+
     let applied = false;
     if (mode === 'git') {
       for (let attempt = 0; attempt < 2 && !applied; attempt++) {
         let diff;
         try {
-          diff = await debugFix(buildId, earsContent, tail, '');
+          diff = await debugFix(buildId, earsDigest, tail, involved, otherSigs);
         } catch (e) {
           await logBuildEvent(buildId, 'debugger', 'error', `debugFix 失败: ${e.message}`);
           break;
         }
         await logBuildEvent(buildId, 'debugger', 'patch', diff.slice(0, 3000));
-        applied = await applyRepairDiff(buildId, buildDir, earsContent, tail, diff, mode);
+        applied = await applyRepairDiff(buildId, buildDir, earsDigest, tail, diff, mode);
         if (!applied) await logBuildEvent(buildId, 'debugger', 'log', '补丁应用失败，将重试');
       }
       if (!applied) {
         await logBuildEvent(buildId, 'debugger', 'log', '连续失败，降级为全文覆写');
         try {
-          applied = await applyFullRewrite(buildId, buildDir, earsContent, tail);
+          applied = await applyFullRewrite(buildId, buildDir, earsDigest, tail);
         } catch (e) {
           await logBuildEvent(buildId, 'debugger', 'error', `全文覆写失败: ${e.message}`);
           applied = false;
@@ -301,16 +376,16 @@ async function repairLoop(buildId, buildDir, earsContent, mode) {
     } else {
       // snapshot：debugFix 产物仅用于获取受影响文件清单，全文覆写应用
       try {
-        const diff = await debugFix(buildId, earsContent, tail, '');
+        const diff = await debugFix(buildId, earsDigest, tail, involved, otherSigs);
         await logBuildEvent(buildId, 'debugger', 'patch', diff.slice(0, 3000));
-        applied = await applyRepairDiff(buildId, buildDir, earsContent, tail, diff, mode);
+        applied = await applyRepairDiff(buildId, buildDir, earsDigest, tail, diff, mode);
       } catch (e) {
         await logBuildEvent(buildId, 'debugger', 'error', `debugFix 失败: ${e.message}`);
         applied = false;
       }
       if (!applied) {
         try {
-          applied = await applyFullRewrite(buildId, buildDir, earsContent, tail);
+          applied = await applyFullRewrite(buildId, buildDir, earsDigest, tail);
         } catch (e) {
           applied = false;
         }
@@ -373,7 +448,6 @@ async function runStartBuild(sessionId, userId, buildId) {
   const earsFiles = (await fs.readdir(dir).catch(() => [])).filter((f) => /-ears\.md$/i.test(f)).sort().reverse();
   if (earsFiles.length === 0) throw new Error('会话目录缺少 EARS 文档');
 
-  const earsContent = await fs.readFile(path.join(dir, earsFiles[0]), 'utf8');
   const buildDir = path.join(dir, 'build');
   await fs.mkdir(buildDir, { recursive: true });
   const mode = await initRepo(buildDir, await detectGit());
@@ -382,15 +456,24 @@ async function runStartBuild(sessionId, userId, buildId) {
   await logBuildEvent(targetBuildId, 'coder', 'status', 'coding');
   await logBuildEvent(targetBuildId, 'system', 'log', `使用 EARS 文档: ${earsFiles[0]}`);
 
-  const gen = await generateApp(targetBuildId, earsContent);
-  for (const f of gen.files) await writeFileSafe(buildDir, f.path, f.content);
-  const filesList = gen.files.map((f) => f.path);
-  await logBuildEvent(targetBuildId, 'coder', 'log', `生成文件: ${filesList.join(', ')}`);
+  const earsDigest = await distillSessionDigest(dir, earsFiles[0]);
+
+  const manifest = await planApp(targetBuildId, earsDigest);
+  await logBuildEvent(targetBuildId, 'coder', 'log', `已规划文件结构: ${manifest.files.map((f) => f.path).join(', ')}`);
+
+  const generatedSignatures = [];
+  for (const tf of manifest.files) {
+    const content = await generateFile(targetBuildId, earsDigest, manifest, tf, generatedSignatures);
+    await writeFileSafe(buildDir, tf.path, content);
+    generatedSignatures.push(`${tf.path} => exports: ${tf.exports || '<待声明>'}`);
+    await logBuildEvent(targetBuildId, 'coder', 'file', `已生成 ${tf.path}`);
+  }
+  const filesList = manifest.files.map((f) => f.path);
   await commitState(buildDir, mode, 'v0: initial generation');
 
-  const outcome = await repairLoop(targetBuildId, buildDir, earsContent, mode);
+  const outcome = await repairLoop(targetBuildId, buildDir, earsDigest, mode);
   if (outcome.passed) {
-    await writeManifest(buildDir, targetBuildId, gen.entry, filesList);
+    await writeManifest(buildDir, targetBuildId, manifest.entry, manifest.files);
     await setStatus(targetBuildId, 'passed');
     await logBuildEvent(targetBuildId, 'system', 'status', 'passed');
     await logBuildEvent(targetBuildId, 'system', 'log', `构建通过（迭代 ${outcome.iterations} 轮）`);
@@ -415,32 +498,32 @@ async function runModification(buildId, instruction, userId) {
   const dir = sessionFolder(session);
   const earsFiles = (await fs.readdir(dir).catch(() => [])).filter((f) => /-ears\.md$/i.test(f)).sort().reverse();
   if (earsFiles.length === 0) throw new Error('会话目录缺少 EARS 文档');
-  const earsContent = await fs.readFile(path.join(dir, earsFiles[0]), 'utf8');
+  const earsDigest = await distillSessionDigest(dir, earsFiles[0]);
   const buildDir = path.join(dir, 'build');
   const mode = await detectGit();
 
   await setStatus(buildId, 'modifying');
   await logBuildEvent(buildId, 'coder', 'status', 'modifying');
 
-  const { text: currentFilesText, files } = await collectFilesText(buildDir);
-  await logBuildEvent(buildId, 'system', 'log', `读取 ${files.length} 个文件` + (currentFilesText.length > 100_000 ? '（内容过长已裁剪）' : ''));
+  const fileMetas = await collectFileMetas(buildDir);
+  await logBuildEvent(buildId, 'system', 'log', `读取 ${fileMetas.length} 个文件`);
 
-  const diff = await incrementalModify(buildId, instruction, earsContent, currentFilesText);
+  const diff = await incrementalModify(buildId, instruction, earsDigest, fileMetas);
   await logBuildEvent(buildId, 'coder', 'patch', diff.slice(0, 3000));
 
-  let applied = await applyRepairDiff(buildId, buildDir, earsContent, '', diff, mode);
+  let applied = await applyRepairDiff(buildId, buildDir, earsDigest, '', diff, mode);
   if (!applied) {
-    await logBuildEvent(buildId, 'coder', 'log', '补丁应用失败，降级为全文覆写');
+    await logBuildEvent(buildId, 'coder', 'log', '补丁应用失败，降级为全文覆写（携带修改指令）');
     const targets = diffTargetPaths(diff);
     for (const rel of targets.length ? targets : ['index.html']) {
-      applied = (await applyFullRewrite(buildId, buildDir, earsContent, `增量修改失败: ${firstLine(diff)}`, rel)) || applied;
+      applied = (await applyFullRewrite(buildId, buildDir, earsDigest, `增量修改失败: ${firstLine(diff)}`, rel, instruction)) || applied;
     }
   }
   if (!applied) throw new Error('增量修改补丁无法应用');
 
   await commitState(buildDir, mode, `modify: ${String(instruction).slice(0, MODIFY_MESSAGE_CAP)}`);
 
-  const outcome = await repairLoop(buildId, buildDir, earsContent, mode);
+  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode);
   if (outcome.passed) {
     await writeManifest(buildDir, buildId, 'index.html', await listProjectFiles(buildDir));
     await setStatus(buildId, 'passed');
@@ -467,11 +550,11 @@ async function runRevalidate(buildId, userId) {
   const dir = sessionFolder(session);
   const earsFiles = (await fs.readdir(dir).catch(() => [])).filter((f) => /-ears\.md$/i.test(f)).sort().reverse();
   if (earsFiles.length === 0) throw new Error('会话目录缺少 EARS 文档');
-  const earsContent = await fs.readFile(path.join(dir, earsFiles[0]), 'utf8');
+  const earsDigest = await distillSessionDigest(dir, earsFiles[0]);
   const buildDir = path.join(dir, 'build');
   const mode = await detectGit();
 
-  const outcome = await repairLoop(buildId, buildDir, earsContent, mode);
+  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode);
   if (outcome.passed) {
     await writeManifest(buildDir, buildId, 'index.html', await listProjectFiles(buildDir));
     await setStatus(buildId, 'passed');
@@ -530,9 +613,9 @@ async function runRestore(buildId, hash, userId) {
 
   const dir = sessionFolder(session);
   const earsFiles = (await fs.readdir(dir).catch(() => [])).filter((f) => /-ears\.md$/i.test(f)).sort().reverse();
-  const earsContent = earsFiles.length ? await fs.readFile(path.join(dir, earsFiles[0]), 'utf8') : '';
+  const earsDigest = earsFiles.length ? await distillSessionDigest(dir, earsFiles[0]) : '';
 
-  const outcome = await repairLoop(buildId, buildDir, earsContent, mode);
+  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode);
   if (outcome.passed) {
     await commitState(buildDir, mode, `restore to ${hash}`);
     await writeManifest(buildDir, buildId, 'index.html', await listProjectFiles(buildDir));

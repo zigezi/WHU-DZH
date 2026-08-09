@@ -1,8 +1,11 @@
 import Docker from 'dockerode';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { PassThrough } from 'node:stream';
 
 const docker = new Docker({ socketPath: '/var/run/docker.sock' });
+
+export { docker };
 
 export const CONTAINER_IMAGE = 'node:20-alpine';
 
@@ -28,8 +31,11 @@ function workspaceRoot() {
 // 挂载源必须位于 workspace/session-<ts>/build 前缀下，防止把任意宿主目录挂进容器。
 export function isBuildDirAllowed(buildDir) {
   const resolved = path.resolve(buildDir);
-  const prefix = path.join(workspaceRoot(), 'build');
-  return resolved === prefix || resolved.startsWith(prefix + path.sep);
+  const ws = workspaceRoot();
+  const rel = path.relative(ws, resolved);
+  if (rel.startsWith('..') || path.isAbsolute(rel)) return false;
+  const parts = rel.split(path.sep);
+  return parts.length === 2 && parts[0].startsWith('session-') && parts[1] === 'build';
 }
 
 export function validationScriptText() {
@@ -82,6 +88,14 @@ if (!fs.existsSync(entry)) {
 
 const html = fs.readFileSync(entry, 'utf8');
 
+// 1b. HTML 结构完整性校验（防止 LLM 输出被截断成残缺文件却通过验证）
+if (!/<body[\\s>]/i.test(html)) report('index.html 缺少 <body> 标签');
+if (!/<\\/body>/i.test(html)) report('index.html 缺少 </body> 标签');
+if (!/<\\/html>/i.test(html)) report('index.html 缺少 </html> 结束标签');
+if (!/<script\\b[^>]*>/i.test(html) && !/<canvas\\b[^>]*>/i.test(html)) {
+  report('index.html 未包含任何 <script> 或 <canvas>，疑似内容不完整');
+}
+
 // 2a. 校验所有 .js 文件
 const jsFiles = [];
 walkJs(ROOT, jsFiles);
@@ -129,11 +143,11 @@ server.listen(0, '127.0.0.1', () => {
     res.on('data', (c) => { data += c; });
     res.on('end', () => {
       server.close();
-      if (data.length > 0) {
+      if (data.length >= 500) {
         console.log('VALIDATION_PASS');
         process.exit(0);
       }
-      report('index.html 返回空内容');
+      report('index.html 返回内容过少（疑似残缺文件）');
       console.error('STATIC_SYNTAX_FAIL');
       process.exit(1);
     });
@@ -171,6 +185,7 @@ async function runContainerOnce(buildDir) {
       PidsLimit: CONSTRAINT.PidsLimit,
       NetworkMode: CONSTRAINT.NetworkMode,
       ReadonlyRootfs: true,
+      Tmpfs: { '/tmp': 'rw,size=16m,mode=1777' },
     },
     Tty: false,
   });
@@ -183,12 +198,14 @@ async function runContainerOnce(buildDir) {
   const timer = setTimeout(() => { timedOut = true; }, EXTERNAL_HARD_TIMEOUT_MS);
 
   try {
+    // docker 非 TTY 模式下 attach 输出是多路复用协议（每条数据带 8 字节帧头，含 NUL 字节），
+    // 必须经 demuxStream 分离 stdout/stderr，否则 NUL 会污染 stderr 文本并在后续 git commit -m 时报错。
+    const stdoutS = new PassThrough();
+    const stderrS = new PassThrough();
+    stdoutS.on('data', (c) => { stdout += c.toString('utf8'); });
+    stderrS.on('data', (c) => { stderr += c.toString('utf8'); });
     const stream = await container.attach({ stream: true, stdout: true, stderr: true });
-    stream.on('data', (chunk) => {
-      const s = chunk.toString('utf8');
-      stdout += s;
-      stderr += s;
-    });
+    container.modem.demuxStream(stream, stdoutS, stderrS);
     await container.start();
     const res = await container.wait();
     exitCode = res && typeof res.StatusCode === 'number' ? res.StatusCode : null;
