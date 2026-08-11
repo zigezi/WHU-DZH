@@ -42,6 +42,7 @@ async function request(path, body) {
 function handleAuth(data) {
   localStorage.setItem('token', data.token)
   localStorage.setItem('user', JSON.stringify(data.user))
+  token.value = data.token
   user.value = data.user
 }
 
