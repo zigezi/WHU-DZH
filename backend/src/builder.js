@@ -5,12 +5,42 @@ import path from 'node:path';
 import { pool } from './db.js';
 import { runValidation, isBuildDirAllowed, CONTAINER_IMAGE } from './sandbox.js';
 import { planApp, generateFile, debugFix, rewriteFile, incrementalModify, distillEars } from './ai.js';
+import { deployStaticApp, getSessionContainer } from './deployer.js';
 
 const execFileP = promisify(execFile);
 
 const WORKSPACE = process.env.WORKSPACE_DIR || path.join(process.cwd(), '../workspace');
 const MAX_ITERATIONS = 8;
 const MODIFY_MESSAGE_CAP = 50;
+
+// 构建/修改/修复通过后：若该会话有运行中的测试容器，自动重新部署最新代码（复用旧端口）。
+// 部署失败只记事件，不影响构建结论。
+async function autoRedeploy(buildId, sessionId, buildDir) {
+  try {
+    const r = await pool.query(
+      "SELECT * FROM test_containers WHERE session_id=$1 AND status='running' ORDER BY id DESC LIMIT 1",
+      [sessionId],
+    );
+    const old = r.rows[0];
+    const live = await getSessionContainer(sessionId).catch(() => null);
+    if (!old && !live) return; // 无测试容器，无需重部署
+    const preferredPort = (live && live.hostPort) || (old && old.host_port) || null;
+    const { containerId, hostPort, url } = await deployStaticApp(sessionId, buildDir, { preferredPort });
+    await pool.query(
+      "UPDATE test_containers SET status='replaced' WHERE session_id=$1 AND status='running'",
+      [sessionId],
+    );
+    await pool.query(
+      `INSERT INTO test_containers (session_id, user_id, host_port, url, status, container_id)
+       SELECT $1, user_id, $2, $3, 'running', $4 FROM sessions WHERE id=$1`,
+      [sessionId, hostPort, url, containerId || ''],
+    );
+    await logBuildEvent(buildId, 'deploy', 'log', `已自动重新部署测试容器（端口 ${hostPort}）`);
+  } catch (err) {
+    console.error('[builder] 自动重新部署失败:', err);
+    await logBuildEvent(buildId, 'deploy', 'error', `自动重新部署失败: ${err.message}`).catch(() => {});
+  }
+}
 
 // git 可用性在首次 startBuild 时判定一次并全局缓存，全程一致使用，不得中途切换。
 let gitMode = null; // 'git' | 'snapshot'
@@ -477,6 +507,7 @@ async function runStartBuild(sessionId, userId, buildId) {
     await setStatus(targetBuildId, 'passed');
     await logBuildEvent(targetBuildId, 'system', 'status', 'passed');
     await logBuildEvent(targetBuildId, 'system', 'log', `构建通过（迭代 ${outcome.iterations} 轮）`);
+    await autoRedeploy(targetBuildId, session.id, buildDir);
   }
 }
 
@@ -529,6 +560,7 @@ async function runModification(buildId, instruction, userId) {
     await setStatus(buildId, 'passed');
     await logBuildEvent(buildId, 'system', 'status', 'passed');
     await logBuildEvent(buildId, 'system', 'log', `增量修改通过（迭代 ${outcome.iterations} 轮）`);
+    await autoRedeploy(buildId, session.id, buildDir);
   }
 }
 
@@ -560,6 +592,7 @@ async function runRevalidate(buildId, userId) {
     await setStatus(buildId, 'passed');
     await logBuildEvent(buildId, 'system', 'status', 'passed');
     await logBuildEvent(buildId, 'system', 'log', `重新验证通过（迭代 ${outcome.iterations} 轮）`);
+    await autoRedeploy(buildId, session.id, buildDir);
   }
 }
 
@@ -622,6 +655,7 @@ async function runRestore(buildId, hash, userId) {
     await setStatus(buildId, 'passed');
     await logBuildEvent(buildId, 'system', 'status', 'passed');
     await logBuildEvent(buildId, 'system', 'log', `恢复并验证通过（迭代 ${outcome.iterations} 轮）`);
+    await autoRedeploy(buildId, session.id, buildDir);
   }
 }
 

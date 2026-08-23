@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pool } from '../db.js';
 import { authenticate } from './auth.js';
-import { deployStaticApp } from '../deployer.js';
+import { deployStaticApp, getSessionContainer } from '../deployer.js';
 
 const router = Router();
 router.use(authenticate);
@@ -30,13 +30,21 @@ async function hasBuildOutput(session) {
   }
 }
 
-async function recordDeploy(sessionId, userId, hostPort, url) {
+async function recordDeploy(sessionId, userId, hostPort, url, containerId) {
   const r = await pool.query(
-    `INSERT INTO test_containers (session_id, user_id, host_port, url, status)
-     VALUES ($1,$2,$3,$4,'running') RETURNING id`,
-    [sessionId, userId, hostPort, url],
+    `INSERT INTO test_containers (session_id, user_id, host_port, url, status, container_id)
+     VALUES ($1,$2,$3,$4,'running',$5) RETURNING id`,
+    [sessionId, userId, hostPort, url, containerId || ''],
   );
   return r.rows[0].id;
+}
+
+// 把该会话旧的 running 记录标记为 replaced，保持 DB 与 docker 实际状态一致
+async function markOldReplaced(sessionId) {
+  await pool.query(
+    "UPDATE test_containers SET status='replaced' WHERE session_id=$1 AND status='running'",
+    [sessionId],
+  );
 }
 
 async function latestDeploy(sessionId) {
@@ -47,7 +55,7 @@ async function latestDeploy(sessionId) {
   return r.rows[0] || null;
 }
 
-// 触发拉起测试容器（复用构建产物；再次拉起会先注销旧容器）
+// 触发拉起测试容器。已有运行中容器且未确认替换时返回 409，由前端弹窗确认后带 replace:true 重试。
 router.post('/sessions/:id/container', async (req, res) => {
   const session = await requireSession(req, res);
   if (!session) return;
@@ -56,8 +64,19 @@ router.post('/sessions/:id/container', async (req, res) => {
     return res.status(409).json({ message: '该会话尚无构建产物，请先在「构建面板」生成应用' });
   }
   try {
-    const { hostPort, url } = await deployStaticApp(session.id, buildDir);
-    const deployId = await recordDeploy(session.id, req.user.id, hostPort, url);
+    const existing = await getSessionContainer(session.id);
+    if (existing && req.body.replace !== true) {
+      return res.status(409).json({
+        needConfirm: true,
+        message: '已有运行中的测试容器',
+        existing: { hostPort: existing.hostPort, url: `http://127.0.0.1:${existing.hostPort}/` },
+      });
+    }
+    const { containerId, hostPort, url } = await deployStaticApp(session.id, buildDir, {
+      preferredPort: existing ? existing.hostPort : null,
+    });
+    await markOldReplaced(session.id);
+    const deployId = await recordDeploy(session.id, req.user.id, hostPort, url, containerId);
     res.json({ deployId, hostPort, url, status: 'running' });
   } catch (err) {
     console.error('deploy container error:', err);

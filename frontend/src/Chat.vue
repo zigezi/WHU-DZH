@@ -219,21 +219,36 @@ async function loadDeployState() {
   if (res.ok) deployState.value = (await res.json()).deploy
 }
 
-// 拉起测试容器：复用构建产物部署到 Docker 容器，外部可访问；再次拉起会先注销旧容器。
+// 拉起测试容器：若已有运行中容器，后端返回 409，弹窗确认「是否注销旧测试容器并拉起新测试容器」后再替换。
 async function deployContainer() {
   if (!current.value || deploying.value) return
   deploying.value = true
   try {
-    const res = await api(`/sessions/${current.value.id}/container`, { method: 'POST' })
-    if (res.status === 401) return emit('logout')
-    const data = await res.json()
-    if (!res.ok) {
-      alert(data.message || '拉起测试容器失败')
+    let replace = false
+    for (;;) {
+      const res = await api(`/sessions/${current.value.id}/container`, {
+        method: 'POST',
+        body: JSON.stringify({ replace }),
+      })
+      if (res.status === 401) return emit('logout')
+      const data = await res.json()
+      if (res.status === 409 && data.needConfirm && !replace) {
+        const ok = window.confirm(
+          `是否注销旧测试容器并拉起新测试容器？\n（当前旧容器：端口 ${data.existing?.hostPort ?? '-'}）`,
+        )
+        if (!ok) return
+        replace = true
+        continue
+      }
+      if (!res.ok) {
+        alert(data.message || '拉起测试容器失败')
+        return
+      }
+      deployState.value = { ...data, status: 'running' }
+      alert(`✅ 测试容器已拉起：${data.url}`)
+      await loadDeployState()
       return
     }
-deployState.value = { ...data, status: 'running' }
-    alert(`✅ 测试容器已拉起：${data.url}`)
-    await loadDeployState()
   } catch {
     alert('拉起测试容器失败，请稍后重试')
   } finally {
