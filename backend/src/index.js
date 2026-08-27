@@ -7,6 +7,7 @@ import authRouter from './routes/auth.js';
 import sessionsRouter from './routes/sessions.js';
 import buildRouter, { previewRouter } from './routes/build.js';
 import containerRouter from './routes/container.js';
+import modelscopeRouter from './routes/modelscope.js';
 import { initDb } from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -20,6 +21,7 @@ app.use('/api', authRouter);
 // sessionsRouter 的全局 header-only authenticate 会把 /api/*?token= 提前 401 掉。
 app.use('/api', buildRouter);
 app.use('/api', containerRouter);
+app.use('/api', modelscopeRouter);
 app.use('/api', sessionsRouter);
 app.use('/preview', previewRouter);
 

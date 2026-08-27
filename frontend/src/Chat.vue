@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted, nextTick } from 'vue'
 import { marked } from 'marked'
 import BuildPanel from './BuildPanel.vue'
+import SkillSearchPanel from './SkillSearchPanel.vue'
 
 const props = defineProps({
   user: { type: Object, required: true },
@@ -25,6 +26,7 @@ const buildPanelOpen = ref(false)
 const buildInfo = ref(null)
 const building = ref(false)
 const buildError = ref('')
+const skillPanelOpen = ref(false)
 const deployState = ref(null)
 const deploying = ref(false)
 
@@ -273,6 +275,9 @@ onMounted(async () => {
       <button class="btn-deploy" :disabled="deploying" @click="deployContainer">
         {{ deploying ? '拉起中…' : '🚀 拉起测试容器' }}
       </button>
+      <button class="btn-skill" @click="skillPanelOpen = !skillPanelOpen">
+        {{ skillPanelOpen ? '✕ 关闭 Skill' : '🔍 搜索 Skill' }}
+      </button>
       <div v-if="deployState" class="deploy-box">
         <div class="deploy-row">
           <span class="dot" :class="deployState.status"></span>
@@ -381,6 +386,11 @@ onMounted(async () => {
         <button class="btn-new big" :disabled="loading" @click="newSession">＋ 开始第一段对话</button>
       </div>
     </main>
+
+    <!-- Skill 搜索面板（全屏覆盖） -->
+    <div v-if="skillPanelOpen" class="skill-overlay">
+      <SkillSearchPanel :session-id="current?.id" @close="skillPanelOpen = false" @installed="skillPanelOpen = false" />
+    </div>
   </div>
 </template>
 
@@ -426,6 +436,32 @@ onMounted(async () => {
 .btn-deploy:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+.btn-skill {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #8e44ad;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-skill:hover { opacity: 0.9; }
+.skill-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+.skill-overlay > * {
+  width: 480px;
+  max-width: 90vw;
+  height: 100%;
+  background: #fff;
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
 }
 .deploy-box {
   background: rgba(255, 255, 255, 0.14);
