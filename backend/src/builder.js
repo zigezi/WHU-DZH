@@ -5,7 +5,7 @@ import path from 'node:path';
 import { pool } from './db.js';
 import { runValidation, isBuildDirAllowed, CONTAINER_IMAGE } from './sandbox.js';
 import { planApp, generateFile, debugFix, rewriteFile, incrementalModify, distillEars } from './ai.js';
-import { deployStaticApp, getSessionContainer } from './deployer.js';
+import { deployStaticApp, deployServiceApp, getSessionContainer, getRemoteService } from './deployer.js';
 
 const execFileP = promisify(execFile);
 
@@ -15,6 +15,16 @@ const MODIFY_MESSAGE_CAP = 50;
 
 // 构建/修改/修复通过后：若该会话有运行中的测试容器，自动重新部署最新代码（复用旧端口）。
 // 部署失败只记事件，不影响构建结论。
+// 从 manifest.json 读取运行时（无 manifest 时按 static-web，兼容旧构建）。
+async function readRuntime(buildDir) {
+  try {
+    const m = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8'));
+    return m.runtime === 'node-service' ? 'node-service' : 'static-web';
+  } catch {
+    return 'static-web';
+  }
+}
+
 async function autoRedeploy(buildId, sessionId, buildDir) {
   try {
     const r = await pool.query(
@@ -22,10 +32,15 @@ async function autoRedeploy(buildId, sessionId, buildDir) {
       [sessionId],
     );
     const old = r.rows[0];
-    const live = await getSessionContainer(sessionId).catch(() => null);
+    const runtime = await readRuntime(buildDir);
+    // 本地静态容器查 docker，远程服务容器查 8G；两边都查，互为补充
+    const live = runtime === 'node-service'
+      ? await getRemoteService(sessionId).catch(() => null)
+      : await getSessionContainer(sessionId).catch(() => null);
     if (!old && !live) return; // 无测试容器，无需重部署
     const preferredPort = (live && live.hostPort) || (old && old.host_port) || null;
-    const { containerId, hostPort, url } = await deployStaticApp(sessionId, buildDir, { preferredPort });
+    const deployFn = runtime === 'node-service' ? deployServiceApp : deployStaticApp;
+    const { containerId, hostPort, url } = await deployFn(sessionId, buildDir, { preferredPort });
     await pool.query(
       "UPDATE test_containers SET status='replaced' WHERE session_id=$1 AND status='running'",
       [sessionId],
@@ -348,12 +363,12 @@ async function applyRepairDiff(buildId, buildDir, earsDigest, errTail, diff, mod
 }
 
 // 修复循环：验证 → 失败则 debugging → 出补丁应用 → 复验。最多 MAX_ITERATIONS 轮。
-async function repairLoop(buildId, buildDir, earsDigest, mode) {
+async function repairLoop(buildId, buildDir, earsDigest, mode, runtime = 'static-web') {
   let iterations = 0;
   while (true) {
     await setStatus(buildId, 'validating');
     await logBuildEvent(buildId, 'sandbox', 'status', 'validating');
-    const result = await runValidation(buildDir);
+    const result = await runValidation(buildDir, runtime);
     const tail = (result.stderrTail || result.stdoutTail || '').slice(0, 3000);
     await logBuildEvent(buildId, 'sandbox', 'log', `验证结束 exitCode=${result.exitCode} errorType=${result.errorType || 'none'}\n${tail}`);
 
@@ -431,13 +446,13 @@ async function repairLoop(buildId, buildDir, earsDigest, mode) {
   }
 }
 
-async function writeManifest(buildDir, buildId, entry, files) {
+async function writeManifest(buildDir, buildId, entry, files, runtime = 'static-web') {
   const row = await getBuild(buildId);
   const head = (await git(buildDir, ['rev-parse', 'HEAD']).catch(() => '')) || String((await snapshotNumber(buildDir)) - 1);
   const manifest = {
     generatedAt: new Date().toISOString(),
     entry: entry || 'index.html',
-    runtime: 'static-web',
+    runtime,
     iterations: row ? row.iterations : 0,
     files,
     commit: head,
@@ -490,6 +505,7 @@ async function runStartBuild(sessionId, userId, buildId) {
 
   const manifest = await planApp(targetBuildId, earsDigest);
   await logBuildEvent(targetBuildId, 'coder', 'log', `已规划文件结构: ${manifest.files.map((f) => f.path).join(', ')}`);
+  await logBuildEvent(targetBuildId, 'coder', 'log', `运行时决策: ${manifest.runtime}${manifest.runtime === 'node-service' ? '（部署到 8G 后端容器）' : '（部署到本机前端容器）'}`);
 
   const generatedSignatures = [];
   for (const tf of manifest.files) {
@@ -501,9 +517,9 @@ async function runStartBuild(sessionId, userId, buildId) {
   const filesList = manifest.files.map((f) => f.path);
   await commitState(buildDir, mode, 'v0: initial generation');
 
-  const outcome = await repairLoop(targetBuildId, buildDir, earsDigest, mode);
+  const outcome = await repairLoop(targetBuildId, buildDir, earsDigest, mode, manifest.runtime);
   if (outcome.passed) {
-    await writeManifest(buildDir, targetBuildId, manifest.entry, manifest.files);
+    await writeManifest(buildDir, targetBuildId, manifest.entry, manifest.files, manifest.runtime);
     await setStatus(targetBuildId, 'passed');
     await logBuildEvent(targetBuildId, 'system', 'status', 'passed');
     await logBuildEvent(targetBuildId, 'system', 'log', `构建通过（迭代 ${outcome.iterations} 轮）`);
@@ -554,9 +570,13 @@ async function runModification(buildId, instruction, userId) {
 
   await commitState(buildDir, mode, `modify: ${String(instruction).slice(0, MODIFY_MESSAGE_CAP)}`);
 
-  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode);
+  const oldManifest = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8').catch(() => '{}'));
+  const runtime = oldManifest.runtime === 'node-service' ? 'node-service' : 'static-web';
+  const entry = oldManifest.entry || 'index.html';
+
+  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode, runtime);
   if (outcome.passed) {
-    await writeManifest(buildDir, buildId, 'index.html', await listProjectFiles(buildDir));
+    await writeManifest(buildDir, buildId, entry, await listProjectFiles(buildDir), runtime);
     await setStatus(buildId, 'passed');
     await logBuildEvent(buildId, 'system', 'status', 'passed');
     await logBuildEvent(buildId, 'system', 'log', `增量修改通过（迭代 ${outcome.iterations} 轮）`);
@@ -586,9 +606,13 @@ async function runRevalidate(buildId, userId) {
   const buildDir = path.join(dir, 'build');
   const mode = await detectGit();
 
-  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode);
+  const oldManifest = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8').catch(() => '{}'));
+  const runtime = oldManifest.runtime === 'node-service' ? 'node-service' : 'static-web';
+  const entry = oldManifest.entry || 'index.html';
+
+  const outcome = await repairLoop(buildId, buildDir, earsDigest, mode, runtime);
   if (outcome.passed) {
-    await writeManifest(buildDir, buildId, 'index.html', await listProjectFiles(buildDir));
+    await writeManifest(buildDir, buildId, entry, await listProjectFiles(buildDir), runtime);
     await setStatus(buildId, 'passed');
     await logBuildEvent(buildId, 'system', 'status', 'passed');
     await logBuildEvent(buildId, 'system', 'log', `重新验证通过（迭代 ${outcome.iterations} 轮）`);

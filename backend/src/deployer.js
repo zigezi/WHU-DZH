@@ -1,7 +1,11 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import net from 'node:net';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { docker, CONTAINER_IMAGE } from './sandbox.js';
+
+const execFileP = promisify(execFile);
 
 // 部署测试容器：把会话 build 目录挂载进 node:20-alpine 容器，
 // 用内联 node HTTP 静态服务器对外提供服务（复用 builder 产物，不引第三方依赖）。
@@ -190,4 +194,107 @@ async function probe(base, { path: p = '/index.html', timeout = 15000 } = {}) {
     await new Promise((r) => setTimeout(r, 500));
   }
   return false;
+}
+
+// ================= 远程部署（node-service → 8G 数据面服务器） =================
+
+const REMOTE = {
+  host: process.env.REMOTE_DEPLOY_HOST || '8.138.36.148',
+  user: process.env.REMOTE_DEPLOY_USER || 'root',
+  // 远程容器对外端口池（浏览器经安全组访问，需在 8G 安全组放行）
+  portStart: Number(process.env.REMOTE_PORT_START || 8001),
+  portEnd: Number(process.env.REMOTE_PORT_END || 8010),
+  appRoot: process.env.REMOTE_APP_ROOT || '/opt/apps',
+  image: process.env.REMOTE_NODE_IMAGE || 'node:20-slim',
+  publicBase: process.env.REMOTE_PUBLIC_BASE || 'http://8.138.36.148',
+};
+
+const remoteName = (sessionId) => `nl2e-app-${sessionId}`;
+
+async function ssh(remoteCmd, { timeout = 60000 } = {}) {
+  const { stdout } = await execFileP(
+    'ssh',
+    ['-o', 'ConnectTimeout=10', '-o', 'StrictHostKeyChecking=no', '-o', 'BatchMode=yes', `${REMOTE.user}@${REMOTE.host}`, remoteCmd],
+    { timeout, maxBuffer: 4 * 1024 * 1024 },
+  );
+  return (stdout || '').trim();
+}
+
+// 查询远程该会话的容器端口（无则 null）
+export async function getRemoteService(sessionId) {
+  try {
+    const out = await ssh(`docker ps --filter name=^${remoteName(sessionId)}$ --format '{{.Ports}}'`);
+    const m = out.match(/:(\d+)->/);
+    if (!m) return null;
+    return { name: remoteName(sessionId), hostPort: Number(m[1]) };
+  } catch {
+    return null; // 远端不可达时按无容器处理，不阻塞本地流程
+  }
+}
+
+// 远程选端口：优先 preferred，否则端口池内首个空闲
+async function pickRemotePort(preferred) {
+  const range = [];
+  for (let p = REMOTE.portStart; p <= REMOTE.portEnd; p++) range.push(p);
+  const ordered = preferred && range.includes(Number(preferred))
+    ? [Number(preferred), ...range.filter((p) => p !== Number(preferred))]
+    : range;
+  for (const p of ordered) {
+    const used = await ssh(`(echo > /dev/tcp/127.0.0.1/${p}) >/dev/null 2>&1 && echo used || echo free`);
+    if (used === 'free') return p;
+  }
+  return null;
+}
+
+// 部署 node-service 应用到 8G 服务器：同步代码 → 起容器 → 探活。
+export async function deployServiceApp(sessionId, buildDir, { preferredPort = null } = {}) {
+  assertBuildDirAllowed(buildDir);
+  await fs.access(path.join(buildDir, 'server.js')).catch(() => {
+    throw new Error('构建产物缺失 server.js（node-service 运行时需要）');
+  });
+
+  const appDir = `${REMOTE.appRoot}/sess-${sessionId}`;
+  const name = remoteName(sessionId);
+
+  // 1) 停旧容器（同会话，释放端口与目录）
+  await ssh(`docker rm -f ${name} >/dev/null 2>&1 || true`);
+
+  // 2) 选端口（优先复用旧端口，保证用户已收藏的 URL 不变）
+  const hostPort = await pickRemotePort(preferredPort);
+  if (!hostPort) throw new Error(`远程端口 ${REMOTE.portStart}-${REMOTE.portEnd} 均被占用`);
+
+  // 3) 同步代码（tar over ssh，无 rsync 依赖；清空后写入，避免残留旧文件）
+  await ssh(`mkdir -p ${appDir} && find ${appDir} -mindepth 1 -delete`);
+  await execFileP(
+    'bash',
+    ['-c', `tar czf - -C ${JSON.stringify(path.resolve(buildDir))} . | ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o BatchMode=yes ${REMOTE.user}@${REMOTE.host} 'tar xzf - -C ${appDir}'`],
+    { timeout: 120000 },
+  );
+
+  // 4) 起容器：只读挂载代码 + tmpfs，固定资源配额，restart unless-stopped
+  await ssh(
+    `docker run -d --name ${name} --restart unless-stopped ` +
+    `-p ${hostPort}:3000 -m 256m --cpus 0.5 --pids-limit 100 --read-only --tmpfs /tmp:rw,size=32m ` +
+    `-v ${appDir}:/app:ro -w /app ${REMOTE.image} node server.js`,
+    { timeout: 90000 },
+  );
+
+  // 5) 探活：远端本机 curl（权威，必须通）+ 公网可达性（仅告警，SG 未放行不阻断部署）
+  const url = `${REMOTE.publicBase}:${hostPort}/`;
+  let healthy = false;
+  for (let i = 0; i < 20 && !healthy; i++) {
+    const code = await ssh(`curl -s -o /dev/null -w '%{http_code}' --max-time 3 http://127.0.0.1:${hostPort}/ || true`).catch(() => '');
+    if (code === '200') healthy = true;
+    else await new Promise((r) => setTimeout(r, 700));
+  }
+  if (!healthy) {
+    await ssh(`docker rm -f ${name} >/dev/null 2>&1 || true`).catch(() => {});
+    throw new Error(`远程容器已启动但服务未就绪（127.0.0.1:${hostPort} 无 200），请查看容器日志`);
+  }
+  const publicOk = await probe(`${REMOTE.publicBase}:${hostPort}`, { path: '/', timeout: 8000 });
+  if (!publicOk) {
+    console.warn(`[deployer] 远程容器已就绪，但公网 ${url} 暂不可达（可能安全组未放行端口 ${hostPort}）`);
+  }
+
+  return { containerId: name, hostPort, url };
 }

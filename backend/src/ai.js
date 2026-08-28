@@ -275,12 +275,15 @@ const PUBLIC = `构建设置要求：
 
 // ---------------- planApp ----------------
 
-const PLAN_APP_SYSTEM = `你是一名资深前端工程师，为一个纯前端应用设计<文件结构>（只做规划，不写任何代码）。
+const PLAN_APP_SYSTEM = `你是一名资深全栈工程师，为一个 Web 应用设计<文件结构>（只做规划，不写任何代码）。
 必须严格遵守：
-1. 文件数量尽量少（建议 ≤6 个），优先把所有脚本内联进 index.html。
+1. 文件数量尽量少（建议 ≤6 个）。
 2. 只输出一个 JSON 对象（禁止解释、前言、markdown 标记或代码块外层任何内容），结构严格为：
 {"files":[{"path":"index.html","purpose":"说明","exports":"对外暴露的函数/变量签名"},...],"entry":"index.html","runtime":"static-web"}
-3. runtime 只能是 "static-web"，其他值一律非法。
+3. runtime 只能二选一：
+   - "static-web"：纯前端即可完整实现（单用户、状态可内存/localStorage 降级、无服务端逻辑）。**默认选它，绝大多数应用属于此类。**
+   - "node-service"：仅当 EARS 明确要求服务端能力时才选，例如：多用户共享同一份服务端数据、服务端定时/周期任务、服务端文件读写与持久化、必须由后端代发的 API 编排/聚合、需要服务端鉴权或会话。
+     选择后 files 必须恰好包含一个 "server.js"（无依赖 Node 服务，仅用内置模块；静态资源置于 "public/" 下），entry 固定为 "server.js"。
 4. purpose 与 exports 用一句话概括，供分文件生成时互相感知；不写实现。
 ${PUBLIC}`;
 
@@ -288,10 +291,16 @@ function parsePlanApp(raw) {
   const data = JSON.parse(raw);
   if (!Array.isArray(data.files) || data.files.length === 0) throw new Error('files 缺失或为空');
   if (!data.entry) throw new Error('entry 缺失');
-  if (data.runtime !== 'static-web') throw new Error(`runtime 非法: ${JSON.stringify(data.runtime)}`);
+  if (data.runtime !== 'static-web' && data.runtime !== 'node-service') {
+    throw new Error(`runtime 非法: ${JSON.stringify(data.runtime)}`);
+  }
   for (const f of data.files) {
     if (typeof f.path !== 'string' || typeof f.purpose !== 'string') throw new Error('file 项缺少 path 或 purpose');
     if (f.path === '_validate.cjs' || f.path === 'manifest.json') throw new Error(`保留路径不可规划: ${f.path}`);
+  }
+  if (data.runtime === 'node-service') {
+    if (data.entry !== 'server.js') throw new Error('node-service 的 entry 必须是 server.js');
+    if (!data.files.some((f) => f.path === 'server.js')) throw new Error('node-service 必须规划 server.js');
   }
   return { files: data.files, entry: data.entry, runtime: data.runtime };
 }
@@ -330,6 +339,21 @@ const GENERATE_FILE_SYSTEM = `你是一名资深前端工程师。你在编写�
 - 每个会话的数据互相隔离（服务端按会话命名空间隔离），可放心读写。
 ${PUBLIC}`;
 
+const SERVICE_FILE_SYSTEM = `你是一名资深全栈工程师。你在编写一个**无依赖 Node 服务端应用**中的<单个文件>。
+你会收到：EARS 摘要、项目清单（manifest）、目标文件定位、已生成其他文件的「路径+导出签名」。
+任务：只输出目标文件的完整代码文本。
+必须严格遵守：
+1. 完整、可运行，禁止留任何"…其余省略/其余代码不变"之类的截断注释。
+2. 只输出文件正文；不要解释、前言、Markdown 标记或代码块围栏。
+3. **server.js 契约**（若目标文件是 server.js）：
+   - 仅用 Node 内置模块（node:http / node:url / node:fs / node:path / node:crypto 等），**禁止任何 npm 依赖**，禁止 import/export（CommonJS，require 内置模块）。
+   - 监听 process.env.PORT || 3000；GET / 必须返回 200 与完整首页 HTML。
+   - 静态资源从 ./public/ 目录取用（按扩展名给 Content-Type，防目录穿越）。
+   - 服务端数据用内存结构保存即可（容器重建即重置；若需求要求持久化，在页面中注明"重启后数据重置"）。
+   - **启动与 GET / 响应不得依赖外网**（验证沙箱断网）；业务中的外网调用必须 lazy + try/catch 降级。
+4. 静态前端文件（public/ 下）遵守：不使用任何外部 CDN/公网资源；对 localStorage/sessionStorage/cookie 一律 try/catch 降级为内存实现。
+${PUBLIC}`;
+
 function generateFilePrompt(earsDigest, manifest, targetFile, generatedSignatures) {
   const list = (generatedSignatures || []).filter(Boolean);
   return [
@@ -360,8 +384,9 @@ export async function generateFile(buildId, earsDigest, manifest, targetFile, ge
   if (estTokens(user) > TOKEN_BUDGET) {
     await domainError(buildId, `generateFile:${targetFile.path}`, `输入约 ${estTokens(user)} tokens 超预算`);
   }
+  const systemPrompt = manifest && manifest.runtime === 'node-service' ? SERVICE_FILE_SYSTEM : GENERATE_FILE_SYSTEM;
   const messages = [
-    { role: 'system', content: GENERATE_FILE_SYSTEM },
+    { role: 'system', content: systemPrompt },
     { role: 'user', content: user },
   ];
   const { content, usage } = await callMoonshot(messages, { maxTokens: TOKEN_BALANCED, model: CODEGEN_MODEL });

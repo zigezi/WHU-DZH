@@ -181,18 +181,33 @@ function fmtTime(iso) {
   return iso ? new Date(iso).toLocaleString() : ''
 }
 
+// 远程部署（node-service 在 8G 服务器）时预览直连其 URL；本地静态应用走 /preview 注入通道
+const remoteUrl = ref('')
+
+async function loadDeployUrl() {
+  try {
+    const res = await api(`/sessions/${props.sessionId}/container`)
+    if (!res.ok) return
+    const data = await res.json()
+    const url = data.deploy && data.deploy.status === 'running' ? data.deploy.url : ''
+    // 仅当 url 为绝对地址且非本机回环时视为远程部署
+    remoteUrl.value = url && /^https?:\/\//.test(url) && !url.includes('127.0.0.1') ? url : ''
+  } catch { /* 忽略，保持本地预览 */ }
+}
+
 function previewSrc() {
-  return `${rootUrl}/preview/${props.sessionId}/?token=${encodeURIComponent(props.token)}`
+  return remoteUrl.value || `${rootUrl}/preview/${props.sessionId}/?token=${encodeURIComponent(props.token)}`
 }
 
 function newWindowHref() {
-  return `${rootUrl}/preview/${props.sessionId}/?token=${encodeURIComponent(props.token)}`
+  return remoteUrl.value || `${rootUrl}/preview/${props.sessionId}/?token=${encodeURIComponent(props.token)}`
 }
 
 onMounted(async () => {
   await loadState(true)
   await loadFiles()
   await loadVersions()
+  await loadDeployUrl()
 })
 onBeforeUnmount(closeEvents)
 </script>
@@ -251,7 +266,7 @@ onBeforeUnmount(closeEvents)
       <!-- 预览 -->
       <div v-else-if="tab === 'preview'" class="preview-tab">
         <p v-if="status !== 'passed'" class="empty">构建通过后即可预览运行效果（当前状态：{{ statusLabel[status] }}）。</p>
-        <iframe v-else :src="previewSrc()" class="preview-frame" sandbox="allow-scripts"></iframe>
+        <iframe v-else :src="previewSrc()" class="preview-frame" :sandbox="remoteUrl ? 'allow-scripts allow-same-origin allow-forms' : 'allow-scripts'"></iframe>
       </div>
 
       <!-- 版本 -->

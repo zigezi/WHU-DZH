@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { pool } from '../db.js';
 import { authenticate } from './auth.js';
-import { deployStaticApp, getSessionContainer } from '../deployer.js';
+import { deployStaticApp, deployServiceApp, getSessionContainer, getRemoteService } from '../deployer.js';
 
 const router = Router();
 router.use(authenticate);
@@ -23,10 +23,23 @@ async function requireSession(req, res) {
 async function hasBuildOutput(session) {
   const buildDir = path.join(WORKSPACE, session.folder, 'build');
   try {
-    const st = await fs.stat(path.join(buildDir, 'index.html'));
-    return st.isFile() ? buildDir : null;
+    // static-web 产物为 index.html；node-service 产物为 server.js
+    const st = await fs.stat(path.join(buildDir, 'index.html')).catch(() => null);
+    if (st && st.isFile()) return buildDir;
+    const st2 = await fs.stat(path.join(buildDir, 'server.js')).catch(() => null);
+    return st2 && st2.isFile() ? buildDir : null;
   } catch {
     return null;
+  }
+}
+
+// 读取构建产物运行时（static-web / node-service），决定部署到本机前端容器还是 8G 后端容器
+async function readBuildRuntime(session) {
+  try {
+    const m = JSON.parse(await fs.readFile(path.join(WORKSPACE, session.folder, 'build', 'manifest.json'), 'utf8'));
+    return m.runtime === 'node-service' ? 'node-service' : 'static-web';
+  } catch {
+    return 'static-web';
   }
 }
 
@@ -64,20 +77,29 @@ router.post('/sessions/:id/container', async (req, res) => {
     return res.status(409).json({ message: '该会话尚无构建产物，请先在「构建面板」生成应用' });
   }
   try {
-    const existing = await getSessionContainer(session.id);
+    const runtime = await readBuildRuntime(session);
+    const isService = runtime === 'node-service';
+    // 本地静态容器查本机 docker；node-service 查 8G 远程容器
+    const existing = isService
+      ? await getRemoteService(session.id)
+      : await getSessionContainer(session.id);
     if (existing && req.body.replace !== true) {
+      const existingUrl = isService
+        ? `${process.env.REMOTE_PUBLIC_BASE || 'http://8.138.36.148'}:${existing.hostPort}/`
+        : `http://127.0.0.1:${existing.hostPort}/`;
       return res.status(409).json({
         needConfirm: true,
         message: '已有运行中的测试容器',
-        existing: { hostPort: existing.hostPort, url: `http://127.0.0.1:${existing.hostPort}/` },
+        existing: { hostPort: existing.hostPort, url: existingUrl },
       });
     }
-    const { containerId, hostPort, url } = await deployStaticApp(session.id, buildDir, {
+    const deployFn = isService ? deployServiceApp : deployStaticApp;
+    const { containerId, hostPort, url } = await deployFn(session.id, buildDir, {
       preferredPort: existing ? existing.hostPort : null,
     });
     await markOldReplaced(session.id);
     const deployId = await recordDeploy(session.id, req.user.id, hostPort, url, containerId);
-    res.json({ deployId, hostPort, url, status: 'running' });
+    res.json({ deployId, hostPort, url, status: 'running', runtime });
   } catch (err) {
     console.error('deploy container error:', err);
     res.status(500).json({ message: err.message || '拉起测试容器失败' });
