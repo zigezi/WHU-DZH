@@ -130,6 +130,10 @@ async function archive() {
       await loadSessions()
       sessions.value = sessions.value.map((s) => (s.id === current.value.id ? { ...s, status: 'archived' } : s))
       current.value.messages.push({ id: 'done', role: 'assistant', content: `✅ 需求分析文档已生成：\`${data.file}\`` })
+      // 归档完成后自动打开构建面板，引导后续 EARS 转换 / 生成应用
+      const bres = await api(`/sessions/${current.value.id}/build`)
+      if (bres.ok) buildInfo.value = (await bres.json())
+      buildPanelOpen.value = true
       scrollDown()
     } else {
       alert(data.message || '归档失败')
@@ -391,7 +395,7 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div class="build-area" v-if="buildInfo && buildInfo.ears">
+        <div class="build-area" v-if="buildInfo && (buildInfo.ears || current.status === 'archived')">
           <button class="build-toggle" @click="buildPanelOpen = !buildPanelOpen">
             {{ buildPanelOpen ? '▾ 收起构建面板' : '▸ 展开构建面板（生成应用 / 修改 / 预览 / 版本）' }}
           </button>

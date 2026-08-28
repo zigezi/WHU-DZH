@@ -12,6 +12,7 @@ const rootUrl = apiBase.replace(/\/api$/, '')
 
 const tab = ref('log')
 const build = ref(null)
+const ears = ref(false)
 const status = ref('queued')
 const iterations = ref(0)
 const events = ref([])
@@ -41,6 +42,7 @@ async function loadState(openEvents = false) {
   if (!res.ok) return
   const data = await res.json()
   build.value = data.build
+  ears.value = !!data.ears
   if (data.build) {
     status.value = data.build.status
     iterations.value = data.build.iterations || 0
@@ -210,6 +212,9 @@ onBeforeUnmount(closeEvents)
       </div>
     </header>
 
+    <p v-if="!ears && !build" class="ears-hint">
+      尚未生成 EARS 规格。请先点击顶部「⬇ 下载低歧义EARS需求」完成转换，然后即可「生成应用」。
+    </p>
     <div class="build-inputs">
       <button class="btn" :disabled="busy" @click="startBuild">生成应用</button>
       <input v-model="modifyInput" placeholder="输入修改指令，如：苹果数量改为 15" :disabled="busy" @keydown.enter="modify" />
@@ -348,4 +353,13 @@ onBeforeUnmount(closeEvents)
 .mono { font-family: ui-monospace, monospace; }
 .mini { padding: 4px 8px; font-size: 12px; border: 1px solid #ddd; border-radius: 4px; background: #fff; color: #333; cursor: pointer; }
 .empty { color: #aaa; text-align: center; padding: 20px; }
+.ears-hint {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 6px;
+  color: #795548;
+  font-size: 13px;
+}
 </style>
