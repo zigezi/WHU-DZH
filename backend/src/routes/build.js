@@ -122,6 +122,11 @@ router.post('/sessions/:id/build', async (req, res) => {
     if (!earsFile) {
       return res.status(409).json({ message: '该会话尚未生成 EARS 文档，请先完成 EARS 转换' });
     }
+    // 防空文件：EARS 转换异常可能留下 0 字节文件，基于空需求构建必然产出废品
+    const earsStat = await fs.stat(path.join(dir, earsFile));
+    if (earsStat.size < 200) {
+      return res.status(409).json({ message: 'EARS 文档为空或内容过少（上次转换可能失败），请重新执行 EARS 转换' });
+    }
     const active = await activeBuildForSession(session.id);
     if (active) {
       return res.status(409).json({ message: `该会话已有进行中的构建（状态 ${active.status}）` });

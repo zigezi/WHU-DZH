@@ -108,8 +108,14 @@ export async function convertToEars(promptContent, requirementContent) {
     { role: 'user', content: `# EARS 转换任务提示词\n\n${promptContent}` },
     { role: 'user', content: `# 待转换的需求分析文档\n\n${requirementContent}\n\n请输出转换后的 EARS 需求规格说明书（Markdown）。` },
   ];
-  const raw = await chatCompletion(messages, { maxTokens: 9000, model: EARS_MODEL });
-  return stripFences(raw);
+  // kimi-k3 为推理模型，reasoning_content 会优先消耗输出预算，max_tokens 不足时正文可能为空。
+  // 空结果必须重试并加大预算；仍为空则抛错，防止写出 0 字节的 EARS 文件污染后续构建。
+  for (const maxTokens of [9000, 16000]) {
+    const raw = await chatCompletion(messages, { maxTokens, model: EARS_MODEL });
+    const doc = stripFences(raw);
+    if (doc && doc.trim().length >= 200) return doc;
+  }
+  throw new Error('EARS 转换结果为空（模型输出预算被推理消耗），请重试');
 }
 
 // ================= 构建子系统（v1.3） =================

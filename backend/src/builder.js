@@ -492,6 +492,8 @@ async function runStartBuild(sessionId, userId, buildId) {
   const dir = sessionFolder(session);
   const earsFiles = (await fs.readdir(dir).catch(() => [])).filter((f) => /-ears\.md$/i.test(f)).sort().reverse();
   if (earsFiles.length === 0) throw new Error('会话目录缺少 EARS 文档');
+  const earsSize = await fs.stat(path.join(dir, earsFiles[0])).then((s) => s.size).catch(() => 0);
+  if (earsSize < 200) throw new Error('EARS 文档为空或内容过少（上次转换可能失败），请重新执行 EARS 转换');
 
   const buildDir = path.join(dir, 'build');
   await fs.mkdir(buildDir, { recursive: true });
