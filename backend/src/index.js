@@ -8,6 +8,7 @@ import sessionsRouter from './routes/sessions.js';
 import buildRouter, { previewRouter } from './routes/build.js';
 import containerRouter from './routes/container.js';
 import modelscopeRouter from './routes/modelscope.js';
+import vectorRouter from './routes/vector.js';
 import { initDb } from './db.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,6 +23,7 @@ app.use('/api', authRouter);
 app.use('/api', buildRouter);
 app.use('/api', containerRouter);
 app.use('/api', modelscopeRouter);
+app.use('/api', vectorRouter);
 app.use('/api', sessionsRouter);
 app.use('/preview', previewRouter);
 

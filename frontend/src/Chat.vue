@@ -29,6 +29,7 @@ const buildError = ref('')
 const skillPanelOpen = ref(false)
 const deployState = ref(null)
 const deploying = ref(false)
+const vectorState = ref(null) // { reachable, latencyMs, count } | null(查询中)
 
 function api(path, options = {}) {
   return fetch(`${apiBase}${path}`, {
@@ -258,8 +259,29 @@ async function deployContainer() {
   }
 }
 
+// 查询远程向量服务状态（新机 2C8G 上的 backend-api，经平台 /api/vector 代理）
+async function loadVectorStatus() {
+  try {
+    const res = await api('/vector/health')
+    const data = await res.json()
+    if (!data.reachable) {
+      vectorState.value = { reachable: false }
+      return
+    }
+    let count = null
+    try {
+      const cres = await api('/vector/vectors/count')
+      if (cres.ok) count = (await cres.json()).count
+    } catch { /* 计数失败不阻塞状态展示 */ }
+    vectorState.value = { reachable: true, latencyMs: data.latencyMs, count }
+  } catch {
+    vectorState.value = { reachable: false }
+  }
+}
+
 onMounted(async () => {
   await loadSessions()
+  loadVectorStatus()
   if (sessions.value.length === 0) {
     await newSession()
   } else {
@@ -278,6 +300,13 @@ onMounted(async () => {
       <button class="btn-skill" @click="skillPanelOpen = !skillPanelOpen">
         {{ skillPanelOpen ? '✕ 关闭 Skill' : '🔍 搜索 Skill' }}
       </button>
+      <div v-if="vectorState" class="vector-box" @click="loadVectorStatus" title="点击刷新状态">
+        <span class="dot" :class="vectorState.reachable ? 'running' : 'error'"></span>
+        <span v-if="vectorState.reachable">
+          向量服务在线 · {{ vectorState.latencyMs }}ms<template v-if="vectorState.count !== null && vectorState.count !== undefined"> · {{ vectorState.count }} 条</template>
+        </span>
+        <span v-else>向量服务离线</span>
+      </div>
       <div v-if="deployState" class="deploy-box">
         <div class="deploy-row">
           <span class="dot" :class="deployState.status"></span>
@@ -447,6 +476,27 @@ onMounted(async () => {
   cursor: pointer;
 }
 .btn-skill:hover { opacity: 0.9; }
+.vector-box {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.vector-box .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #95a5a6;
+  flex-shrink: 0;
+}
+.vector-box .dot.running { background: #2ecc71; }
+.vector-box .dot.error { background: #e74c3c; }
 .skill-overlay {
   position: fixed;
   inset: 0;
