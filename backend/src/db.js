@@ -46,6 +46,9 @@ export async function initDb() {
   await pool.query(`ALTER TABLE messages ADD COLUMN IF NOT EXISTS role TEXT NOT NULL DEFAULT 'user';`);
   await pool.query(`CREATE INDEX IF NOT EXISTS idx_messages_session ON messages(session_id, created_at);`);
 
+  // 生成应用访问平台数据面（向量 API）的会话级令牌，preview 注入时使用；懒生成。
+  await pool.query(`ALTER TABLE sessions ADD COLUMN IF NOT EXISTS api_token TEXT;`);
+
   await pool.query(`
     CREATE TABLE IF NOT EXISTS builds (
       id SERIAL PRIMARY KEY,

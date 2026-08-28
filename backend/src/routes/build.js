@@ -7,6 +7,7 @@ import { pool } from '../db.js';
 import { JWT_SECRET, authenticate } from './auth.js';
 import { startBuild, applyModification, revalidate, restoreBuild, logBuildEvent } from '../builder.js';
 import { pullTemplateImage, CONTAINER_IMAGE } from '../sandbox.js';
+import { ensureSessionApiToken } from './vector.js';
 
 const require = createRequire(import.meta.url);
 const { ZipArchive } = require('archiver');
@@ -452,5 +453,34 @@ previewRouter.get('/:sessionId/*', async (req, res) => {
     return sendPreviewError(res, 403, '目录不可预览');
   }
   res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+
+  // HTML 页面注入运行时配置 window.__APP_API__：生成应用据此以会话令牌调用平台向量 API。
+  // 注入发生在预览服务时（不写入 build 目录，令牌不进 git 历史）。
+  if (/\.html?$/i.test(abs)) {
+    try {
+      const stoken = await ensureSessionApiToken(session.id);
+      let html = await fs.readFile(abs, 'utf8');
+      if (stoken) {
+        const cfg = {
+          vector: {
+            search: '/api/vector/search',
+            insert: '/api/vector/vectors',
+            count: '/api/vector/vectors/count',
+          },
+          sessionId: session.id,
+          stoken,
+        };
+        const snippet = `<script>window.__APP_API__=${JSON.stringify(cfg)};</script>`;
+        if (html.includes('<head>')) html = html.replace('<head>', `<head>${snippet}`);
+        else if (/<html[^>]*>/i.test(html)) html = html.replace(/<html[^>]*>/i, (m) => `${m}<head>${snippet}</head>`);
+        else html = snippet + html;
+      }
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(html);
+    } catch (err) {
+      console.error('[preview] 注入运行时配置失败:', err);
+      // 注入失败降级为直接发文件，不阻断预览
+    }
+  }
   res.sendFile(abs);
 });

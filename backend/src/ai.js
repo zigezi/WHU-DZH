@@ -268,9 +268,10 @@ export function distillEars(earsContent) {
 
 const PUBLIC = `构建设置要求：
 - 严格按 EARS 蒸馏摘要实现；常量/坐标/时序/默认值（含 [TBD-xx]）必须原样采用，禁止自行更改。
-- 不使用任何外部 CDN/网络资源（运行环境断网）。
+- 不使用任何外部 CDN/公网资源（运行环境断网）。唯一例外：可调用平台内置向量检索 API（同源 /api/vector/*，配置由 window.__APP_API__ 注入），且仅当需求明确涉及向量检索/语义搜索/知识库时才使用，否则禁止调用。
 - 禁止 ES Module 的 import/export，禁止 <script type="module">，全部用普通 <script> 标签（CommonJS 兼容语法）。
-- 对 localStorage/sessionStorage/cookie 的任何访问必须 try/catch 包裹并降级为纯内存实现（应用运行在禁用了存储能力的沙箱 iframe 中）。`;
+- 对 localStorage/sessionStorage/cookie 的任何访问必须 try/catch 包裹并降级为纯内存实现（应用运行在禁用了存储能力的沙箱 iframe 中）。
+- 平台向量 API 的所有 fetch 调用必须 try/catch 包裹：API 不可用、超时或 window.__APP_API__ 缺失时，相关功能须静默降级，页面主体功能与渲染不得被阻断。`;
 
 // ---------------- planApp ----------------
 
@@ -316,8 +317,17 @@ const GENERATE_FILE_SYSTEM = `你是一名资深前端工程师。你在编写�
 2. 只输出文件正文；不要解释、前言、Markdown 标记或代码块围栏（不要用 \`\`\` 包裹）。
 3. 调用其他文件接口时，以「路径+导出签名」为准；如签名尚未生成，可预留一致命名。
 4. 遵守 CommonJS 语法；禁止 import/export、禁止 <script type="module">。
-5. 不使用任何外部 CDN/网络资源。
+5. 不使用任何外部 CDN/公网资源。
 6. 对 localStorage/sessionStorage/cookie 一律 try/catch 降级为内存实现。
+
+平台向量检索 API 契约（可选能力，仅需求涉及语义搜索/知识库时使用）：
+- 运行时配置：window.__APP_API__ = { vector: { search, insert, count }, sessionId, stoken }（由平台在预览时注入；缺失则视为 API 不可用，必须降级）。
+- 调用方式：同源 fetch，URL 附加查询参数 sessionId 与 stoken，例如：
+  fetch(vector.search + '?sessionId=' + cfg.sessionId + '&stoken=' + cfg.stoken, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ embedding: number[384], top_k: 5 }) })
+  返回 { results: [{ id, content, distance }] }，distance 越小越相似。
+- 插入：POST vector.insert，body { content: string, embedding: number[384] }。
+- embedding 由页面自行生成：维度固定 384，用确定性本地算法（如对字符/词 n-gram 做哈希投影并归一化），禁止依赖外部模型/接口。
+- 每个会话的数据互相隔离（服务端按会话命名空间隔离），可放心读写。
 ${PUBLIC}`;
 
 function generateFilePrompt(earsDigest, manifest, targetFile, generatedSignatures) {

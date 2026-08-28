@@ -18,12 +18,14 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api', authRouter);
+// vectorRouter 仅匹配 /vector/*，支持会话令牌（query stoken）鉴权；
+// 必须先于 buildRouter/sessionsRouter 等带全局 JWT 中间件的路由挂载，否则 stoken 请求会被提前 401。
+app.use('/api', vectorRouter);
 // buildRouter（含 query/cookie token 鉴权）必须先于 sessionsRouter 挂载，否则
 // sessionsRouter 的全局 header-only authenticate 会把 /api/*?token= 提前 401 掉。
 app.use('/api', buildRouter);
 app.use('/api', containerRouter);
 app.use('/api', modelscopeRouter);
-app.use('/api', vectorRouter);
 app.use('/api', sessionsRouter);
 app.use('/preview', previewRouter);
 
