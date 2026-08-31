@@ -262,7 +262,9 @@ async function commitState(buildDir, mode, message) {
 async function gitApplyPatch(buildDir, diff) {
   const patchFile = path.join(buildDir, '.patch.tmp');
   try {
-    await fs.writeFile(patchFile, diff, 'utf8');
+    // LLM 输出的 diff 常缺少结尾换行，git apply 会报 "corrupt patch" 拒绝，统一补齐
+    const normalized = diff.endsWith('\n') ? diff : diff + '\n';
+    await fs.writeFile(patchFile, normalized, 'utf8');
     await execFileP('git', ['-C', buildDir, 'apply', '--whitespace=fix', '--recount', patchFile], { maxBuffer: 8 * 1024 * 1024 });
     return true;
   } catch {
