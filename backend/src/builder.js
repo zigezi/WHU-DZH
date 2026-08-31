@@ -15,11 +15,17 @@ const MODIFY_MESSAGE_CAP = 50;
 
 // 构建/修改/修复通过后：若该会话有运行中的测试容器，自动重新部署最新代码（复用旧端口）。
 // 部署失败只记事件，不影响构建结论。
-// 从 manifest.json 读取运行时（无 manifest 时按 static-web，兼容旧构建）。
+// 从 manifest.json 读取运行时；manifest 缺失（构建从未通过）时按产物形态推断（server.js → node-service）。
 async function readRuntime(buildDir) {
   try {
     const m = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8'));
-    return m.runtime === 'node-service' ? 'node-service' : 'static-web';
+    if (m.runtime === 'node-service' || m.runtime === 'static-web') return m.runtime;
+  } catch {
+    /* manifest 缺失或不可读，按目录推断 */
+  }
+  try {
+    await fs.access(path.join(buildDir, 'server.js'));
+    return 'node-service';
   } catch {
     return 'static-web';
   }
@@ -295,6 +301,15 @@ function guessInvolvedFile(buildDir, errTail) {
       return rel;
     } catch {
       /* 该文件不存在，继续回落 */
+    }
+  }
+  // node-service 服务就绪类错误（无文件名线索）应优先怀疑 server.js，而非 index.html
+  if (/服务未在|未就绪|无 200|ECONNREFUSED|启动失败/i.test(errTail || '')) {
+    try {
+      fs.statSync(path.join(buildDir, 'server.js'));
+      return 'server.js';
+    } catch {
+      /* 无 server.js，继续回落 */
     }
   }
   return 'index.html';
@@ -573,8 +588,8 @@ async function runModification(buildId, instruction, userId) {
   await commitState(buildDir, mode, `modify: ${String(instruction).slice(0, MODIFY_MESSAGE_CAP)}`);
 
   const oldManifest = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8').catch(() => '{}'));
-  const runtime = oldManifest.runtime === 'node-service' ? 'node-service' : 'static-web';
-  const entry = oldManifest.entry || 'index.html';
+  const runtime = await readRuntime(buildDir);
+  const entry = oldManifest.entry || (runtime === 'node-service' ? 'server.js' : 'index.html');
 
   const outcome = await repairLoop(buildId, buildDir, earsDigest, mode, runtime);
   if (outcome.passed) {
@@ -609,8 +624,8 @@ async function runRevalidate(buildId, userId) {
   const mode = await detectGit();
 
   const oldManifest = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8').catch(() => '{}'));
-  const runtime = oldManifest.runtime === 'node-service' ? 'node-service' : 'static-web';
-  const entry = oldManifest.entry || 'index.html';
+  const runtime = await readRuntime(buildDir);
+  const entry = oldManifest.entry || (runtime === 'node-service' ? 'server.js' : 'index.html');
 
   const outcome = await repairLoop(buildId, buildDir, earsDigest, mode, runtime);
   if (outcome.passed) {

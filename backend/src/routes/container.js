@@ -33,11 +33,19 @@ async function hasBuildOutput(session) {
   }
 }
 
-// 读取构建产物运行时（static-web / node-service），决定部署到本机前端容器还是 8G 后端容器
+// 读取构建产物运行时（static-web / node-service），决定部署到本机前端容器还是 8G 后端容器。
+// manifest 缺失（构建从未通过）时按产物形态推断（server.js → node-service）。
 async function readBuildRuntime(session) {
+  const buildDir = path.join(WORKSPACE, session.folder, 'build');
   try {
-    const m = JSON.parse(await fs.readFile(path.join(WORKSPACE, session.folder, 'build', 'manifest.json'), 'utf8'));
-    return m.runtime === 'node-service' ? 'node-service' : 'static-web';
+    const m = JSON.parse(await fs.readFile(path.join(buildDir, 'manifest.json'), 'utf8'));
+    if (m.runtime === 'node-service' || m.runtime === 'static-web') return m.runtime;
+  } catch {
+    /* manifest 缺失或不可读，按目录推断 */
+  }
+  try {
+    await fs.access(path.join(buildDir, 'server.js'));
+    return 'node-service';
   } catch {
     return 'static-web';
   }

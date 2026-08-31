@@ -19,7 +19,12 @@ function moonshotPayload(messages, maxTokens, model, temperature = 1) {
   return { model, messages, temperature, max_tokens: maxTokens };
 }
 
-async function callMoonshot(messages, opts = {}) {
+// 瞬态错误（引擎过载/限流/网关错误/网络抖动）自动重试，指数退避；非瞬态错误（如密钥无效）直接抛。
+function isTransientMoonshotError(msg) {
+  return /overloaded|rate.?limit|429|500|502|503|504|无响应|timeout|timed? ?out|ECONNRESET|ETIMEDOUT/i.test(String(msg || ''));
+}
+
+async function callMoonshotOnce(messages, opts = {}) {
   const { maxTokens = 2000, model = MODEL } = opts;
   if (!API_KEY) throw new Error('MOONSHOT_API_KEY 未配置');
   // 使用系统 curl 调用，避免 Node 内置 fetch(undici) 因 TLS 指纹被 Moonshot WAF 拦截。
@@ -47,6 +52,23 @@ async function callMoonshot(messages, opts = {}) {
     content: data.choices[0].message.content,
     usage: (data.usage && { prompt_tokens: data.usage.prompt_tokens, completion_tokens: data.usage.completion_tokens }) || null,
   };
+}
+
+async function callMoonshot(messages, opts = {}) {
+  const waits = [5000, 20000];
+  let lastErr;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      return await callMoonshotOnce(messages, opts);
+    } catch (err) {
+      lastErr = err;
+      if (!isTransientMoonshotError(err.message) || attempt === 2) throw err;
+      const wait = waits[attempt];
+      console.warn(`[ai] Moonshot 瞬态错误（${String(err.message).slice(0, 100)}），${wait / 1000}s 后重试（第 ${attempt + 2}/3 次）`);
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+  throw lastErr;
 }
 
 async function chatCompletion(messages, opts = {}) {
@@ -346,6 +368,15 @@ const GENERATE_FILE_SYSTEM = `你是一名资深前端工程师。你在编写�
 ${PUBLIC}`;
 
 const SERVICE_FILE_SYSTEM = `你是一名资深全栈工程师。你在编写一个**无依赖 Node 服务端应用**中的<单个文件>。
+
+【跨服务器部署上下文——必须知晓】
+你生成的代码不会在你"所在"的机器运行，而是被打包注入到**另一台独立的远程 Linux 服务器**上以容器方式执行：
+- 容器镜像 node:20-slim（仅 Node 运行时，无任何预装 npm 包）；内存上限 256MB、CPU 0.5 核。
+- 代码目录**只读**挂载；仅 /tmp 可写且容器重建即清空；容器随时可能被销毁重建。
+- 不能假设任何"本机"资源：没有本地数据库、没有本地文件可持久化、没有其他 localhost 服务。
+- 因此：状态一律内存化；需要的任何外部能力必须在代码中显式实现（HTTP API 自建），且调用外部网络必须 lazy + try/catch（目标环境网络不可依赖）。
+- 验证方式：在断网沙箱中启动 server.js 并 GET /，必须 200——**启动与首页响应不得依赖任何网络**。
+
 你会收到：EARS 摘要、项目清单（manifest）、目标文件定位、已生成其他文件的「路径+导出签名」。
 任务：只输出目标文件的完整代码文本。
 必须严格遵守：
@@ -356,7 +387,6 @@ const SERVICE_FILE_SYSTEM = `你是一名资深全栈工程师。你在编写一
    - 监听 process.env.PORT || 3000；GET / 必须返回 200 与完整首页 HTML。
    - 静态资源从 ./public/ 目录取用（按扩展名给 Content-Type，防目录穿越）。
    - 服务端数据用内存结构保存即可（容器重建即重置；若需求要求持久化，在页面中注明"重启后数据重置"）。
-   - **启动与 GET / 响应不得依赖外网**（验证沙箱断网）；业务中的外网调用必须 lazy + try/catch 降级。
 4. 静态前端文件（public/ 下）遵守：不使用任何外部 CDN/公网资源；对 localStorage/sessionStorage/cookie 一律 try/catch 降级为内存实现。
 ${PUBLIC}`;
 
@@ -395,9 +425,16 @@ export async function generateFile(buildId, earsDigest, manifest, targetFile, ge
     { role: 'system', content: systemPrompt },
     { role: 'user', content: user },
   ];
-  const { content, usage } = await callMoonshot(messages, { maxTokens: TOKEN_BALANCED, model: CODEGEN_MODEL });
-  await logUsage(buildId, `generateFile:${targetFile.path}`, usage, CODEGEN_MODEL);
-  return stripFences(content);
+  // 推理模型可能把输出预算耗在 reasoning_content 上导致正文为空（server.js 曾因此写成 0 字节）。
+  // 空结果加大预算重试一次；仍空则抛错中止构建，禁止把空文件写入产物。
+  for (const budget of [TOKEN_BALANCED, TOKEN_MAX_OUT]) {
+    const { content, usage } = await callMoonshot(messages, { maxTokens: budget, model: CODEGEN_MODEL });
+    await logUsage(buildId, `generateFile:${targetFile.path}`, usage, CODEGEN_MODEL);
+    const text = stripFences(content);
+    if (text && text.trim().length > 0) return text;
+    await logBuildEvent(buildId, 'coder', 'log', `generateFile:${targetFile.path} 输出为空（预算 ${budget}），${budget === TOKEN_MAX_OUT ? '重试仍为空' : '加大预算重试'}`);
+  }
+  await domainError(buildId, `generateFile:${targetFile.path}`, '模型连续输出空内容，构建中止');
 }
 
 // ---------------- debugFix ----------------
@@ -474,9 +511,15 @@ export async function rewriteFile(buildId, filePath, currentContent, earsRelevan
     { role: 'system', content: REWRITE_FILE_SYSTEM },
     { role: 'user', content: user },
   ];
-  const { content, usage } = await callMoonshot(messages, { maxTokens: TOKEN_MAX_OUT, model: CODEGEN_MODEL });
-  await logUsage(buildId, `rewriteFile:${filePath}`, usage, CODEGEN_MODEL);
-  return stripFences(content);
+  // 同 generateFile：推理模型可能返回空正文，空覆写会把文件清成 0 字节，必须拦截。
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const { content, usage } = await callMoonshot(messages, { maxTokens: TOKEN_MAX_OUT, model: CODEGEN_MODEL });
+    await logUsage(buildId, `rewriteFile:${filePath}`, usage, CODEGEN_MODEL);
+    const text = stripFences(content);
+    if (text && text.trim().length > 0) return text;
+    await logBuildEvent(buildId, 'debugger', 'log', `rewriteFile:${filePath} 输出为空（第 ${attempt + 1} 次），重试`);
+  }
+  await domainError(buildId, `rewriteFile:${filePath}`, '模型连续输出空内容');
 }
 
 // ---------------- incrementalModify（两段式） ----------------
