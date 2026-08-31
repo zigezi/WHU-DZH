@@ -182,10 +182,14 @@ async function logUsage(buildId, fn, usage, model) {
   await logBuildEvent(buildId, 'llm', 'log', `${fn} 调用完成，模型=${model || CODEGEN_MODEL}${amount}`);
 }
 
-// 带 1 次重试的结构化文本生成。attempt 返回 { ok, value } 或 { ok:false, raw }。
+// 带重试的结构化文本生成。attempt 返回 { ok, value } 或 { ok:false, raw }。
+// 推理模型常因 reasoning_content 耗尽输出预算导致正文截断/为空，
+// 故重试时预算递增：原预算 → 2 倍 → TOKEN_MAX_OUT 封顶。
 async function robustGenerate(buildId, fnName, messages, opts, attempt) {
-  const call = async () => {
-    const { content, usage } = await callMoonshot(messages, opts);
+  const baseBudget = opts.maxTokens || 2000;
+  const budgets = [baseBudget, Math.min(TOKEN_MAX_OUT, baseBudget * 2), TOKEN_MAX_OUT];
+  const call = async (budget) => {
+    const { content, usage } = await callMoonshot(messages, { ...opts, maxTokens: budget });
     await logUsage(buildId, fnName, usage, opts.model);
     try {
       const value = attempt(content);
@@ -194,7 +198,7 @@ async function robustGenerate(buildId, fnName, messages, opts, attempt) {
       return { ok: false, error: e.message, raw: content };
     }
   };
-  const first = await call();
+  const first = await call(budgets[0]);
   if (first.ok) return first.value;
   if (first.raw && first.raw.trim()) {
     messages.push({ role: 'assistant', content: first.raw });
@@ -203,9 +207,9 @@ async function robustGenerate(buildId, fnName, messages, opts, attempt) {
     // 首轮输出为空/纯空白：不要回填空 assistant 消息（Moonshot 会报 400）。
     messages.push({ role: 'user', content: `上面的输出为空且无法解析（${first.error}）。请完整输出结果，禁止留空。` });
   }
-  // 至多再试 2 次（共 3 次），抵御弱网/偶发空输出。
+  // 至多再试 2 次（共 3 次），抵御弱网/偶发空输出/预算截断。
   for (let i = 0; i < 2; i++) {
-    const next = await call();
+    const next = await call(budgets[i + 1]);
     if (next.ok) return next.value;
     if (next.raw && next.raw.trim()) {
       messages.push({ role: 'assistant', content: next.raw });
