@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    volumes: [./logs:/app/logs]
+  
+  monitor:
+    build: ./backend
+    command: python monitor.py
+    depends_on: [backend]
+    volumes: [./logs:/app/logs]
+  
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    depends_on: [backend]
+

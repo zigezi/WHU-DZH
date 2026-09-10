@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Runtime data / logs
+backend/logs/
+*.log
+*.db
+*.db-wal
+*.db-shm
+
+# Node / frontend build
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
