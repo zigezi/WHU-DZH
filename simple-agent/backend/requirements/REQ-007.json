@@ -1,0 +1,12 @@
+{
+  "req_id": "REQ-007",
+  "split": "dev",
+  "title": "创建目录结构",
+  "task": "创建 src 目录并在其中创建 main.py",
+  "ears_text": "WHEN 用户要求搭建 src 目录, THE SYSTEM SHALL 创建 src/main.py",
+  "assertions": [
+    {"name": "src_dir_exists", "cmd": "test -d {workspace}/src", "severity": "blocker", "cheap": true},
+    {"name": "main_py_exists", "cmd": "test -f {workspace}/src/main.py", "severity": "major", "cheap": true}
+  ],
+  "budget": {"max_steps": 10, "max_tokens": 30000, "timeout_s": 600}
+}

@@ -1,0 +1,12 @@
+{
+  "req_id": "REQ-002",
+  "split": "train",
+  "title": "创建并运行 Python 脚本",
+  "task": "创建一个 sum.py 脚本，计算并打印 1 到 10 的整数和",
+  "ears_text": "WHEN 用户要求创建 sum.py 计算 1 到 10 的和, THE SYSTEM SHALL 生成可运行脚本且输出 55",
+  "assertions": [
+    {"name": "sum_py_exists", "cmd": "test -f {workspace}/sum.py", "severity": "blocker", "cheap": true},
+    {"name": "sum_runs_55", "cmd": "python3 {workspace}/sum.py 2>/dev/null | grep -q 55", "severity": "major"}
+  ],
+  "budget": {"max_steps": 10, "max_tokens": 30000, "timeout_s": 600}
+}

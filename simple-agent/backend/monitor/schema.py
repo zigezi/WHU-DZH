@@ -29,3 +29,4 @@ class Trace(BaseModel):
     total_tool_calls: int = 0
     result: Optional[str] = None
     error: Optional[str] = None
+    code_version: Optional[str] = None

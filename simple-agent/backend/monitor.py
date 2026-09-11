@@ -6,6 +6,7 @@ from monitor.metrics import metrics_aggregator
 from monitor.trace_store import trace_store
 from monitor.report import report_generator
 from monitor.diagnosis import shapley_diagnosis
+from monitor import plan_observer
 
 LOG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
@@ -19,6 +20,7 @@ logger.add(
 POLL_INTERVAL = 5
 _seen_tasks = set()
 _diagnosed_tasks = set()
+_seen_plans = set()
 
 
 def monitor_loop():
@@ -48,6 +50,21 @@ def monitor_loop():
                     trace.total_tokens, trace.total_tool_calls,
                     (trace.task_content or "")[:80],
                 )
+
+            # 规划面：输出 plan 的结构化摘要与切分质量
+            for span in trace_store.find_spans_by_type("plan", limit=20):
+                pid = (span.attributes or {}).get("plan_id")
+                if not pid or pid in _seen_plans:
+                    continue
+                _seen_plans.add(pid)
+                report = plan_observer.decomposition_report(span.trace_id, write_span=False)
+                if report:
+                    logger.info(
+                        "PLAN | id={} | nodes={} | success={} | conflicts={} | rework={}",
+                        pid[:8], (span.attributes or {}).get("node_count"),
+                        report["node_success_rate"], report["owns_conflicts"],
+                        report["rework_edges"],
+                    )
 
             # 对存在问题（失败 / 失败 span / 命中异常）的任务输出根因诊断
             for trace in report_generator._collect_problem_traces(limit=20):

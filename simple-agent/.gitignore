@@ -10,6 +10,14 @@ venv/
 .env.*
 !.env.example
 
+# Agent runtime artifacts
+# NOTE: .agent/ (dir) must NOT be ignored as a whole, otherwise `!` exceptions
+# on children are ineffective (git rule: cannot re-include under ignored dir).
+.agent/*
+!.agent/evidence/
+!.agent/reports/
+!.agent/proposals/
+
 # Runtime data / logs
 backend/logs/
 *.log

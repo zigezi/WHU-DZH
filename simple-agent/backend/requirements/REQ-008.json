@@ -1,0 +1,11 @@
+{
+  "req_id": "REQ-008",
+  "split": "dev",
+  "title": "任务正常完成",
+  "task": "在 workspace 创建 done.txt 并写入 ok",
+  "ears_text": "WHEN 用户提交一个可完成的小任务, THE SYSTEM SHALL 以 success 结束",
+  "assertions": [
+    {"name": "task_success", "cmd": "sqlite3 {db} \"SELECT status FROM tasks WHERE task_id='{trace_id}'\" | grep -q '^success$'", "severity": "major"}
+  ],
+  "budget": {"max_steps": 10, "max_tokens": 30000, "timeout_s": 600}
+}

@@ -1,0 +1,12 @@
+{
+  "req_id": "REQ-003",
+  "split": "train",
+  "title": "生成前端页面",
+  "task": "创建一个简单的前端页面 index.html",
+  "ears_text": "WHEN 用户要求创建一个前端页面, THE SYSTEM SHALL 生成含 html 标签的 index.html",
+  "assertions": [
+    {"name": "index_html_exists", "cmd": "test -f {workspace}/index.html", "severity": "blocker", "cheap": true},
+    {"name": "index_html_tag", "cmd": "grep -qi '<html' {workspace}/index.html", "severity": "major", "cheap": true}
+  ],
+  "budget": {"max_steps": 10, "max_tokens": 30000, "timeout_s": 600}
+}

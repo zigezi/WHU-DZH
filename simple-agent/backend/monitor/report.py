@@ -4,6 +4,7 @@ from .metrics import metrics_aggregator
 from .trace_store import trace_store
 from .diagnosis import shapley_diagnosis
 from .anomaly import anomaly_detector
+from . import plan_observer
 
 
 class ReportGenerator:
@@ -47,6 +48,35 @@ class ReportGenerator:
             "failed_tasks_diagnosis": problem_diagnosis,  # 向后兼容旧字段名
             "anomaly_summary": self._anomaly_summary(problem_diagnosis),
             "shapley_summary": self._shapley_summary(problem_diagnosis),
+            "execution_health": self._execution_health(),
+            "planning_health": plan_observer.planning_health(),
+            "decomposition_health": plan_observer.decomposition_health(),
+        }
+
+    # ------------------------------------------------------------------ #
+    def _execution_health(self) -> Dict[str, Any]:
+        """A 段：执行面健康度（反馈纠正率 + 工具效果统计）。"""
+        responses = 0
+        corrected = 0
+        created = modified = deleted = 0
+        for trace in trace_store.list_traces(limit=1000):
+            for span in trace.spans:
+                attrs = span.attributes or {}
+                if span.type == "feedback_response":
+                    responses += 1
+                    if attrs.get("corrected"):
+                        corrected += 1
+                if span.type == "sandbox_exec":
+                    effect = attrs.get("effect_diff") or {}
+                    created += len(effect.get("created", []))
+                    modified += len(effect.get("modified", []))
+                    deleted += len(effect.get("deleted", []))
+        return {
+            "feedback_correction_rate": round(corrected / responses, 4) if responses else 0,
+            "feedback_responses": responses,
+            "tool_effect_stats": {
+                "created": created, "modified": modified, "deleted": deleted,
+            },
         }
 
     # ------------------------------------------------------------------ #

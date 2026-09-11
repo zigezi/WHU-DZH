@@ -6,7 +6,11 @@ export default function App() {
 
   const submit = async () => {
     setLog(l => [...l, `> ${input}`])
-    const res = await fetch('http://localhost:8000/task/submit?content='+encodeURIComponent(input))
+    const res = await fetch('http://localhost:8000/task/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: input })
+    })
     const { task_id } = await res.json()
     
     // 轮询状态
