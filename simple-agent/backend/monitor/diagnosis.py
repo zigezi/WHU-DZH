@@ -90,12 +90,19 @@ class ShapleyDiagnosis:
         evidence = []
         for s in failed_spans:
             evidence.append({
+                "span_id": s.span_id,
                 "layer": s.layer,
                 "span": s.name,
                 "type": s.type,
                 "error": (s.error or "")[:300],
                 "duration_ms": round(s.duration_ms or 0, 1),
             })
+
+        # 根因层对应的真实 span_id（供提案逐条挂证）
+        layer_spans = [s for s in trace.spans if s.layer == top_layer]
+        picked = [s for s in layer_spans if s.status == "failed" or s.error] \
+            or layer_spans[-3:]
+        root_cause_span_ids = [s.span_id for s in picked[:5]]
 
         return {
             "root_cause_layer": top_layer,
@@ -104,6 +111,7 @@ class ShapleyDiagnosis:
             "shapley_values": shapley,
             "anomalies": anomalies,
             "evidence": evidence,
+            "root_cause_span_ids": root_cause_span_ids,
         }
 
 

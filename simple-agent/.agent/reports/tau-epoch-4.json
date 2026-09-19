@@ -1,0 +1,2504 @@
+{
+  "epoch": 4,
+  "generated_at": "2026-09-15T16:46:47.659081",
+  "base_url": "http://localhost:8000",
+  "train_loss": 33.0,
+  "buckets": {
+    "state-changing": {
+      "n": 106,
+      "pass": 80,
+      "pass_rate": 0.7547,
+      "avg_tokens": 82662
+    },
+    "read-only": {
+      "n": 29,
+      "pass": 22,
+      "pass_rate": 0.7586,
+      "avg_tokens": 51946
+    }
+  },
+  "entries": [
+    {
+      "req_id": "TAU-A-000",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 0",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d06bc321-5d8f-43fc-8bd0-0185c0588a73",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 56489,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 56489,
+        "user_tokens": 6324,
+        "total_tokens": 62813
+      }
+    },
+    {
+      "req_id": "TAU-A-002",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 2",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "361e45de-fb39-4ac9-8c0b-803807e863c8",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 62266,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 62266,
+        "user_tokens": 4723,
+        "total_tokens": 66989
+      }
+    },
+    {
+      "req_id": "TAU-A-003",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 3",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "fbd2a8fa-ad35-422f-874c-bedad2a855b2",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 105461,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 105461,
+        "user_tokens": 6774,
+        "total_tokens": 112235
+      }
+    },
+    {
+      "req_id": "TAU-A-005",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 5",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a755919f-daf8-476a-a3c1-90e16d439050",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 76182,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 76182,
+        "user_tokens": 6090,
+        "total_tokens": 82272
+      }
+    },
+    {
+      "req_id": "TAU-A-006",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 6",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "c7d4474b-6262-4ede-9456-2f8854894e17",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 66346,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 66346,
+        "user_tokens": 4289,
+        "total_tokens": 70635
+      }
+    },
+    {
+      "req_id": "TAU-A-007",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 7",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "79ef7552-560d-4636-82c6-53bee00bbf62",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 124296,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 124296,
+        "user_tokens": 5519,
+        "total_tokens": 129815
+      }
+    },
+    {
+      "req_id": "TAU-A-008",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 8",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2b4917e1-a358-4807-9034-4031ef7e5c0a",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 156188,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 156188,
+        "user_tokens": 7630,
+        "total_tokens": 163818
+      }
+    },
+    {
+      "req_id": "TAU-A-009",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 9",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "1a79c86c-b174-4427-b46b-fbd17c3bdf86",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 127535,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 127535,
+        "user_tokens": 8077,
+        "total_tokens": 135612
+      }
+    },
+    {
+      "req_id": "TAU-A-012",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 12",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "5292d26c-36c2-4220-8046-5103d999450c",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 33282,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 33282,
+        "user_tokens": 1790,
+        "total_tokens": 35072
+      }
+    },
+    {
+      "req_id": "TAU-A-013",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 13",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "9992f17b-c77a-4102-9c39-e18c794d71de",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 24287,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 24287,
+        "user_tokens": 2325,
+        "total_tokens": 26612
+      }
+    },
+    {
+      "req_id": "TAU-A-014",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 14",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2af8c045-557c-4a77-8c61-14245c47f3f1",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 48699,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 48699,
+        "user_tokens": 5242,
+        "total_tokens": 53941
+      }
+    },
+    {
+      "req_id": "TAU-A-015",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 15",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "86ac4539-c59c-4e6c-b0dc-e5fbe88f46bd",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 60783,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 60783,
+        "user_tokens": 5449,
+        "total_tokens": 66232
+      }
+    },
+    {
+      "req_id": "TAU-A-016",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 16",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "09fc3608-0297-4aef-8bec-b38e5e338b1b",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 47567,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 47567,
+        "user_tokens": 2097,
+        "total_tokens": 49664
+      }
+    },
+    {
+      "req_id": "TAU-A-017",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 17",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b90671b3-234a-46c1-bb9b-753a64fe261c",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 139561,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 139561,
+        "user_tokens": 10769,
+        "total_tokens": 150330
+      }
+    },
+    {
+      "req_id": "TAU-A-018",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 18",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ffff0229-4818-42cd-a201-67fbc7e74407",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 26102,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 26102,
+        "user_tokens": 2051,
+        "total_tokens": 28153
+      }
+    },
+    {
+      "req_id": "TAU-A-019",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 19",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "f80ea911-7145-42a4-a31e-dcd1abe5a967",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 136935,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 136935,
+        "user_tokens": 12553,
+        "total_tokens": 149488
+      }
+    },
+    {
+      "req_id": "TAU-A-020",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 20",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a733d4af-a7e8-4255-a88c-88b89a02c17e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 79380,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 79380,
+        "user_tokens": 8319,
+        "total_tokens": 87699
+      }
+    },
+    {
+      "req_id": "TAU-A-021",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 21",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "cfbbc455-b49a-4b44-b45d-c40ec9782f78",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 75585,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 75585,
+        "user_tokens": 7994,
+        "total_tokens": 83579
+      }
+    },
+    {
+      "req_id": "TAU-A-022",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 22",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b3ad57bf-868a-4d06-bd1d-0cfa4848acb5",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 31041,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 31041,
+        "user_tokens": 1865,
+        "total_tokens": 32906
+      }
+    },
+    {
+      "req_id": "TAU-A-023",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 23",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a6247074-900c-4dbe-8f4d-146dc02a50c6",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 69893,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 69893,
+        "user_tokens": 8695,
+        "total_tokens": 78588
+      }
+    },
+    {
+      "req_id": "TAU-A-024",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 24",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "677ffebf-7979-41ae-988d-6bdc9c27d3d8",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 105721,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 105721,
+        "user_tokens": 10842,
+        "total_tokens": 116563
+      }
+    },
+    {
+      "req_id": "TAU-A-025",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 25",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "3e283f39-b63a-4d59-905c-2a5e29fe7f44",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 30629,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 30629,
+        "user_tokens": 1945,
+        "total_tokens": 32574
+      }
+    },
+    {
+      "req_id": "TAU-A-026",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 26",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "033dbfd2-86d7-4d8d-9282-6c89e39ce86c",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 94339,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 94339,
+        "user_tokens": 7649,
+        "total_tokens": 101988
+      }
+    },
+    {
+      "req_id": "TAU-A-027",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 27",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a6199f2b-c950-457d-91db-34830f55bcc5",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 131918,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 131918,
+        "user_tokens": 12837,
+        "total_tokens": 144755
+      }
+    },
+    {
+      "req_id": "TAU-A-028",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 28",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "60bdcb1c-6894-4972-b317-35a714e3dc25",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 49201,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 49201,
+        "user_tokens": 4327,
+        "total_tokens": 53528
+      }
+    },
+    {
+      "req_id": "TAU-A-029",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 29",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "dce448ca-83fe-4fe2-a48b-79027ea6d47e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 32197,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 32197,
+        "user_tokens": 2494,
+        "total_tokens": 34691
+      }
+    },
+    {
+      "req_id": "TAU-A-030",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 30",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b480350b-2354-49ba-8de9-9a8f580d5b81",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 79007,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 79007,
+        "user_tokens": 8232,
+        "total_tokens": 87239
+      }
+    },
+    {
+      "req_id": "TAU-A-033",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 33",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "911f9505-8133-41dc-9840-588f446b2e57",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 44679,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 44679,
+        "user_tokens": 3488,
+        "total_tokens": 48167
+      }
+    },
+    {
+      "req_id": "TAU-A-035",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 35",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ca22b0ed-b875-43b9-85df-3d55f44f65c2",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 27822,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 27822,
+        "user_tokens": 4509,
+        "total_tokens": 32331
+      }
+    },
+    {
+      "req_id": "TAU-A-036",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 36",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "5c579b9d-d1e9-48a0-bb6f-9289d88bafb7",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 34611,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 34611,
+        "user_tokens": 5355,
+        "total_tokens": 39966
+      }
+    },
+    {
+      "req_id": "TAU-A-037",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 37",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "3574e71e-4458-4625-adce-fd7f4babb029",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 62712,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 62712,
+        "user_tokens": 5508,
+        "total_tokens": 68220
+      }
+    },
+    {
+      "req_id": "TAU-A-039",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 39",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "9a6d8480-2c15-452d-abd1-0ac02b597b42",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 32097,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 32097,
+        "user_tokens": 4715,
+        "total_tokens": 36812
+      }
+    },
+    {
+      "req_id": "TAU-A-040",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 40",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "4beb763d-d3e3-4348-8145-3c4030ed6c2b",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 39580,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 39580,
+        "user_tokens": 4025,
+        "total_tokens": 43605
+      }
+    },
+    {
+      "req_id": "TAU-A-042",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 42",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ca0a101a-e4dd-47db-9190-dbe343b40da4",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 33172,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 33172,
+        "user_tokens": 1847,
+        "total_tokens": 35019
+      }
+    },
+    {
+      "req_id": "TAU-A-043",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 43",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ae59abb5-36b4-4d35-bd71-c300cd0d4367",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 33154,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 33154,
+        "user_tokens": 2696,
+        "total_tokens": 35850
+      }
+    },
+    {
+      "req_id": "TAU-A-044",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 44",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "62ca01ae-f447-4b69-93f0-9ace0d5ee1bd",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 18256,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 18256,
+        "user_tokens": 1404,
+        "total_tokens": 19660
+      }
+    },
+    {
+      "req_id": "TAU-A-045",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 45",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e824229b-72a6-4617-be55-62cd1034bcf2",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 48648,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 48648,
+        "user_tokens": 5260,
+        "total_tokens": 53908
+      }
+    },
+    {
+      "req_id": "TAU-A-046",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench airline task 46",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "fe2443d2-a030-48cc-b549-81614787b024",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 44487,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 44487,
+        "user_tokens": 5315,
+        "total_tokens": 49802
+      }
+    },
+    {
+      "req_id": "TAU-A-047",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 47",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "1cbe8a45-46fc-44ec-a876-7c0b336626ba",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 33453,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 33453,
+        "user_tokens": 2204,
+        "total_tokens": 35657
+      }
+    },
+    {
+      "req_id": "TAU-A-048",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 48",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "f71b4c88-c029-45b6-b50a-25775878a788",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 22502,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 22502,
+        "user_tokens": 1616,
+        "total_tokens": 24118
+      }
+    },
+    {
+      "req_id": "TAU-A-049",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench airline task 49",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d4f5a50e-7d36-402d-972a-6d1cbeeee81d",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 21873,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 21873,
+        "user_tokens": 1593,
+        "total_tokens": 23466
+      }
+    },
+    {
+      "req_id": "TAU-R-000",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 0",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "868560f1-1862-4049-8f9a-a5216bad970e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 74677,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 74677,
+        "user_tokens": 6931,
+        "total_tokens": 81608
+      }
+    },
+    {
+      "req_id": "TAU-R-002",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 2",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "38f1af4c-0637-496f-a6cf-f33816468956",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 75333,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 75333,
+        "user_tokens": 4294,
+        "total_tokens": 79627
+      }
+    },
+    {
+      "req_id": "TAU-R-003",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 3",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "df2903d4-1686-4088-946f-006762dc7754",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 79426,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 79426,
+        "user_tokens": 5136,
+        "total_tokens": 84562
+      }
+    },
+    {
+      "req_id": "TAU-R-004",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 4",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ca4dd8b2-44ae-4fc2-94a1-ae2b6e54460e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 75837,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 75837,
+        "user_tokens": 4826,
+        "total_tokens": 80663
+      }
+    },
+    {
+      "req_id": "TAU-R-005",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 5",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a38bda35-24a9-48de-8077-2c21faa37a28",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 93672,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 93672,
+        "user_tokens": 8162,
+        "total_tokens": 101834
+      }
+    },
+    {
+      "req_id": "TAU-R-006",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 6",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "6bc260fa-9c5a-4c4b-9a5b-f53a117548db",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 84016,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 84016,
+        "user_tokens": 8218,
+        "total_tokens": 92234
+      }
+    },
+    {
+      "req_id": "TAU-R-010",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 10",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "72623d72-92ed-4f98-9615-c14fdc126d8e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 48067,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 48067,
+        "user_tokens": 3824,
+        "total_tokens": 51891
+      }
+    },
+    {
+      "req_id": "TAU-R-011",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 11",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "604af691-95ba-408f-93e1-fbd0fb39b955",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 57371,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 57371,
+        "user_tokens": 4992,
+        "total_tokens": 62363
+      }
+    },
+    {
+      "req_id": "TAU-R-012",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 12",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "5ec8d353-fa54-4c71-85c7-82f779967ca8",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 44604,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 44604,
+        "user_tokens": 3331,
+        "total_tokens": 47935
+      }
+    },
+    {
+      "req_id": "TAU-R-013",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 13",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d94f9186-3326-41e2-a245-945138b67117",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 54153,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 54153,
+        "user_tokens": 4982,
+        "total_tokens": 59135
+      }
+    },
+    {
+      "req_id": "TAU-R-016",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 16",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b5aa6efa-b8ab-4a44-a73f-dc12d24ef568",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 69342,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 69342,
+        "user_tokens": 4965,
+        "total_tokens": 74307
+      }
+    },
+    {
+      "req_id": "TAU-R-017",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 17",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "8a8dad7c-1d3b-4ec5-8082-8709f0db7071",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 44428,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 44428,
+        "user_tokens": 2948,
+        "total_tokens": 47376
+      }
+    },
+    {
+      "req_id": "TAU-R-019",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 19",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "fd4cb81d-810f-4682-b139-0fb5c1e2666a",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 86391,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 86391,
+        "user_tokens": 5233,
+        "total_tokens": 91624
+      }
+    },
+    {
+      "req_id": "TAU-R-020",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 20",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "38ee9d5c-7b52-41b4-9195-127b68b6458f",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 67277,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 67277,
+        "user_tokens": 4027,
+        "total_tokens": 71304
+      }
+    },
+    {
+      "req_id": "TAU-R-021",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 21",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "3dbf83c0-c78c-446a-b8f3-6ec7abf2ff77",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 73089,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 73089,
+        "user_tokens": 4248,
+        "total_tokens": 77337
+      }
+    },
+    {
+      "req_id": "TAU-R-022",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 22",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "eb8c57dd-d0bd-429c-b4aa-b45c8be1a064",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 78919,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 78919,
+        "user_tokens": 5082,
+        "total_tokens": 84001
+      }
+    },
+    {
+      "req_id": "TAU-R-023",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 23",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b0e4d077-bad2-4c31-8216-58341fcf4fab",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 147628,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 147628,
+        "user_tokens": 11858,
+        "total_tokens": 159486
+      }
+    },
+    {
+      "req_id": "TAU-R-024",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 24",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2b99987a-5d8d-4787-9f82-76a97141eeab",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 70672,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 70672,
+        "user_tokens": 3892,
+        "total_tokens": 74564
+      }
+    },
+    {
+      "req_id": "TAU-R-025",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 25",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d3a5f083-9bda-456e-8cc0-548dabacfbd5",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 46336,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 46336,
+        "user_tokens": 2944,
+        "total_tokens": 49280
+      }
+    },
+    {
+      "req_id": "TAU-R-026",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 26",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a603cfc5-c02c-439c-8a5b-af1c7ebea7af",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 46479,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 46479,
+        "user_tokens": 2882,
+        "total_tokens": 49361
+      }
+    },
+    {
+      "req_id": "TAU-R-027",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 27",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "5fb514e4-5257-4f39-8a29-a3d5470ba66b",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 100301,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 100301,
+        "user_tokens": 4903,
+        "total_tokens": 105204
+      }
+    },
+    {
+      "req_id": "TAU-R-028",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 28",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "cc086638-137b-4b8a-9a74-c7b85e289540",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 99217,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 99217,
+        "user_tokens": 6699,
+        "total_tokens": 105916
+      }
+    },
+    {
+      "req_id": "TAU-R-029",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 29",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "5cae99f5-ce90-4e9c-a29f-ae8dab8cef64",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 101271,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 101271,
+        "user_tokens": 5895,
+        "total_tokens": 107166
+      }
+    },
+    {
+      "req_id": "TAU-R-030",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 30",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "8138eac1-827e-49e8-a1a1-98a0c1581a2d",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 133481,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 133481,
+        "user_tokens": 12442,
+        "total_tokens": 145923
+      }
+    },
+    {
+      "req_id": "TAU-R-031",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 31",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "c6c9e036-cf06-4968-90fa-692ffc2e98ae",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 109804,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 109804,
+        "user_tokens": 11445,
+        "total_tokens": 121249
+      }
+    },
+    {
+      "req_id": "TAU-R-032",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 32",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a46d2be0-aca3-4755-8eb6-579f659e915a",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 119826,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 119826,
+        "user_tokens": 12876,
+        "total_tokens": 132702
+      }
+    },
+    {
+      "req_id": "TAU-R-033",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 33",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e3aa4675-809a-49d4-a3a2-e4066bfe458e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 69253,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 69253,
+        "user_tokens": 7576,
+        "total_tokens": 76829
+      }
+    },
+    {
+      "req_id": "TAU-R-034",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 34",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ca2c6f10-90b9-45c2-b8f0-6ae546e9540e",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 52032,
+      "failed": [
+        "actions_match"
+      ],
+      "tau_cost": {
+        "agent_tokens": 52032,
+        "user_tokens": 5017,
+        "total_tokens": 57049
+      }
+    },
+    {
+      "req_id": "TAU-R-035",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 35",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "33ecf687-6105-4898-b369-24b7d1519eba",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 87679,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 87679,
+        "user_tokens": 6332,
+        "total_tokens": 94011
+      }
+    },
+    {
+      "req_id": "TAU-R-036",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 36",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2efa6774-1c2b-4831-8e3d-76801db2dd96",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 78762,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 78762,
+        "user_tokens": 4489,
+        "total_tokens": 83251
+      }
+    },
+    {
+      "req_id": "TAU-R-038",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 38",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "0dbfbff6-d613-4ca9-ac45-dbc0e4bd0b1a",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 86741,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 86741,
+        "user_tokens": 7065,
+        "total_tokens": 93806
+      }
+    },
+    {
+      "req_id": "TAU-R-039",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 39",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e9d129b8-3f21-4b8d-8879-26b77c59e9a1",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 80088,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 80088,
+        "user_tokens": 9929,
+        "total_tokens": 90017
+      }
+    },
+    {
+      "req_id": "TAU-R-040",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 40",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e3cb805d-1127-4284-91ff-7a1f24ff5a0f",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 50766,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 50766,
+        "user_tokens": 4330,
+        "total_tokens": 55096
+      }
+    },
+    {
+      "req_id": "TAU-R-041",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 41",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "536c5bb2-43da-4715-bcd2-d59dafaba730",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 91509,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 91509,
+        "user_tokens": 6687,
+        "total_tokens": 98196
+      }
+    },
+    {
+      "req_id": "TAU-R-042",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 42",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b5309c16-19a3-4e07-b7e6-c94a373d7020",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 107403,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 107403,
+        "user_tokens": 5863,
+        "total_tokens": 113266
+      }
+    },
+    {
+      "req_id": "TAU-R-043",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 43",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "6d4e4352-5095-466f-adb0-69df5e899b3d",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 76053,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 76053,
+        "user_tokens": 9121,
+        "total_tokens": 85174
+      }
+    },
+    {
+      "req_id": "TAU-R-044",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 44",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "10728e66-b03e-4718-940a-61f2e29cdad3",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 57376,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 57376,
+        "user_tokens": 3400,
+        "total_tokens": 60776
+      }
+    },
+    {
+      "req_id": "TAU-R-045",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 45",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d47591a2-2b38-4263-8fe7-f04b0952d84c",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 70311,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 70311,
+        "user_tokens": 6119,
+        "total_tokens": 76430
+      }
+    },
+    {
+      "req_id": "TAU-R-048",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 48",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2f359bd1-7f19-4eec-a5ec-88637bb2ea7a",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 55960,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 55960,
+        "user_tokens": 4600,
+        "total_tokens": 60560
+      }
+    },
+    {
+      "req_id": "TAU-R-049",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 49",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "01d26623-7bc7-4542-b951-8f0dca800f5e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 79507,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 79507,
+        "user_tokens": 4960,
+        "total_tokens": 84467
+      }
+    },
+    {
+      "req_id": "TAU-R-050",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 50",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "9bf0b987-8064-4339-b91d-98f13efa4fbc",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 29868,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 29868,
+        "user_tokens": 1385,
+        "total_tokens": 31253
+      }
+    },
+    {
+      "req_id": "TAU-R-051",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 51",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "f98a0eb9-44a5-4027-9221-c498c69b0f12",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 64832,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 64832,
+        "user_tokens": 4231,
+        "total_tokens": 69063
+      }
+    },
+    {
+      "req_id": "TAU-R-052",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 52",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "43e9777c-f8da-4f55-916f-96cc10bc026e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 75324,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 75324,
+        "user_tokens": 5617,
+        "total_tokens": 80941
+      }
+    },
+    {
+      "req_id": "TAU-R-053",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 53",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e84ae70f-6450-4e34-9407-cd82cf56dc92",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 58497,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 58497,
+        "user_tokens": 4596,
+        "total_tokens": 63093
+      }
+    },
+    {
+      "req_id": "TAU-R-055",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 55",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "94eb6fd0-6c21-407d-98a7-60ab4a599230",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 62523,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 62523,
+        "user_tokens": 5489,
+        "total_tokens": 68012
+      }
+    },
+    {
+      "req_id": "TAU-R-056",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 56",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "83c9b011-95fa-4483-8b6c-0a52d3f2beb8",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 64976,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 64976,
+        "user_tokens": 4280,
+        "total_tokens": 69256
+      }
+    },
+    {
+      "req_id": "TAU-R-057",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 57",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d49545e2-4a8d-4ccf-94f3-26bdac0ee093",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 36474,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 36474,
+        "user_tokens": 3913,
+        "total_tokens": 40387
+      }
+    },
+    {
+      "req_id": "TAU-R-058",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 58",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d66a57c6-220a-481c-9632-c6c50728e1d3",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 94058,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 94058,
+        "user_tokens": 9396,
+        "total_tokens": 103454
+      }
+    },
+    {
+      "req_id": "TAU-R-059",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 59",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "768eaeaf-e636-49ab-9c5f-2613bad13e58",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 55792,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 55792,
+        "user_tokens": 6987,
+        "total_tokens": 62779
+      }
+    },
+    {
+      "req_id": "TAU-R-060",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 60",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "11856a3b-f105-4159-ae8f-71e07ddf7a63",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 41665,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 41665,
+        "user_tokens": 3337,
+        "total_tokens": 45002
+      }
+    },
+    {
+      "req_id": "TAU-R-061",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 61",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "390cbb5c-a98f-45ab-a9b4-8a0eb6f1e8ac",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 39597,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 39597,
+        "user_tokens": 2693,
+        "total_tokens": 42290
+      }
+    },
+    {
+      "req_id": "TAU-R-062",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 62",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "4036ad99-2391-4969-8378-54bab886be24",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 63567,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 63567,
+        "user_tokens": 5794,
+        "total_tokens": 69361
+      }
+    },
+    {
+      "req_id": "TAU-R-063",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 63",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e0aa3613-a5ff-4143-bbf4-58487ac24449",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 91660,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 91660,
+        "user_tokens": 8557,
+        "total_tokens": 100217
+      }
+    },
+    {
+      "req_id": "TAU-R-064",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 64",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "f53e6eb8-07cb-4dcd-9d6f-33da974445bd",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 69720,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 69720,
+        "user_tokens": 5432,
+        "total_tokens": 75152
+      }
+    },
+    {
+      "req_id": "TAU-R-065",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 65",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2ce8df56-89a1-4712-a0d6-a61da84b7ae3",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 38340,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 38340,
+        "user_tokens": 1928,
+        "total_tokens": 40268
+      }
+    },
+    {
+      "req_id": "TAU-R-067",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 67",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "10ef8f31-f239-401a-bd92-f858495f055b",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 64245,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 64245,
+        "user_tokens": 4201,
+        "total_tokens": 68446
+      }
+    },
+    {
+      "req_id": "TAU-R-068",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 68",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "8759ab30-9cf4-41fb-8d8f-a3bcdfd78466",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 48678,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 48678,
+        "user_tokens": 2106,
+        "total_tokens": 50784
+      }
+    },
+    {
+      "req_id": "TAU-R-069",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 69",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "462824f7-f39d-4be3-86ca-b14cf66a4d91",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 46462,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 46462,
+        "user_tokens": 3300,
+        "total_tokens": 49762
+      }
+    },
+    {
+      "req_id": "TAU-R-070",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 70",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "f810216e-2f44-4bb1-aea4-7e68a2c27b69",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 57471,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 57471,
+        "user_tokens": 3277,
+        "total_tokens": 60748
+      }
+    },
+    {
+      "req_id": "TAU-R-071",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 71",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "74edda92-07c1-4446-b0ac-a3b29a0c7121",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 102129,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 102129,
+        "user_tokens": 8618,
+        "total_tokens": 110747
+      }
+    },
+    {
+      "req_id": "TAU-R-072",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 72",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ea12605b-059a-41a5-a5d8-aac5b70c4faa",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 98753,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 98753,
+        "user_tokens": 6817,
+        "total_tokens": 105570
+      }
+    },
+    {
+      "req_id": "TAU-R-073",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 73",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ef898931-35b5-4086-bec7-211ef3294a2c",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 41984,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 41984,
+        "user_tokens": 2950,
+        "total_tokens": 44934
+      }
+    },
+    {
+      "req_id": "TAU-R-074",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 74",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "94b82b6a-0ce0-4f7e-b164-8f0ade876683",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 89155,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 89155,
+        "user_tokens": 6191,
+        "total_tokens": 95346
+      }
+    },
+    {
+      "req_id": "TAU-R-075",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 75",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "08b1ebe5-cb02-47c0-a056-808c8fd38f6c",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 62079,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 62079,
+        "user_tokens": 4198,
+        "total_tokens": 66277
+      }
+    },
+    {
+      "req_id": "TAU-R-076",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 76",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "101ce1e1-4f54-4df2-9112-b5492e3bf7a9",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 91762,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 91762,
+        "user_tokens": 7739,
+        "total_tokens": 99501
+      }
+    },
+    {
+      "req_id": "TAU-R-077",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 77",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "48492fe0-ca95-48d0-8d53-a1d15ebc9860",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 51077,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 51077,
+        "user_tokens": 2813,
+        "total_tokens": 53890
+      }
+    },
+    {
+      "req_id": "TAU-R-079",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 79",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "291c783f-7fb9-4700-b956-41628fe22b5f",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 90838,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 90838,
+        "user_tokens": 8268,
+        "total_tokens": 99106
+      }
+    },
+    {
+      "req_id": "TAU-R-080",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 80",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "0367c73b-0427-4cfe-b576-864aa530e2b8",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 69290,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 69290,
+        "user_tokens": 6987,
+        "total_tokens": 76277
+      }
+    },
+    {
+      "req_id": "TAU-R-081",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 81",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "a66d3192-ac34-4b3d-99c4-88607763dd46",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 63938,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 63938,
+        "user_tokens": 5333,
+        "total_tokens": 69271
+      }
+    },
+    {
+      "req_id": "TAU-R-082",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 82",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "f5859e89-7df5-482f-a13a-b1cc3f3d12ce",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 55165,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 55165,
+        "user_tokens": 3843,
+        "total_tokens": 59008
+      }
+    },
+    {
+      "req_id": "TAU-R-083",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 83",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "cff1a539-188a-4c06-8c69-e8c9f285dde0",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 47467,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 47467,
+        "user_tokens": 2616,
+        "total_tokens": 50083
+      }
+    },
+    {
+      "req_id": "TAU-R-084",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 84",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b7c88318-160f-4706-ba41-b30e9ae5d734",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 47819,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 47819,
+        "user_tokens": 2913,
+        "total_tokens": 50732
+      }
+    },
+    {
+      "req_id": "TAU-R-087",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 87",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "0dbe64ef-fd0e-46f5-9c44-12e57ebfd673",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 63656,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 63656,
+        "user_tokens": 3317,
+        "total_tokens": 66973
+      }
+    },
+    {
+      "req_id": "TAU-R-088",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 88",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "92ebb5b8-722b-4fd2-91bb-7f8375010781",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 50833,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 50833,
+        "user_tokens": 2451,
+        "total_tokens": 53284
+      }
+    },
+    {
+      "req_id": "TAU-R-091",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 91",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "d2977e14-d677-43b8-b1bb-7e349547f01a",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 83364,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 83364,
+        "user_tokens": 8721,
+        "total_tokens": 92085
+      }
+    },
+    {
+      "req_id": "TAU-R-092",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 92",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "2e48ddd5-3494-4d77-abf6-38946d1655ff",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 55402,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 55402,
+        "user_tokens": 3082,
+        "total_tokens": 58484
+      }
+    },
+    {
+      "req_id": "TAU-R-093",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 93",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "fc54feab-7c10-4053-b235-2709fc2659c2",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 61233,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 61233,
+        "user_tokens": 3285,
+        "total_tokens": 64518
+      }
+    },
+    {
+      "req_id": "TAU-R-094",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 94",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "5dd67122-1456-4fc2-9372-948359adb44e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 62932,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 62932,
+        "user_tokens": 3358,
+        "total_tokens": 66290
+      }
+    },
+    {
+      "req_id": "TAU-R-096",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 96",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "1e45db21-336f-4253-ae2b-9819efcbc153",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 70627,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 70627,
+        "user_tokens": 3255,
+        "total_tokens": 73882
+      }
+    },
+    {
+      "req_id": "TAU-R-097",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 97",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "c24af858-dad6-43bd-828a-d4ab50927145",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 59390,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 59390,
+        "user_tokens": 3399,
+        "total_tokens": 62789
+      }
+    },
+    {
+      "req_id": "TAU-R-098",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 98",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "03e78b32-7b9b-4880-918b-9484f645963e",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 74736,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 74736,
+        "user_tokens": 4107,
+        "total_tokens": 78843
+      }
+    },
+    {
+      "req_id": "TAU-R-099",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 99",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ad833e41-89fd-4e78-99b5-1a24782aa7b6",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 117385,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 117385,
+        "user_tokens": 8744,
+        "total_tokens": 126129
+      }
+    },
+    {
+      "req_id": "TAU-R-100",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 100",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "7a40890b-d1af-44ac-83e3-0ebf8519d46e",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 58671,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 58671,
+        "user_tokens": 3615,
+        "total_tokens": 62286
+      }
+    },
+    {
+      "req_id": "TAU-R-101",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 101",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "39bcfcd0-e30a-4483-b757-1a560611b0a2",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 131989,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 131989,
+        "user_tokens": 12685,
+        "total_tokens": 144674
+      }
+    },
+    {
+      "req_id": "TAU-R-102",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 102",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "06779ef0-7ce9-45d2-80a6-5b7fb3bf0038",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 114265,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 114265,
+        "user_tokens": 8572,
+        "total_tokens": 122837
+      }
+    },
+    {
+      "req_id": "TAU-R-105",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 105",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "ca1ff8d1-78c6-4654-bffd-4701bd80e32b",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 189032,
+      "failed": [
+        "actions_match"
+      ],
+      "tau_cost": {
+        "agent_tokens": 189032,
+        "user_tokens": 17750,
+        "total_tokens": 206782
+      }
+    },
+    {
+      "req_id": "TAU-R-106",
+      "split": "train",
+      "bucket": "read-only",
+      "title": "tau-bench retail task 106",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "7dd7b5e0-3e2e-4f6a-99c8-3ca1e4e506f3",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 74852,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 74852,
+        "user_tokens": 7331,
+        "total_tokens": 82183
+      }
+    },
+    {
+      "req_id": "TAU-R-107",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 107",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "7b16cf85-48a4-4422-8fa5-a1989e46968a",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 65965,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 65965,
+        "user_tokens": 3203,
+        "total_tokens": 69168
+      }
+    },
+    {
+      "req_id": "TAU-R-108",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 108",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "6511679b-d63d-45a4-b62e-a2b167b105a7",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 101319,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 101319,
+        "user_tokens": 7057,
+        "total_tokens": 108376
+      }
+    },
+    {
+      "req_id": "TAU-R-110",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 110",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "38cd6ceb-773a-4dec-9948-850b955f97f4",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 86865,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 86865,
+        "user_tokens": 7004,
+        "total_tokens": 93869
+      }
+    },
+    {
+      "req_id": "TAU-R-111",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 111",
+      "task": "你好，我需要帮助",
+      "status": "failed",
+      "task_id": "5a1749ac-8001-4e12-ba84-3abc2eed7613",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 0,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 0,
+        "user_tokens": 359,
+        "total_tokens": 359
+      }
+    },
+    {
+      "req_id": "TAU-R-112",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 112",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "80786b2f-8357-444d-8a5a-fd88da3dca35",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 88145,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 88145,
+        "user_tokens": 5808,
+        "total_tokens": 93953
+      }
+    },
+    {
+      "req_id": "TAU-R-113",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 113",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "618293da-ab88-4af6-be69-ac23f047082c",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 158378,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 158378,
+        "user_tokens": 16589,
+        "total_tokens": 174967
+      }
+    },
+    {
+      "req_id": "TAU-R-114",
+      "split": "train",
+      "bucket": "state-changing",
+      "title": "tau-bench retail task 114",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "169b2e20-eeb0-4e46-b939-4afb641ee806",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 41132,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 41132,
+        "user_tokens": 1796,
+        "total_tokens": 42928
+      }
+    }
+  ]
+}

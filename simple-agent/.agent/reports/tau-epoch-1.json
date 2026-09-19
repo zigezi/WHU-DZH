@@ -1,0 +1,188 @@
+{
+  "epoch": 1,
+  "generated_at": "2026-09-11T18:14:32.139953",
+  "base_url": "http://localhost:8000",
+  "train_loss": 6.0,
+  "entries": [
+    {
+      "req_id": "TAU-A-000",
+      "split": "train",
+      "title": "tau-bench airline task 0",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b7727e08-e8c0-422b-919d-647045de5f2c",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 79105,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 79105,
+        "user_tokens": 9186,
+        "total_tokens": 88291
+      }
+    },
+    {
+      "req_id": "TAU-A-002",
+      "split": "train",
+      "title": "tau-bench airline task 2",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "3dd77444-5cb0-4ff2-8269-e28ea9337877",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 87080,
+      "failed": [
+        "actions_match"
+      ],
+      "tau_cost": {
+        "agent_tokens": 87080,
+        "user_tokens": 5802,
+        "total_tokens": 92882
+      }
+    },
+    {
+      "req_id": "TAU-A-003",
+      "split": "train",
+      "title": "tau-bench airline task 3",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "916c8af2-8b44-4d7e-a50a-7dc9289c1661",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 124894,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 124894,
+        "user_tokens": 15488,
+        "total_tokens": 140382
+      }
+    },
+    {
+      "req_id": "TAU-A-005",
+      "split": "train",
+      "title": "tau-bench airline task 5",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "b1ba1363-5005-4c9a-b985-477091c7e25e",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 63531,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 63531,
+        "user_tokens": 4200,
+        "total_tokens": 67731
+      }
+    },
+    {
+      "req_id": "TAU-A-006",
+      "split": "train",
+      "title": "tau-bench airline task 6",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "3b8f98c2-a161-4fd6-bf11-b32d6226f33b",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 44303,
+      "failed": [
+        "db_final_state"
+      ],
+      "tau_cost": {
+        "agent_tokens": 44303,
+        "user_tokens": 4311,
+        "total_tokens": 48614
+      }
+    },
+    {
+      "req_id": "TAU-A-007",
+      "split": "train",
+      "title": "tau-bench airline task 7",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "8c33c99e-d889-4f88-8597-ac78b336d31f",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 89916,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 89916,
+        "user_tokens": 8370,
+        "total_tokens": 98286
+      }
+    },
+    {
+      "req_id": "TAU-A-008",
+      "split": "train",
+      "title": "tau-bench airline task 8",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "805a98cc-2df4-4894-9f14-4e7661e5df0a",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 89942,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 89942,
+        "user_tokens": 11179,
+        "total_tokens": 101121
+      }
+    },
+    {
+      "req_id": "TAU-A-009",
+      "split": "train",
+      "title": "tau-bench airline task 9",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "9cb586fe-1fae-4ae6-bb53-acf8c75e845b",
+      "assertion_loss": 1.0,
+      "loss": 1.0,
+      "tokens": 149861,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 149861,
+        "user_tokens": 20695,
+        "total_tokens": 170556
+      }
+    },
+    {
+      "req_id": "TAU-A-012",
+      "split": "train",
+      "title": "tau-bench airline task 12",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "74c0bb50-0638-43d6-bf40-fed9bfbca3b0",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 54452,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 54452,
+        "user_tokens": 6397,
+        "total_tokens": 60849
+      }
+    },
+    {
+      "req_id": "TAU-A-013",
+      "split": "train",
+      "title": "tau-bench airline task 13",
+      "task": "你好，我需要帮助",
+      "status": "success",
+      "task_id": "e0fc8f1f-2a6f-4e3e-8b22-c62e21fb74d4",
+      "assertion_loss": 0.0,
+      "loss": 0.0,
+      "tokens": 26094,
+      "failed": [],
+      "tau_cost": {
+        "agent_tokens": 26094,
+        "user_tokens": 3316,
+        "total_tokens": 29410
+      }
+    }
+  ]
+}

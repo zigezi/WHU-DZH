@@ -9,7 +9,7 @@ from typing import List, Optional
 
 from .trace_store import trace_store
 
-DEFAULT_ARMS = ["direct"]
+DEFAULT_ARMS = ["direct", "precedent-assisted"]
 EPSILON = 0.1
 MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-chat")
 
@@ -23,11 +23,16 @@ class Router:
         self.epsilon = epsilon
 
     def choose(self, sig_family: str, arms: Optional[List[str]] = None) -> str:
+        arm, _ = self.choose_meta(sig_family, arms)
+        return arm
+
+    def choose_meta(self, sig_family: str, arms: Optional[List[str]] = None):
+        """返回 (arm, explored)。explored=True 表示 ε 随机探索。"""
         arms = arms or DEFAULT_ARMS
         if not arms:
-            return "direct"
+            return "direct", False
         if random.random() < self.epsilon:
-            return random.choice(arms)
+            return random.choice(arms), True
         best_arm, best_sample = arms[0], -1.0
         for arm in arms:
             alpha, beta = trace_store.get_route_params(
@@ -36,7 +41,7 @@ class Router:
             sample = random.betavariate(alpha, beta)
             if sample > best_sample:
                 best_sample, best_arm = sample, arm
-        return best_arm
+        return best_arm, False
 
     def update(self, sig_family: str, arm: str, success: bool,
                tokens: float = 0):

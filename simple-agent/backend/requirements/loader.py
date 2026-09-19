@@ -42,8 +42,11 @@ def load_requirement(path: str) -> Dict:
         raise RequirementError(f"{req_id}: 无 assertions，拒绝入库（绑定率门禁）")
 
     for a in assertions:
-        if not a.get("name") or not a.get("cmd"):
-            raise RequirementError(f"{req_id}: assertion 缺少 name/cmd")
+        if not a.get("name"):
+            raise RequirementError(f"{req_id}: assertion 缺少 name")
+        # τ 任务的断言由 scoring.py 直接产出，无需 shell cmd
+        if not a.get("cmd") and not data.get("tau_env"):
+            raise RequirementError(f"{req_id}: assertion 缺少 cmd")
         if a.get("severity") not in VALID_SEVERITIES:
             raise RequirementError(
                 f"{req_id}: assertion severity 必须属于 {sorted(VALID_SEVERITIES)}"
@@ -57,6 +60,7 @@ def load_requirement(path: str) -> Dict:
 
 def load_all() -> List[Dict]:
     paths = sorted(glob.glob(os.path.join(REQUIREMENTS_DIR, "*.json")))
+    paths += sorted(glob.glob(os.path.join(REQUIREMENTS_DIR, "tau", "*.json")))
     return [load_requirement(p) for p in paths]
 
 

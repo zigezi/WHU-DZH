@@ -1,0 +1,797 @@
+{
+  "epoch": 3,
+  "generated_at": "2026-09-15T13:56:32.803263",
+  "note": "v1：仅生成提案，需人工审阅后手动应用并单独 commit",
+  "source_report": "tau-epoch-3.json",
+  "cost": {
+    "updater_llm_tokens": 0,
+    "note": "updater 使用确定性 Shapley 归因（anomaly 规则 + 边际贡献），无 LLM 调用，token 消耗为 0",
+    "budget_cny": 10.0,
+    "spent_cny": 0.0
+  },
+  "proposals": [
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "e48a27b1-7d75-48ea-a920-1fa41b198201",
+        "c5671275-80c9-478c-96ed-328c76fa2ee6",
+        "3797442e-2d5b-4b83-9a91-89b0343a01f5",
+        "d57f55c0-5d07-4d4d-84f0-831ff7425e46",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "c5671275-80c9-478c-96ed-328c76fa2ee6",
+        "3797442e-2d5b-4b83-9a91-89b0343a01f5",
+        "d57f55c0-5d07-4d4d-84f0-831ff7425e46"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-A-000",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "monitor/llayer",
+      "root_cause_layer": "L",
+      "evidence": [
+        "61a243dc-8740-4e05-9c1f-0162bbcef63a",
+        "4b5298f0-9960-467f-9418-7def9b074a4a",
+        "af99aedb-470f-4a35-a31d-f8cdab5b7f24",
+        "b4d1582f-ba20-46a0-b4ee-d018efd78800",
+        "L001",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "4b5298f0-9960-467f-9418-7def9b074a4a",
+        "af99aedb-470f-4a35-a31d-f8cdab5b7f24",
+        "b4d1582f-ba20-46a0-b4ee-d018efd78800"
+      ],
+      "suggested_value": null,
+      "confidence": 0.6,
+      "req_id": "TAU-A-002",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "fc041a8e-e438-4fe3-bc33-36f858d8e2c3",
+        "43949016-8634-4c8e-9214-84455f4a6509",
+        "81b6775e-17f1-4117-b93e-a331d2fc80ef",
+        "329214f8-6d08-4d34-a123-83a297ac54c1",
+        "C002"
+      ],
+      "span_ids": [
+        "43949016-8634-4c8e-9214-84455f4a6509",
+        "81b6775e-17f1-4117-b93e-a331d2fc80ef",
+        "329214f8-6d08-4d34-a123-83a297ac54c1"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-007",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "2f045a6f-14ad-438c-b642-e5b2cce57eae",
+        "ff4b06d2-89fb-454c-b3a1-2fc432d4d1c7",
+        "19bef08c-3fce-42ef-b7ff-eaaa23596f24",
+        "b4123dcd-6282-458a-b900-bcb4c676e831",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "ff4b06d2-89fb-454c-b3a1-2fc432d4d1c7",
+        "19bef08c-3fce-42ef-b7ff-eaaa23596f24",
+        "b4123dcd-6282-458a-b900-bcb4c676e831"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-A-008",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "087094f4-a1df-4dbe-be7e-eb971271ac24",
+        "28459999-055f-45f6-b686-1fa2a7417e24",
+        "482473bb-3c9d-4f13-964c-ce69d2189265",
+        "9b71fd1f-d0f1-4d70-a2c8-889621d3c87b",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "28459999-055f-45f6-b686-1fa2a7417e24",
+        "482473bb-3c9d-4f13-964c-ce69d2189265",
+        "9b71fd1f-d0f1-4d70-a2c8-889621d3c87b"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-A-009",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "9e298ccc-b7cc-4c6c-b97e-a992b42a610a",
+        "6141e846-18fa-4f9b-845d-beafcbc68908",
+        "ff4e3147-2244-465a-bcf7-5181c1c631ae",
+        "eb8b3a22-1a26-4955-8860-8ca3208604a8",
+        "C002"
+      ],
+      "span_ids": [
+        "6141e846-18fa-4f9b-845d-beafcbc68908",
+        "ff4e3147-2244-465a-bcf7-5181c1c631ae",
+        "eb8b3a22-1a26-4955-8860-8ca3208604a8"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-014",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "96c9a515-7406-4b9b-80f3-cd1cdafd706c",
+        "78748dea-8434-4ca2-ab1d-ae5148c3997c",
+        "42c5c866-1d7b-40e5-8f7d-e53ffd3f1d9a",
+        "22ef0983-8504-4ad6-8ef4-183c899c7dc0",
+        "C002"
+      ],
+      "span_ids": [
+        "78748dea-8434-4ca2-ab1d-ae5148c3997c",
+        "42c5c866-1d7b-40e5-8f7d-e53ffd3f1d9a",
+        "22ef0983-8504-4ad6-8ef4-183c899c7dc0"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-015",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "54234451-6454-4805-b7bc-a43be5a60532",
+        "28fb59bd-b184-449a-9b7b-c6ae25521f2c",
+        "e1e5b77b-8912-47d6-bc1c-b6bfef227bf9",
+        "a65899a0-7c26-4e8b-bc0c-4f3b64b7866e",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "28fb59bd-b184-449a-9b7b-c6ae25521f2c",
+        "e1e5b77b-8912-47d6-bc1c-b6bfef227bf9",
+        "a65899a0-7c26-4e8b-bc0c-4f3b64b7866e"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-A-017",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "6032f53f-1def-4973-bd16-3ae87d94ef6c",
+        "3eadea33-42a5-41bf-9249-762f9009550c",
+        "ed640b19-2bf0-4ae7-a3ff-c04004e8d9b7",
+        "add8d4f7-1bcd-4e22-b252-f284f21e557e",
+        "C002"
+      ],
+      "span_ids": [
+        "3eadea33-42a5-41bf-9249-762f9009550c",
+        "ed640b19-2bf0-4ae7-a3ff-c04004e8d9b7",
+        "add8d4f7-1bcd-4e22-b252-f284f21e557e"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-019",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "1241cdc5-de5f-402f-8f1b-d3b923e58ebe",
+        "4d73b511-7783-4419-af49-1dedf87e9695",
+        "04090eb0-3706-49ab-9b65-036292fa5fa7",
+        "399ded63-3e69-4c42-a91c-7d53eb7fcac5",
+        "C002"
+      ],
+      "span_ids": [
+        "4d73b511-7783-4419-af49-1dedf87e9695",
+        "04090eb0-3706-49ab-9b65-036292fa5fa7",
+        "399ded63-3e69-4c42-a91c-7d53eb7fcac5"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-022",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "24daf49c-3bce-4c0e-b7fe-1b079ac266d7",
+        "67cd0936-d274-44a5-8c48-f4c1da8ffcf7",
+        "83494d37-c927-47e6-8fba-206452a909e2",
+        "2e727511-0634-4d0b-9078-feb6b5112b34",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "67cd0936-d274-44a5-8c48-f4c1da8ffcf7",
+        "83494d37-c927-47e6-8fba-206452a909e2",
+        "2e727511-0634-4d0b-9078-feb6b5112b34"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-A-023",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "913a6e8c-e934-42e8-b116-6f7baabdbeaf",
+        "d7c327be-46ac-4910-bee1-f288b63b99e0",
+        "39bfde2a-7d70-4c32-8b26-7392fee29ef4",
+        "20d9f488-0f6e-4fbc-9fb5-d8911b23ce21",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "d7c327be-46ac-4910-bee1-f288b63b99e0",
+        "39bfde2a-7d70-4c32-8b26-7392fee29ef4",
+        "20d9f488-0f6e-4fbc-9fb5-d8911b23ce21"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-A-033",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "monitor/llayer",
+      "root_cause_layer": "L",
+      "evidence": [
+        "54458756-4568-49aa-8c77-bf2193e9c1f6",
+        "318a3688-7a61-40be-9e56-3ce11e674934",
+        "169d4177-35cf-43ec-87ce-cf28896db938",
+        "9a56dbd1-6dcc-4366-8620-821051a6aeaf",
+        "L001",
+        "C002"
+      ],
+      "span_ids": [
+        "318a3688-7a61-40be-9e56-3ce11e674934",
+        "169d4177-35cf-43ec-87ce-cf28896db938",
+        "9a56dbd1-6dcc-4366-8620-821051a6aeaf"
+      ],
+      "suggested_value": null,
+      "confidence": 0.6667,
+      "req_id": "TAU-A-045",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "73dd0e91-df62-4a25-a363-7fd865c46e03",
+        "f95f3a87-669d-4a95-a005-45f8e73dd759",
+        "64b15705-e823-4c8f-96f4-f30f8afca0b0",
+        "bdc053a4-d0d7-420f-b7e1-2a228a6d68d1",
+        "C002"
+      ],
+      "span_ids": [
+        "f95f3a87-669d-4a95-a005-45f8e73dd759",
+        "64b15705-e823-4c8f-96f4-f30f8afca0b0",
+        "bdc053a4-d0d7-420f-b7e1-2a228a6d68d1"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-046",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "cf05d238-77fe-485b-88f1-1c2a34ed5e3b",
+        "78ce913a-d5a2-43d4-ba12-f5a5afd15214",
+        "f7c757fd-cc6e-4984-b678-7b800cfc9dae",
+        "4a83620c-8092-410f-af1a-bec85049dbf0",
+        "C002"
+      ],
+      "span_ids": [
+        "78ce913a-d5a2-43d4-ba12-f5a5afd15214",
+        "f7c757fd-cc6e-4984-b678-7b800cfc9dae",
+        "4a83620c-8092-410f-af1a-bec85049dbf0"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-A-047",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "e1e34d26-cb5a-4dda-ad36-2236d0ff4cf3",
+        "a66e2431-8c67-4899-bbd8-96466d90d4be",
+        "37076bf9-8762-4154-aa1a-2f1eb762ad82",
+        "dfe05360-401c-400b-b075-662cffbc3b2e",
+        "C002"
+      ],
+      "span_ids": [
+        "a66e2431-8c67-4899-bbd8-96466d90d4be",
+        "37076bf9-8762-4154-aa1a-2f1eb762ad82",
+        "dfe05360-401c-400b-b075-662cffbc3b2e"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-013",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "d549c48f-b7a2-4433-8a22-acedcb1790e0",
+        "211e396f-83e7-4632-9521-c4e43345027f",
+        "20618cf7-7256-4bd4-ab48-30189c64810b",
+        "ce27add8-5b8b-4154-bd14-f31de9cd4e36",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "211e396f-83e7-4632-9521-c4e43345027f",
+        "20618cf7-7256-4bd4-ab48-30189c64810b",
+        "ce27add8-5b8b-4154-bd14-f31de9cd4e36"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-020",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "398ebbd5-9757-4740-8a6f-1846c431d909",
+        "ddf2efd9-acfc-46d6-9e0b-660f5a93e0e9",
+        "a5bf3d9c-f626-470c-ac5b-f96806ffa00b",
+        "27867122-6161-4387-950f-5f16c3530659",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "ddf2efd9-acfc-46d6-9e0b-660f5a93e0e9",
+        "a5bf3d9c-f626-470c-ac5b-f96806ffa00b",
+        "27867122-6161-4387-950f-5f16c3530659"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-022",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "5c819950-787a-485e-a6f4-53eeace9cd53",
+        "787efb31-3fb2-4fa1-bbd3-bc5d4c4883fd",
+        "81706fa8-e93d-4b65-9b80-e8782c67ac6f",
+        "30fa7c98-6749-4aca-a9c6-ef2edaed6360",
+        "C002"
+      ],
+      "span_ids": [
+        "787efb31-3fb2-4fa1-bbd3-bc5d4c4883fd",
+        "81706fa8-e93d-4b65-9b80-e8782c67ac6f",
+        "30fa7c98-6749-4aca-a9c6-ef2edaed6360"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-029",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "a6a3a3d7-1d82-4d3d-b6e4-d6e4ab292e7a",
+        "660783e1-64da-4c53-be6c-a963d6159589",
+        "95cec7d2-6d7f-415a-afae-5de1a133fa6a",
+        "1504e0b5-86e9-4a5c-8716-3f1d2e61d5ea",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "660783e1-64da-4c53-be6c-a963d6159589",
+        "95cec7d2-6d7f-415a-afae-5de1a133fa6a",
+        "1504e0b5-86e9-4a5c-8716-3f1d2e61d5ea"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-038",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "ca256c8e-d8c3-47c0-871a-f02565c467c1",
+        "689f276a-352e-418c-8a7d-9961ac0069af",
+        "b24d4d1f-a616-44d3-bbaa-98cfde2073cf",
+        "50c12101-9ef9-42b0-b7d2-6d8b8ec233f4",
+        "C002"
+      ],
+      "span_ids": [
+        "689f276a-352e-418c-8a7d-9961ac0069af",
+        "b24d4d1f-a616-44d3-bbaa-98cfde2073cf",
+        "50c12101-9ef9-42b0-b7d2-6d8b8ec233f4"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-039",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "afaeaf16-88cb-477e-ba8d-faaf0538141b",
+        "3da4729b-c08b-42a6-b2ae-148b15cae733",
+        "594b362b-0d50-455f-9cbc-6cb99c678d37",
+        "588f628a-460d-4771-9ff4-62a2394a2fb1",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "3da4729b-c08b-42a6-b2ae-148b15cae733",
+        "594b362b-0d50-455f-9cbc-6cb99c678d37",
+        "588f628a-460d-4771-9ff4-62a2394a2fb1"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-049",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "471bdc1c-0233-4af7-9f17-69d273b667c4",
+        "c62614e2-977c-41b1-9ef8-26a86cfab1c6",
+        "bbb931b7-2e43-4a7d-8eaf-8865787c910a",
+        "952ee54d-a14e-4fbb-9388-83a5ec328f18",
+        "C002"
+      ],
+      "span_ids": [
+        "c62614e2-977c-41b1-9ef8-26a86cfab1c6",
+        "bbb931b7-2e43-4a7d-8eaf-8865787c910a",
+        "952ee54d-a14e-4fbb-9388-83a5ec328f18"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-052",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "51c917f7-6253-43fe-85bf-d5cb83eee065",
+        "0164634c-1ff9-4bd6-899c-9220fc378f4b",
+        "00fa8d41-635b-4820-a188-7991996ef411",
+        "bfad5304-b96b-4be0-a8cf-318be653a92b",
+        "C002"
+      ],
+      "span_ids": [
+        "0164634c-1ff9-4bd6-899c-9220fc378f4b",
+        "00fa8d41-635b-4820-a188-7991996ef411",
+        "bfad5304-b96b-4be0-a8cf-318be653a92b"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-056",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "39600f20-e920-4fbe-b6c5-b6043174856c",
+        "490c239f-7c52-435e-9153-25062b56ba51",
+        "d7ee5ace-0e32-4930-9873-58386b035940",
+        "9ce49110-fd0c-4a5e-9b08-8411ac9fd0ad",
+        "C002"
+      ],
+      "span_ids": [
+        "490c239f-7c52-435e-9153-25062b56ba51",
+        "d7ee5ace-0e32-4930-9873-58386b035940",
+        "9ce49110-fd0c-4a5e-9b08-8411ac9fd0ad"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-064",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "7220f855-d3a2-4bcf-8c50-7ab5fb32f9a8",
+        "15d14db2-7aa7-4c45-b59c-dd81d22042bf",
+        "e0eb9bff-d153-4fb3-8bbe-bf02c0a902dc",
+        "13349716-802b-4139-925f-ac3054a585c6",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "15d14db2-7aa7-4c45-b59c-dd81d22042bf",
+        "e0eb9bff-d153-4fb3-8bbe-bf02c0a902dc",
+        "13349716-802b-4139-925f-ac3054a585c6"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-R-072",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "49597bf8-c350-4e19-94ea-66a81a84ec23",
+        "698ab86d-bfad-4e61-9ac7-78b91587c15d",
+        "2f0c02fb-da0d-4587-9821-57acf2f82b97",
+        "12f20a8b-e70b-47e3-b044-0ef77f6d111a",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "698ab86d-bfad-4e61-9ac7-78b91587c15d",
+        "2f0c02fb-da0d-4587-9821-57acf2f82b97",
+        "12f20a8b-e70b-47e3-b044-0ef77f6d111a"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-R-074",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "8dccfe65-ce0b-4696-a7e5-7cca662b2c0f",
+        "aaa278dd-817b-4065-ad45-85dc83836e43",
+        "d0056e07-8fc9-4bdf-a0d4-713f890b4258",
+        "fe4807ce-dc08-498f-8031-000e978fc823",
+        "C002"
+      ],
+      "span_ids": [
+        "aaa278dd-817b-4065-ad45-85dc83836e43",
+        "d0056e07-8fc9-4bdf-a0d4-713f890b4258",
+        "fe4807ce-dc08-498f-8031-000e978fc823"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-079",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "480a1abf-fa82-4c7b-ae57-16d69857552f",
+        "2147b121-d61e-44b2-a1ed-08af34c2b4a5",
+        "327ad88f-1d7e-4a9d-8bac-2d8524b578a4",
+        "41addfdf-4876-41f6-a290-d9d79789e989",
+        "C002"
+      ],
+      "span_ids": [
+        "2147b121-d61e-44b2-a1ed-08af34c2b4a5",
+        "327ad88f-1d7e-4a9d-8bac-2d8524b578a4",
+        "41addfdf-4876-41f6-a290-d9d79789e989"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-088",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "dc978a91-8d25-461e-a602-b725ad9afd8f",
+        "8198709a-3de9-4c8c-bf24-4a1e2688c2a1",
+        "bd29fdfb-05ed-4208-8e7c-6573889cb555",
+        "fc2b4277-a6a8-4335-bed8-18b65a8ebe11",
+        "C002"
+      ],
+      "span_ids": [
+        "8198709a-3de9-4c8c-bf24-4a1e2688c2a1",
+        "bd29fdfb-05ed-4208-8e7c-6573889cb555",
+        "fc2b4277-a6a8-4335-bed8-18b65a8ebe11"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-091",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "66474719-89ac-4198-b19a-2d281511c385",
+        "80b50945-9d96-4ae5-9550-c9257de84f22",
+        "84293dc2-55c1-4185-b012-ebd7388af35e",
+        "40747dac-873d-4932-989f-c3cf3928ac60",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "80b50945-9d96-4ae5-9550-c9257de84f22",
+        "84293dc2-55c1-4185-b012-ebd7388af35e",
+        "40747dac-873d-4932-989f-c3cf3928ac60"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-099",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "f0ef4f7f-7cd8-4ea5-9af8-51ee19d6e1d9",
+        "af3fbdf5-c6dc-4587-adca-fd688d31e2a4",
+        "28ea502f-e2a2-4007-8b4d-061a7cce5acf",
+        "79fc9fbf-af29-4c62-907b-ebdaf093f48f",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "af3fbdf5-c6dc-4587-adca-fd688d31e2a4",
+        "28ea502f-e2a2-4007-8b4d-061a7cce5acf",
+        "79fc9fbf-af29-4c62-907b-ebdaf093f48f"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-100",
+      "loss": 1.0
+    },
+    {
+      "type": "threshold_patch",
+      "target": "monitor/elayer",
+      "root_cause_layer": "E",
+      "evidence": [
+        "4d644b8d-8cf2-4f34-bfb3-a656bef545fe",
+        "161c985a-b53a-46d5-ad7f-39d04a5667fb",
+        "8d5bd832-e89d-4ffa-8811-7f4385f8384a",
+        "be536985-38b9-4dfe-9e06-84d89f8d974f",
+        "L002",
+        "C002",
+        "E002"
+      ],
+      "span_ids": [
+        "161c985a-b53a-46d5-ad7f-39d04a5667fb",
+        "8d5bd832-e89d-4ffa-8811-7f4385f8384a",
+        "be536985-38b9-4dfe-9e06-84d89f8d974f"
+      ],
+      "suggested_value": null,
+      "confidence": 0.3333,
+      "req_id": "TAU-R-105",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "9477dd3f-3646-4ca0-94e4-42963cab8049",
+        "f46ca949-759a-4b17-82eb-130c5cc94aec",
+        "5478ea2e-8b3a-446e-b456-2d5c755a7ca3",
+        "26396fab-b11c-4359-9c5a-cfe6f77af63d",
+        "C002"
+      ],
+      "span_ids": [
+        "f46ca949-759a-4b17-82eb-130c5cc94aec",
+        "5478ea2e-8b3a-446e-b456-2d5c755a7ca3",
+        "26396fab-b11c-4359-9c5a-cfe6f77af63d"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-106",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "4983c50c-1e82-4bba-8b66-ae0a32c13694",
+        "e2efce68-ede8-4ee2-bbaa-233447544279",
+        "521048d8-0537-448b-9872-38297168f6c4",
+        "7c6668f9-cb2d-4428-96cb-8eabef165d37",
+        "L002",
+        "C002"
+      ],
+      "span_ids": [
+        "e2efce68-ede8-4ee2-bbaa-233447544279",
+        "521048d8-0537-448b-9872-38297168f6c4",
+        "7c6668f9-cb2d-4428-96cb-8eabef165d37"
+      ],
+      "suggested_value": null,
+      "confidence": 0.5,
+      "req_id": "TAU-R-108",
+      "loss": 1.0
+    },
+    {
+      "type": "prompt_hint",
+      "target": "SYSTEM_PROMPT",
+      "root_cause_layer": "C",
+      "evidence": [
+        "f951cd28-fcaa-443f-a251-e778a9a9e9e6",
+        "feffda8e-a31a-48d3-9816-c8c49829181a",
+        "0ff4dd88-000f-45d5-b9fd-17fe68877923",
+        "ce203349-c4c8-448d-add3-b9b83781e508",
+        "C002"
+      ],
+      "span_ids": [
+        "feffda8e-a31a-48d3-9816-c8c49829181a",
+        "0ff4dd88-000f-45d5-b9fd-17fe68877923",
+        "ce203349-c4c8-448d-add3-b9b83781e508"
+      ],
+      "suggested_value": null,
+      "confidence": 1.0,
+      "req_id": "TAU-R-110",
+      "loss": 1.0
+    }
+  ]
+}

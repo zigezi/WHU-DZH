@@ -57,12 +57,18 @@ def build_proposals(report: dict):
             continue
         diagnosis = shapley_diagnosis.get_root_cause(trace)
         layer = diagnosis.get("root_cause_layer")
+        span_ids = [e.get("span_id") for e in diagnosis.get("evidence", [])
+                    if e.get("span_id")]
+        span_ids += [s for s in diagnosis.get("root_cause_span_ids", []) if s]
+        span_ids = list(dict.fromkeys(span_ids))
         proposals.append({
             "type": TYPE_BY_LAYER.get(layer, "prompt_hint"),
             "target": _target(layer, entry["req_id"]),
-            "evidence": [entry["task_id"]] + [
+            "root_cause_layer": layer,
+            "evidence": [entry["task_id"]] + span_ids + [
                 a["rule_id"] for a in diagnosis.get("anomalies", [])
             ],
+            "span_ids": span_ids,
             "suggested_value": None,
             "confidence": round((diagnosis.get("confidence") or 0) / 100, 4),
             "req_id": entry["req_id"],
@@ -75,18 +81,47 @@ def generate(report_path: str) -> str:
     with open(report_path, "r", encoding="utf-8") as f:
         report = json.load(f)
     proposals = build_proposals(report)
+    epoch = report.get("epoch")
+    cost = {
+        "updater_llm_tokens": 0,
+        "note": "updater 使用确定性 Shapley 归因（anomaly 规则 + 边际贡献），无 LLM 调用，token 消耗为 0",
+        "budget_cny": 10.0,
+        "spent_cny": 0.0,
+    }
     package = {
-        "epoch": report.get("epoch"),
+        "epoch": epoch,
         "generated_at": datetime.now().isoformat(),
         "note": "v1：仅生成提案，需人工审阅后手动应用并单独 commit",
         "source_report": os.path.basename(report_path),
+        "cost": cost,
         "proposals": proposals,
     }
     os.makedirs(PROPOSAL_DIR, exist_ok=True)
-    out = os.path.join(PROPOSAL_DIR, f"epoch-{report.get('epoch')}-proposal.json")
+    out = os.path.join(PROPOSAL_DIR, f"epoch-{epoch}-proposal.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump(package, f, ensure_ascii=False, indent=2)
-    print(f"[updater] {len(proposals)} proposals -> {out}")
+
+    # 记入 spans：updater 自身运行记录（tokens=0）
+    try:
+        import time as _time
+        from monitor.schema import Trace
+        from monitor.collector import add_event
+        utid = f"updater-epoch-{epoch}"
+        trace_store.add_trace(Trace(
+            trace_id=utid, task_id=utid,
+            task_content=f"updater run epoch {epoch}",
+            start_time=_time.time(), status="success",
+        ))
+        add_event(
+            trace_id=utid, name="updater运行", layer="O",
+            span_type="updater_run",
+            attributes={"updater_llm_tokens": 0, "proposals": len(proposals),
+                        "budget_cny": 10.0, "spent_cny": 0.0},
+        )
+    except Exception:  # noqa: BLE001
+        pass
+
+    print(f"[updater] {len(proposals)} proposals -> {out} (tokens=0, spent=¥0.00/¥10)")
     return out
 
 

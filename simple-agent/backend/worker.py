@@ -43,7 +43,8 @@ DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1")
 
 MODEL_NAME = "deepseek-chat"
-MAX_STEPS = 10
+# P5a 约束 6：τ 批跑需更高天花板，常规任务默认 10
+MAX_STEPS = int(os.getenv("SA_MAX_STEPS", "10"))
 WORK_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "workspace"))
 
 os.makedirs(WORK_DIR, exist_ok=True)
@@ -150,10 +151,39 @@ def _store_precedent(req: TaskRequest, steps: list, tokens: int,
     })
 
 
+def _inject_precedent(req: TaskRequest, trace_id: str, sig_family: str,
+                      messages: list, parent_span_id: str):
+    """P5a.6 补丁2：precedent-assisted 臂——按新签名取相似先例，注入 plan 摘要（≤500 token）。"""
+    best, sim = None, 0.0
+    for p in trace_store.list_precedents():
+        s = 1.0 if p.get("sig") == sig_family else \
+            signature.similarity(req.content, p.get("content") or "")
+        if s > sim:
+            sim, best = s, p
+    if best is None or sim < 0.2:
+        return
+    plan = best.get("plan") or []
+    summary = json.dumps(plan, ensure_ascii=False)[:2000]  # ≈500 token 上限
+    tokens_injected = len(summary) // 4
+    add_event(
+        trace_id=trace_id, name="先例注入", layer="L",
+        span_type="precedent_injected", parent_span_id=parent_span_id,
+        attributes={"precedent_sig": best.get("sig"),
+                    "similarity": round(sim, 4),
+                    "tokens_injected": tokens_injected},
+    )
+    # 插到 wiki system 之后、首轮 user 之前
+    messages.insert(1, {
+        "role": "system",
+        "content": f"[precedent] 相似历史任务的工具调用序列摘要：{summary}",
+    })
+
+
 def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
-                 plan_node_id: str = None) -> ToolResult:
+                 plan_node_id: str = None, registry=None) -> ToolResult:
     """统一工具执行入口：E 层埋点由 ToolRegistry 负责。"""
-    return tool_registry.execute(ToolCall(
+    reg = registry or tool_registry
+    return reg.execute(ToolCall(
         tool_name=tool_name,
         args=args,
         trace_id=trace_id,
@@ -224,6 +254,57 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
     if req.req_id:
         _abstain_check(req.content, req.task_id, task_span.span.span_id)
 
+    # P5a 5a.1：τ 模式检测 + DialogueDriver（多轮回路）
+    tau_spec = None
+    driver = None
+    active_registry = tool_registry
+    if req.req_id:
+        try:
+            spec = loader.get(req.req_id)
+            if spec.get("tau_env"):
+                tau_spec = spec
+        except Exception:
+            tau_spec = None
+    if tau_spec is not None:
+        try:
+            from dialogue_driver import DialogueDriver
+            driver = DialogueDriver(
+                req, req.task_id, tau_spec, client,
+                task_span.span.span_id, add_event,
+            )
+            first_user = driver.start()
+            active_registry = driver.registry
+            # τ 模式：wiki 作 system prompt；turn 0 真实用户消息（非占位开场白）
+            messages = [
+                {"role": "system", "content": driver.system_prompt},
+                {"role": "user", "content": first_user},
+            ]
+        except Exception as e:  # noqa: BLE001
+            status.status = "failed"
+            status.error = f"[tau] driver init failed: {e}"
+            driver = None
+
+    # P5a.6 补丁1：τ 用 hidden instruction 的签名（REQ.sig），常规任务用 task 文本
+    sig_family = (tau_spec.get("sig") if tau_spec else None) or signature.sign(req.content)
+
+    # P5a.6 补丁2：臂选择（仅 τ；dev 固定 direct，避免尺子被处理污染）
+    arm = "direct"
+    if tau_spec is not None and driver is not None:
+        if tau_spec.get("split") == "dev":
+            arm, explored = "direct", False
+        else:
+            arm, explored = router.choose_meta(
+                sig_family, ["direct", "precedent-assisted"])
+        add_event(
+            trace_id=req.task_id, name="臂选择", layer="L",
+            span_type="arm_choice", parent_span_id=task_span.span.span_id,
+            attributes={"sig_family": sig_family, "arm": arm,
+                        "exploration": explored},
+        )
+        if arm == "precedent-assisted":
+            _inject_precedent(req, req.task_id, sig_family, messages,
+                              task_span.span.span_id)
+
     try:
         # 预算一致性（v2.1）：循环上界 = min(需求 max_steps, 系统天花板 MAX_STEPS)
         step_ceiling = min(budget["max_steps"], MAX_STEPS)
@@ -262,7 +343,7 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
                     resp = client.chat.completions.create(
                         model=MODEL_NAME,
                         messages=messages,
-                        tools=tool_registry.get_schemas(),
+                        tools=active_registry.get_schemas(),
                         tool_choice="auto",
                     )
                     usage = resp.usage
@@ -271,6 +352,11 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
                         "prompt_tokens": usage.prompt_tokens,
                         "completion_tokens": usage.completion_tokens,
                         "total_tokens": usage.total_tokens,
+                        # P5a.9 §三.2：DeepSeek prompt cache instrumentation
+                        "prompt_cache_hit_tokens": getattr(
+                            usage, "prompt_cache_hit_tokens", None),
+                        "prompt_cache_miss_tokens": getattr(
+                            usage, "prompt_cache_miss_tokens", None),
                     })
 
                 message = resp.choices[0].message
@@ -278,8 +364,20 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
 
                 tool_calls = getattr(message, "tool_calls", None)
 
-                # 无工具调用 = 任务完成
+                # 无工具调用：τ 模式 = RESPOND（继续对话）；否则 = 任务完成
                 if not tool_calls:
+                    if driver is not None:
+                        nxt = driver.on_respond(
+                            message.content or "", resp.usage.total_tokens)
+                        if nxt is None:
+                            # driver 判定 ###STOP###，对话自然结束
+                            status.result = message.content
+                            status.status = "success"
+                            step_span.set_attribute("tau_stop", True)
+                            break
+                        messages.append(message)
+                        messages.append({"role": "user", "content": nxt})
+                        continue
                     status.result = message.content
                     status.status = "success"
                     step_span.set_attribute("finished", True)
@@ -288,7 +386,16 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
                 messages.append(message)
                 for tool_call in tool_calls:
                     tool_calls_count += 1
-                    args = json.loads(tool_call.function.arguments)
+                    try:
+                        args = json.loads(tool_call.function.arguments)
+                    except (json.JSONDecodeError, TypeError) as e:
+                        # LLM 偶发产出非法 JSON 参数：回灌错误，不让整个任务崩掉
+                        failed_tool_calls += 1
+                        messages.append({
+                            "role": "tool", "tool_call_id": tool_call.id,
+                            "content": f"Error: invalid JSON arguments: {e}",
+                        })
+                        continue
 
                     step_start = time.time()
                     # 3. 工具协议埋点（T层），内部再由 registry 产生 E 层执行埋点
@@ -305,6 +412,7 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
                                 tool_name=tool_call.function.name,
                                 args=args,
                                 plan_node_id=node_id,
+                                registry=active_registry if driver is not None else None,
                             )
                             step_success = result.success
                             step_error = result.error
@@ -349,8 +457,18 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
                         break
                     if gv.decision == "PARTIAL":
                         fb = guard.pop_feedback(req.task_id)
-                        if fb and fb.get("msg"):
+                        # τ 模式下不注入纠偏消息，避免污染多轮对话
+                        if fb and fb.get("msg") and driver is None:
                             messages.append({"role": "user", "content": fb["msg"]})
+
+                if driver is not None:
+                    driver.note_tool_step()
+                    if driver.last_done:
+                        # 第 4 条终止路径：agent 调 terminate 工具 → env.done
+                        status.status = "success"
+                        status.result = status.result or "env.done (terminate tool)"
+                        step_span.set_attribute("tau_done", True)
+                        break
 
                 if halted_reason:
                     step_span.set_attribute("g_halted", True)
@@ -376,6 +494,27 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
     except Exception as e:
         status.status = "failed"
         status.error = str(e)
+
+    # P5a 5a.3：τ episode 结束 → evaluator reward → V 层（loss = 1 - reward）
+    if driver is not None:
+        try:
+            tau_reward, tau_info = driver.finish()
+            if tau_reward is not None:
+                from requirements.adapters.tau.scoring import score_tau_episode
+                score_tau_episode(
+                    req.task_id, tau_reward, tau_info, task_span.span.span_id
+                )
+                status.result = f"{status.result or ''} | tau_reward={tau_reward}"
+            user_tokens = driver.simulator.total_tokens if driver.simulator else 0
+            add_event(
+                trace_id=req.task_id, name="τ成本", layer="O",
+                span_type="tau_cost", parent_span_id=task_span.span.span_id,
+                attributes={"agent_tokens": total_tokens,
+                            "user_tokens": user_tokens,
+                            "total_tokens": total_tokens + user_tokens},
+            )
+        except Exception as e:  # noqa: BLE001
+            status.error = (status.error or "") + f" [tau scoring: {e}]"
 
     # 4. O 层：埋点自检（记录哪些层级缺失）
     spans = trace_store.get_spans_by_trace(req.task_id)
@@ -419,10 +558,9 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
     status.tool_calls_count = tool_calls_count
     status.created_at_ts = status.created_at.timestamp()
 
-    # P3.2 / P3.3：路由后验更新 + 成功先例入库
+    # P3.2 / P3.3 / P5a.6：路由后验更新（按实际臂）+ 成功先例入库
     try:
-        sig_family = signature.sign(req.content)
-        router.update(sig_family, "direct", status.status == "success", total_tokens)
+        router.update(sig_family, arm, status.status == "success", total_tokens)
         if status.status == "success":
             _store_precedent(req, steps, total_tokens, status.duration_ms, sig_family)
     except Exception:
