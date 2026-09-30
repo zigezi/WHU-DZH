@@ -1,0 +1,1961 @@
+{
+ "note": "P5a.27 §六.2 F1 逆向 lint 初版；脚本初筛，人工终裁（S/A/U）",
+ "n_injected": 72,
+ "n_self": 9,
+ "n_with_answer_values": 72,
+ "rows": [
+  {
+   "task": "TAU-A-000",
+   "injectant": "TAU-A-000",
+   "self": true,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-002",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-005",
+   "injectant": "TAU-A-005",
+   "self": true,
+   "content_sha256_16": "09e0043e1f43bcaa",
+   "plan_bytes": 1200,
+   "answer_value_flags": {
+    "user_id": [
+     "omar_rossi_1241"
+    ],
+    "payment_id": [
+     "gift_card_8190333"
+    ],
+    "flight_no": [
+     "HAT056",
+     "HAT138"
+    ],
+    "date": [
+     "1970-06-06",
+     "2024-05-25"
+    ],
+    "reservation_id": [
+     "5RJ7UH",
+     "FQ8APE",
+     "HAT056",
+     "HAT138",
+     "QKRY03",
+     "UM3OG5"
+    ],
+    "name": [
+     "Omar",
+     "Rossi"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-007",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-008",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-012",
+   "injectant": "TAU-A-012",
+   "self": true,
+   "content_sha256_16": "415ce425000aafe7",
+   "plan_bytes": 701,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_sanchez_4739"
+    ],
+    "date": [
+     "2024-05-06",
+     "2024-05-28"
+    ],
+    "reservation_id": [
+     "3FRNFB",
+     "Q4L9HS"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-013",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-014",
+   "injectant": "TAU-A-014",
+   "self": true,
+   "content_sha256_16": "151c5b7752a0b69b",
+   "plan_bytes": 538,
+   "answer_value_flags": {
+    "user_id": [
+     "chen_lee_6825"
+    ],
+    "payment_id": [
+     "credit_card_4938634"
+    ],
+    "date": [
+     "2024-05-18",
+     "2024-05-19"
+    ],
+    "reservation_id": [
+     "YAX4DR"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-016",
+   "injectant": "TAU-A-016",
+   "self": true,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-018",
+   "injectant": "TAU-A-012",
+   "self": false,
+   "content_sha256_16": "415ce425000aafe7",
+   "plan_bytes": 701,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_sanchez_4739"
+    ],
+    "date": [
+     "2024-05-06",
+     "2024-05-28"
+    ],
+    "reservation_id": [
+     "3FRNFB",
+     "Q4L9HS"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-020",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-022",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-023",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-024",
+   "injectant": "TAU-A-012",
+   "self": false,
+   "content_sha256_16": "415ce425000aafe7",
+   "plan_bytes": 701,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_sanchez_4739"
+    ],
+    "date": [
+     "2024-05-06",
+     "2024-05-28"
+    ],
+    "reservation_id": [
+     "3FRNFB",
+     "Q4L9HS"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-028",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-029",
+   "injectant": "TAU-A-029",
+   "self": true,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-035",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-036",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-037",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-042",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-043",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-046",
+   "injectant": "TAU-A-046",
+   "self": true,
+   "content_sha256_16": "7ec13f076c737de3",
+   "plan_bytes": 156,
+   "answer_value_flags": {
+    "user_id": [
+     "noah_muller_9847"
+    ],
+    "reservation_id": [
+     "4OG6T3"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-047",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-048",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "content_sha256_16": "2acf130a0f67e7f4",
+   "plan_bytes": 637,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_davis_8890"
+    ],
+    "reservation_id": [
+     "4XGCCM",
+     "8C8K4E",
+     "I6M8JQ",
+     "LU15PA",
+     "MSJ4OA",
+     "UDMOP1"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-A-049",
+   "injectant": "TAU-A-012",
+   "self": false,
+   "content_sha256_16": "415ce425000aafe7",
+   "plan_bytes": 701,
+   "answer_value_flags": {
+    "user_id": [
+     "amelia_sanchez_4739"
+    ],
+    "date": [
+     "2024-05-06",
+     "2024-05-28"
+    ],
+    "reservation_id": [
+     "3FRNFB",
+     "Q4L9HS"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-005",
+   "injectant": "TAU-R-000",
+   "self": false,
+   "content_sha256_16": "4b2ee68a301b99c2",
+   "plan_bytes": 553,
+   "answer_value_flags": {
+    "order_id": [
+     "#W2378156"
+    ],
+    "payment_id": [
+     "credit_card_9513926"
+    ],
+    "name": [
+     "Rossi",
+     "Yusuf"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-006",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-011",
+   "injectant": "TAU-R-011",
+   "self": true,
+   "content_sha256_16": "d7a20f2b3740ce03",
+   "plan_bytes": 651,
+   "answer_value_flags": {
+    "order_id": [
+     "#W5490111",
+     "#W7387996"
+    ],
+    "user_id": [
+     "mia_garcia_4516"
+    ],
+    "payment_id": [
+     "credit_card_3124723"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-012",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-013",
+   "injectant": "TAU-R-011",
+   "self": false,
+   "content_sha256_16": "d7a20f2b3740ce03",
+   "plan_bytes": 651,
+   "answer_value_flags": {
+    "order_id": [
+     "#W5490111",
+     "#W7387996"
+    ],
+    "user_id": [
+     "mia_garcia_4516"
+    ],
+    "payment_id": [
+     "credit_card_3124723"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-019",
+   "injectant": "TAU-R-019",
+   "self": true,
+   "content_sha256_16": "03a57e1833d9fc65",
+   "plan_bytes": 996,
+   "answer_value_flags": {
+    "order_id": [
+     "#W1267569",
+     "#W2890441"
+    ],
+    "user_id": [
+     "mei_davis_8935"
+    ],
+    "payment_id": [
+     "credit_card_1061405"
+    ],
+    "name": [
+     "Davis",
+     "Mei"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-020",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-025",
+   "injectant": "TAU-A-040",
+   "self": false,
+   "content_sha256_16": "97802d99af257537",
+   "plan_bytes": 249,
+   "answer_value_flags": {
+    "user_id": [
+     "sophia_silva_7557"
+    ],
+    "reservation_id": [
+     "H8Q05L"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-027",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-028",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "content_sha256_16": "151c5b7752a0b69b",
+   "plan_bytes": 538,
+   "answer_value_flags": {
+    "user_id": [
+     "chen_lee_6825"
+    ],
+    "payment_id": [
+     "credit_card_4938634"
+    ],
+    "date": [
+     "2024-05-18",
+     "2024-05-19"
+    ],
+    "reservation_id": [
+     "YAX4DR"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-030",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-033",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-034",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-036",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-040",
+   "injectant": "TAU-A-046",
+   "self": false,
+   "content_sha256_16": "7ec13f076c737de3",
+   "plan_bytes": 156,
+   "answer_value_flags": {
+    "user_id": [
+     "noah_muller_9847"
+    ],
+    "reservation_id": [
+     "4OG6T3"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-041",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-042",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-043",
+   "injectant": "TAU-R-000",
+   "self": false,
+   "content_sha256_16": "4b2ee68a301b99c2",
+   "plan_bytes": 553,
+   "answer_value_flags": {
+    "order_id": [
+     "#W2378156"
+    ],
+    "payment_id": [
+     "credit_card_9513926"
+    ],
+    "name": [
+     "Rossi",
+     "Yusuf"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-045",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "content_sha256_16": "151c5b7752a0b69b",
+   "plan_bytes": 538,
+   "answer_value_flags": {
+    "user_id": [
+     "chen_lee_6825"
+    ],
+    "payment_id": [
+     "credit_card_4938634"
+    ],
+    "date": [
+     "2024-05-18",
+     "2024-05-19"
+    ],
+    "reservation_id": [
+     "YAX4DR"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-048",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-049",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "content_sha256_16": "151c5b7752a0b69b",
+   "plan_bytes": 538,
+   "answer_value_flags": {
+    "user_id": [
+     "chen_lee_6825"
+    ],
+    "payment_id": [
+     "credit_card_4938634"
+    ],
+    "date": [
+     "2024-05-18",
+     "2024-05-19"
+    ],
+    "reservation_id": [
+     "YAX4DR"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-050",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-052",
+   "injectant": "TAU-R-000",
+   "self": false,
+   "content_sha256_16": "4b2ee68a301b99c2",
+   "plan_bytes": 553,
+   "answer_value_flags": {
+    "order_id": [
+     "#W2378156"
+    ],
+    "payment_id": [
+     "credit_card_9513926"
+    ],
+    "name": [
+     "Rossi",
+     "Yusuf"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-053",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-055",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-056",
+   "injectant": "TAU-R-019",
+   "self": false,
+   "content_sha256_16": "03a57e1833d9fc65",
+   "plan_bytes": 996,
+   "answer_value_flags": {
+    "order_id": [
+     "#W1267569",
+     "#W2890441"
+    ],
+    "user_id": [
+     "mei_davis_8935"
+    ],
+    "payment_id": [
+     "credit_card_1061405"
+    ],
+    "name": [
+     "Davis",
+     "Mei"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-058",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "content_sha256_16": "e608098794b52d9a",
+   "plan_bytes": 1943,
+   "answer_value_flags": {
+    "user_id": [
+     "ethan_martin_2396"
+    ],
+    "flight_no": [
+     "HAT039"
+    ],
+    "date": [
+     "2024-05-15"
+    ],
+    "reservation_id": [
+     "3HE6QG",
+     "BSSSM3",
+     "DQST39",
+     "GXWCPN",
+     "HAT039",
+     "HG8X9P"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-061",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "content_sha256_16": "151c5b7752a0b69b",
+   "plan_bytes": 538,
+   "answer_value_flags": {
+    "user_id": [
+     "chen_lee_6825"
+    ],
+    "payment_id": [
+     "credit_card_4938634"
+    ],
+    "date": [
+     "2024-05-18",
+     "2024-05-19"
+    ],
+    "reservation_id": [
+     "YAX4DR"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-070",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-072",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-073",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-074",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-077",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-080",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-082",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-083",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-084",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-092",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-093",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-094",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-097",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-098",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-105",
+   "injectant": "TAU-A-009",
+   "self": false,
+   "content_sha256_16": "4659520a7546cd81",
+   "plan_bytes": 7181,
+   "answer_value_flags": {
+    "user_id": [
+     "mohamed_silva_9265"
+    ],
+    "payment_id": [
+     "certificate_3765853",
+     "credit_card_2198526"
+    ],
+    "flight_no": [
+     "HAT011",
+     "HAT021",
+     "HAT023",
+     "HAT025",
+     "HAT068",
+     "HAT069"
+    ],
+    "date": [
+     "2024-05-14",
+     "2024-05-15",
+     "2024-05-26",
+     "2024-05-28",
+     "2024-05-29"
+    ],
+    "reservation_id": [
+     "CANNOT",
+     "HAT011",
+     "HAT021",
+     "HAT023",
+     "HAT025",
+     "HAT068"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-106",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-107",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "content_sha256_16": "d6256716ad65eecd",
+   "plan_bytes": 833,
+   "answer_value_flags": {
+    "user_id": [
+     "mia_li_3668"
+    ],
+    "payment_id": [
+     "certificate_7504069",
+     "credit_card_4421486"
+    ],
+    "flight_no": [
+     "HAT039",
+     "HAT218"
+    ],
+    "date": [
+     "1990-04-05",
+     "2024-05-20"
+    ],
+    "reservation_id": [
+     "HAT039",
+     "HAT218"
+    ],
+    "name": [
+     "Li",
+     "Mia"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-113",
+   "injectant": "TAU-A-005",
+   "self": false,
+   "content_sha256_16": "09e0043e1f43bcaa",
+   "plan_bytes": 1200,
+   "answer_value_flags": {
+    "user_id": [
+     "omar_rossi_1241"
+    ],
+    "payment_id": [
+     "gift_card_8190333"
+    ],
+    "flight_no": [
+     "HAT056",
+     "HAT138"
+    ],
+    "date": [
+     "1970-06-06",
+     "2024-05-25"
+    ],
+    "reservation_id": [
+     "5RJ7UH",
+     "FQ8APE",
+     "HAT056",
+     "HAT138",
+     "QKRY03",
+     "UM3OG5"
+    ],
+    "name": [
+     "Omar",
+     "Rossi"
+    ]
+   },
+   "has_answer_values": true
+  },
+  {
+   "task": "TAU-R-114",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "content_sha256_16": "3451dbaca01c4c64",
+   "plan_bytes": 1503,
+   "answer_value_flags": {
+    "user_id": [
+     "sofia_kim_7287"
+    ],
+    "payment_id": [
+     "gift_card_6276644"
+    ],
+    "flight_no": [
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ],
+    "date": [
+     "2024-05-27"
+    ],
+    "reservation_id": [
+     "4BMN53",
+     "AQLBTL",
+     "HAT078",
+     "HAT118",
+     "HAT175",
+     "HAT290"
+    ]
+   },
+   "has_answer_values": true
+  }
+ ]
+}

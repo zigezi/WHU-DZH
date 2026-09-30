@@ -1,0 +1,169 @@
+{
+ "note": "P5a.27 §六.1 谓词回测；机器输出，不作结论",
+ "runs_with_modify": 291,
+ "multi_modify_target": 48,
+ "modify_error_runs": 23,
+ "fire_too_late": 12,
+ "fire_before": 0,
+ "rescue_rate": "0/12",
+ "harmless_fires": 268,
+ "pure_false_alarm_single_modify": 241,
+ "timing": [
+  {
+   "epoch": 4,
+   "req_id": "TAU-R-041",
+   "order": "#W4082615",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 4,
+   "req_id": "TAU-R-072",
+   "order": "#W5270061",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 4,
+   "req_id": "TAU-R-098",
+   "order": "#W6750959",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 4,
+   "req_id": "TAU-R-105",
+   "order": "#W4860251",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 4,
+   "first_modify_idx": 3,
+   "items_idx": 3,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 5,
+   "req_id": "TAU-R-041",
+   "order": "#W4082615",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 5,
+   "req_id": "TAU-R-072",
+   "order": "#W5270061",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 6,
+   "req_id": "TAU-R-098",
+   "order": "#W6750959",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 6,
+   "req_id": "TAU-R-105",
+   "order": "#W4860251",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 3,
+   "first_modify_idx": 2,
+   "items_idx": 2,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 6,
+   "req_id": "TAU-R-041",
+   "order": "#W4082615",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 6,
+   "req_id": "TAU-R-058",
+   "order": "#W5838674",
+   "calls": [
+    "modify_pending_order_items",
+    "exchange_delivered_order_items"
+   ],
+   "err_idx": 0,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 6,
+   "req_id": "TAU-R-072",
+   "order": "#W5270061",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  },
+  {
+   "epoch": 6,
+   "req_id": "TAU-R-098",
+   "order": "#W6750959",
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address"
+   ],
+   "err_idx": 1,
+   "first_modify_idx": 0,
+   "items_idx": 0,
+   "verdict": "too_late"
+  }
+ ]
+}
