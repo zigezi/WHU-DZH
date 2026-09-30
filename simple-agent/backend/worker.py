@@ -203,6 +203,59 @@ def _inject_precedent(req: TaskRequest, trace_id: str, sig_family: str,
     })
 
 
+_E8_MATRIX = None
+_E8_DEID = None
+
+
+def _e8_paths():
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return (os.path.join(root, ".agent", "reports", "e8-matrix-freeze.json"),
+            os.path.join(root, ".agent", "reports", "e8-deid-snapshot.json"))
+
+
+def _e8_load():
+    global _E8_MATRIX, _E8_DEID
+    if _E8_MATRIX is None:
+        mp, dp = _e8_paths()
+        _E8_MATRIX = {}
+        try:
+            with open(mp, encoding="utf-8") as f:
+                for r in json.load(f).get("matrix", []):
+                    _E8_MATRIX[r["req_id"]] = r
+        except Exception as e:  # noqa: BLE001
+            print(f"[e8] matrix load failed: {e}")
+        try:
+            with open(dp, encoding="utf-8") as f:
+                _E8_DEID = json.load(f)
+        except Exception as e:  # noqa: BLE001
+            _E8_DEID = {}
+            print(f"[e8] deid load failed: {e}")
+    return _E8_MATRIX, _E8_DEID
+
+
+def _inject_frozen(req: TaskRequest, trace_id: str, messages: list, parent_span_id: str):
+    """P5a.33 §四 B：按冻结矩阵注入脱敏计划（三臂 direct/sibling/unrelated）。"""
+    matrix, deid = _e8_load()
+    row = matrix.get(req.req_id) or {}
+    arm = row.get("arm", "direct")
+    deh = row.get("deid_hash")
+    if arm == "direct" or not deh or deh not in deid:
+        add_event(trace_id=trace_id, name="先例跳过", layer="L",
+                  span_type="precedent_skip", parent_span_id=parent_span_id,
+                  attributes={"arm": arm, "reason": row.get("reason", "no_inject"), "source": "e8-frozen"})
+        return arm
+    plan = deid[deh].get("deid_plan") or []
+    summary = json.dumps(plan, ensure_ascii=False)[:2000]
+    add_event(trace_id=trace_id, name="先例注入", layer="L",
+              span_type="precedent_injected", parent_span_id=parent_span_id,
+              attributes={"arm": arm, "precedent_req": row.get("injectant"),
+                          "content_sha256_16": deh, "tokens_injected": len(summary) // 4,
+                          "reason": row.get("reason"), "source": "e8-frozen"})
+    messages.insert(1, {"role": "system",
+                        "content": f"[precedent] 相似历史任务的工具调用序列摘要：{summary}"})
+    return arm
+
+
 def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                  plan_node_id: str = None, registry=None) -> ToolResult:
     """统一工具执行入口：E 层埋点由 ToolRegistry 负责。"""
@@ -311,11 +364,22 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
     # P5a.6 补丁1：τ 用 hidden instruction 的签名（REQ.sig），常规任务用 task 文本
     sig_family = (tau_spec.get("sig") if tau_spec else None) or signature.sign(req.content)
 
-    # P5a.6 补丁2：臂选择（仅 τ；dev 固定 direct，避免尺子被处理污染）
+    # P5a.6 补丁2 / P5a.20 / P5a.33：臂选择（仅 τ；dev 固定 direct）
     arm = "direct"
+    frozen = False
     if tau_spec is not None and driver is not None:
         if tau_spec.get("split") == "dev":
             arm, explored = "direct", False
+        elif os.environ.get("ROUTER_MODE") == "e8":
+            # P5a.33 §四 B：按冻结矩阵注入脱敏计划（三臂 direct/sibling/unrelated）
+            arm = _inject_frozen(req, req.task_id, messages, task_span.span.span_id)
+            explored, frozen = False, True
+            add_event(
+                trace_id=req.task_id, name="臂选择", layer="L",
+                span_type="arm_choice", parent_span_id=task_span.span.span_id,
+                attributes={"sig_family": sig_family, "arm": arm,
+                            "exploration": False, "source": "e8-frozen"},
+            )
         elif os.environ.get("ROUTER_MODE") == "direct":
             # P5a.20 §三.2：epoch-6 干净基线，仅 direct，不注入
             arm, explored = "direct", False
@@ -325,15 +389,16 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
         else:
             arm, explored = router.choose_meta(
                 sig_family, ["direct", "precedent-assisted"])
-        add_event(
-            trace_id=req.task_id, name="臂选择", layer="L",
-            span_type="arm_choice", parent_span_id=task_span.span.span_id,
-            attributes={"sig_family": sig_family, "arm": arm,
-                        "exploration": explored},
-        )
-        if arm == "precedent-assisted":
-            _inject_precedent(req, req.task_id, sig_family, messages,
-                              task_span.span.span_id)
+        if not frozen:
+            add_event(
+                trace_id=req.task_id, name="臂选择", layer="L",
+                span_type="arm_choice", parent_span_id=task_span.span.span_id,
+                attributes={"sig_family": sig_family, "arm": arm,
+                            "exploration": explored},
+            )
+            if arm == "precedent-assisted":
+                _inject_precedent(req, req.task_id, sig_family, messages,
+                                  task_span.span.span_id)
 
     try:
         # 预算一致性（v2.1）：循环上界 = min(需求 max_steps, 系统天花板 MAX_STEPS)
@@ -591,7 +656,7 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
     # P3.2 / P3.3 / P5a.6：路由后验更新（按实际臂）+ 成功先例入库
     try:
         # P5a.20 便签3：测量模式下不更新 Thompson 后验（测量与学习分离）
-        if os.environ.get("ROUTER_MODE") not in ("measurement", "direct"):
+        if os.environ.get("ROUTER_MODE") not in ("measurement", "direct", "e8"):
             router.update(sig_family, arm, status.status == "success", total_tokens)
         if status.status == "success":
             _store_precedent(req, steps, total_tokens, status.duration_ms, sig_family)

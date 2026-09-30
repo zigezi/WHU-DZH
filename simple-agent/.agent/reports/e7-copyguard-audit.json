@@ -1,0 +1,670 @@
+{
+ "note": "e7 CopyGuard 全样本；命中=值在 args 且未经先前工具结果",
+ "audited": 72,
+ "with_hits": 3,
+ "rows": [
+  {
+   "task": "TAU-A-000",
+   "injectant": "TAU-A-000",
+   "self": true,
+   "verdict": "FAIL",
+   "watch_values": 7,
+   "hits": 2,
+   "hit_values": [
+    "2024-05-20"
+   ]
+  },
+  {
+   "task": "TAU-A-002",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-005",
+   "injectant": "TAU-A-005",
+   "self": true,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 4,
+   "hit_values": [
+    "5RJ7UH",
+    "FQ8APE",
+    "QKRY03",
+    "UM3OG5"
+   ]
+  },
+  {
+   "task": "TAU-A-007",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-008",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-012",
+   "injectant": "TAU-A-012",
+   "self": true,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-013",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-014",
+   "injectant": "TAU-A-014",
+   "self": true,
+   "verdict": "FAIL",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-016",
+   "injectant": "TAU-A-016",
+   "self": true,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-018",
+   "injectant": "TAU-A-012",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-020",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-022",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-023",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-024",
+   "injectant": "TAU-A-012",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-028",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-029",
+   "injectant": "TAU-A-029",
+   "self": true,
+   "verdict": "PASS",
+   "watch_values": 8,
+   "hits": 7,
+   "hit_values": [
+    "4XGCCM",
+    "8C8K4E",
+    "I6M8JQ",
+    "LU15PA",
+    "MSJ4OA",
+    "UDMOP1",
+    "XAZ3C0"
+   ]
+  },
+  {
+   "task": "TAU-A-035",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 8,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-036",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 8,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-037",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 8,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-042",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 8,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-043",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-046",
+   "injectant": "TAU-A-046",
+   "self": true,
+   "verdict": "FAIL",
+   "watch_values": 2,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-047",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 8,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-048",
+   "injectant": "TAU-A-029",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 8,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-A-049",
+   "injectant": "TAU-A-012",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-005",
+   "injectant": "TAU-R-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 2,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-006",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-011",
+   "injectant": "TAU-R-011",
+   "self": true,
+   "verdict": "PASS",
+   "watch_values": 4,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-012",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-013",
+   "injectant": "TAU-R-011",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 4,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-019",
+   "injectant": "TAU-R-019",
+   "self": true,
+   "verdict": "PASS",
+   "watch_values": 4,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-020",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-025",
+   "injectant": "TAU-A-040",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 2,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-027",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-028",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-030",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-033",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-034",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-036",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-040",
+   "injectant": "TAU-A-046",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 2,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-041",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-042",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-043",
+   "injectant": "TAU-R-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 2,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-045",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-048",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-049",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-050",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-052",
+   "injectant": "TAU-R-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 2,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-053",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-055",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-056",
+   "injectant": "TAU-R-019",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 4,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-058",
+   "injectant": "TAU-A-016",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-061",
+   "injectant": "TAU-A-014",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 5,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-070",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-072",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-073",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-074",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-077",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-080",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-082",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-083",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-084",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-092",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-093",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-094",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-097",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-098",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-105",
+   "injectant": "TAU-A-009",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 25,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-106",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-107",
+   "injectant": "TAU-A-000",
+   "self": false,
+   "verdict": "FAIL",
+   "watch_values": 7,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-113",
+   "injectant": "TAU-A-005",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 10,
+   "hits": 0,
+   "hit_values": []
+  },
+  {
+   "task": "TAU-R-114",
+   "injectant": "TAU-A-003",
+   "self": false,
+   "verdict": "PASS",
+   "watch_values": 13,
+   "hits": 0,
+   "hit_values": []
+  }
+ ]
+}
