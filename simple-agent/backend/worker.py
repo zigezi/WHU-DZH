@@ -17,6 +17,7 @@ from monitor import vlayer
 from monitor import plan_observer
 from monitor.guard import Guard
 from monitor.routing import router
+from monitor import precedent_select
 from requirements import loader
 import signature
 import planner
@@ -153,24 +154,47 @@ def _store_precedent(req: TaskRequest, steps: list, tokens: int,
 
 def _inject_precedent(req: TaskRequest, trace_id: str, sig_family: str,
                       messages: list, parent_span_id: str):
-    """P5a.6 补丁2：precedent-assisted 臂——按新签名取相似先例，注入 plan 摘要（≤500 token）。"""
-    best, sim = None, 0.0
-    for p in trace_store.list_precedents():
-        s = 1.0 if p.get("sig") == sig_family else \
-            signature.similarity(req.content, p.get("content") or "")
-        if s > sim:
-            sim, best = s, p
-    if best is None or sim < 0.2:
+    """P5a.20 便签3：测量模式选择器。
+
+    仅同族（sig 精确相等）、仅先前 epoch（优先读 epoch 快照）、确定性 tie-break（最早 id）；
+    无同族则不注入并记 precedent_skip。不再用占位 content 的 similarity（P5a.19 工单1）。
+    """
+    epoch = None
+    try:
+        epoch = int(os.environ.get("SA_EPOCH") or 0) or None
+    except Exception:  # noqa: BLE001
+        epoch = None
+    candidates, source = None, "live"
+    if epoch:
+        for e in (epoch, epoch - 1):
+            snap = trace_store.list_precedent_snapshot(e)
+            if snap:
+                candidates, source = snap, f"snapshot:{e}"
+                break
+    if candidates is None:
+        candidates = trace_store.list_precedents()
+    best = precedent_select.select(candidates, sig_family)
+    if best is None:
+        add_event(
+            trace_id=trace_id, name="先例跳过", layer="L",
+            span_type="precedent_skip", parent_span_id=parent_span_id,
+            attributes={"sig_family": sig_family,
+                        "reason": "no_family_precedent", "source": source},
+        )
         return
     plan = best.get("plan") or []
-    summary = json.dumps(plan, ensure_ascii=False)[:2000]  # ≈500 token 上限
+    summary = precedent_select.summary_of(plan)
     tokens_injected = len(summary) // 4
     add_event(
         trace_id=trace_id, name="先例注入", layer="L",
         span_type="precedent_injected", parent_span_id=parent_span_id,
         attributes={"precedent_sig": best.get("sig"),
-                    "similarity": round(sim, 4),
-                    "tokens_injected": tokens_injected},
+                    "precedent_req": best.get("req_id"),
+                    "similarity": 1.0,
+                    "tokens_injected": tokens_injected,
+                    "content_sha256_16": precedent_select.content_hash(plan),
+                    "content_chars": len(summary),
+                    "source": source},
     )
     # 插到 wiki system 之后、首轮 user 之前
     messages.insert(1, {
@@ -292,6 +316,12 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
     if tau_spec is not None and driver is not None:
         if tau_spec.get("split") == "dev":
             arm, explored = "direct", False
+        elif os.environ.get("ROUTER_MODE") == "direct":
+            # P5a.20 §三.2：epoch-6 干净基线，仅 direct，不注入
+            arm, explored = "direct", False
+        elif os.environ.get("ROUTER_MODE") == "measurement":
+            # P5a.20 便签3：测量模式固定 50/50，不更新 Thompson 后验
+            arm, explored = router.choose_measurement(req.task_id), False
         else:
             arm, explored = router.choose_meta(
                 sig_family, ["direct", "precedent-assisted"])
@@ -560,7 +590,9 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
 
     # P3.2 / P3.3 / P5a.6：路由后验更新（按实际臂）+ 成功先例入库
     try:
-        router.update(sig_family, arm, status.status == "success", total_tokens)
+        # P5a.20 便签3：测量模式下不更新 Thompson 后验（测量与学习分离）
+        if os.environ.get("ROUTER_MODE") not in ("measurement", "direct"):
+            router.update(sig_family, arm, status.status == "success", total_tokens)
         if status.status == "success":
             _store_precedent(req, steps, total_tokens, status.duration_ms, sig_family)
     except Exception:

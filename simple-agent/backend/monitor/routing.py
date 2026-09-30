@@ -3,6 +3,7 @@
 choose: ε=0.1 概率随机探索，否则按 Beta 后验 Thompson 采样选臂；
 update: 成功 α+1，失败 β+1，并累计 token。
 """
+import hashlib
 import os
 import random
 from typing import List, Optional
@@ -42,6 +43,13 @@ class Router:
             if sample > best_sample:
                 best_sample, best_arm = sample, arm
         return best_arm, False
+
+    def choose_measurement(self, task_id: str,
+                           arms: Optional[List[str]] = None) -> str:
+        """P5a.20 便签3：测量模式固定 50/50 确定性分配（与 Thompson 学习分离）。"""
+        arms = arms or DEFAULT_ARMS
+        h = hashlib.blake2b(f"{MODEL_NAME}:{task_id}".encode(), digest_size=4).digest()
+        return arms[int.from_bytes(h, "big") % len(arms)]
 
     def update(self, sig_family: str, arm: str, success: bool,
                tokens: float = 0):

@@ -113,6 +113,19 @@ class TraceStore:
                     content TEXT
                 )
             """)
+            # 先例快照（P5a.20 便签3）：epoch 开始冻结，跨 epoch 可复现
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS precedent_snapshots (
+                    epoch INTEGER,
+                    id INTEGER,
+                    sig TEXT,
+                    req_id TEXT,
+                    plan_json TEXT,
+                    content TEXT,
+                    created_at TEXT,
+                    PRIMARY KEY (epoch, id)
+                )
+            """)
             # 兼容旧库：补充 result / error / code_version 列
             self._ensure_column("traces", "result", "TEXT")
             self._ensure_column("traces", "error", "TEXT")
@@ -405,6 +418,39 @@ class TraceStore:
                 "duration_ms": r[6], "created_at": r[7], "content": r[8] or "",
             })
         return result
+
+    # ------------------------------------------------------------------ #
+    # Precedent snapshots（P5a.20 便签3）：epoch 快照冻结
+    # ------------------------------------------------------------------ #
+    def freeze_precedent_snapshot(self, epoch: int) -> int:
+        with self._lock:
+            rows = self.conn.execute(
+                "SELECT id, sig, req_id, plan_json, content, created_at FROM precedents"
+            ).fetchall()
+            self.conn.executemany(
+                "INSERT OR REPLACE INTO precedent_snapshots"
+                " (epoch, id, sig, req_id, plan_json, content, created_at)"
+                " VALUES (?,?,?,?,?,?,?)",
+                [(epoch, r[0], r[1], r[2], r[3], r[4], r[5]) for r in rows],
+            )
+            self.conn.commit()
+            return len(rows)
+
+    def list_precedent_snapshot(self, epoch: int, limit: int = 5000) -> List[dict]:
+        with self._lock:
+            rows = self.conn.execute(
+                "SELECT id, sig, req_id, plan_json, content FROM precedent_snapshots"
+                " WHERE epoch=? ORDER BY id LIMIT ?", (epoch, limit),
+            ).fetchall()
+        out = []
+        for r in rows:
+            try:
+                plan = json.loads(r[3]) if r[3] else []
+            except (ValueError, TypeError):
+                plan = []
+            out.append({"id": r[0], "sig": r[1], "req_id": r[2],
+                        "plan": plan, "content": r[4] or ""})
+        return out
 
 
 # 全局单例

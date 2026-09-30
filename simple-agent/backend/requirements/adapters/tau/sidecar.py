@@ -8,6 +8,8 @@ JSON-RPC over HTTP. **Zero LLM calls**: the env's user simulator is replaced by
 Methods: reset / step / provide_user_msg / reward / list_tools /
          get_instruction / get_wiki / end / health
 """
+import copy
+import hashlib
 import json
 import os
 import sys
@@ -22,6 +24,8 @@ if _ADAPTER_DIR not in sys.path:
 
 from tau_bench.envs.user import UserStrategy  # noqa: E402
 from tau_bench.types import Action  # noqa: E402
+
+import diff as _diff  # noqa: E402  (P5a.20 便签1)
 
 HOST = os.environ.get("TAU_SIDECAR_HOST", "127.0.0.1")
 PORT = int(os.environ.get("TAU_SIDECAR_PORT", "8010"))
@@ -140,13 +144,28 @@ def rpc_reward(params):
         env = _SESSIONS.get(sid)
     if env is None:
         raise KeyError(f"unknown session: {sid}")
+    # P5a.20 便签1：calculate_reward 会把 env.data 覆盖为 GT 终态 → 先快照 agent 侧
+    agent_data = copy.deepcopy(env.data)
+    agent_actions = list(env.actions)
+    agent_hash = env.get_data_hash()
     orig_user = env.user
     env.user = StubUser()  # zero-LLM replay
     try:
         res = env.calculate_reward()
     finally:
         env.user = orig_user
-    info = res.info.model_dump() if hasattr(res.info, "model_dump") else str(res.info)
+    gt_hash = env.get_data_hash()  # calculate_reward 后 env.data = GT 终态
+    base_info = res.info.model_dump() if hasattr(res.info, "model_dump") else {}
+    terminate = tuple(getattr(env, "terminate_tools", ()) or ())
+    info = {
+        "r_actions": agent_hash == gt_hash,
+        "gt_data_hash": gt_hash,
+        "agent_data_hash": agent_hash,
+        "data_diff": _diff.data_diff(agent_data, env.data),
+        "actions_diff": _diff.actions_diff(agent_actions, env.task.actions,
+                                           terminate=terminate),
+    }
+    info.update(base_info)  # r_outputs / outputs（若为 RewardOutputInfo）
     return {"reward": float(res.reward), "info": info}
 
 
@@ -206,9 +225,14 @@ def rpc_list_tasks(params):
     env = _make_env(env_name, task_split, 0)
     tasks = []
     for i, t in enumerate(env.tasks):
+        # P5a.20 §二：附 md5 派生字段；ingest 仍暂用 instruction 计算 sig_raw
+        # （移除明文需把签名计算迁到 sidecar，列为后续设计项，见设计便签 2 §5）。
         tasks.append({
             "id": i,
             "instruction": t.instruction,
+            "instruction_sha256_16": hashlib.sha256(
+                (t.instruction or "").encode("utf-8")).hexdigest()[:16],
+            "instruction_chars": len(t.instruction or ""),
             "actions": [a.name for a in t.actions],
             "num_actions": len(t.actions),
             "num_outputs": len(t.outputs),

@@ -1,13 +1,13 @@
 # 切分质量报告（decomposition-report）
 
-- 生成时间：2026-09-16T13:26:52.724222
-- 最近 trace：591ddad4-5c12-4455-bc27-905a4ad50c2d
+- 生成时间：2026-09-29T18:49:57.408597
+- 最近 trace：db16e546-6607-4756-a178-dbe604ea77a9
 
 ## 最近一次切分
 
 | metric | value |
 |---|---|
-| plan_id | 8ebc0cb6-2e6d-40a8-ab35-36c9cf703b61 |
+| plan_id | c21894e0-8198-4fa3-b8f8-cfa821ed83db |
 | req_id | TAU-R-114 |
 | node_success_rate | 1.0 |
 | avg_retries | 7.0 |
@@ -21,7 +21,7 @@
 
 | planner_model | prompt_version | n | avg_node_success_rate | total_conflicts |
 |---|---|---|---|---|
-| deterministic-linear-v1 | n/a | 562 | 0.9947 | 0 |
+| deterministic-linear-v1 | n/a | 838 | 0.9916 | 0 |
 
 - owns_conflict_rate: 0.0
-- rework_edge_rate: 0.0071
+- rework_edge_rate: 0.006

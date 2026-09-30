@@ -22,6 +22,17 @@ from monitor.diagnosis import shapley_diagnosis  # noqa: E402
 ROOT = os.path.dirname(BACKEND_DIR)
 PROPOSAL_DIR = os.path.join(ROOT, ".agent", "proposals")
 
+# P5a.20 §二：访问控制——本地未跟踪区（可含 instruction 明文）禁入 updater 输入域
+FORBIDDEN_INPUT_DIRS = (".agent/local",)
+
+
+def _assert_allowed_input(path: str) -> None:
+    ap = os.path.abspath(path)
+    for d in FORBIDDEN_INPUT_DIRS:
+        root = os.path.abspath(os.path.join(ROOT, d)) + os.sep
+        if ap.startswith(root):
+            raise ValueError(f"forbidden updater input dir {d}: {path}")
+
 TYPE_BY_LAYER = {
     "G": "threshold_patch",
     "T": "threshold_patch",
@@ -78,6 +89,7 @@ def build_proposals(report: dict):
 
 
 def generate(report_path: str) -> str:
+    _assert_allowed_input(report_path)
     with open(report_path, "r", encoding="utf-8") as f:
         report = json.load(f)
     proposals = build_proposals(report)
