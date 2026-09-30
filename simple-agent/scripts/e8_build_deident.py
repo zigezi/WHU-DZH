@@ -21,7 +21,8 @@ sys.path.insert(0, BACKEND)
 sys.path.insert(0, os.path.join(BACKEND, "requirements", "adapters", "tau"))
 
 import sqlite3  # noqa: E402
-from deident import DeIdentifier, lint_db_nonmember, lint_lint_parse_and_names, lint_no_residual  # noqa: E402
+from deident import (DeIdentifier, classify_lint, lint_db_nonmember,  # noqa: E402
+                     lint_lint_parse_and_names, lint_no_residual)
 
 DB = os.path.join(BACKEND, "logs", "trace.db")
 R = os.path.join(ROOT, ".agent", "reports")
@@ -48,6 +49,70 @@ def db_members():
     except Exception as e:  # noqa: BLE001
         print("[warn] airline data:", e)
     return out
+
+
+def build_enums():
+    """P5a.35 IV 类封闭词表（机场码/舱位/枚举）。"""
+    import dataclasses as dc
+    E = {k: set() for k in ("origin", "destination", "cabin", "flight_type",
+                            "insurance", "trip_type", "status", "source")}
+    try:
+        from tau_bench.envs.airline.tasks_test import TASKS as AT
+        from tau_bench.envs.airline.data import load_data as adata
+        for t in AT:
+            d = dc.asdict(t) if dc.is_dataclass(t) else t.__dict__
+            for a in d.get("actions", []):
+                kw = a.get("kwargs", {}) if isinstance(a, dict) else getattr(a, "kwargs", {})
+                for k in E:
+                    if k in kw:
+                        E[k].add(str(kw[k]))
+        for f in adata().get("flights", []):
+            E["origin"].add(f.get("origin")); E["destination"].add(f.get("destination"))
+    except Exception as e:  # noqa: BLE001
+        print("[warn] enums airline:", e)
+    try:
+        from tau_bench.envs.retail.data import load_data as rdata
+        d = rdata()
+        for o in d["orders"].values():
+            E["status"].add(o.get("status"))
+        for u in d["users"].values():
+            for p in (u.get("payment_methods") or {}).values():
+                E["source"].add(p.get("source"))
+    except Exception as e:  # noqa: BLE001
+        print("[warn] enums retail:", e)
+    E["cabin"] |= {"economy", "business", "basic economy", "first", "premium economy"}
+    E["flight_type"] |= {"round_trip", "one_way"}
+    E["insurance"] |= {"yes", "no"}
+    return {k: {v for v in vs if v} for k, vs in E.items()}
+
+
+def name_vocab():
+    names = set()
+    for mod, fn in (("retail", "rdata"), ("airline", "adata")):
+        try:
+            if mod == "retail":
+                from tau_bench.envs.retail.data import load_data
+            else:
+                from tau_bench.envs.airline.data import load_data
+            for u in load_data().get("users", {}).values():
+                nm = u.get("name") or {}
+                for k in ("first_name", "last_name"):
+                    if nm.get(k):
+                        names.add(str(nm[k]))
+        except Exception as e:  # noqa: BLE001
+            print(f"[warn] names {mod}:", e)
+    return names
+
+
+def _bykey(unclassified):
+    from collections import Counter
+    c = Counter()
+    samples = {}
+    for (k, v), n in unclassified.items():
+        c[k] += n
+        samples.setdefault(k, []).append(v)
+    return {k: {"n": c[k], "samples": sorted(set(samples[k]))[:6]}
+            for k, _ in c.most_common()}
 
 
 def _walk(o, s):
@@ -77,23 +142,31 @@ def main():
         plans.setdefault(chash(p), p)
 
     members = db_members()
+    enums = build_enums()
+    NAMES = name_vocab()
     deid_lib, lint_rows, mapping = {}, [], {}
+    unclassified = {}
     non_tau = 0
     for h, p in sorted(plans.items()):
         if not all(str(s.get("tool", "")).startswith("tau__") for s in p):
             non_tau += 1
             continue
-        d = DeIdentifier(seed=SEED)
+        d = DeIdentifier(seed=SEED, name_vocab=NAMES)
         dp = d.plan(p)
         for (t, real), fake in d.mapping.items():
             mapping.setdefault(t, {})[real] = fake
         l1 = lint_no_residual(p, dp)
         l2 = lint_lint_parse_and_names(dp)
         l3 = lint_db_nonmember(dp, members)
+        l4 = classify_lint(dp, enums)
+        for k, v in l4["unclassified"]:
+            unclassified.setdefault((k, v), 0)
+            unclassified[(k, v)] += 1
         lint_rows.append({"orig_hash": h, "deid_hash": chash(dp),
                           "tools": len(dp), "no_residual": l1["ok"],
                           "json_ok": l2["json_ok"], "bad_tools": l2["bad_tools"],
-                          "db_nonmember": l3["ok"]})
+                          "db_nonmember": l3["ok"], "iv_bare": len(l4["iv_bare"]),
+                          "unclassified_n": l4["unclassified_n"]})
         deid_lib[h] = {"deid_hash": chash(dp), "deid_plan": dp}
 
     os.makedirs(LOCAL, exist_ok=True)
@@ -110,6 +183,7 @@ def main():
         "distinct_deid_plans": len({v["deid_hash"] for v in deid_lib.values()}),
         "all_pass": all(r["no_residual"] and r["json_ok"] and r["db_nonmember"] and not r["bad_tools"]
                         for r in lint_rows),
+        "iv_unclassified_by_key": _bykey(unclassified),
         "rows": lint_rows,
     }
     json.dump(lint, open(os.path.join(R, "e8-deid-lint.json"), "w"),
