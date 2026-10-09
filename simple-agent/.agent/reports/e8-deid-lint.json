@@ -1,7 +1,7 @@
 {
  "note": "P5a.33 §一 lint 三检；映射表存 .agent/local/（未跟踪）",
  "seed": "e8-20260929",
- "mapping_sha256": "9d384d4d20f77ef4a090b96e77e90c3a027f51a5f4046ec43a9d4bf5ab093d6d",
+ "mapping_sha256": "98d844799d83682d522f747b6f0cb04b44fd9979ecf9967869fdeb2cc18638df",
  "distinct_orig_plans": 453,
  "non_tau_plans_skipped": 10,
  "distinct_deid_plans": 443,
@@ -114,7 +114,7 @@
   },
   {
    "orig_hash": "02ad645945d67c0f",
-   "deid_hash": "049ce326eb4c4716",
+   "deid_hash": "643dbf672f2f15ad",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -127,7 +127,7 @@
   },
   {
    "orig_hash": "02f61de950c18768",
-   "deid_hash": "3a2db705631c9b07",
+   "deid_hash": "e244b3aa32f30eed",
    "tools": 6,
    "no_residual": true,
    "json_ok": true,
@@ -140,7 +140,7 @@
   },
   {
    "orig_hash": "02fa151d92854e4d",
-   "deid_hash": "94a53f035dcbbaac",
+   "deid_hash": "e4c346977364108d",
    "tools": 12,
    "no_residual": true,
    "json_ok": true,
@@ -166,7 +166,7 @@
   },
   {
    "orig_hash": "036137cf7f29ddd9",
-   "deid_hash": "3d5b9737f9d0d65e",
+   "deid_hash": "052bd56ed2929e19",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -179,7 +179,7 @@
   },
   {
    "orig_hash": "03a57e1833d9fc65",
-   "deid_hash": "dad976727ea2e9ab",
+   "deid_hash": "25840a358bc6f9dd",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -296,7 +296,7 @@
   },
   {
    "orig_hash": "07adba25c041395d",
-   "deid_hash": "a282cacbdba91efb",
+   "deid_hash": "ffe81e53ddd947a6",
    "tools": 13,
    "no_residual": true,
    "json_ok": true,
@@ -387,7 +387,7 @@
   },
   {
    "orig_hash": "0a778b950bfc6ba0",
-   "deid_hash": "1abdaa54ace547c0",
+   "deid_hash": "b439aab98282ce48",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -413,7 +413,7 @@
   },
   {
    "orig_hash": "0b3c82b7e2e7781b",
-   "deid_hash": "8c085a43683da6be",
+   "deid_hash": "105a76d074c70236",
    "tools": 13,
    "no_residual": true,
    "json_ok": true,
@@ -439,7 +439,7 @@
   },
   {
    "orig_hash": "0c26c99fa0c31dca",
-   "deid_hash": "fd3222d8ecc90903",
+   "deid_hash": "34e2d2a778d15b7c",
    "tools": 7,
    "no_residual": true,
    "json_ok": true,
@@ -517,7 +517,7 @@
   },
   {
    "orig_hash": "0fc7aab5bc6c636c",
-   "deid_hash": "18c8d64b949a4294",
+   "deid_hash": "ed1da6c280de651e",
    "tools": 9,
    "no_residual": true,
    "json_ok": true,
@@ -556,7 +556,7 @@
   },
   {
    "orig_hash": "12e3447e5aed0a06",
-   "deid_hash": "fdb016c96b627e6a",
+   "deid_hash": "333cd15c3e2ead1c",
    "tools": 13,
    "no_residual": true,
    "json_ok": true,
@@ -660,7 +660,7 @@
   },
   {
    "orig_hash": "1535704f6b152084",
-   "deid_hash": "5c7890b690f539fa",
+   "deid_hash": "1c33e2dd483b1019",
    "tools": 9,
    "no_residual": true,
    "json_ok": true,
@@ -673,7 +673,7 @@
   },
   {
    "orig_hash": "154109e2a09e442f",
-   "deid_hash": "f943f2a3b429f54d",
+   "deid_hash": "491b645ce93db2ab",
    "tools": 2,
    "no_residual": true,
    "json_ok": true,
@@ -699,7 +699,7 @@
   },
   {
    "orig_hash": "166b7dce2b325cd7",
-   "deid_hash": "8478579e47eb781b",
+   "deid_hash": "bd904fecf60eecb7",
    "tools": 6,
    "no_residual": true,
    "json_ok": true,
@@ -816,7 +816,7 @@
   },
   {
    "orig_hash": "1c98fab96ed4f1c5",
-   "deid_hash": "c284ac2fecf78512",
+   "deid_hash": "ec77d45d5e3cd812",
    "tools": 14,
    "no_residual": true,
    "json_ok": true,
@@ -855,7 +855,7 @@
   },
   {
    "orig_hash": "1ee08cad86ff5a5b",
-   "deid_hash": "e79a2c9672f03119",
+   "deid_hash": "09d4fbfa8055ec9f",
    "tools": 14,
    "no_residual": true,
    "json_ok": true,
@@ -868,7 +868,7 @@
   },
   {
    "orig_hash": "1f561f07b79dab22",
-   "deid_hash": "2fefc2bfcb9d1392",
+   "deid_hash": "c4b8e92ec760656c",
    "tools": 15,
    "no_residual": true,
    "json_ok": true,
@@ -881,7 +881,7 @@
   },
   {
    "orig_hash": "20665b3a13cfab91",
-   "deid_hash": "ecb42aae2393d201",
+   "deid_hash": "7f1bc87a33954548",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -920,7 +920,7 @@
   },
   {
    "orig_hash": "2550c0210b5e0d3c",
-   "deid_hash": "483bcb7766965d14",
+   "deid_hash": "623c1484e33712d5",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -1024,7 +1024,7 @@
   },
   {
    "orig_hash": "29825bf1519140ee",
-   "deid_hash": "e4fe3af26e2277f8",
+   "deid_hash": "27ce7c2ff4eb8450",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -1089,7 +1089,7 @@
   },
   {
    "orig_hash": "2a30a68889383820",
-   "deid_hash": "b7861716719f1c9f",
+   "deid_hash": "292564f6b2af67d3",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -1297,7 +1297,7 @@
   },
   {
    "orig_hash": "3451dbaca01c4c64",
-   "deid_hash": "1f6f500ff27b1058",
+   "deid_hash": "d85dfb5fbdaa0264",
    "tools": 14,
    "no_residual": true,
    "json_ok": true,
@@ -1388,7 +1388,7 @@
   },
   {
    "orig_hash": "39330abdc2d99a41",
-   "deid_hash": "9533845165ec080f",
+   "deid_hash": "261efc7e8649a2d9",
    "tools": 7,
    "no_residual": true,
    "json_ok": true,
@@ -1427,7 +1427,7 @@
   },
   {
    "orig_hash": "3ae39b15420eb608",
-   "deid_hash": "5151d6a14dd426f7",
+   "deid_hash": "3d308abacd18b4be",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -1518,7 +1518,7 @@
   },
   {
    "orig_hash": "3ffdb711af1b476c",
-   "deid_hash": "be1c634e3b29694e",
+   "deid_hash": "8a8f1a1a0dc3f394",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -1557,7 +1557,7 @@
   },
   {
    "orig_hash": "421908e0b1692f7b",
-   "deid_hash": "5706d89a7cdab1e0",
+   "deid_hash": "b450537dc2926e8d",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -1596,7 +1596,7 @@
   },
   {
    "orig_hash": "43c6fb82c341434f",
-   "deid_hash": "c695a4c480d4dbf8",
+   "deid_hash": "2b4d4a251a8fc13d",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -1622,7 +1622,7 @@
   },
   {
    "orig_hash": "45046936167f910a",
-   "deid_hash": "8cec6b48cf79a51c",
+   "deid_hash": "626be85e61cfb66f",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -1635,7 +1635,7 @@
   },
   {
    "orig_hash": "4659520a7546cd81",
-   "deid_hash": "6841072a5df23bd4",
+   "deid_hash": "39a9095577357acc",
    "tools": 16,
    "no_residual": true,
    "json_ok": true,
@@ -1856,7 +1856,7 @@
   },
   {
    "orig_hash": "51125d66f92aa7e7",
-   "deid_hash": "5e9c9cadb04dee64",
+   "deid_hash": "79f8eb55c0e38956",
    "tools": 12,
    "no_residual": true,
    "json_ok": true,
@@ -1934,7 +1934,7 @@
   },
   {
    "orig_hash": "54b282bf856f8bb8",
-   "deid_hash": "89ebd8eca79818cf",
+   "deid_hash": "058f2b53766abae7",
    "tools": 7,
    "no_residual": true,
    "json_ok": true,
@@ -1986,7 +1986,7 @@
   },
   {
    "orig_hash": "5674fb91ebca5c8d",
-   "deid_hash": "934ed74086378e4e",
+   "deid_hash": "9e75ad95a2059717",
    "tools": 7,
    "no_residual": true,
    "json_ok": true,
@@ -1999,7 +1999,7 @@
   },
   {
    "orig_hash": "57fc68a23770d66c",
-   "deid_hash": "c1a28df6975616df",
+   "deid_hash": "c793213c02af8014",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -2025,7 +2025,7 @@
   },
   {
    "orig_hash": "58fd5204c39da943",
-   "deid_hash": "f07bef80b211b536",
+   "deid_hash": "ab3eaab4df297218",
    "tools": 7,
    "no_residual": true,
    "json_ok": true,
@@ -2038,7 +2038,7 @@
   },
   {
    "orig_hash": "5954484ebf583d74",
-   "deid_hash": "1dfe695c9c591226",
+   "deid_hash": "0106f96a9d0357e3",
    "tools": 13,
    "no_residual": true,
    "json_ok": true,
@@ -2064,7 +2064,7 @@
   },
   {
    "orig_hash": "5ade44fca3f6d027",
-   "deid_hash": "afdc7cbd6ff29c21",
+   "deid_hash": "7171c832b69f004d",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -2220,7 +2220,7 @@
   },
   {
    "orig_hash": "5f813d7cbb305dd3",
-   "deid_hash": "99e563b8e61819b8",
+   "deid_hash": "58c9572778b72516",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -2376,7 +2376,7 @@
   },
   {
    "orig_hash": "662c75e9bf8febdc",
-   "deid_hash": "8d52975008be8917",
+   "deid_hash": "2c6b0daf398fe891",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -2428,7 +2428,7 @@
   },
   {
    "orig_hash": "683764f26d4655f3",
-   "deid_hash": "840200f46a9739ac",
+   "deid_hash": "779e361d617dadd6",
    "tools": 15,
    "no_residual": true,
    "json_ok": true,
@@ -2519,7 +2519,7 @@
   },
   {
    "orig_hash": "6d7a739ce7beba77",
-   "deid_hash": "cccf598ba77e738e",
+   "deid_hash": "a53cb817d0d14178",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -2532,7 +2532,7 @@
   },
   {
    "orig_hash": "6dc59e5f77841d4a",
-   "deid_hash": "162a620ee2156a78",
+   "deid_hash": "b747ea13234cd0e0",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -2623,7 +2623,7 @@
   },
   {
    "orig_hash": "743720129beaa39e",
-   "deid_hash": "b851e897c22d7954",
+   "deid_hash": "256061c8f83e1622",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -2727,7 +2727,7 @@
   },
   {
    "orig_hash": "790a6f48c946a93f",
-   "deid_hash": "b7355dc62ae50517",
+   "deid_hash": "62dc314a34cf6c67",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -2844,7 +2844,7 @@
   },
   {
    "orig_hash": "7febb91ca8caf175",
-   "deid_hash": "9f12a66f26ea3973",
+   "deid_hash": "95332aece87bd48a",
    "tools": 30,
    "no_residual": true,
    "json_ok": true,
@@ -3065,7 +3065,7 @@
   },
   {
    "orig_hash": "86a53bb30ddc4258",
-   "deid_hash": "8597585b37f74a47",
+   "deid_hash": "a789ea333e617e90",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -3130,7 +3130,7 @@
   },
   {
    "orig_hash": "896d204f88b78f37",
-   "deid_hash": "d713221ffc8a9098",
+   "deid_hash": "d540903d046e200a",
    "tools": 24,
    "no_residual": true,
    "json_ok": true,
@@ -3247,7 +3247,7 @@
   },
   {
    "orig_hash": "8f5480514e1360e9",
-   "deid_hash": "5d6acb201d08ef93",
+   "deid_hash": "81f748b702efec22",
    "tools": 9,
    "no_residual": true,
    "json_ok": true,
@@ -3325,7 +3325,7 @@
   },
   {
    "orig_hash": "937c0f9896c89d41",
-   "deid_hash": "804629cd692e77bb",
+   "deid_hash": "bdfe5439e308bd0f",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -3585,7 +3585,7 @@
   },
   {
    "orig_hash": "a468e936aa8b9e4c",
-   "deid_hash": "5aa55e9a8037fc0c",
+   "deid_hash": "7caf580c81fedc39",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -3611,7 +3611,7 @@
   },
   {
    "orig_hash": "a51c3a6b5a28a189",
-   "deid_hash": "1ce7e3c128dab2f8",
+   "deid_hash": "f53d9a076a432b0f",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -3689,7 +3689,7 @@
   },
   {
    "orig_hash": "a83776b6cb4f1ccd",
-   "deid_hash": "04919f46bc171fcc",
+   "deid_hash": "91b68876795cb5f2",
    "tools": 9,
    "no_residual": true,
    "json_ok": true,
@@ -3702,7 +3702,7 @@
   },
   {
    "orig_hash": "a8a36cf4a5aaa420",
-   "deid_hash": "71e071d4b5e41e1a",
+   "deid_hash": "c6859e1afa4473de",
    "tools": 31,
    "no_residual": true,
    "json_ok": true,
@@ -4235,7 +4235,7 @@
   },
   {
    "orig_hash": "bf24bd950519895d",
-   "deid_hash": "b1c59992d2c62188",
+   "deid_hash": "0d8923137949d2d7",
    "tools": 13,
    "no_residual": true,
    "json_ok": true,
@@ -4339,7 +4339,7 @@
   },
   {
    "orig_hash": "c5be5ab8b926d99e",
-   "deid_hash": "4e6afaf0fd0b8f1e",
+   "deid_hash": "7a741a16ab37c1cc",
    "tools": 14,
    "no_residual": true,
    "json_ok": true,
@@ -4430,7 +4430,7 @@
   },
   {
    "orig_hash": "cb758256214e7ff1",
-   "deid_hash": "dd04bdda1976a832",
+   "deid_hash": "f92fae854cb2c896",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -4456,7 +4456,7 @@
   },
   {
    "orig_hash": "cbcbb773543ad95a",
-   "deid_hash": "505706060ca89c07",
+   "deid_hash": "29dd524c4b553c40",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -4508,7 +4508,7 @@
   },
   {
    "orig_hash": "cda9ad3492b1a893",
-   "deid_hash": "bb3f572551e48bef",
+   "deid_hash": "c6220dd0bb55186a",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -4521,7 +4521,7 @@
   },
   {
    "orig_hash": "cdf6d80b516b5389",
-   "deid_hash": "bc960ee85f44c077",
+   "deid_hash": "671c32afdbb1b8d8",
    "tools": 6,
    "no_residual": true,
    "json_ok": true,
@@ -4586,7 +4586,7 @@
   },
   {
    "orig_hash": "d0501098718a9af8",
-   "deid_hash": "78303c2fa197023d",
+   "deid_hash": "ad5ccb81c91a494f",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -4638,7 +4638,7 @@
   },
   {
    "orig_hash": "d304b6674ef8caae",
-   "deid_hash": "6679f7f32e34cfe9",
+   "deid_hash": "dd7d455faed0dca3",
    "tools": 9,
    "no_residual": true,
    "json_ok": true,
@@ -4677,7 +4677,7 @@
   },
   {
    "orig_hash": "d55971a23c565ce2",
-   "deid_hash": "737d9ecbed2adbca",
+   "deid_hash": "8b925f50f3b874c6",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -4794,7 +4794,7 @@
   },
   {
    "orig_hash": "dc137bd5a1de84a1",
-   "deid_hash": "1bdfa8f210d290b5",
+   "deid_hash": "2ca4432e5579a97a",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -4963,7 +4963,7 @@
   },
   {
    "orig_hash": "e17cf46bbb9d22e8",
-   "deid_hash": "d433e1cc0914a7f2",
+   "deid_hash": "5f2c7683cdcc79e6",
    "tools": 9,
    "no_residual": true,
    "json_ok": true,
@@ -4989,7 +4989,7 @@
   },
   {
    "orig_hash": "e2f4783bff3d8589",
-   "deid_hash": "26d71ee203702163",
+   "deid_hash": "0b895c0a79edac7c",
    "tools": 18,
    "no_residual": true,
    "json_ok": true,
@@ -5119,7 +5119,7 @@
   },
   {
    "orig_hash": "e5f13ad8e7220b17",
-   "deid_hash": "4a8d2329746e4562",
+   "deid_hash": "e03deb0c961a4a16",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -5171,7 +5171,7 @@
   },
   {
    "orig_hash": "e67291fcffd184ea",
-   "deid_hash": "c65e88c3426d5d02",
+   "deid_hash": "10f48dbb240a13fb",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -5210,7 +5210,7 @@
   },
   {
    "orig_hash": "eb07b063f62b7c7e",
-   "deid_hash": "c4a71c654bdbe8e2",
+   "deid_hash": "471d52eccc668524",
    "tools": 7,
    "no_residual": true,
    "json_ok": true,
@@ -5262,7 +5262,7 @@
   },
   {
    "orig_hash": "ed71b71bb28c2d91",
-   "deid_hash": "5212bf8b726c6d8c",
+   "deid_hash": "cd918a1da3baefbc",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -5340,7 +5340,7 @@
   },
   {
    "orig_hash": "f0e8dc8d1fafe2b7",
-   "deid_hash": "e26256c34a8d289c",
+   "deid_hash": "5045a1fd0f3105d4",
    "tools": 5,
    "no_residual": true,
    "json_ok": true,
@@ -5379,7 +5379,7 @@
   },
   {
    "orig_hash": "f25685bac8c65d43",
-   "deid_hash": "b7a245857e3b63df",
+   "deid_hash": "8ffb9b01996910fd",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -5405,7 +5405,7 @@
   },
   {
    "orig_hash": "f33328634a623de2",
-   "deid_hash": "117d90bbbab53a2a",
+   "deid_hash": "dcefc0bb8373f9ab",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -5561,7 +5561,7 @@
   },
   {
    "orig_hash": "f7216680754e496b",
-   "deid_hash": "675071f9369b73f4",
+   "deid_hash": "fbc6c6806c132095",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,
@@ -5613,7 +5613,7 @@
   },
   {
    "orig_hash": "fa66057a24e56b77",
-   "deid_hash": "42d458d60fa96fff",
+   "deid_hash": "4ef3717894246fd6",
    "tools": 8,
    "no_residual": true,
    "json_ok": true,
@@ -5717,7 +5717,7 @@
   },
   {
    "orig_hash": "fcf4362dfa60228d",
-   "deid_hash": "5a32d5e0e7cb6afb",
+   "deid_hash": "14fa99f7b1913ba6",
    "tools": 10,
    "no_residual": true,
    "json_ok": true,
@@ -5743,7 +5743,7 @@
   },
   {
    "orig_hash": "fda795579b618cef",
-   "deid_hash": "fe19d239f0aba7ee",
+   "deid_hash": "9f876230b1e2ef6c",
    "tools": 11,
    "no_residual": true,
    "json_ok": true,

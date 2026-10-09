@@ -78,7 +78,9 @@ TYPE_BY_KEY = {
     "city": "ADDR", "state": "ADDR", "zip": "ADDR", "country": "ADDR",
 }
 _RE_ITEM = re.compile(r"\b\d{10}\b")
-_RE_MONEY = re.compile(r"\$\s?\d[\d,]*\.\d{2}")
+# P5a.38 §二.2：金额形态（含裸小数）统一走 II 类缩放
+_RE_DEC = re.compile(r"(?<![\d.])\d[\d,]*\.\d{1,2}(?![\d.])")
+_RE_NUM = re.compile(r"(?<![\d.])\d+(?:\.\d+)?(?![\d.])")
 _RE_EMAIL = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
 DATE_KEYS = {"date", "dob", "created_at", "updated_at", "payment_date"}
 AMT_KEYS = {"amount", "price", "total", "balance", "refund", "cost", "fee"}
@@ -126,13 +128,24 @@ class DeIdentifier:
                       key=len, reverse=True)
         self._name_re = (re.compile(r"\b(" + "|".join(re.escape(t) for t in toks) + r")\b")
                          if toks else None)
-        # P5a.37 §四：DB 全量实体字典抹除（按前缀分组）
+        # P5a.37 §四 / P5a.38 §二.1：DB 全量实体字典抹除（词界 + 大小写 + 复数 + 名称词元变体容忍）
         self._db_subs = []
         for pref, vals in (db_sets or {}).items():
-            vals = sorted({v for v in vals if v and len(v) >= 3}, key=len, reverse=True)
-            if vals:
-                self._db_subs.append(
-                    (re.compile(r"\b(?:" + "|".join(re.escape(v) for v in vals) + r")\b"), pref))
+            alts = set()
+            for v in vals:
+                if not v or len(v) < 4:
+                    continue
+                alts.add(v)
+                if pref in ("NAME", "PROD") and " " in v:      # 多词名 → 词元变体
+                    for tok in v.split():
+                        if len(tok) >= 4:
+                            alts.add(tok)
+            if alts:
+                rx = re.compile(
+                    r"(?<![A-Za-z0-9_])(?:" +
+                    "|".join(re.escape(a) for a in sorted(alts, key=len, reverse=True)) +
+                    r")s?(?![A-Za-z0-9_])", re.IGNORECASE)
+                self._db_subs.append((rx, pref))
 
     def _dbscrub(self, s):
         for rx, pref in self._db_subs:
@@ -145,13 +158,20 @@ class DeIdentifier:
             self.mapping[k] = _fake(t, v, self.seed)
         return self.mapping[k]
 
-    def _scrub_money(self, m):
-        num = float(m.group(0).replace("$", "").replace(",", "").strip())
-        return "$" + f"{round(num * AMT_FACTOR, 2):.2f}"
+    def _scale_money(self, m):
+        try:
+            num = float(m.group(0).replace("$", "").replace(",", "").strip())
+        except ValueError:
+            return m.group(0)
+        return f"{round(num * AMT_FACTOR, 2):.2f}"
 
-    def _scrub(self, s):
-        """对任意字符串做**就地**实体替换（含自由文本里的嵌入值）。"""
-        s = self._dbscrub(s)  # 先做精确 DB 字典抹除
+    def _scrub(self, s, money=True):
+        """就地脱敏：**先**平移日期、缩放金额（在原始文本上），**再**做实体替换，
+        以免缩放破坏已生成的伪真值（P5a.38 §二）。money=False 供 expression 专用路径。"""
+        s = _RE_DATE.sub(lambda m: _shift_date(m.group(0)), s)
+        if money:
+            s = _RE_DEC.sub(self._scale_money, s)  # 金额（含裸小数、含 $ 前缀）
+        s = self._dbscrub(s)                        # DB 字典（词界+大小写+词元变体）
         s = _RE_ORDER.sub(lambda m: self._map("ORD", m.group(0)), s)
         s = _RE_PAY.sub(lambda m: self._map("PAY", m.group(0)), s)
         s = _RE_FLT.sub(lambda m: self._map("FLT", m.group(0)), s)
@@ -161,9 +181,11 @@ class DeIdentifier:
         s = _RE_EMAIL.sub(lambda m: self._map("EMAIL", m.group(0)), s)
         if self._name_re is not None:
             s = self._name_re.sub(lambda m: self._map("NAME", m.group(0)), s)
-        s = _RE_MONEY.sub(self._scrub_money, s)
-        s = _RE_DATE.sub(lambda m: _shift_date(m.group(0)), s)
         return s
+
+    def _scale_all_numbers(self, s):
+        """表达式内：整数与小数全部按同一比例缩放（P5a.38 §二.2）。"""
+        return _RE_NUM.sub(self._scale_money, s)
 
     def _trans(self, key, val):
         cls = field_class(key)
@@ -176,9 +198,9 @@ class DeIdentifier:
                 return self._map(prefix_for(key), val)
             return self._scrub(val) if isinstance(val, str) else val
         if isinstance(val, str):
-            if cls == "IV":
-                return self._scrub(val)  # 裸词保留；嵌在其中的 id/日期仍抹
-            return self._scrub(val)
+            if key == "expression":
+                return self._scale_all_numbers(self._scrub(val, money=False))  # 仅此一处缩放
+            return self._scrub(val)  # IV 裸词保留；嵌在其中的 id/日期/金额仍抹
         if cls == "II" and isinstance(val, (int, float)) and not isinstance(val, bool):
             return round(val * AMT_FACTOR, 2)
         return val
@@ -268,6 +290,28 @@ def entityish(v):
     if re.search(r"[0-9_#@.]", v):        # 含数字或特殊符 → 标识符
         return True
     return len(v) >= 7                    # 纯词需较长（降低普通词 FP）
+
+
+_RE_TWO = re.compile(r"(?<![\d.])\d+\.\d{2}(?![\d.])")
+
+
+_RE_NUMTXT = re.compile(r"\d[\d,]*(?:\.\d+)?")
+
+
+def lint_price_residual(deid_plan, orig_plan):
+    """P5a.38 §二.3：金额残值——deid 的两位小数必须能由**同文档原始数值×1.37**解释，
+    否则视为未缩放残值（文档内可解释性，避免稠密价格库的撞号 FP）。"""
+    orig_nums = _RE_NUMTXT.findall(" ".join(_collect_strings(orig_plan)))
+    scaled = set()
+    for x in orig_nums:
+        try:
+            scaled.add(f"{round(float(x.replace(',', '')) * AMT_FACTOR, 2):.2f}")
+        except ValueError:
+            pass
+    deid_txt = " ".join(_collect_strings(deid_plan))
+    toks = set(_RE_TWO.findall(deid_txt))
+    hits = sorted(t for t in toks if t not in scaled)
+    return {"hits": hits[:20], "n": len(hits), "ok": not hits}
 
 
 _DB_RX_CACHE = None

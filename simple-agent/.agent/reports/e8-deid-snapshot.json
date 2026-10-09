@@ -355,7 +355,7 @@
   ]
  },
  "02ad645945d67c0f": {
-  "deid_hash": "049ce326eb4c4716",
+  "deid_hash": "643dbf672f2f15ad",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -380,7 +380,7 @@
    {
     "tool": "tau__think",
     "args": {
-     "thought": "The user wants both kettles exchanged to ceramic + gas (2L). But is there only one ceramic+gas option? Looking at available options: ITEM_0xF5BE99 ceramic/2L/gas available. ITEM_0xF280D9 ceramic/1.5L/gas not available. So the only ceramic+gas available is ITEM_0xF5BE99. The second one also wants ceramic+gas, which would be the same item ITEM_0xF5BE99. Note: the user earlier said \"not the same new option\" but now wants both ceramic+gas. Both would be item ITEM_0xF5BE99. Since there's only one ceramic+gas available, both map to the same item. That's fine—it's allowed since it's the same product but the user is choosing. Actually the constraint is each item modified to an available new item of the same product but of different product option. Both can go to same item. Duplicate items allowed per the tool description.\n\nSo the exchange:\nitem_ids = [\"ITEM_0xAF2668\", \"ITEM_0xAF2668\"]\nnew_item_ids = [\"ITEM_0xF5BE99\", \"ITEM_0xF5BE99\"]\nBoth kettles: glass/2L/induction ($129.88) -> ceramic/2L/gas ($138.53). Diff each +$8.66, total +$17.32.\n\nNeed payment method."
+     "thought": "The user wants both NAME_0x2328B7 exchanged to ceramic + gas (2L). But is there only one ceramic+gas option? Looking at available options: ITEM_0xF5BE99 ceramic/2L/gas available. ITEM_0xF280D9 ceramic/2.06L/gas not available. So the only ceramic+gas available is ITEM_0xF5BE99. The second one also wants ceramic+gas, which would be the same item ITEM_0xF5BE99. Note: the user earlier said \"not the same new option\" but now wants both ceramic+gas. Both would be item ITEM_0xF5BE99. Since there's only one ceramic+gas available, both map to the same item. That's fine—it's allowed since it's the same product but the user is choosing. Actually the constraint is each item modified to an available new item of the same product but of different product option. Both can go to same item. Duplicate items allowed per the tool description.\n\nSo the exchange:\nitem_ids = [\"ITEM_0xAF2668\", \"ITEM_0xAF2668\"]\nnew_item_ids = [\"ITEM_0xF5BE99\", \"ITEM_0xF5BE99\"]\nBoth NAME_0x2328B7: glass/2L/induction ($129.88) -> ceramic/2L/gas ($138.53). Diff each +$8.66, total +$12.64.\n\nNeed payment method."
     }
    },
    {
@@ -392,7 +392,7 @@
   ]
  },
  "02f61de950c18768": {
-  "deid_hash": "3a2db705631c9b07",
+  "deid_hash": "e244b3aa32f30eed",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -427,13 +427,13 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "User USR_0xACD976 is requesting compensation for a delayed flight (RES_0xD4C13B PHX→SEA, reservation RES_0x9767C8, business class, 4 passengers, no travel insurance). User claims Gold membership but system shows regular. Policy allows only a $50/passenger certificate ($200) for a delay complaint, and only if the reservation is changed or cancelled. User wants the original payment method refunded or a higher-value voucher/goodwill credit backed by proof of a missed meeting, both of which are outside the agent's allowed actions. User is asking for escalation to explore anything beyond the standard $200 certificate."
+     "summary": "User USR_0xACD976 is requesting compensation for a delayed flight (RES_0xD4C13B PHX→SEA, reservation RES_0x9767C8, business class, 4 passengers, no travel insurance). User claims Gold membership but system shows regular. Policy allows only a $50/passenger certificate ($200) for a delay complaint, and only if the reservation is changed or cancelled. User wants the original payment method refunded or a higher-value voucher/goodwill credit backed by proof of a missed meeting, both of which are outside the agent's allowed NAME_0x6F4DC8. User is asking for escalation to explore anything beyond the standard $200 certificate."
     }
    }
   ]
  },
  "02fa151d92854e4d": {
-  "deid_hash": "94a53f035dcbbaac",
+  "deid_hash": "e4c346977364108d",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -494,7 +494,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(499.29 + 217.06) - (452.28 + 195.15)"
+     "expression": "(684.03 + 297.37) - (619.62 + 267.36)"
     }
    },
    {
@@ -556,7 +556,7 @@
   ]
  },
  "036137cf7f29ddd9": {
-  "deid_hash": "3d5b9737f9d0d65e",
+  "deid_hash": "052bd56ed2929e19",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -625,13 +625,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(142 + 170) - (122 + 131)"
+     "expression": "(194.54 + 232.90) - (167.14 + 179.47)"
     }
    }
   ]
  },
  "03a57e1833d9fc65": {
-  "deid_hash": "dad976727ea2e9ab",
+  "deid_hash": "25840a358bc6f9dd",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -674,13 +674,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "54.04 + 14.18 + 27.46"
+     "expression": "74.03 + 19.43 + 37.62"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "14.18 + 27.46"
+     "expression": "19.43 + 37.62"
     }
    },
    {
@@ -1314,7 +1314,7 @@
   ]
  },
  "07adba25c041395d": {
-  "deid_hash": "a282cacbdba91efb",
+  "deid_hash": "ffe81e53ddd947a6",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -1387,13 +1387,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(464 + 202 + 290 + 241) * 3"
+     "expression": "(635.68 + 276.74 + 397.30 + 330.17) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(113 + 165 + 195 + 103) * 3 - 1671"
+     "expression": "(154.81 + 226.05 + 267.15 + 141.11) * 4.11 - 2289.27"
     }
    },
    {
@@ -1824,7 +1824,7 @@
   ]
  },
  "0a778b950bfc6ba0": {
-  "deid_hash": "1abdaa54ace547c0",
+  "deid_hash": "b439aab98282ce48",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -1909,7 +1909,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (user_id: USR_0x751500) requested a return of a NAME_0x4E4E59 (item ITEM_0xF645AB) and NAME_0x19E5A1 (item ITEM_0x6EE25B) from delivered order ORD_0x4CA5A2, plus an exchange of NAME_0x11AACF (item ITEM_0xD69A60, size 12, leather, waterproof: no) to the waterproof version (item ITEM_0xB7CB1A). The return was submitted successfully (status: return requested, refund to PayPal PAY_0xE3B7F0). However, the exchange failed because the order left \"delivered\" status after the return, and subsequent attempts to add the hiking boots to the return also failed (a return can only be done once). Customer wants the hiking boots resolved — either exchanged or refunded — as quickly as possible. Needs human assistance because the return has already been submitted and cannot be modified."
+     "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (user_id: USR_0x751500) requested a return of a NAME_0x4E4E59 (item ITEM_0xF645AB) and NAME_0x19E5A1 (item ITEM_0x6EE25B) from delivered order ORD_0x4CA5A2, plus an exchange of NAME_0x11AACF (item ITEM_0xD69A60, size 12, leather, waterproof: no) to the waterproof version (item ITEM_0xB7CB1A). The return was submitted successfully (status: return requested, refund to PayPal PAY_0xE3B7F0). However, the exchange failed because the order left \"delivered\" status after the return, and subsequent attempts to add the NAME_0xF4F9A5 to the return also failed (a return can only be done once). Customer wants the NAME_0xF4F9A5 resolved — either exchanged or refunded — as quickly as possible. Needs human assistance because the return has already been submitted and cannot be modified."
     }
    }
   ]
@@ -2001,7 +2001,7 @@
   ]
  },
  "0b3c82b7e2e7781b": {
-  "deid_hash": "8c085a43683da6be",
+  "deid_hash": "105a76d074c70236",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -2012,13 +2012,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "198 + 129"
+     "expression": "271.26 + 176.73"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "500 + 250 + 250"
+     "expression": "685.00 + 342.50 + 342.50"
     }
    },
    {
@@ -2074,13 +2074,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "871 * 3"
+     "expression": "1193.27 * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "2613 - 500 - 198 - 129"
+     "expression": "3579.81 - 685.00 - 271.26 - 176.73"
     }
    },
    {
@@ -2171,7 +2171,7 @@
   ]
  },
  "0c26c99fa0c31dca": {
-  "deid_hash": "fd3222d8ecc90903",
+  "deid_hash": "34e2d2a778d15b7c",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -2204,7 +2204,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "282 + 443 - (177 + 146 + 180)"
+     "expression": "386.34 + 606.91 - (242.49 + 200.02 + 246.60)"
     }
    },
    {
@@ -2570,7 +2570,7 @@
   ]
  },
  "0fc7aab5bc6c636c": {
-  "deid_hash": "18c8d64b949a4294",
+  "deid_hash": "ed1da6c280de651e",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -2639,13 +2639,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "130 + 443 - 533"
+     "expression": "178.10 + 606.91 - 730.21"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "130 + 443"
+     "expression": "178.10 + 606.91"
     }
    },
    {
@@ -2814,7 +2814,7 @@
   ]
  },
  "12e3447e5aed0a06": {
-  "deid_hash": "fdb016c96b627e6a",
+  "deid_hash": "333cd15c3e2ead1c",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -2825,13 +2825,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "198 + 129"
+     "expression": "271.26 + 176.73"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "500 + 250 + 250"
+     "expression": "685.00 + 342.50 + 342.50"
     }
    },
    {
@@ -2887,13 +2887,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "500 + 198 + 129"
+     "expression": "685.00 + 271.26 + 176.73"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "2613 - 827"
+     "expression": "3579.81 - 1132.99"
     }
    },
    {
@@ -3338,7 +3338,7 @@
   ]
  },
  "1535704f6b152084": {
-  "deid_hash": "5c7890b690f539fa",
+  "deid_hash": "1c33e2dd483b1019",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -3387,7 +3387,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "219.88 - 197.33"
+     "expression": "301.24 - 270.34"
     }
    },
    {
@@ -3406,7 +3406,7 @@
   ]
  },
  "154109e2a09e442f": {
-  "deid_hash": "f943f2a3b429f54d",
+  "deid_hash": "491b645ce93db2ab",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -3419,7 +3419,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xFC8541 NAME_0xDE7AD4 (user id USR_0x632A0E) is requesting to exchange a bookshelf from his most recent order for a camera. This is a product-type change, which is outside the scope of allowed exchanges (exchanges are limited to new items of the same product with different options). Customer is asking for a supervisor/human to make an exception."
+     "summary": "Customer NAME_0xFC8541 NAME_0xDE7AD4 (user id USR_0x632A0E) is requesting to exchange a NAME_0x046BF4 from his most recent order for a NAME_0xCFA72E. This is a product-type change, which is outside the scope of allowed exchanges (exchanges are limited to new items of the same product with different options). Customer is asking for a supervisor/human to make an exception."
     }
    }
   ]
@@ -3478,7 +3478,7 @@
   ]
  },
  "166b7dce2b325cd7": {
-  "deid_hash": "8478579e47eb781b",
+  "deid_hash": "bd904fecf60eecb7",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -3509,7 +3509,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(269.16 - 272.33) + (249.01 - 262.47)"
+     "expression": "(368.75 - 373.09) + (341.14 - 359.58)"
     }
    },
    {
@@ -3876,7 +3876,7 @@
   ]
  },
  "1c98fab96ed4f1c5": {
-  "deid_hash": "c284ac2fecf78512",
+  "deid_hash": "ec77d45d5e3cd812",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -3971,7 +3971,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(112 + 170) - (122 + 131)"
+     "expression": "(153.44 + 232.90) - (167.14 + 179.47)"
     }
    },
    {
@@ -4137,7 +4137,7 @@
   ]
  },
  "1ee08cad86ff5a5b": {
-  "deid_hash": "e79a2c9672f03119",
+  "deid_hash": "09d4fbfa8055ec9f",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -4198,7 +4198,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(2895.55 - 2823.96) + (1917.21 - 1902.67) + (52.01 - 46.00)"
+     "expression": "(3966.90 - 3868.83) + (2626.58 - 2606.66) + (71.25 - 63.02)"
     }
    },
    {
@@ -4252,7 +4252,7 @@
   ]
  },
  "1f561f07b79dab22": {
-  "deid_hash": "2fefc2bfcb9d1392",
+  "deid_hash": "c4b8e92ec760656c",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -4356,13 +4356,13 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer: NAME_0xB827C3 NAME_0xB7899C (user_id: USR_0x3F778F; account email: EMAIL_0x663720; secondary email for reference only: EMAIL_0x80509E).\n\nCompleted actions this session:\n- Cancelled ORD_0x2240E8 (reason: no longer needed) — $1958.84 refunded to PAY_0x10708D.\n- Cancelled ORD_0x44F6A6 (reason: ordered by mistake) — $1411.65 refunded to PAY_0x10708D.\n- Return submitted for ORD_0x7755EF (all items: NAME_0x11AACF, $324.10) — refund to PAY_0x10708D.\n- Return submitted for ORD_0xAE7855 (all four items: NAME_0x8300D3, NAME_0xC097C4, NAME_0x4D0DE9, NAME_0x51F714; $1625.46) — refund to PAY_0x10708D.\n\nCustomer requests from human agent:\n- Packaging requirements (original boxes? accessories/manuals? special handling for electronics: NAME_0x8300D3, NAME_0xC097C4, NAME_0x4D0DE9).\n- Return method options (drop-off vs pickup) and which is fastest to trigger refund.\n- Realistic timelines: how long the automatic return-instructions email takes to arrive, and refund timeline once items are scanned by carrier.\n- Note the secondary email EMAIL_0x80509E on the account for reference (system can only send to the account email).\nCustomer is under financial stress and would like to move as quickly as possible."
+     "summary": "Customer: NAME_0xB827C3 NAME_0xB7899C (user_id: USR_0x3F778F; account email: EMAIL_0x17A57B; secondary email for reference only: EMAIL_0x80509E).\n\nCompleted NAME_0x6F4DC8 this session:\n- Cancelled ORD_0x2240E8 (reason: no longer needed) — $1958.84 refunded to PAY_0x10708D.\n- Cancelled ORD_0x44F6A6 (reason: ordered by mistake) — $1411.65 refunded to PAY_0x10708D.\n- Return submitted for ORD_0x7755EF (all items: NAME_0x11AACF, $324.10) — refund to PAY_0x10708D.\n- Return submitted for ORD_0xAE7855 (all four items: NAME_0x8300D3, NAME_0xC097C4, NAME_0x4D0DE9, NAME_0x51F714; $1625.46) — refund to PAY_0x10708D.\n\nCustomer requests from human agent:\n- Packaging requirements (original boxes? accessories/manuals? special handling for electronics: NAME_0x8300D3, NAME_0xC097C4, NAME_0x4D0DE9).\n- Return method options (drop-off vs pickup) and which is fastest to trigger refund.\n- Realistic timelines: how long the automatic return-instructions email takes to arrive, and refund timeline once items are scanned by carrier.\n- Note the secondary email EMAIL_0x80509E on the account for reference (system can only send to the account email).\nCustomer is under financial stress and would like to move as quickly as possible."
     }
    }
   ]
  },
  "20665b3a13cfab91": {
-  "deid_hash": "ecb42aae2393d201",
+  "deid_hash": "7f1bc87a33954548",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -4400,7 +4400,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "153.23 - 135.24"
+     "expression": "209.93 - 185.28"
     }
    }
   ]
@@ -4607,7 +4607,7 @@
   ]
  },
  "2550c0210b5e0d3c": {
-  "deid_hash": "483bcb7766965d14",
+  "deid_hash": "623c1484e33712d5",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -4636,7 +4636,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0x7DD8DD NAME_0xCE5D00 (user id: USR_0x59AC86, email: EMAIL_0x87C1B2) moved to a new home and wants to: (1) update her default profile address to her new home, and (2) update the shipping address of a pending order that still has her old address. There are two pending orders on file: ORD_0x5637C1 (ship to ADDR_0xA5AB44, ADDR_0x060A61, ADDR_0x30B286, TX ADDR_0xECCA14) and ORD_0xBFC676 (ship to ADDR_0x9C9BE7, ADDR_0x343EAD, ADDR_0x30B286, TX ADDR_0xA20041). The customer believes one of these addresses reflects her new home and wants the other order changed to match it and the default address updated accordingly. She is not comfortable posting her full address in chat and requests a human agent assist without her having to provide it in text. Note: agent cannot infer or assume the correct new address from orders, and updates require the exact address from the customer."
+     "summary": "Customer NAME_0x7DD8DD NAME_0xCE5D00 (user id: USR_0x59AC86, email: EMAIL_0x5AFB9B) moved to a new home and wants to: (1) update her default profile address to her new home, and (2) update the shipping address of a pending order that still has her old address. There are two pending orders on file: ORD_0x5637C1 (ship to ADDR_0xA5AB44, ADDR_0x060A61, ADDR_0x30B286, TX ADDR_0xECCA14) and ORD_0xBFC676 (ship to ADDR_0x9C9BE7, ADDR_0x343EAD, ADDR_0x30B286, TX ADDR_0xA20041). The customer believes one of these addresses reflects her new home and wants the other order changed to match it and the default address updated accordingly. She is not comfortable posting her full address in chat and requests a human agent assist without her having to provide it in text. Note: agent cannot infer or assume the correct new address from orders, and updates require the exact address from the customer."
     }
    }
   ]
@@ -5002,7 +5002,7 @@
   ]
  },
  "29825bf1519140ee": {
-  "deid_hash": "e4fe3af26e2277f8",
+  "deid_hash": "27ce7c2ff4eb8450",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -5077,7 +5077,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "200.80 + 96.35 + 193.38 + 231.37 + 196.53"
+     "expression": "275.10 + 132.00 + 264.93 + 316.98 + 269.25"
     }
    }
   ]
@@ -5291,7 +5291,7 @@
   ]
  },
  "2a30a68889383820": {
-  "deid_hash": "b7861716719f1c9f",
+  "deid_hash": "292564f6b2af67d3",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -5346,7 +5346,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(153.23 - 150.01) + (212.79 - 201.95)"
+     "expression": "(209.93 - 205.51) + (291.52 - 276.67)"
     }
    },
    {
@@ -6360,7 +6360,7 @@
   ]
  },
  "3451dbaca01c4c64": {
-  "deid_hash": "1f6f500ff27b1058",
+  "deid_hash": "d85dfb5fbdaa0264",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -6429,13 +6429,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "146 + 167"
+     "expression": "200.02 + 228.79"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "142 + 170"
+     "expression": "194.54 + 232.90"
     }
    },
    {
@@ -6815,7 +6815,7 @@
   ]
  },
  "39330abdc2d99a41": {
-  "deid_hash": "9533845165ec080f",
+  "deid_hash": "261efc7e8649a2d9",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -6850,7 +6850,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "54.84 - 46.85"
+     "expression": "75.13 - 64.18"
     }
    },
    {
@@ -6903,7 +6903,7 @@
   ]
  },
  "3ae39b15420eb608": {
-  "deid_hash": "5151d6a14dd426f7",
+  "deid_hash": "3d308abacd18b4be",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -6985,7 +6985,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0x11F42F NAME_0x4D7B97 (USR_0x2BE482) requested modifications to order ORD_0x6CB070, which was pending: change desk lamp to black/medium/USB, change backpack to grey/medium/polyester, and update shipping address to his ADDR_0xFC0C6B default address. The item modification was completed (status now 'pending (item modified)'), which locked the order from any further changes. The customer then wanted to switch payment from gift card to PayPal, revert the lamp change, keep only the backpack change, and still update the shipping address — but these are not possible since the order is locked. Customer is requesting human review to see if the shipping address can still be updated or if there's another way to help."
+     "summary": "Customer NAME_0x11F42F NAME_0x4D7B97 (USR_0x2BE482) requested modifications to order ORD_0x6CB070, which was pending: change NAME_0x98FBB2 to black/medium/USB, change NAME_0x4C446F to grey/medium/polyester, and update shipping address to his ADDR_0xFC0C6B default address. The item modification was completed (status now 'pending (item modified)'), which locked the order from any further changes. The customer then wanted to switch payment from gift card to PayPal, revert the NAME_0xC88DBF change, keep only the NAME_0x4C446F change, and still update the shipping address — but these are not possible since the order is locked. Customer is requesting human review to see if the shipping address can still be updated or if there's another way to help."
     }
    }
   ]
@@ -7267,7 +7267,7 @@
   ]
  },
  "3ffdb711af1b476c": {
-  "deid_hash": "be1c634e3b29694e",
+  "deid_hash": "8a8f1a1a0dc3f394",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -7353,7 +7353,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user id: USR_0xABF9DE) needs help correcting the shipping address on order ORD_0xFCEF33. The order was changed to \"pending (item modified)\" status after a puzzle item modification, so the shipping address could not be updated by the agent. The order still shows ADDR_0x01CDB8, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132, but should be 445 Maple Drive, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132. Note: the customer's default user address and order ORD_0x18082B were successfully updated to 445 Maple Drive."
+     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user id: USR_0xABF9DE) needs help correcting the shipping address on order ORD_0xFCEF33. The order was changed to \"pending (item modified)\" status after a NAME_0x249679 item modification, so the shipping address could not be updated by the agent. The order still shows ADDR_0x01CDB8, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132, but should be 445 Maple Drive, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132. Note: the customer's default user address and order ORD_0x18082B were successfully updated to 445 Maple Drive."
     }
    }
   ]
@@ -7422,7 +7422,7 @@
   ]
  },
  "421908e0b1692f7b": {
-  "deid_hash": "5706d89a7cdab1e0",
+  "deid_hash": "b450537dc2926e8d",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -7483,7 +7483,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "466.75 + 288.82 + 135.24 + 46.85 + 193.38"
+     "expression": "639.45 + 395.68 + 185.28 + 64.18 + 264.93"
     }
    },
    {
@@ -7612,7 +7612,7 @@
   ]
  },
  "43c6fb82c341434f": {
-  "deid_hash": "c695a4c480d4dbf8",
+  "deid_hash": "2b4d4a251a8fc13d",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -7661,7 +7661,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "User NAME_0x165F81 NAME_0xA4B2EA (user_id: USR_0x18FE9A) reports that her delivered NAME_0x64965D order ORD_0xCA4F36 (item ITEM_0x88FFC3, tracking 746342064230) was lost after delivery. She is requesting a refund or reorder for the lost tablet. This is outside the agent's available actions since the order is delivered and cannot be returned without the item. Requesting human agent assistance for lost-package resolution."
+     "summary": "User NAME_0x165F81 NAME_0xA4B2EA (user_id: USR_0x18FE9A) reports that her delivered NAME_0x64965D order ORD_0xCA4F36 (item ITEM_0x88FFC3, tracking 746342064230) was lost after delivery. She is requesting a refund or reorder for the lost NAME_0x4DD548. This is outside the agent's available NAME_0x6F4DC8 since the order is delivered and cannot be returned without the item. Requesting human agent assistance for lost-package resolution."
     }
    }
   ]
@@ -7776,7 +7776,7 @@
   ]
  },
  "45046936167f910a": {
-  "deid_hash": "8cec6b48cf79a51c",
+  "deid_hash": "626be85e61cfb66f",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -7805,13 +7805,13 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xED38B6 NAME_0xE03A0F (USR_0xAAB29F) wants to return all non-gaming items from delivered order ORD_0x879BCD (NAME_0x51F714 ITEM_0x67C3F9, NAME_0x174F6B ITEM_0x0CC511, NAME_0x17D434 ITEM_0x748196, NAME_0x19E5A1 ITEM_0x1EB942). She is requesting the refund go to PayPal, which is not an allowed refund method (only original payment method / credit card ending 7285, or an existing gift card). She does not have a gift card on file and declined the original credit card option. Customer requests a human agent."
+     "summary": "Customer NAME_0xED38B6 NAME_0xE03A0F (USR_0xAAB29F) wants to return all non-NAME_0xED6C53 items from delivered order ORD_0x879BCD (NAME_0x51F714 ITEM_0x67C3F9, NAME_0x174F6B ITEM_0x0CC511, NAME_0x17D434 ITEM_0x748196, NAME_0x19E5A1 ITEM_0x1EB942). She is requesting the refund go to PayPal, which is not an allowed refund method (only original payment method / credit card ending 7285, or an existing gift card). She does not have a gift card on file and declined the original credit card option. Customer requests a human agent."
     }
    }
   ]
  },
  "4659520a7546cd81": {
-  "deid_hash": "6841072a5df23bd4",
+  "deid_hash": "39a9095577357acc",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -7822,13 +7822,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "198 + 129"
+     "expression": "271.26 + 176.73"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "500 + 250 + 250"
+     "expression": "685.00 + 342.50 + 342.50"
     }
    },
    {
@@ -7878,19 +7878,19 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "364 + 248 + 259"
+     "expression": "498.68 + 339.76 + 354.83"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(364 + 248 + 259) * 3"
+     "expression": "(498.68 + 339.76 + 354.83) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(364 + 248 + 259) * 3 - 500 - 327"
+     "expression": "(498.68 + 339.76 + 354.83) * 4.11 - 685.00 - 447.99"
     }
    },
    {
@@ -7902,19 +7902,19 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "871 - 500 - 327"
+     "expression": "1193.27 - 685.00 - 447.99"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "871 - 250"
+     "expression": "1193.27 - 342.50"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(871 - 500 - 327) + (871 - 250) + (871 - 250)"
+     "expression": "(1193.27 - 685.00 - 447.99) + (1193.27 - 342.50) + (1193.27 - 342.50)"
     }
    }
   ]
@@ -8860,7 +8860,7 @@
   ]
  },
  "51125d66f92aa7e7": {
-  "deid_hash": "5e9c9cadb04dee64",
+  "deid_hash": "79f8eb55c0e38956",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -8921,7 +8921,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(499.29 + 217.06) - (452.28 + 195.15)"
+     "expression": "(684.03 + 297.37) - (619.62 + 267.36)"
     }
    },
    {
@@ -9238,7 +9238,7 @@
   ]
  },
  "54b282bf856f8bb8": {
-  "deid_hash": "89ebd8eca79818cf",
+  "deid_hash": "058f2b53766abae7",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -9281,7 +9281,7 @@
    {
     "tool": "tau__think",
     "args": {
-     "thought": "Option A economy total: 152 + 103 = 255. Certificate_7504069 covers 250, remainder 5 on PAY_0xE0BD7D. Baggage: gold economy = 3 free per passenger, so 3 total, 0 nonfree."
+     "thought": "Option A economy total: 152 + 103 = 255. PAY_0xA6B747 covers 250, remainder 5 on PAY_0xE0BD7D. Baggage: gold economy = 3 free per passenger, so 3 total, 0 nonfree."
     }
    },
    {
@@ -9421,7 +9421,7 @@
   ]
  },
  "5674fb91ebca5c8d": {
-  "deid_hash": "934ed74086378e4e",
+  "deid_hash": "9e75ad95a2059717",
   "deid_plan": [
    {
     "tool": "tau__get_reservation_details",
@@ -9468,13 +9468,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(282 + 443) - (177 + 146 + 180)"
+     "expression": "(386.34 + 606.91) - (242.49 + 200.02 + 246.60)"
     }
    }
   ]
  },
  "57fc68a23770d66c": {
-  "deid_hash": "c1a28df6975616df",
+  "deid_hash": "c793213c02af8014",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -9560,7 +9560,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user_id: USR_0xABF9DE) needs the shipping address corrected on order ORD_0xFCEF33. The order is currently in \"pending (item modified)\" status after an item change (jigsaw puzzle switched to item ITEM_0x56A566), so the shipping address can no longer be modified via agent tools. The shipping address needs to be changed from the old \"ADDR_0x01CDB8, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132\" to the correct \"445 Maple Drive, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132\". The customer's default address and order ORD_0x18082B have already been updated to the correct address."
+     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user_id: USR_0xABF9DE) needs the shipping address corrected on order ORD_0xFCEF33. The order is currently in \"pending (item modified)\" status after an item change (NAME_0x295058 switched to item ITEM_0x56A566), so the shipping address can no longer be modified via agent tools. The shipping address needs to be changed from the old \"ADDR_0x01CDB8, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132\" to the correct \"445 Maple Drive, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132\". The customer's default address and order ORD_0x18082B have already been updated to the correct address."
     }
    }
   ]
@@ -9649,7 +9649,7 @@
   ]
  },
  "58fd5204c39da943": {
-  "deid_hash": "f07bef80b211b536",
+  "deid_hash": "ab3eaab4df297218",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -9692,13 +9692,13 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (user_id: USR_0x751500) wants to return items from delivered order ORD_0xD1BC71 (shipped to ADDR_0x30B286, TX). She wants to return the NAME_0x338C5C (item ITEM_0x67BF8F) and NAME_0x174F6B (item ITEM_0x378223), keeping the NAME_0xBEEB1A. She is requesting the refund be sent to an Amex credit card, which is not permitted under policy (refunds must go to original payment method PayPal_3024827 or an existing gift card). She declined the PayPal option and requested a human agent."
+     "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (user_id: USR_0x751500) wants to return items from delivered order ORD_0xD1BC71 (shipped to ADDR_0x30B286, TX). She wants to return the NAME_0x338C5C (item ITEM_0x67BF8F) and NAME_0x174F6B (item ITEM_0x378223), keeping the NAME_0xBEEB1A. She is requesting the refund be sent to an Amex credit card, which is not permitted under policy (refunds must go to original payment method PAY_0x61F6CF or an existing gift card). She declined the PayPal option and requested a human agent."
     }
    }
   ]
  },
  "5954484ebf583d74": {
-  "deid_hash": "1dfe695c9c591226",
+  "deid_hash": "0106f96a9d0357e3",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -9747,7 +9747,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(464 + 202 - 126 - 139) * 3"
+     "expression": "(635.68 + 276.74 - 172.62 - 190.43) * 4.11"
     }
    },
    {
@@ -9769,13 +9769,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(464 + 202 + 290 + 241 - 126 - 139 - 148 - 114) * 3"
+     "expression": "(635.68 + 276.74 + 397.30 + 330.17 - 172.62 - 190.43 - 202.76 - 156.18) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(113 + 165 - 126 - 139) * 3"
+     "expression": "(154.81 + 226.05 - 172.62 - 190.43) * 4.11"
     }
    },
    {
@@ -9870,7 +9870,7 @@
   ]
  },
  "5ade44fca3f6d027": {
-  "deid_hash": "afdc7cbd6ff29c21",
+  "deid_hash": "7171c832b69f004d",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -9919,7 +9919,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "219.88 - 197.33"
+     "expression": "301.24 - 270.34"
     }
    }
   ]
@@ -10683,7 +10683,7 @@
   ]
  },
  "5f813d7cbb305dd3": {
-  "deid_hash": "99e563b8e61819b8",
+  "deid_hash": "58c9572778b72516",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -10728,7 +10728,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "((430 - 136) + (412 - 109)) * 2"
+     "expression": "((589.10 - 186.32) + (564.44 - 149.33)) * 2.74"
     }
    },
    {
@@ -11366,7 +11366,7 @@
   ]
  },
  "662c75e9bf8febdc": {
-  "deid_hash": "8d52975008be8917",
+  "deid_hash": "2c6b0daf398fe891",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -11399,13 +11399,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "282 + 443 - 503"
+     "expression": "386.34 + 606.91 - 689.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "130 + 187 - 503"
+     "expression": "178.10 + 256.19 - 689.11"
     }
    },
    {
@@ -11667,7 +11667,7 @@
   ]
  },
  "683764f26d4655f3": {
-  "deid_hash": "840200f46a9739ac",
+  "deid_hash": "779e361d617dadd6",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -11710,55 +11710,55 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "152 + 103"
+     "expression": "208.24 + 141.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "158 + 103"
+     "expression": "216.46 + 141.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "175 + 196"
+     "expression": "239.75 + 268.52"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "175 + 122"
+     "expression": "239.75 + 167.14"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "175 + 181"
+     "expression": "239.75 + 247.97"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "186 + 196"
+     "expression": "254.82 + 268.52"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "186 + 122"
+     "expression": "254.82 + 167.14"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "186 + 181"
+     "expression": "254.82 + 247.97"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "188 + 196"
+     "expression": "257.56 + 268.52"
     }
    },
    {
@@ -12191,7 +12191,7 @@
   ]
  },
  "6d7a739ce7beba77": {
-  "deid_hash": "cccf598ba77e738e",
+  "deid_hash": "a53cb817d0d14178",
   "deid_plan": [
    {
     "tool": "tau__get_reservation_details",
@@ -12224,13 +12224,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(282 + 443) - (177 + 146 + 180)"
+     "expression": "(386.34 + 606.91) - (242.49 + 200.02 + 246.60)"
     }
    }
   ]
  },
  "6dc59e5f77841d4a": {
-  "deid_hash": "162a620ee2156a78",
+  "deid_hash": "b747ea13234cd0e0",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -12273,7 +12273,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "136 * 3"
+     "expression": "186.32 * 4.11"
     }
    },
    {
@@ -12770,7 +12770,7 @@
   ]
  },
  "743720129beaa39e": {
-  "deid_hash": "b851e897c22d7954",
+  "deid_hash": "256061c8f83e1622",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -12781,13 +12781,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "198 + 129"
+     "expression": "271.26 + 176.73"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "500 + 250 + 250"
+     "expression": "685.00 + 342.50 + 342.50"
     }
    },
    {
@@ -12831,7 +12831,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "364 * 3 + (248 + 259) * 3"
+     "expression": "498.68 * 4.11 + (339.76 + 354.83) * 4.11"
     }
    },
    {
@@ -13465,7 +13465,7 @@
   ]
  },
  "790a6f48c946a93f": {
-  "deid_hash": "b7355dc62ae50517",
+  "deid_hash": "62dc314a34cf6c67",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -13538,7 +13538,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a NAME_0x4E4E59 and NAME_0x19E5A1 and exchange NAME_0x11AACF for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the hose and backpack, which changed the order status to 'return requested'. The subsequent exchange for the hiking boots (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible."
+     "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a NAME_0x4E4E59 and NAME_0x19E5A1 and exchange NAME_0x11AACF for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the NAME_0x8243AA and NAME_0x4C446F, which changed the order status to 'return requested'. The subsequent exchange for the NAME_0xF4F9A5 (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible."
     }
    }
   ]
@@ -13911,7 +13911,7 @@
   ]
  },
  "7febb91ca8caf175": {
-  "deid_hash": "9f12a66f26ea3973",
+  "deid_hash": "95332aece87bd48a",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -14054,31 +14054,31 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(1859 - 140) + (1679 - 101)"
+     "expression": "(2546.83 - 191.80) + (2300.23 - 138.37)"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(537 - 107) + (996 - 141) + (1440 - 108) + (1417 - 109)"
+     "expression": "(735.69 - 146.59) + (1364.52 - 193.17) + (1972.80 - 147.96) + (1941.29 - 149.33)"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(1505 - 162) + (1519 - 153)"
+     "expression": "(2061.85 - 221.94) + (2081.03 - 209.61)"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(1820 - 172) + (940 - 136)"
+     "expression": "(2493.40 - 235.64) + (1287.80 - 186.32)"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(1981 - 117) + (820 - 102)"
+     "expression": "(2713.97 - 160.29) + (1123.40 - 139.74)"
     }
    },
    {
@@ -15101,7 +15101,7 @@
   ]
  },
  "86a53bb30ddc4258": {
-  "deid_hash": "8597585b37f74a47",
+  "deid_hash": "a789ea333e617e90",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -15163,7 +15163,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "User NAME_0xA1D11C Li (USR_0xE22ADC) requested two actions on pending order ORD_0x591F0D: (1) modify the NAME_0xD8BA77 to the cheapest available green type, and (2) change the shipping address from the LA address (ADDR_0xB85EDF, ADDR_0x7424C5, ADDR_0x031416, CA ADDR_0xDCCFD3) to his NYC address (ADDR_0x74B2AF, ADDR_0x1DEC63, ADDR_0x63E28F, NY ADDR_0x1DDF4D). Action 1 succeeded (order now 'pending (item modified)', $5.15 refund issued to PayPal). Action 2 failed because the order status changed to 'pending (item modified)', which can no longer be modified. User needs human assistance to update the shipping address on order ORD_0x591F0D."
+     "summary": "User NAME_0xA1D11C Li (USR_0xE22ADC) requested two NAME_0x6F4DC8 on pending order ORD_0x591F0D: (1) modify the NAME_0xD8BA77 to the cheapest available green type, and (2) change the shipping address from the LA address (ADDR_0xB85EDF, ADDR_0x7424C5, ADDR_0x031416, CA ADDR_0xDCCFD3) to his NYC address (ADDR_0x74B2AF, ADDR_0x1DEC63, ADDR_0x63E28F, NY ADDR_0x1DDF4D). NAME_0xD3C1AF 1 succeeded (order now 'pending (item modified)', $5.15 refund issued to PayPal). NAME_0xD3C1AF 2 failed because the order status changed to 'pending (item modified)', which can no longer be modified. User needs human assistance to update the shipping address on order ORD_0x591F0D."
     }
    }
   ]
@@ -15456,7 +15456,7 @@
   ]
  },
  "896d204f88b78f37": {
-  "deid_hash": "d713221ffc8a9098",
+  "deid_hash": "d540903d046e200a",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -15525,61 +15525,61 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(20 - 4)  # option 1"
+     "expression": "(27.40 - 5.48)  # option 1.37"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(16 - 4)  # option 2"
+     "expression": "(21.92 - 5.48)  # option 2.74"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(20 - 11)  # option 3"
+     "expression": "(27.40 - 15.07)  # option 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(16 - 11)  # option 4"
+     "expression": "(21.92 - 15.07)  # option 5.48"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(20 - 14)  # option 5"
+     "expression": "(27.40 - 19.18)  # option 6.85"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "20 - 4"
+     "expression": "27.40 - 5.48"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "16 - 4"
+     "expression": "21.92 - 5.48"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "20 - 11"
+     "expression": "27.40 - 15.07"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "16 - 11"
+     "expression": "21.92 - 15.07"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "20 - 14"
+     "expression": "27.40 - 19.18"
     }
    },
    {
@@ -15611,7 +15611,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(142 + 170) - (122 + 131)"
+     "expression": "(194.54 + 232.90) - (167.14 + 179.47)"
     }
    },
    {
@@ -16059,7 +16059,7 @@
   ]
  },
  "8f5480514e1360e9": {
-  "deid_hash": "5d6acb201d08ef93",
+  "deid_hash": "81f748b702efec22",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -16128,7 +16128,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "167.87 - 60.78"
+     "expression": "229.98 - 83.27"
     }
    }
   ]
@@ -16340,7 +16340,7 @@
   ]
  },
  "937c0f9896c89d41": {
-  "deid_hash": "804629cd692e77bb",
+  "deid_hash": "bdfe5439e308bd0f",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -16383,7 +16383,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "200.80 + 96.35 + 193.38 + 231.37 + 196.53"
+     "expression": "275.10 + 132.00 + 264.93 + 316.98 + 269.25"
     }
    },
    {
@@ -17684,7 +17684,7 @@
   ]
  },
  "a468e936aa8b9e4c": {
-  "deid_hash": "5aa55e9a8037fc0c",
+  "deid_hash": "7caf580c81fedc39",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -17764,7 +17764,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "User NAME_0x11F42F NAME_0x4D7B97 (USR_0x2BE482) requested to update the shipping address on pending order ORD_0x6CB070 to his default address (ADDR_0x98D64A, ADDR_0x616ED6, ADDR_0xFC0C6B, NC ADDR_0xD22DBF). However, the order status was changed to 'pending (item modified)' after a backpack item modification, so the address can no longer be modified via the available tools. User needs help updating the shipping address."
+     "summary": "User NAME_0x11F42F NAME_0x4D7B97 (USR_0x2BE482) requested to update the shipping address on pending order ORD_0x6CB070 to his default address (ADDR_0x98D64A, ADDR_0x616ED6, ADDR_0xFC0C6B, NC ADDR_0xD22DBF). However, the order status was changed to 'pending (item modified)' after a NAME_0x4C446F item modification, so the address can no longer be modified via the available tools. User needs help updating the shipping address."
     }
    }
   ]
@@ -17849,7 +17849,7 @@
   ]
  },
  "a51c3a6b5a28a189": {
-  "deid_hash": "1ce7e3c128dab2f8",
+  "deid_hash": "f53d9a076a432b0f",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -17910,7 +17910,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "466.75 + 288.82 + 135.24 + 46.66 + 193.38"
+     "expression": "639.45 + 395.68 + 185.28 + 63.92 + 264.93"
     }
    },
    {
@@ -18283,7 +18283,7 @@
   ]
  },
  "a83776b6cb4f1ccd": {
-  "deid_hash": "04919f46bc171fcc",
+  "deid_hash": "91b68876795cb5f2",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -18326,7 +18326,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(2459.74 - 2291.87) + (2459.74 - 2520.52)"
+     "expression": "(3369.84 - 3139.86) + (3369.84 - 3453.11)"
     }
    },
    {
@@ -18358,7 +18358,7 @@
   ]
  },
  "a8a36cf4a5aaa420": {
-  "deid_hash": "71e071d4b5e41e1a",
+  "deid_hash": "c6859e1afa4473de",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -18645,7 +18645,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "3297 + 3925 + 2709 + 2452 + 2582"
+     "expression": "4516.89 + 5377.25 + 3711.33 + 3359.24 + 3537.34"
     }
    }
   ]
@@ -21022,7 +21022,7 @@
   ]
  },
  "bf24bd950519895d": {
-  "deid_hash": "b1c59992d2c62188",
+  "deid_hash": "0d8923137949d2d7",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -21167,7 +21167,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "6594 + 3925 + 5418 + 2452 + 5164"
+     "expression": "9033.78 + 5377.25 + 7422.66 + 3359.24 + 7074.68"
     }
    }
   ]
@@ -21541,7 +21541,7 @@
   ]
  },
  "c5be5ab8b926d99e": {
-  "deid_hash": "4e6afaf0fd0b8f1e",
+  "deid_hash": "7a741a16ab37c1cc",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -21602,13 +21602,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(1902.67 + 46.00) - (1917.21 + 52.01)"
+     "expression": "(2606.66 + 63.02) - (2626.58 + 71.25)"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "2823.96 - 2895.55"
+     "expression": "3868.83 - 3966.90"
     }
    },
    {
@@ -22049,7 +22049,7 @@
   ]
  },
  "cb758256214e7ff1": {
-  "deid_hash": "dd04bdda1976a832",
+  "deid_hash": "f92fae854cb2c896",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -22110,7 +22110,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "466.75 + 288.82 + 135.24 + 46.66 + 193.38"
+     "expression": "639.45 + 395.68 + 185.28 + 63.92 + 264.93"
     }
    },
    {
@@ -22206,7 +22206,7 @@
   ]
  },
  "cbcbb773543ad95a": {
-  "deid_hash": "505706060ca89c07",
+  "deid_hash": "29dd524c4b553c40",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -22217,13 +22217,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "198 + 129"
+     "expression": "271.26 + 176.73"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "500 + 250 + 250"
+     "expression": "685.00 + 342.50 + 342.50"
     }
    },
    {
@@ -22558,7 +22558,7 @@
   ]
  },
  "cda9ad3492b1a893": {
-  "deid_hash": "bb3f572551e48bef",
+  "deid_hash": "c6220dd0bb55186a",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -22583,7 +22583,7 @@
    {
     "tool": "tau__think",
     "args": {
-     "thought": "Need to calculate price difference for changing flights. Current outbound segments: RES_0x9F7A0E price 161 + RES_0x738F15 price 192 = 353. New outbound RES_0xDC5236 economy price 146 per passenger. Return RES_0x855974 price remains 184 (unchanged). New total per passenger = 146 + 184 = 330. Current total per passenger = 161 + 192 + 184 = 537. Difference = 330 - 537 = -207 per passenger, so refund of 207 per passenger for 2 passengers = 414 refund. Need to confirm with user and ask refund method. Reservation insurance yes, cabin economy. This is allowed: non-basic economy flight can be modified without changing origin/destination/trip type. Flights are not flown presumably. Need to list action details and obtain explicit confirmation before API. Also payment: user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC and PAY_0xCFA333. Refund method should be gift card or credit card, not certificate? Policy: If flights are changed, user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC, so ask for that or credit card? They don't have credit card in profile. Gift card available. Ask."
+     "thought": "Need to calculate price difference for changing flights. Current outbound segments: RES_0x9F7A0E price 161 + RES_0x738F15 price 192 = 353. New outbound RES_0xDC5236 economy price 146 per passenger. Return RES_0x855974 price remains 184 (unchanged). New total per passenger = 146 + 184 = 330. Current total per passenger = 161 + 192 + 184 = 537. Difference = 330 - 537 = -207 per passenger, so refund of 207 per passenger for 2 passengers = 414 refund. Need to confirm with user and ask refund method. Reservation insurance yes, cabin economy. This is allowed: non-basic economy flight can be modified without changing origin/destination/trip type. Flights are not flown presumably. Need to list NAME_0xCE8E48 details and obtain explicit confirmation before API. Also payment: user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC and PAY_0xCFA333. Refund method should be gift card or credit card, not certificate? Policy: If flights are changed, user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC, so ask for that or credit card? They don't have credit card in profile. Gift card available. Ask."
     }
    },
    {
@@ -22607,7 +22607,7 @@
   ]
  },
  "cdf6d80b516b5389": {
-  "deid_hash": "bc960ee85f44c077",
+  "deid_hash": "671c32afdbb1b8d8",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -22648,7 +22648,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xED38B6 NAME_0xE03A0F (USR_0xAAB29F) wants to return three non-gaming items (NAME_0x51F714 $75.14, NAME_0x17D434 $659.66, NAME_0x19E5A1 $298.71; total $1033.51) from delivered order ORD_0x879BCD. She specifically requests the refund go to her PayPal (PAY_0xB08498), but policy requires refunds to the original payment method (credit card visa ...7285) or an existing gift card. She has no gift card on file. Customer is requesting a human agent because PayPal refund is not possible.</parameter>\n</invoke>\n"
+     "summary": "Customer NAME_0xED38B6 NAME_0xE03A0F (USR_0xAAB29F) wants to return three non-NAME_0xED6C53 items (NAME_0x51F714 $75.14, NAME_0x17D434 $659.66, NAME_0x19E5A1 $298.71; total $1033.51) from delivered order ORD_0x879BCD. She specifically requests the refund go to her PayPal (PAY_0xB08498), but policy requires refunds to the original payment method (credit card visa ...7285) or an existing gift card. She has no gift card on file. Customer is requesting a human agent because PayPal refund is not possible.</parameter>\n</invoke>\n"
     }
    }
   ]
@@ -22923,7 +22923,7 @@
   ]
  },
  "d0501098718a9af8": {
-  "deid_hash": "78303c2fa197023d",
+  "deid_hash": "ad5ccb81c91a494f",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -22946,7 +22946,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "54.84 - 46.85"
+     "expression": "75.13 - 64.18"
     }
    },
    {
@@ -23128,7 +23128,7 @@
   ]
  },
  "d304b6674ef8caae": {
-  "deid_hash": "6679f7f32e34cfe9",
+  "deid_hash": "dd7d455faed0dca3",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -23189,7 +23189,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "3131.10 + 4777.75 + 367.38"
+     "expression": "4289.61 + 6545.52 + 503.31"
     }
    }
   ]
@@ -23303,7 +23303,7 @@
   ]
  },
  "d55971a23c565ce2": {
-  "deid_hash": "737d9ecbed2adbca",
+  "deid_hash": "8b925f50f3b874c6",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -23389,7 +23389,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user id USR_0xABF9DE) wants to change the shipping address on order ORD_0xFCEF33 from ADDR_0x01CDB8 to 445 Maple Drive (ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132). The address could not be updated because the order's items were just modified, putting it in the \"pending (item modified)\" state, which cannot be modified or cancelled per policy. Customer needs human assistance to correct the shipping address. Note: ORD_0xFCEF33's jigsaw puzzle was changed to item ITEM_0x56A566 (500-piece beginner), and ORD_0x18082B plus the default user address were already updated to 445 Maple Drive."
+     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user id USR_0xABF9DE) wants to change the shipping address on order ORD_0xFCEF33 from ADDR_0x01CDB8 to 445 Maple Drive (ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132). The address could not be updated because the order's items were just modified, putting it in the \"pending (item modified)\" state, which cannot be modified or cancelled per policy. Customer needs human assistance to correct the shipping address. Note: ORD_0xFCEF33's NAME_0x295058 was changed to item ITEM_0x56A566 (500-piece beginner), and ORD_0x18082B plus the default user address were already updated to 445 Maple Drive."
     }
    }
   ]
@@ -23826,7 +23826,7 @@
   ]
  },
  "dc137bd5a1de84a1": {
-  "deid_hash": "1bdfa8f210d290b5",
+  "deid_hash": "2ca4432e5579a97a",
   "deid_plan": [
    {
     "tool": "tau__get_reservation_details",
@@ -23859,7 +23859,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "282 + 443"
+     "expression": "386.34 + 606.91"
     }
    }
   ]
@@ -24689,7 +24689,7 @@
   ]
  },
  "e17cf46bbb9d22e8": {
-  "deid_hash": "d433e1cc0914a7f2",
+  "deid_hash": "5f2c7683cdcc79e6",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -24738,7 +24738,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "3066.23 - 2895.55"
+     "expression": "4200.74 - 3966.90"
     }
    },
    {
@@ -24801,7 +24801,7 @@
   ]
  },
  "e2f4783bff3d8589": {
-  "deid_hash": "26d71ee203702163",
+  "deid_hash": "0b895c0a79edac7c",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -24858,13 +24858,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(404 + 202) * 3"
+     "expression": "(553.48 + 276.74) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(126 + 139 + 148 + 114) * 3"
+     "expression": "(172.62 + 190.43 + 202.76 + 156.18) * 4.11"
     }
    },
    {
@@ -24886,31 +24886,31 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(404 + 202 + 290 + 241) * 3"
+     "expression": "(553.48 + 276.74 + 397.30 + 330.17) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(404 + 202 + 290 + 241) * 3 - 1671"
+     "expression": "(553.48 + 276.74 + 397.30 + 330.17) * 4.11 - 2289.27"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(113 + 165) * 3"
+     "expression": "(154.81 + 226.05) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "((126 + 139) * 3) + (148 + 114) * 3"
+     "expression": "((172.62 + 190.43) * 4.11) + (202.76 + 156.18) * 4.11"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "((113 + 165) * 3 + (148 + 114) * 3) - 1671"
+     "expression": "((154.81 + 226.05) * 4.11 + (202.76 + 156.18) * 4.11) - 2289.27"
     }
    },
    {
@@ -25568,7 +25568,7 @@
   ]
  },
  "e5f13ad8e7220b17": {
-  "deid_hash": "4a8d2329746e4562",
+  "deid_hash": "e03deb0c961a4a16",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -25625,13 +25625,13 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(464 + 202 + 464 + 464) - (126 + 139 + 148 + 114)"
+     "expression": "(635.68 + 276.74 + 635.68 + 635.68) - (172.62 + 190.43 + 202.76 + 156.18)"
     }
    },
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(113 + 165) - (126 + 139)"
+     "expression": "(154.81 + 226.05) - (172.62 + 190.43)"
     }
    }
   ]
@@ -25814,7 +25814,7 @@
   ]
  },
  "e67291fcffd184ea": {
-  "deid_hash": "c65e88c3426d5d02",
+  "deid_hash": "10f48dbb240a13fb",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -25870,7 +25870,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "248.85 + 256.67 + 511.24 + 285.81"
+     "expression": "340.92 + 351.64 + 700.40 + 391.56"
     }
    }
   ]
@@ -26039,7 +26039,7 @@
   ]
  },
  "eb07b063f62b7c7e": {
-  "deid_hash": "c4a71c654bdbe8e2",
+  "deid_hash": "471d52eccc668524",
   "deid_plan": [
    {
     "tool": "tau__get_user_details",
@@ -26068,7 +26068,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(561 + 1339) * 3"
+     "expression": "(768.57 + 1834.43) * 4.11"
     }
    },
    {
@@ -26238,7 +26238,7 @@
   ]
  },
  "ed71b71bb28c2d91": {
-  "deid_hash": "5212bf8b726c6d8c",
+  "deid_hash": "cd918a1da3baefbc",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -26324,7 +26324,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user_id: USR_0xABF9DE) needs the shipping address corrected on order ORD_0xFCEF33. The order was previously modified (jigsaw puzzle item changed), which set its status to 'pending (item modified)'. Because of this status, the address modification tool returns \"non-pending order cannot be modified\" and the address cannot be updated by the agent. Customer wants the address changed from ADDR_0x01CDB8, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132, USA to the corrected 445 Maple Drive, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132, USA. Note: her other order (ORD_0x18082B) and profile default address were already successfully updated to the corrected address."
+     "summary": "Customer NAME_0xC74B27 NAME_0x4D6958 (user_id: USR_0xABF9DE) needs the shipping address corrected on order ORD_0xFCEF33. The order was previously modified (NAME_0x295058 item changed), which set its status to 'pending (item modified)'. Because of this status, the address modification tool returns \"non-pending order cannot be modified\" and the address cannot be updated by the agent. Customer wants the address changed from ADDR_0x01CDB8, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132, USA to the corrected 445 Maple Drive, ADDR_0x1130E3, ADDR_0x37DDCE, TX ADDR_0x86C132, USA. Note: her other order (ORD_0x18082B) and profile default address were already successfully updated to the corrected address."
     }
    }
   ]
@@ -26614,7 +26614,7 @@
   ]
  },
  "f0e8dc8d1fafe2b7": {
-  "deid_hash": "e26256c34a8d289c",
+  "deid_hash": "5045a1fd0f3105d4",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_email",
@@ -26643,7 +26643,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "User NAME_0x7DD8DD NAME_0xCE5D00 (USR_0x59AC86) wants to: (1) update the shipping address on her order ORD_0x5637C1 to a new home address she is unwilling to type in chat, (2) update her default account address to the same new address, and (3) exchange her tablet (item ITEM_0xB16F1B, on order ORD_0x5637C1) to the cheapest tablet available. She requests a human agent who can verify her account another way, as she does not want to disclose the address in chat."
+     "summary": "User NAME_0x7DD8DD NAME_0xCE5D00 (USR_0x59AC86) wants to: (1) update the shipping address on her order ORD_0x5637C1 to a new home address she is unwilling to type in chat, (2) update her default account address to the same new address, and (3) exchange her NAME_0x4DD548 (item ITEM_0xB16F1B, on order ORD_0x5637C1) to the cheapest NAME_0x4DD548 available. She requests a human agent who can verify her account another way, as she does not want to disclose the address in chat."
     }
    }
   ]
@@ -26786,7 +26786,7 @@
   ]
  },
  "f25685bac8c65d43": {
-  "deid_hash": "b7a245857e3b63df",
+  "deid_hash": "8ffb9b01996910fd",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -26854,7 +26854,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xFEEE57 NAME_0xB7B333 (USR_0x262989) modified order ORD_0x783960 (NAME_0x081F5A changed to 2-piece red softshell). He now wants to also change the NAME_0xE808EA item in the same order, but the item modification can only be done once and the order is now locked as 'pending (item modified)'. Customer is requesting help to modify the skateboard additionally."
+     "summary": "Customer NAME_0xFEEE57 NAME_0xB7B333 (USR_0x262989) modified order ORD_0x783960 (NAME_0x081F5A changed to 2-piece red softshell). He now wants to also change the NAME_0xE808EA item in the same order, but the item modification can only be done once and the order is now locked as 'pending (item modified)'. Customer is requesting help to modify the NAME_0x6005F4 additionally."
     }
    }
   ]
@@ -26904,7 +26904,7 @@
   ]
  },
  "f33328634a623de2": {
-  "deid_hash": "117d90bbbab53a2a",
+  "deid_hash": "dcefc0bb8373f9ab",
   "deid_plan": [
    {
     "tool": "tau__get_reservation_details",
@@ -26937,7 +26937,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "282 + 323"
+     "expression": "386.34 + 442.51"
     }
    },
    {
@@ -26991,7 +26991,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "605 - 533"
+     "expression": "828.85 - 730.21"
     }
    },
    {
@@ -27685,7 +27685,7 @@
   ]
  },
  "f7216680754e496b": {
-  "deid_hash": "675071f9369b73f4",
+  "deid_hash": "fbc6c6806c132095",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -27767,7 +27767,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "1619.34 + 200.80 + 96.35 + 193.38 + 231.37 + 196.53"
+     "expression": "2218.50 + 275.10 + 132.00 + 264.93 + 316.98 + 269.25"
     }
    }
   ]
@@ -28013,7 +28013,7 @@
   ]
  },
  "fa66057a24e56b77": {
-  "deid_hash": "42d458d60fa96fff",
+  "deid_hash": "4ef3717894246fd6",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -28069,7 +28069,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "248.85 + 256.67 + 511.24 + 271.89"
+     "expression": "340.92 + 351.64 + 700.40 + 372.49"
     }
    }
   ]
@@ -28404,7 +28404,7 @@
   ]
  },
  "fcf4362dfa60228d": {
-  "deid_hash": "5a32d5e0e7cb6afb",
+  "deid_hash": "14fa99f7b1913ba6",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -28472,7 +28472,7 @@
    {
     "tool": "tau__transfer_to_human_agents",
     "args": {
-     "summary": "Customer NAME_0xD5938F NAME_0xE2AB55 (user_id USR_0x832546) modified order ORD_0xE078FC, changing the NAME_0x6826CD from item ITEM_0x48477B ($209.93) to the cheapest available variant, item ITEM_0x5965F0 ($185.28), with the price difference to be refunded to PAY_0xB20087. Expected refund was stated as $30.13 (price difference), but the system recorded an actual refund of only $24.65. Customer wants to know why the refunded amount is lower than expected and to receive the correct refund. The modification has already been applied and the order status is now 'pending (item modified)'."
+     "summary": "Customer NAME_0xD5938F NAME_0xE2AB55 (user_id USR_0x832546) modified order ORD_0xE078FC, changing the NAME_0x6826CD from item ITEM_0x48477B ($209.93) to the cheapest available variant, item ITEM_0x5965F0 ($185.28), with the price difference to be refunded to PAY_0xB20087. Expected refund was stated as $30.13 (price difference), but the system recorded an actual refund of only $17.99. Customer wants to know why the refunded amount is lower than expected and to receive the correct refund. The modification has already been applied and the order status is now 'pending (item modified)'."
     }
    }
   ]
@@ -28525,7 +28525,7 @@
   ]
  },
  "fda795579b618cef": {
-  "deid_hash": "fe19d239f0aba7ee",
+  "deid_hash": "9f876230b1e2ef6c",
   "deid_plan": [
    {
     "tool": "tau__find_user_id_by_name_zip",
@@ -28580,7 +28580,7 @@
    {
     "tool": "tau__calculate",
     "args": {
-     "expression": "(158.41 + 212.79) - (150.01 + 201.95)"
+     "expression": "(217.02 + 291.52) - (205.51 + 276.67)"
     }
    },
    {

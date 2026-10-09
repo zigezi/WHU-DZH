@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(BACKEND, "requirements", "adapters", "tau"))
 import sqlite3  # noqa: E402
 from deident import (DeIdentifier, classify_lint, field_class, lint_db_dictionary,  # noqa: E402
                      lint_db_nonmember, lint_lint_parse_and_names, lint_no_residual,
-                     prefix_for)
+                     lint_price_residual, prefix_for)
 
 _ID_KEY = re.compile(r"^(#W\d{6,}|[A-Z0-9]{6}|[a-z]+_[a-z]+_\d{3,5}|"
                      r"(?:credit_card|gift_card|certificate|paypal)_\d+)$")
@@ -108,6 +108,9 @@ def collect_db_sets():
                          ("PAY" if re.match(r"^(credit_card|gift_card|certificate|paypal)_", k) else "USR")), k)
                 if isinstance(v, str) and field_class(k) in ("I", "III") and prefix_for(k) != "XID":
                     add(prefix_for(k), v)
+                if k in ("price", "amount", "total", "balance", "refund", "cost", "fee") \
+                        and isinstance(v, (int, float)) and not isinstance(v, bool):
+                    add("PRICE", str(v))          # P5a.38 §二.3：价格入机器④字典
                 walk(v, k)
         elif isinstance(o, list):
             for v in o:
@@ -184,8 +187,12 @@ def main():
     enums = build_enums()
     NAMES = name_vocab()
     DB_SETS = collect_db_sets()
-    DB_VALUES = set().union(*DB_SETS.values()) if DB_SETS else set()
-    print(f"[db-sets] categories={ {k: len(v) for k, v in DB_SETS.items()} } total={len(DB_VALUES)}")
+    SCRUB_SETS = {k: v for k, v in DB_SETS.items() if k != "PRICE"}
+    DB_VALUES = set().union(*SCRUB_SETS.values()) if SCRUB_SETS else set()  # 价格另判
+    PRICES = DB_SETS.get("PRICE", set())
+    PRICE_SCALED = {f"{round(float(p) * 1.37, 2):.2f}" for p in PRICES if p}
+    print(f"[db-sets] scrub={ {k: len(v) for k, v in SCRUB_SETS.items()} } "
+          f"machine4_total={len(DB_VALUES)}")
     deid_lib, lint_rows, mapping = {}, [], {}
     unclassified = {}
     non_tau = 0
@@ -193,7 +200,7 @@ def main():
         if not all(str(s.get("tool", "")).startswith("tau__") for s in p):
             non_tau += 1
             continue
-        d = DeIdentifier(seed=SEED, name_vocab=NAMES, db_sets=DB_SETS)
+        d = DeIdentifier(seed=SEED, name_vocab=NAMES, db_sets=SCRUB_SETS)
         dp = d.plan(p)
         for (t, real), fake in d.mapping.items():
             mapping.setdefault(t, {})[real] = fake
@@ -202,6 +209,9 @@ def main():
         l3 = lint_db_nonmember(dp, members)
         l4 = classify_lint(dp, enums)
         l5 = lint_db_dictionary(dp, DB_VALUES)
+        l5p = lint_price_residual(dp, p)
+        l5["ok"] = l5["ok"] and l5p["ok"]
+        l5["price_residual"] = l5p["hits"]
         for k, v in l4["unclassified"]:
             unclassified.setdefault((k, v), 0)
             unclassified[(k, v)] += 1

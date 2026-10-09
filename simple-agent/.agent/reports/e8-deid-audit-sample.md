@@ -1,8 +1,7 @@
-# e8 脱敏库抽检样本 v2（跨 airline/retail 多族）
+# e8 脱敏库抽检样本 v3（16 例）
 
-> **判据用详细 Rubric：`.agent/reports/e8-deid-audit-rubric.md`**（含每项 PASS/FAIL 条件、检查法、常见误判、实例）。
-> 简记：① I-III 全类型前缀伪真值且无裸真值 ② 同实体同假值/不同实体不同值 ③ 日期数值保序 ④ 无原始真值（**机器判，人工跳过**）⑤ IV 裸值仅限封闭词表。
-> 输出：`Case NN: ①T/F ②T/F ③T/F ⑤T/F`（各附一句证据）。环境常量：日期 +1007 天、金额 ×1.37。
+> 判据：`.agent/reports/e8-deid-audit-rubric.md`。本版已修 Case9(商品名变体)/Case10(表达式裸金额)。
+① I-III 全伪真值 ② 同实体同假值 ③ 日期数值保序 ④ 机器判(已过) ⑤ IV 裸值仅限封闭词表
 
 ## Case 01  env=airline  (task=TAU-A-000 <- injectant=TAU-A-007)
 lint: no_residual=True json_ok=True db_nonmember=True db_dict_ok=True
@@ -453,7 +452,7 @@ lint: no_residual=True json_ok=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a NAME_0x4E4E59 and NAME_0x19E5A1 and exchange NAME_0x11AACF for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the hose and backpack, which changed the order status to 'return requested'. The subsequent exchange for the hiking boots (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible."
+   "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a NAME_0x4E4E59 and NAME_0x19E5A1 and exchange NAME_0x11AACF for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the NAME_0x8243AA and NAME_0x4C446F, which changed the order status to 'return requested'. The subsequent exchange for the NAME_0xF4F9A5 (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible."
   }
  }
 ]
@@ -511,7 +510,7 @@ lint: no_residual=True json_ok=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__calculate",
   "args": {
-   "expression": "3066.23 - 2895.55"
+   "expression": "4200.74 - 3966.90"
   }
  },
  {
@@ -837,7 +836,7 @@ lint: no_residual=True json_ok=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__calculate",
   "args": {
-   "expression": "54.84 - 46.85"
+   "expression": "75.13 - 64.18"
   }
  },
  {
