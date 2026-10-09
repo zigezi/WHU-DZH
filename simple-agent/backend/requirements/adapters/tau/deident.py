@@ -13,6 +13,51 @@ import hashlib
 import re
 from datetime import date, timedelta
 
+# ---- P5a.37 §三：分类法注册表（生成器与 lint 的单一事实源）----
+# 类：I 标识符 / II 数值日期金额 / III 个人标识 / IV 封闭词表 / FREE 自由文本
+FIELD_CLASS = {
+    # I
+    "order_id": "I", "reservation_id": "I", "user_id": "I",
+    "payment_method_id": "I", "payment_id": "I", "item_id": "I", "item_ids": "I",
+    "new_item_ids": "I", "product_id": "I", "certificate_id": "I",
+    "flight_number": "I",
+    # II
+    "date": "II", "dob": "II", "created_at": "II", "updated_at": "II",
+    "payment_date": "II", "amount": "II", "price": "II", "total": "II",
+    "balance": "II", "refund": "II", "cost": "II", "fee": "II", "expression": "II",
+    # III
+    "address": "III", "address1": "III", "address2": "III", "city": "III",
+    "zip": "III", "email": "III", "phone": "III",
+    "first_name": "III", "last_name": "III", "name": "III",
+    # IV
+    "origin": "IV", "destination": "IV", "cabin": "IV", "flight_type": "IV",
+    "insurance": "IV", "state": "IV", "country": "IV", "status": "IV",
+    "source": "IV", "reason": "IV", "trip_type": "IV", "baggages": "IV",
+    "total_baggages": "IV", "nonfree_baggages": "IV", "product_type": "IV",
+    # 非实体
+    "tool": "FREE", "summary": "FREE", "thought": "FREE", "reasoning": "FREE",
+    "content": "FREE",
+}
+PREFIX_BY_KEY = {
+    "order_id": "ORD", "reservation_id": "RES", "user_id": "USR",
+    "payment_method_id": "PAY", "payment_id": "PAY", "item_id": "ITEM",
+    "item_ids": "ITEM", "new_item_ids": "ITEM", "product_id": "PROD",
+    "certificate_id": "CERT", "flight_number": "FLT",
+    "address": "ADDR", "address1": "ADDR",
+    "address2": "ADDR", "city": "ADDR", "zip": "ADDR", "phone": "PHONE",
+    "email": "EMAIL", "first_name": "NAME", "last_name": "NAME", "name": "NAME",
+}
+
+
+def field_class(key):
+    """未命中注册表 → 默认从严 I（P5a.37 §三 实现铁律）。"""
+    return FIELD_CLASS.get(key, "I")
+
+
+def prefix_for(key):
+    return PREFIX_BY_KEY.get(key, "XID")
+
+
 TYPE_BY_KEY = {
     "reservation_id": "RES",
     "flight_number": "FLT",
@@ -74,13 +119,25 @@ def _shift_date(s):
 
 
 class DeIdentifier:
-    def __init__(self, seed="e8", name_vocab=None):
+    def __init__(self, seed="e8", name_vocab=None, db_sets=None):
         self.seed = seed
         self.mapping = {}  # (type, real) -> fake  (injectant-internal co-reference)
         toks = sorted({n for n in (name_vocab or []) if n and len(n) >= 3},
                       key=len, reverse=True)
         self._name_re = (re.compile(r"\b(" + "|".join(re.escape(t) for t in toks) + r")\b")
                          if toks else None)
+        # P5a.37 §四：DB 全量实体字典抹除（按前缀分组）
+        self._db_subs = []
+        for pref, vals in (db_sets or {}).items():
+            vals = sorted({v for v in vals if v and len(v) >= 3}, key=len, reverse=True)
+            if vals:
+                self._db_subs.append(
+                    (re.compile(r"\b(?:" + "|".join(re.escape(v) for v in vals) + r")\b"), pref))
+
+    def _dbscrub(self, s):
+        for rx, pref in self._db_subs:
+            s = rx.sub(lambda m: self._map(pref, m.group(0)), s)
+        return s
 
     def _map(self, t, v):
         k = (t, v)
@@ -94,6 +151,7 @@ class DeIdentifier:
 
     def _scrub(self, s):
         """对任意字符串做**就地**实体替换（含自由文本里的嵌入值）。"""
+        s = self._dbscrub(s)  # 先做精确 DB 字典抹除
         s = _RE_ORDER.sub(lambda m: self._map("ORD", m.group(0)), s)
         s = _RE_PAY.sub(lambda m: self._map("PAY", m.group(0)), s)
         s = _RE_FLT.sub(lambda m: self._map("FLT", m.group(0)), s)
@@ -108,12 +166,20 @@ class DeIdentifier:
         return s
 
     def _trans(self, key, val):
+        cls = field_class(key)
+        if cls in ("I", "III"):
+            if isinstance(val, bool):
+                return val
+            if isinstance(val, (int, float)):
+                return self._map(prefix_for(key), str(val))
+            if isinstance(val, str) and val and not val.startswith(PSEUDO_PREFIXES):
+                return self._map(prefix_for(key), val)
+            return self._scrub(val) if isinstance(val, str) else val
         if isinstance(val, str):
-            if key in TYPE_BY_KEY and val and not val.startswith(
-                    ("RES_", "FLT_", "ORD_", "USR_", "PAY_", "ITEM_", "PROD_", "NAME_", "ADDR_")):
-                return self._map(TYPE_BY_KEY[key], val)
+            if cls == "IV":
+                return self._scrub(val)  # 裸词保留；嵌在其中的 id/日期仍抹
             return self._scrub(val)
-        if key in AMT_KEYS and isinstance(val, (int, float)) and not isinstance(val, bool):
+        if cls == "II" and isinstance(val, (int, float)) and not isinstance(val, bool):
             return round(val * AMT_FACTOR, 2)
         return val
 
@@ -158,7 +224,7 @@ def lint_no_residual(orig_plan, deid_plan):
 
 
 PSEUDO_PREFIXES = ("RES_", "FLT_", "ORD_", "USR_", "PAY_", "ITEM_", "PROD_",
-                   "NAME_", "ADDR_", "EMAIL_")
+                   "NAME_", "ADDR_", "EMAIL_", "CERT_", "PHONE_", "XID_")
 # IV 类（领域词表/枚举）：允许保留裸值
 ENUM_KEYS = {"origin", "destination", "cabin", "flight_type", "insurance",
              "trip_type", "status", "source", "request_type", "payment_type"}
@@ -169,28 +235,60 @@ def classify_lint(deid_plan, enums=None):
     I-III 类须为伪真值/平移值；IV 类（枚举键）允许封闭词表裸值；
     其余裸字符串 → unclassified（rb ⑤ 候选 F）。
     """
-    enums = enums or {}
     ok, unclassified, iv_bare = [], [], []
     for key, val in _pairs(deid_plan):
-        if not isinstance(val, str) or not val or key == "tool":
+        if not isinstance(val, str) or not val:
+            continue
+        cls = field_class(key)
+        if cls == "FREE":
+            continue
+        if cls == "IV":
+            iv_bare.append((key, val))
             continue
         if val.startswith(PSEUDO_PREFIXES):
             ok.append((key, val, "I-III"))
-        elif key in DATE_KEYS or key == "expression" or _RE_DATE.match(val) or _RE_MONEY.search(val):
+        elif cls == "II":
             ok.append((key, val, "II"))
-        elif key in AMT_KEYS:
-            ok.append((key, val, "II"))
-        elif key in ENUM_KEYS and val.lower() in {v.lower() for v in enums.get(key, set())}:
-            iv_bare.append((key, val))
-        elif key in ("origin", "destination") and re.match(r"^[A-Z]{3}$", val):
-            iv_bare.append((key, val))          # IV：IATA 码（形状即封闭词表）
-        elif key == "reason":
-            iv_bare.append((key, val))          # IV：取消原因封闭短语集
-        else:
+        else:  # I/III 未脱 → 从严判 unclassified
             unclassified.append((key, val))
     return {"iv_bare": iv_bare, "unclassified": sorted(set(unclassified))[:40],
             "unclassified_n": len(set(unclassified)),
             "ok": not unclassified}
+
+
+_RE_YEAR = re.compile(r"^\d{4}$")
+
+
+def entityish(v):
+    """类 I/III 标识符形状（排除年份、普通短词、枚举词）。"""
+    if not isinstance(v, str) or len(v) < 4:
+        return False
+    if _RE_YEAR.match(v):
+        return False
+    if re.search(r"[0-9_#@.]", v):        # 含数字或特殊符 → 标识符
+        return True
+    return len(v) >= 7                    # 纯词需较长（降低普通词 FP）
+
+
+_DB_RX_CACHE = None
+
+
+def _db_rx(db_values):
+    global _DB_RX_CACHE
+    if _DB_RX_CACHE is None or _DB_RX_CACHE[0] is not db_values:
+        vals = sorted({v for v in db_values if entityish(v)}, key=len, reverse=True)
+        rx = re.compile(r"(?<![A-Za-z0-9_])(" + "|".join(re.escape(v) for v in vals)
+                        + r")(?![A-Za-z0-9_])")
+        _DB_RX_CACHE = (db_values, rx)
+    return _DB_RX_CACHE[1]
+
+
+def lint_db_dictionary(deid_plan, db_values):
+    """P5a.37 §四：机器④——输出中不得出现任何 DB 真实标识符值（词边界匹配）。"""
+    txt = " ".join(_collect_strings(deid_plan))
+    rx = _db_rx(db_values)
+    hits = sorted({m.group(0) for m in rx.finditer(txt)})
+    return {"hits": hits[:20], "n": len(hits), "ok": not hits}
 
 
 def _pairs(obj, key=None):

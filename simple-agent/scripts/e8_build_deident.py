@@ -13,6 +13,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,8 +22,12 @@ sys.path.insert(0, BACKEND)
 sys.path.insert(0, os.path.join(BACKEND, "requirements", "adapters", "tau"))
 
 import sqlite3  # noqa: E402
-from deident import (DeIdentifier, classify_lint, lint_db_nonmember,  # noqa: E402
-                     lint_lint_parse_and_names, lint_no_residual)
+from deident import (DeIdentifier, classify_lint, field_class, lint_db_dictionary,  # noqa: E402
+                     lint_db_nonmember, lint_lint_parse_and_names, lint_no_residual,
+                     prefix_for)
+
+_ID_KEY = re.compile(r"^(#W\d{6,}|[A-Z0-9]{6}|[a-z]+_[a-z]+_\d{3,5}|"
+                     r"(?:credit_card|gift_card|certificate|paypal)_\d+)$")
 
 DB = os.path.join(BACKEND, "logs", "trace.db")
 R = os.path.join(ROOT, ".agent", "reports")
@@ -86,6 +91,40 @@ def build_enums():
     return {k: {v for v in vs if v} for k, vs in E.items()}
 
 
+def collect_db_sets():
+    """P5a.37 §四：DB 全量实体字典（按类别前缀分组）——分类法注册表驱动。"""
+    sets = {}
+
+    def add(pref, v):
+        if v and isinstance(v, str) and len(v) >= 3:
+            sets.setdefault(pref, set()).add(v)
+
+    def walk(o, key=None):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if isinstance(k, str) and _ID_KEY.match(k):
+                    add(prefix_for("order_id") if k.startswith("#W") else
+                        ("RES" if re.match(r"^[A-Z0-9]{6}$", k) else
+                         ("PAY" if re.match(r"^(credit_card|gift_card|certificate|paypal)_", k) else "USR")), k)
+                if isinstance(v, str) and field_class(k) in ("I", "III") and prefix_for(k) != "XID":
+                    add(prefix_for(k), v)
+                walk(v, k)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v, key)
+
+    for loader in ("retail", "airline"):
+        try:
+            if loader == "retail":
+                from tau_bench.envs.retail.data import load_data
+            else:
+                from tau_bench.envs.airline.data import load_data
+            walk(load_data())
+        except Exception as e:  # noqa: BLE001
+            print(f"[warn] db_sets {loader}:", e)
+    return sets
+
+
 def name_vocab():
     names = set()
     for mod, fn in (("retail", "rdata"), ("airline", "adata")):
@@ -144,6 +183,9 @@ def main():
     members = db_members()
     enums = build_enums()
     NAMES = name_vocab()
+    DB_SETS = collect_db_sets()
+    DB_VALUES = set().union(*DB_SETS.values()) if DB_SETS else set()
+    print(f"[db-sets] categories={ {k: len(v) for k, v in DB_SETS.items()} } total={len(DB_VALUES)}")
     deid_lib, lint_rows, mapping = {}, [], {}
     unclassified = {}
     non_tau = 0
@@ -151,7 +193,7 @@ def main():
         if not all(str(s.get("tool", "")).startswith("tau__") for s in p):
             non_tau += 1
             continue
-        d = DeIdentifier(seed=SEED, name_vocab=NAMES)
+        d = DeIdentifier(seed=SEED, name_vocab=NAMES, db_sets=DB_SETS)
         dp = d.plan(p)
         for (t, real), fake in d.mapping.items():
             mapping.setdefault(t, {})[real] = fake
@@ -159,6 +201,7 @@ def main():
         l2 = lint_lint_parse_and_names(dp)
         l3 = lint_db_nonmember(dp, members)
         l4 = classify_lint(dp, enums)
+        l5 = lint_db_dictionary(dp, DB_VALUES)
         for k, v in l4["unclassified"]:
             unclassified.setdefault((k, v), 0)
             unclassified[(k, v)] += 1
@@ -166,7 +209,8 @@ def main():
                           "tools": len(dp), "no_residual": l1["ok"],
                           "json_ok": l2["json_ok"], "bad_tools": l2["bad_tools"],
                           "db_nonmember": l3["ok"], "iv_bare": len(l4["iv_bare"]),
-                          "unclassified_n": l4["unclassified_n"]})
+                          "unclassified_n": l4["unclassified_n"],
+                          "db_dict_hits": l5["n"], "db_dict_ok": l5["ok"]})
         deid_lib[h] = {"deid_hash": chash(dp), "deid_plan": dp}
 
     os.makedirs(LOCAL, exist_ok=True)
@@ -181,8 +225,8 @@ def main():
         "distinct_orig_plans": len(plans),
         "non_tau_plans_skipped": non_tau,
         "distinct_deid_plans": len({v["deid_hash"] for v in deid_lib.values()}),
-        "all_pass": all(r["no_residual"] and r["json_ok"] and r["db_nonmember"] and not r["bad_tools"]
-                        for r in lint_rows),
+        "all_pass": all(r["no_residual"] and r["json_ok"] and r["db_nonmember"]
+                        and r["db_dict_ok"] and not r["bad_tools"] for r in lint_rows),
         "iv_unclassified_by_key": _bykey(unclassified),
         "rows": lint_rows,
     }
