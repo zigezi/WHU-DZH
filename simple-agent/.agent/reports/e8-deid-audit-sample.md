@@ -1,6 +1,8 @@
-# e8 脱敏库抽检样本 v2（跨 airline/retail 多族；rubric 见 P5a.37 §三）
+# e8 脱敏库抽检样本 v2（跨 airline/retail 多族）
 
-① I-III 全类型前缀伪真值 ② 同实体同假值/不同实体不同值 ③ 日期数值保序 ④ 无原始真值（机器已过）⑤ IV 裸值仅限封闭词表
+> **判据用详细 Rubric：`.agent/reports/e8-deid-audit-rubric.md`**（含每项 PASS/FAIL 条件、检查法、常见误判、实例）。
+> 简记：① I-III 全类型前缀伪真值且无裸真值 ② 同实体同假值/不同实体不同值 ③ 日期数值保序 ④ 无原始真值（**机器判，人工跳过**）⑤ IV 裸值仅限封闭词表。
+> 输出：`Case NN: ①T/F ②T/F ③T/F ⑤T/F`（各附一句证据）。环境常量：日期 +1007 天、金额 ×1.37。
 
 ## Case 01  env=airline  (task=TAU-A-000 <- injectant=TAU-A-007)
 lint: no_residual=True json_ok=True db_nonmember=True db_dict_ok=True
