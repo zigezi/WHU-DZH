@@ -1,0 +1,981 @@
+{
+ "note": "P5a.42 R3 提取保真；机器只分类，性质判定待审。计划来源=run 事后抽取（_store_precedent 采 tool_call 步）",
+ "defect_n": 138,
+ "direction": {
+  "plan<run(truncation)": 69,
+  "plan>run(expansion)": 69
+ },
+ "by_epoch": {
+  "3": 66,
+  "6": 72
+ },
+ "epoch_concentration": 0.5217391304347826,
+ "rows": [
+  {
+   "req_id": "TAU-A-000",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 15,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-002",
+   "epoch": 3,
+   "plan_tools": 24,
+   "run_tool_calls": 30,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-003",
+   "epoch": 3,
+   "plan_tools": 24,
+   "run_tool_calls": 14,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-007",
+   "epoch": 3,
+   "plan_tools": 6,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-008",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-013",
+   "epoch": 3,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-015",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-016",
+   "epoch": 3,
+   "plan_tools": 11,
+   "run_tool_calls": 13,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-017",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 18,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-018",
+   "epoch": 3,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-019",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 2,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-020",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 3,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-022",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-023",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-024",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 5,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-026",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-030",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-033",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 18,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-035",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 2,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-036",
+   "epoch": 3,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-037",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-039",
+   "epoch": 3,
+   "plan_tools": 2,
+   "run_tool_calls": 1,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-040",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-042",
+   "epoch": 3,
+   "plan_tools": 3,
+   "run_tool_calls": 2,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-044",
+   "epoch": 3,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-046",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-048",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 3,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-049",
+   "epoch": 3,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-016",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-019",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-021",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-022",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-023",
+   "epoch": 3,
+   "plan_tools": 13,
+   "run_tool_calls": 12,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-024",
+   "epoch": 3,
+   "plan_tools": 6,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-027",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-028",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 9,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-029",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-031",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-034",
+   "epoch": 3,
+   "plan_tools": 6,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-035",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-038",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-039",
+   "epoch": 3,
+   "plan_tools": 6,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-043",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 6,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-045",
+   "epoch": 3,
+   "plan_tools": 6,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-052",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-055",
+   "epoch": 3,
+   "plan_tools": 15,
+   "run_tool_calls": 13,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-056",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 6,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-059",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 6,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-063",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-068",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 6,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-070",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-072",
+   "epoch": 3,
+   "plan_tools": 11,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-074",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-076",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-080",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 5,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-081",
+   "epoch": 3,
+   "plan_tools": 11,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-091",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 6,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-092",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-098",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-099",
+   "epoch": 3,
+   "plan_tools": 14,
+   "run_tool_calls": 12,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-100",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-101",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-110",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-113",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-000",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 15,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-002",
+   "epoch": 3,
+   "plan_tools": 31,
+   "run_tool_calls": 30,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-000",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-003",
+   "epoch": 6,
+   "plan_tools": 12,
+   "run_tool_calls": 16,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-000",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-003",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 16,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-005",
+   "epoch": 6,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-006",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-007",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-008",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 12,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-009",
+   "epoch": 6,
+   "plan_tools": 10,
+   "run_tool_calls": 9,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-013",
+   "epoch": 6,
+   "plan_tools": 1,
+   "run_tool_calls": 4,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-014",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 4,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-016",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-017",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 9,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-018",
+   "epoch": 6,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-019",
+   "epoch": 6,
+   "plan_tools": 4,
+   "run_tool_calls": 3,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-022",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-023",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-024",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-025",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 6,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-026",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-027",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-033",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 18,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-035",
+   "epoch": 6,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-036",
+   "epoch": 6,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-037",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 13,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-039",
+   "epoch": 6,
+   "plan_tools": 1,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-040",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-042",
+   "epoch": 6,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-043",
+   "epoch": 6,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-A-045",
+   "epoch": 6,
+   "plan_tools": 4,
+   "run_tool_calls": 3,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-047",
+   "epoch": 6,
+   "plan_tools": 9,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-A-049",
+   "epoch": 6,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-005",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-013",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 6,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-016",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-019",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-021",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-022",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-026",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-028",
+   "epoch": 6,
+   "plan_tools": 11,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-029",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-034",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 6,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-041",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-042",
+   "epoch": 6,
+   "plan_tools": 9,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-043",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 6,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-044",
+   "epoch": 6,
+   "plan_tools": 10,
+   "run_tool_calls": 4,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-045",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-052",
+   "epoch": 6,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-053",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-058",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-059",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-062",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 6,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-064",
+   "epoch": 6,
+   "plan_tools": 10,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-067",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-068",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-071",
+   "epoch": 6,
+   "plan_tools": 11,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-072",
+   "epoch": 6,
+   "plan_tools": 11,
+   "run_tool_calls": 12,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-075",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 4,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-076",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-080",
+   "epoch": 6,
+   "plan_tools": 4,
+   "run_tool_calls": 5,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-083",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-091",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-093",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-096",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-099",
+   "epoch": 6,
+   "plan_tools": 14,
+   "run_tool_calls": 12,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-100",
+   "epoch": 6,
+   "plan_tools": 11,
+   "run_tool_calls": 12,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-101",
+   "epoch": 6,
+   "plan_tools": 12,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-102",
+   "epoch": 6,
+   "plan_tools": 10,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "req_id": "TAU-R-105",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 12,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-106",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-107",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "req_id": "TAU-R-112",
+   "epoch": 6,
+   "plan_tools": 10,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  }
+ ]
+}

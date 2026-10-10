@@ -25,6 +25,11 @@ from monitor import precedent_select as ps  # noqa: E402
 R = os.path.join(ROOT, ".agent", "reports")
 REQ = os.path.join(BACKEND, "requirements", "tau")
 ARMS = ["direct", "sibling", "unrelated"]
+MUT = {"cancel_reservation", "book_reservation", "update_reservation_flights",
+       "update_reservation_baggages", "send_certificate", "cancel_pending_order",
+       "modify_pending_order_address", "modify_pending_order_items",
+       "modify_pending_order_payment", "exchange_delivered_order_items",
+       "return_delivered_order_items"}
 
 
 def domain_of(req_id):
@@ -138,19 +143,38 @@ def main():
         tasks.append(spec)
     tasks.sort(key=lambda s: s["req_id"])
 
+    from collections import Counter, defaultdict
+
+    def lenbin(n):
+        return "b0(1-3)" if n <= 3 else "b1(4-6)" if n <= 6 else "b2(7-10)" if n <= 10 else "b3(11+)"
+
+    def endcls(plan):
+        t = [s.get("tool", "").replace("tau__", "") for s in (plan or [])]
+        if not t:
+            return "empty"
+        last = t[-1]
+        if last == "transfer_to_human_agents":
+            return "transfer_end"
+        return "state_change_end" if last in MUT else "query_end"
+
+    def cell(c):
+        return (lenbin(len(c["plan"])), endcls(c["plan"])) if c else (None, None)
+
     used = {a: {} for a in ARMS}
-    rng = random.Random(hashlib.sha256(args.seed.encode()).hexdigest())
     rows = []
     for t in tasks:
         rid, sig, env = t["req_id"], t["sig"], t["tau_env"]
         h = hashlib.blake2b(f"{args.seed}|{rid}".encode(), digest_size=4).digest()
         arm = ARMS[int.from_bytes(h, "big") % 3]
         refl, reft = gt_ref(env, t["tau_task_id"])
-        chosen, reason = ps.select_for_arm(
-            cands, rid, sig, env, arm,
-            random.Random(hashlib.sha256((args.seed + rid).encode()).hexdigest()),
-            used[arm], k=args.k, fam_types=fam_types, near=args.near,
-            ref_len=refl, ref_types=reft)
+        if arm == "unrelated":
+            chosen, reason = None, "r1_pending"           # R1 稍后分层匹配
+        else:
+            chosen, reason = ps.select_for_arm(
+                cands, rid, sig, env, arm,
+                random.Random(hashlib.sha256((args.seed + rid).encode()).hexdigest()),
+                used[arm], k=args.k, fam_types=fam_types, near=args.near,
+                ref_len=refl, ref_types=reft)
         if chosen:
             used[arm][chosen["hash"]] = used[arm].get(chosen["hash"], 0) + 1
         rows.append({"req_id": rid, "tau_env": env, "sig": sig, "arm": arm,
@@ -159,39 +183,118 @@ def main():
                      "injectant_env": chosen["domain"] if chosen else None,
                      "deid_hash": chosen["hash"] if chosen else None,
                      "len": len(chosen["plan"]) if chosen else 0,
+                     "cell": list(cell(chosen)) if chosen else None,
                      "first_tool": (ps.plan_types(chosen["plan"]) or [None])[0] if chosen else None})
+
+    # R1：仅重抽 unrelated 臂注入物，对齐 sibling 实测分布（长度分箱 + 结尾动作三类），一发成稿
+    sib_cells = Counter(tuple(r["cell"]) for r in rows if r["arm"] == "sibling" and r["deid_hash"])
+    n_sib = sum(sib_cells.values())
+    un_tasks = [r for r in rows if r["arm"] == "unrelated"]
+    n_un = len(un_tasks)
+    sib_used = {r["deid_hash"] for r in rows if r["arm"] == "sibling" and r["deid_hash"]}
+    pool = [c for c in cands if c["hash"] not in sib_used]
+    pool_by_cell = defaultdict(list)
+    for c in pool:
+        pool_by_cell[cell(c)].append(c)
+    for v in pool_by_cell.values():
+        v.sort(key=lambda c: c["orig_hash"])
+    # 目标配额（largest remainder）
+    props = {k: v / n_sib for k, v in sib_cells.items()} if n_sib else {}
+    raw = {k: props[k] * n_un for k in props}
+    quota = {k: int(raw[k]) for k in props}
+    remc = n_un - sum(quota.values())
+    for k in sorted(props, key=lambda c: -(raw[c] - int(raw[c])))[:remc]:
+        quota[k] += 1
+    assigned, used_un, changes = Counter(), {}, []
+    def avail(c):
+        return used_un.get(c["hash"], 0) < args.k
+    for r in un_tasks:
+        # 选当前最欠配额的 cell（确定：差值大者优先，平局按 cell 名）
+        best, bestdef = None, None
+        for k in sorted(set(list(quota) + list(pool_by_cell))):
+            d = quota.get(k, 0) - assigned[k]
+            if bestdef is None or d > bestdef:
+                bestdef, best = d, k
+        cand = next((c for c in pool_by_cell.get(best, []) if avail(c)), None)
+        if cand is None:
+            cand = next((c for c in pool for c in [c] if avail(c)), None)
+        if cand:
+            used_un[cand["hash"]] = used_un.get(cand["hash"], 0) + 1
+            assigned[best] += 1
+            r["injectant"] = cand["req_id"]; r["injectant_env"] = cand["domain"]
+            r["deid_hash"] = cand["hash"]; r["len"] = len(cand["plan"])
+            r["cell"] = list(cell(cand)); r["reason"] = "r1_stratified"
+            r["first_tool"] = (ps.plan_types(cand["plan"]) or [None])[0]
+            changes.append(r["req_id"])
 
     # gates
     inj = [r for r in rows if r["deid_hash"]]
-    from collections import Counter
     cov = Counter(r["deid_hash"] for r in inj)
     top1 = max(cov.values()) / len(inj) if inj else 0
     distinct = len(cov)
     sib = [r for r in rows if r["arm"] == "sibling"]
     sib_cov = [r for r in sib if r["injectant_env"] == r["tau_env"]]
     same_cov = len(sib_cov) / len(sib) if sib else 0
-    # form balance
-    def dist(rs):
-        ls = sorted(r["len"] for r in rs if r["deid_hash"])
-        return {"n": len(ls), "min": ls[0] if ls else 0, "max": ls[-1] if ls else 0,
-                "mean": round(sum(ls) / len(ls), 1) if ls else 0}
-    balance = {"sibling": dist([r for r in rows if r["arm"] == "sibling"]),
-               "unrelated": dist([r for r in rows if r["arm"] == "unrelated"])}
+
+    def hist(rs):
+        b = Counter(r["cell"][0] for r in rs if r["cell"])
+        e = Counter(r["cell"][1] for r in rs if r["cell"])
+        ln = [r["len"] for r in rs if r["deid_hash"]]
+        return {"n": len(ln), "mean": round(sum(ln) / len(ln), 1) if ln else 0,
+                "len_bins": dict(b), "end_class": dict(e),
+                "len_bin_pct": {k: round(v / max(len(ln), 1) * 100, 1) for k, v in b.items()},
+                "end_class_pct": {k: round(v / max(len(ln), 1) * 100, 1) for k, v in e.items()}}
+    balance = {"sibling": hist([r for r in rows if r["arm"] == "sibling"]),
+               "unrelated": hist([r for r in rows if r["arm"] == "unrelated"])}
+    # R1 达标：逐箱/逐类差 ≤10pp，均值差 ≤1.0
+    sb, ub = balance["sibling"], balance["unrelated"]
+    bin_gap = max(abs(sb["len_bin_pct"].get(k, 0) - ub["len_bin_pct"].get(k, 0))
+                  for k in set(sb["len_bin_pct"]) | set(ub["len_bin_pct"]))
+    end_gap = max(abs(sb["end_class_pct"].get(k, 0) - ub["end_class_pct"].get(k, 0))
+                  for k in set(sb["end_class_pct"]) | set(ub["end_class_pct"]))
+    r1 = {"bin_gap_pp": round(bin_gap, 1), "end_gap_pp": round(end_gap, 1),
+          "mean_gap": round(abs(sb["mean"] - ub["mean"]), 1),
+          "pass": bin_gap <= 10 and end_gap <= 10 and abs(sb["mean"] - ub["mean"]) <= 1.0}
     gates = {"top1_coverage": round(top1, 3), "top1_pass": top1 <= 0.15,
              "distinct": distinct, "distinct_pass": distinct >= 20,
              "same_domain_coverage": round(same_cov, 3), "same_domain_pass": same_cov >= 0.60,
+             "r1": r1,
              "arms": {a: sum(1 for r in rows if r["arm"] == a) for a in ARMS}}
-    gates["all_pass"] = gates["top1_pass"] and gates["distinct_pass"] and gates["same_domain_pass"]
+    gates["all_pass"] = (gates["top1_pass"] and gates["distinct_pass"]
+                         and gates["same_domain_pass"] and r1["pass"])
 
-    out = {"note": "e8 矩阵冻结（a30/a31/a33/a40）；不达标不开工",
+    matrix_hash = hashlib.sha256(
+        json.dumps([(r["req_id"], r["arm"], r["deid_hash"]) for r in rows],
+                   ensure_ascii=False).encode()).hexdigest()[:16]
+    # R2 分母台账
+    ledger = {
+        "snapshot_epoch7_rows": con.execute(
+            "SELECT count(*) FROM precedent_snapshots WHERE epoch=?", (args.epoch,)).fetchone()[0],
+        "tau_tool_candidates": len(uniq) + rejected_fail,
+        "rejected_nonpass_rows": rejected_fail,      # 源 run verdict != PASS
+        "eligible_candidates": len(uniq),
+        "distinct_injectants_used": distinct,
+        "matrix_rows": len(rows),
+        "arms": {a: sum(1 for r in rows if r["arm"] == a) for a in ARMS},
+        "ineligible": sum(1 for r in rows if r["arm"] in ("sibling", "unrelated")
+                          and not r["deid_hash"]),
+        "ineligible_by_arm": {a: sum(1 for r in rows if r["arm"] == a and not r["deid_hash"])
+                              for a in ("sibling", "unrelated")},
+        "note": "ITT：ineligible 任务按所分臂进入分析（assigned=analyzed），剔除会致脱落偏倚",
+    }
+    out = {"note": "e8 矩阵冻结（a30/a31/a33/a40/a42）；R1 形态再匹配 + 台账",
            "seed": args.seed, "k": args.k, "near_jaccard": args.near,
-           "pool_rejected_nonpass": rejected_fail,          # P5a.40 §二 D3
-           "extraction_defects": extract_defects[:20],       # P5a.40 §三.3
+           "matrix_hash": matrix_hash,
+           "pool_rejected_nonpass": rejected_fail,
+           "extraction_defects": extract_defects[:20],
            "extraction_defect_n": len(extract_defects),
-           "gates": gates, "form_balance": balance, "matrix": rows}
+           "r1_changed_tasks": len(changes),
+           "r1_change_list": changes,
+           "gates": gates, "form_balance": balance, "ledger": ledger, "matrix": rows}
     json.dump(out, open(os.path.join(R, "e8-matrix-freeze.json"), "w"),
               ensure_ascii=False, indent=1)
-    print(json.dumps({"gates": gates, "form_balance": balance}, ensure_ascii=False, indent=1))
+    print(json.dumps({"gates": gates, "form_balance": balance, "ledger": ledger},
+                     ensure_ascii=False, indent=1))
     print("-> .agent/reports/e8-matrix-freeze.json")
     return 0
 

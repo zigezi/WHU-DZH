@@ -1,8 +1,9 @@
 {
- "note": "e8 矩阵冻结（a30/a31/a33/a40）；不达标不开工",
+ "note": "e8 矩阵冻结（a30/a31/a33/a40/a42）；R1 形态再匹配 + 台账",
  "seed": "e8-20260929",
  "k": 3,
  "near_jaccard": 0.6,
+ "matrix_hash": "85fef79fe57a6f28",
  "pool_rejected_nonpass": 185,
  "extraction_defects": [
   {
@@ -127,13 +128,66 @@
   }
  ],
  "extraction_defect_n": 85,
+ "r1_changed_tasks": 44,
+ "r1_change_list": [
+  "TAU-A-006",
+  "TAU-A-007",
+  "TAU-A-017",
+  "TAU-A-020",
+  "TAU-A-021",
+  "TAU-A-022",
+  "TAU-A-040",
+  "TAU-A-042",
+  "TAU-A-045",
+  "TAU-A-046",
+  "TAU-A-047",
+  "TAU-A-049",
+  "TAU-R-004",
+  "TAU-R-006",
+  "TAU-R-013",
+  "TAU-R-017",
+  "TAU-R-019",
+  "TAU-R-020",
+  "TAU-R-022",
+  "TAU-R-029",
+  "TAU-R-035",
+  "TAU-R-042",
+  "TAU-R-044",
+  "TAU-R-045",
+  "TAU-R-052",
+  "TAU-R-053",
+  "TAU-R-057",
+  "TAU-R-060",
+  "TAU-R-063",
+  "TAU-R-067",
+  "TAU-R-068",
+  "TAU-R-069",
+  "TAU-R-072",
+  "TAU-R-076",
+  "TAU-R-080",
+  "TAU-R-083",
+  "TAU-R-087",
+  "TAU-R-091",
+  "TAU-R-094",
+  "TAU-R-098",
+  "TAU-R-106",
+  "TAU-R-110",
+  "TAU-R-111",
+  "TAU-R-113"
+ ],
  "gates": {
   "top1_coverage": 0.034,
   "top1_pass": true,
-  "distinct": 60,
+  "distinct": 55,
   "distinct_pass": true,
   "same_domain_coverage": 0.956,
   "same_domain_pass": true,
+  "r1": {
+   "bin_gap_pp": 1.5,
+   "end_gap_pp": 1.0,
+   "mean_gap": 0.3,
+   "pass": true
+  },
   "arms": {
    "direct": 46,
    "sibling": 45,
@@ -144,16 +198,75 @@
  "form_balance": {
   "sibling": {
    "n": 43,
-   "min": 2,
-   "max": 24,
-   "mean": 7.9
+   "mean": 7.9,
+   "len_bins": {
+    "b3(11+)": 10,
+    "b1(4-6)": 14,
+    "b2(7-10)": 15,
+    "b0(1-3)": 4
+   },
+   "end_class": {
+    "state_change_end": 25,
+    "transfer_end": 13,
+    "query_end": 5
+   },
+   "len_bin_pct": {
+    "b3(11+)": 23.3,
+    "b1(4-6)": 32.6,
+    "b2(7-10)": 34.9,
+    "b0(1-3)": 9.3
+   },
+   "end_class_pct": {
+    "state_change_end": 58.1,
+    "transfer_end": 30.2,
+    "query_end": 11.6
+   }
   },
   "unrelated": {
    "n": 44,
-   "min": 1,
-   "max": 14,
-   "mean": 4.7
+   "mean": 7.6,
+   "len_bins": {
+    "b2(7-10)": 16,
+    "b1(4-6)": 14,
+    "b3(11+)": 10,
+    "b0(1-3)": 4
+   },
+   "end_class": {
+    "state_change_end": 26,
+    "transfer_end": 13,
+    "query_end": 5
+   },
+   "len_bin_pct": {
+    "b2(7-10)": 36.4,
+    "b1(4-6)": 31.8,
+    "b3(11+)": 22.7,
+    "b0(1-3)": 9.1
+   },
+   "end_class_pct": {
+    "state_change_end": 59.1,
+    "transfer_end": 29.5,
+    "query_end": 11.4
+   }
   }
+ },
+ "ledger": {
+  "snapshot_epoch7_rows": 705,
+  "tau_tool_candidates": 491,
+  "rejected_nonpass_rows": 185,
+  "eligible_candidates": 306,
+  "distinct_injectants_used": 55,
+  "matrix_rows": 135,
+  "arms": {
+   "direct": 46,
+   "sibling": 45,
+   "unrelated": 44
+  },
+  "ineligible": 2,
+  "ineligible_by_arm": {
+   "sibling": 2,
+   "unrelated": 0
+  },
+  "note": "ITT：ineligible 任务按所分臂进入分析（assigned=analyzed），剔除会致脱落偏倚"
  },
  "matrix": [
   {
@@ -166,6 +279,10 @@
    "injectant_env": "airline",
    "deid_hash": "7e82669f3eb486a0",
    "len": 24,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -178,6 +295,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -190,6 +308,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -202,6 +321,10 @@
    "injectant_env": "airline",
    "deid_hash": "ffe81e53ddd947a6",
    "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -209,11 +332,15 @@
    "tau_env": "airline",
    "sig": "1932cfe427b1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-057",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-071",
    "injectant_env": "retail",
-   "deid_hash": "4ec2492f1eb5f65c",
-   "len": 2,
+   "deid_hash": "a54e728cb51892dd",
+   "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -221,11 +348,15 @@
    "tau_env": "airline",
    "sig": "1932cfe427b1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-057",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-071",
    "injectant_env": "retail",
-   "deid_hash": "4ec2492f1eb5f65c",
-   "len": 2,
+   "deid_hash": "a54e728cb51892dd",
+   "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -238,6 +369,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -250,6 +382,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -262,6 +395,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -274,6 +408,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -286,6 +421,10 @@
    "injectant_env": "airline",
    "deid_hash": "e0e6e44f9cdb7607",
    "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -298,6 +437,10 @@
    "injectant_env": "airline",
    "deid_hash": "5649df05285976a3",
    "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -310,6 +453,10 @@
    "injectant_env": "airline",
    "deid_hash": "a630464ac844b186",
    "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -317,12 +464,16 @@
    "tau_env": "airline",
    "sig": "a77091a4c3ce",
    "arm": "unrelated",
-   "reason": "cross_domain",
-   "injectant": "TAU-R-000",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-071",
    "injectant_env": "retail",
-   "deid_hash": "9d128f1e11c385c4",
-   "len": 5,
-   "first_tool": "tau__find_user_id_by_email"
+   "deid_hash": "a54e728cb51892dd",
+   "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-A-018",
@@ -334,6 +485,10 @@
    "injectant_env": "airline",
    "deid_hash": "9e75ad95a2059717",
    "len": 7,
+   "cell": [
+    "b2(7-10)",
+    "query_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -346,6 +501,10 @@
    "injectant_env": "airline",
    "deid_hash": "d6cf4682697f9ee7",
    "len": 11,
+   "cell": [
+    "b3(11+)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -353,23 +512,31 @@
    "tau_env": "airline",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-017",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-081",
    "injectant_env": "retail",
-   "deid_hash": "1486294c7c8c346c",
-   "len": 3,
-   "first_tool": "tau__find_user_id_by_name_zip"
+   "deid_hash": "b4e6a6d5b296c931",
+   "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_email"
   },
   {
    "req_id": "TAU-A-021",
    "tau_env": "airline",
    "sig": "a77091a4c3ce",
    "arm": "unrelated",
-   "reason": "cross_domain",
-   "injectant": "TAU-R-000",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-081",
    "injectant_env": "retail",
-   "deid_hash": "9d128f1e11c385c4",
-   "len": 5,
+   "deid_hash": "b4e6a6d5b296c931",
+   "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -377,12 +544,16 @@
    "tau_env": "airline",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-000",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-044",
    "injectant_env": "retail",
-   "deid_hash": "9d128f1e11c385c4",
-   "len": 5,
-   "first_tool": "tau__find_user_id_by_email"
+   "deid_hash": "7f32c9f35dff2d10",
+   "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-A-023",
@@ -394,6 +565,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -406,6 +578,10 @@
    "injectant_env": "airline",
    "deid_hash": "e2bb9160f8befe06",
    "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -418,6 +594,10 @@
    "injectant_env": "airline",
    "deid_hash": "87b84f3cac915830",
    "len": 3,
+   "cell": [
+    "b0(1-3)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -430,6 +610,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -442,6 +623,10 @@
    "injectant_env": "airline",
    "deid_hash": "7c006e7a7181af6b",
    "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -454,6 +639,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -466,6 +652,10 @@
    "injectant_env": "airline",
    "deid_hash": "c50db83744a1ec9e",
    "len": 2,
+   "cell": [
+    "b0(1-3)",
+    "query_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -478,6 +668,10 @@
    "injectant_env": "airline",
    "deid_hash": "11f17854a549db42",
    "len": 13,
+   "cell": [
+    "b3(11+)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -490,6 +684,10 @@
    "injectant_env": "airline",
    "deid_hash": "e7a759db86c8cf16",
    "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -502,6 +700,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -514,6 +713,10 @@
    "injectant_env": "airline",
    "deid_hash": "c7103493af99e5bc",
    "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -526,6 +729,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -538,6 +742,10 @@
    "injectant_env": "airline",
    "deid_hash": "dd0ab95a8ad1d24c",
    "len": 2,
+   "cell": [
+    "b0(1-3)",
+    "query_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -545,11 +753,15 @@
    "tau_env": "airline",
    "sig": "9a9107c53f34",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-011",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-012",
    "injectant_env": "retail",
-   "deid_hash": "6820c1ad99a46a02",
-   "len": 6,
+   "deid_hash": "0248f58c5682de8e",
+   "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -557,12 +769,16 @@
    "tau_env": "airline",
    "sig": "bb1218f84fd2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-057",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-081",
    "injectant_env": "retail",
-   "deid_hash": "4ec2492f1eb5f65c",
-   "len": 2,
-   "first_tool": "tau__find_user_id_by_name_zip"
+   "deid_hash": "b4e6a6d5b296c931",
+   "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_email"
   },
   {
    "req_id": "TAU-A-043",
@@ -574,6 +790,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -586,6 +803,10 @@
    "injectant_env": "airline",
    "deid_hash": "c50db83744a1ec9e",
    "len": 2,
+   "cell": [
+    "b0(1-3)",
+    "query_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -593,11 +814,15 @@
    "tau_env": "airline",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-017",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-101",
    "injectant_env": "retail",
-   "deid_hash": "1486294c7c8c346c",
-   "len": 3,
+   "deid_hash": "e4c346977364108d",
+   "len": 12,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -605,24 +830,32 @@
    "tau_env": "airline",
    "sig": "00c673ea4796",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-040",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-044",
    "injectant_env": "retail",
-   "deid_hash": "106f1aaf9019375f",
+   "deid_hash": "7f32c9f35dff2d10",
    "len": 4,
-   "first_tool": "tau__find_user_id_by_email"
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-A-047",
    "tau_env": "airline",
    "sig": "bb1218f84fd2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-R-065",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-012",
    "injectant_env": "retail",
-   "deid_hash": "08e01f31ac80e631",
-   "len": 2,
-   "first_tool": "tau__find_user_id_by_name_zip"
+   "deid_hash": "0248f58c5682de8e",
+   "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_email"
   },
   {
    "req_id": "TAU-A-048",
@@ -634,6 +867,10 @@
    "injectant_env": "airline",
    "deid_hash": "0dda8936ecbe9ae3",
    "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -641,12 +878,16 @@
    "tau_env": "airline",
    "sig": "a77091a4c3ce",
    "arm": "unrelated",
-   "reason": "cross_domain",
-   "injectant": "TAU-R-002",
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-019",
    "injectant_env": "retail",
-   "deid_hash": "238b80404e9509bd",
+   "deid_hash": "25840a358bc6f9dd",
    "len": 10,
-   "first_tool": "tau__list_all_product_types"
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-000",
@@ -658,6 +899,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -670,6 +912,10 @@
    "injectant_env": "retail",
    "deid_hash": "d2f9b3a833bb38ab",
    "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "transfer_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -682,6 +928,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -689,12 +936,16 @@
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-003",
-   "injectant_env": "airline",
-   "deid_hash": "ec77d45d5e3cd812",
-   "len": 14,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-101",
+   "injectant_env": "retail",
+   "deid_hash": "e4c346977364108d",
+   "len": 12,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-005",
@@ -706,6 +957,10 @@
    "injectant_env": "retail",
    "deid_hash": "5f2c7683cdcc79e6",
    "len": 9,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -713,12 +968,16 @@
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-006",
-   "injectant_env": "airline",
-   "deid_hash": "d304c3e2bfc69f40",
-   "len": 6,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-044",
+   "injectant_env": "retail",
+   "deid_hash": "7f32c9f35dff2d10",
+   "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-010",
@@ -730,6 +989,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -742,6 +1002,10 @@
    "injectant_env": "retail",
    "deid_hash": "9a2d1178c77a9d06",
    "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -754,6 +1018,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -761,12 +1026,16 @@
    "tau_env": "retail",
    "sig": "2246f912173d",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-006",
-   "injectant_env": "airline",
-   "deid_hash": "d304c3e2bfc69f40",
-   "len": 6,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-012",
+   "injectant_env": "retail",
+   "deid_hash": "0248f58c5682de8e",
+   "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_email"
   },
   {
    "req_id": "TAU-R-016",
@@ -778,6 +1047,10 @@
    "injectant_env": "retail",
    "deid_hash": "b1f0e69d2a827660",
    "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -785,36 +1058,48 @@
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-006",
-   "injectant_env": "airline",
-   "deid_hash": "d304c3e2bfc69f40",
-   "len": 6,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-019",
+   "injectant_env": "retail",
+   "deid_hash": "25840a358bc6f9dd",
+   "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-019",
    "tau_env": "retail",
    "sig": "f18452329f5c",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-026",
-   "injectant_env": "airline",
-   "deid_hash": "11149070d918d539",
-   "len": 7,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-101",
+   "injectant_env": "retail",
+   "deid_hash": "e4c346977364108d",
+   "len": 12,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-020",
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-005",
-   "injectant_env": "airline",
-   "deid_hash": "0d2612044b105562",
-   "len": 10,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-000",
+   "injectant_env": "retail",
+   "deid_hash": "bd904fecf60eecb7",
+   "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-021",
@@ -826,6 +1111,10 @@
    "injectant_env": "retail",
    "deid_hash": "cd5ddef083490660",
    "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -833,12 +1122,16 @@
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-026",
-   "injectant_env": "airline",
-   "deid_hash": "11149070d918d539",
-   "len": 7,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-050",
+   "injectant_env": "retail",
+   "deid_hash": "e96dacf25bb24e60",
+   "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-023",
@@ -850,6 +1143,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -862,6 +1156,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -874,6 +1169,10 @@
    "injectant_env": "retail",
    "deid_hash": "8c77baae65a8495d",
    "len": 7,
+   "cell": [
+    "b2(7-10)",
+    "query_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -886,6 +1185,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -898,6 +1198,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -910,6 +1211,10 @@
    "injectant_env": "retail",
    "deid_hash": "328789ec17ecd223",
    "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -917,12 +1222,16 @@
    "tau_env": "retail",
    "sig": "2246f912173d",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-025",
-   "injectant_env": "airline",
-   "deid_hash": "2287d42b745339f1",
-   "len": 6,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-019",
+   "injectant_env": "retail",
+   "deid_hash": "25840a358bc6f9dd",
+   "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-030",
@@ -934,6 +1243,10 @@
    "injectant_env": "retail",
    "deid_hash": "a4f74ebb1058e083",
    "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -946,6 +1259,10 @@
    "injectant_env": "retail",
    "deid_hash": "8ec431a017d7731e",
    "len": 9,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -958,6 +1275,10 @@
    "injectant_env": "retail",
    "deid_hash": "59362aa20aab60d0",
    "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__list_all_product_types"
   },
   {
@@ -970,6 +1291,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -982,6 +1304,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -989,11 +1312,15 @@
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-026",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-008",
    "injectant_env": "airline",
-   "deid_hash": "11149070d918d539",
-   "len": 7,
+   "deid_hash": "105a76d074c70236",
+   "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -1006,6 +1333,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1018,6 +1346,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1030,6 +1359,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1042,6 +1372,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1054,6 +1385,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1061,12 +1393,16 @@
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-005",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-048",
    "injectant_env": "airline",
-   "deid_hash": "0d2612044b105562",
-   "len": 10,
-   "first_tool": "tau__get_user_details"
+   "deid_hash": "99e8854c49616857",
+   "len": 1,
+   "cell": [
+    "b0(1-3)",
+    "query_end"
+   ],
+   "first_tool": "tau__get_reservation_details"
   },
   {
    "req_id": "TAU-R-043",
@@ -1078,6 +1414,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1085,24 +1422,32 @@
    "tau_env": "retail",
    "sig": "721224ebfcc1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-020",
-   "injectant_env": "airline",
-   "deid_hash": "ee53db9bd6b706b0",
-   "len": 5,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-000",
+   "injectant_env": "retail",
+   "deid_hash": "bd904fecf60eecb7",
+   "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-045",
    "tau_env": "retail",
    "sig": "721224ebfcc1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-020",
-   "injectant_env": "airline",
-   "deid_hash": "ee53db9bd6b706b0",
-   "len": 5,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-050",
+   "injectant_env": "retail",
+   "deid_hash": "e96dacf25bb24e60",
+   "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-048",
@@ -1114,6 +1459,10 @@
    "injectant_env": "retail",
    "deid_hash": "83c88bd60f0cdc56",
    "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -1126,6 +1475,10 @@
    "injectant_env": "retail",
    "deid_hash": "e895172a3dc1a215",
    "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1138,6 +1491,10 @@
    "injectant_env": "retail",
    "deid_hash": "ad5ccb81c91a494f",
    "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -1150,6 +1507,10 @@
    "injectant_env": "retail",
    "deid_hash": "c094185c5f76281a",
    "len": 9,
+   "cell": [
+    "b2(7-10)",
+    "transfer_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1157,23 +1518,31 @@
    "tau_env": "retail",
    "sig": "7aad7aef32f1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-020",
-   "injectant_env": "airline",
-   "deid_hash": "ee53db9bd6b706b0",
-   "len": 5,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-041",
+   "injectant_env": "retail",
+   "deid_hash": "4e31c29585f37060",
+   "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-053",
    "tau_env": "retail",
    "sig": "033f435f3aab",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-025",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-008",
    "injectant_env": "airline",
-   "deid_hash": "2287d42b745339f1",
-   "len": 6,
+   "deid_hash": "105a76d074c70236",
+   "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -1186,6 +1555,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1198,6 +1568,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1205,12 +1576,16 @@
    "tau_env": "retail",
    "sig": "a77091a4c3ce",
    "arm": "unrelated",
-   "reason": "cross_domain",
-   "injectant": "TAU-A-007",
-   "injectant_env": "airline",
-   "deid_hash": "9f35674282a15d18",
-   "len": 8,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-027",
+   "injectant_env": "retail",
+   "deid_hash": "c2898e715b4a6812",
+   "len": 11,
+   "cell": [
+    "b3(11+)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-058",
@@ -1222,6 +1597,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1234,6 +1610,10 @@
    "injectant_env": "retail",
    "deid_hash": "192f953f0cd57f8f",
    "len": 10,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -1241,12 +1621,16 @@
    "tau_env": "retail",
    "sig": "00c673ea4796",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-012",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-048",
    "injectant_env": "airline",
-   "deid_hash": "ce37650fbf77a467",
-   "len": 4,
-   "first_tool": "tau__get_user_details"
+   "deid_hash": "99e8854c49616857",
+   "len": 1,
+   "cell": [
+    "b0(1-3)",
+    "query_end"
+   ],
+   "first_tool": "tau__get_reservation_details"
   },
   {
    "req_id": "TAU-R-061",
@@ -1258,6 +1642,10 @@
    "injectant_env": "retail",
    "deid_hash": "e895172a3dc1a215",
    "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1270,6 +1658,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1277,12 +1666,16 @@
    "tau_env": "retail",
    "sig": "721224ebfcc1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-040",
-   "injectant_env": "airline",
-   "deid_hash": "9979695391f5fb59",
-   "len": 7,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-000",
+   "injectant_env": "retail",
+   "deid_hash": "bd904fecf60eecb7",
+   "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-064",
@@ -1294,6 +1687,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1306,6 +1700,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1313,36 +1708,48 @@
    "tau_env": "retail",
    "sig": "bb1218f84fd2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-024",
-   "injectant_env": "airline",
-   "deid_hash": "a53cb817d0d14178",
-   "len": 5,
-   "first_tool": "tau__get_reservation_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-050",
+   "injectant_env": "retail",
+   "deid_hash": "e96dacf25bb24e60",
+   "len": 4,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-068",
    "tau_env": "retail",
    "sig": "bb1218f84fd2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-012",
-   "injectant_env": "airline",
-   "deid_hash": "ce37650fbf77a467",
-   "len": 4,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-021",
+   "injectant_env": "retail",
+   "deid_hash": "0dee553ad6d39639",
+   "len": 9,
+   "cell": [
+    "b2(7-10)",
+    "query_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-069",
    "tau_env": "retail",
    "sig": "00c673ea4796",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-012",
-   "injectant_env": "airline",
-   "deid_hash": "ce37650fbf77a467",
-   "len": 4,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-041",
+   "injectant_env": "retail",
+   "deid_hash": "4e31c29585f37060",
+   "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-070",
@@ -1354,6 +1761,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1366,6 +1774,10 @@
    "injectant_env": "retail",
    "deid_hash": "495acc17db58fe82",
    "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1373,12 +1785,16 @@
    "tau_env": "retail",
    "sig": "e2040fc7e9c2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-018",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-040",
    "injectant_env": "airline",
-   "deid_hash": "47408205c8ddd37b",
-   "len": 2,
-   "first_tool": "tau__get_reservation_details"
+   "deid_hash": "6ebe878530e4d1e4",
+   "len": 7,
+   "cell": [
+    "b2(7-10)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__get_user_details"
   },
   {
    "req_id": "TAU-R-073",
@@ -1390,6 +1806,10 @@
    "injectant_env": "retail",
    "deid_hash": "b7b033ab02fdf2ca",
    "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -1402,6 +1822,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1414,6 +1835,10 @@
    "injectant_env": "retail",
    "deid_hash": "ad5ccb81c91a494f",
    "len": 5,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -1421,12 +1846,16 @@
    "tau_env": "retail",
    "sig": "e2040fc7e9c2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-018",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-008",
    "injectant_env": "airline",
-   "deid_hash": "47408205c8ddd37b",
-   "len": 2,
-   "first_tool": "tau__get_reservation_details"
+   "deid_hash": "105a76d074c70236",
+   "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__get_user_details"
   },
   {
    "req_id": "TAU-R-077",
@@ -1438,6 +1867,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1450,6 +1880,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1457,12 +1888,16 @@
    "tau_env": "retail",
    "sig": "1932cfe427b1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-013",
-   "injectant_env": "airline",
-   "deid_hash": "de3996a1f695a6ce",
-   "len": 1,
-   "first_tool": "tau__get_reservation_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-027",
+   "injectant_env": "retail",
+   "deid_hash": "c2898e715b4a6812",
+   "len": 11,
+   "cell": [
+    "b3(11+)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-081",
@@ -1474,6 +1909,10 @@
    "injectant_env": "retail",
    "deid_hash": "36f2d7a93bf9e7bd",
    "len": 11,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1486,6 +1925,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1493,11 +1933,15 @@
    "tau_env": "retail",
    "sig": "1932cfe427b1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-013",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-048",
    "injectant_env": "airline",
-   "deid_hash": "de3996a1f695a6ce",
+   "deid_hash": "99e8854c49616857",
    "len": 1,
+   "cell": [
+    "b0(1-3)",
+    "query_end"
+   ],
    "first_tool": "tau__get_reservation_details"
   },
   {
@@ -1510,6 +1954,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1517,12 +1962,16 @@
    "tau_env": "retail",
    "sig": "77f18e2446b6",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-012",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-042",
    "injectant_env": "airline",
-   "deid_hash": "a6961a588437dfc5",
-   "len": 4,
-   "first_tool": "tau__get_user_details"
+   "deid_hash": "432b2915f525f0d5",
+   "len": 2,
+   "cell": [
+    "b0(1-3)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__get_reservation_details"
   },
   {
    "req_id": "TAU-R-088",
@@ -1534,6 +1983,10 @@
    "injectant_env": "retail",
    "deid_hash": "b16cd5fa58632268",
    "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1541,12 +1994,16 @@
    "tau_env": "retail",
    "sig": "e2040fc7e9c2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-018",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-006",
    "injectant_env": "airline",
-   "deid_hash": "47408205c8ddd37b",
-   "len": 2,
-   "first_tool": "tau__get_reservation_details"
+   "deid_hash": "20e98bc7ea0d2cf0",
+   "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__get_user_details"
   },
   {
    "req_id": "TAU-R-092",
@@ -1558,6 +2015,10 @@
    "injectant_env": "retail",
    "deid_hash": "292564f6b2af67d3",
    "len": 11,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1570,6 +2031,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1577,12 +2039,16 @@
    "tau_env": "retail",
    "sig": "1932cfe427b1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-013",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-015",
    "injectant_env": "airline",
-   "deid_hash": "de3996a1f695a6ce",
-   "len": 1,
-   "first_tool": "tau__get_reservation_details"
+   "deid_hash": "b065998228d189fb",
+   "len": 6,
+   "cell": [
+    "b1(4-6)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__get_user_details"
   },
   {
    "req_id": "TAU-R-096",
@@ -1594,6 +2060,10 @@
    "injectant_env": "retail",
    "deid_hash": "495acc17db58fe82",
    "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1606,6 +2076,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1613,12 +2084,16 @@
    "tau_env": "retail",
    "sig": "e2040fc7e9c2",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-039",
-   "injectant_env": "airline",
-   "deid_hash": "6cfb98ddf584c42d",
-   "len": 2,
-   "first_tool": "tau__get_reservation_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-021",
+   "injectant_env": "retail",
+   "deid_hash": "0dee553ad6d39639",
+   "len": 9,
+   "cell": [
+    "b2(7-10)",
+    "query_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-099",
@@ -1630,6 +2105,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1642,6 +2118,10 @@
    "injectant_env": "retail",
    "deid_hash": "baa6ee3867db4b5e",
    "len": 11,
+   "cell": [
+    "b3(11+)",
+    "transfer_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1654,6 +2134,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1666,6 +2147,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1678,6 +2160,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1685,12 +2168,16 @@
    "tau_env": "retail",
    "sig": "1932cfe427b1",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-036",
-   "injectant_env": "airline",
-   "deid_hash": "88f6daf6be5f98ec",
-   "len": 1,
-   "first_tool": "tau__get_reservation_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-041",
+   "injectant_env": "retail",
+   "deid_hash": "4e31c29585f37060",
+   "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-107",
@@ -1702,6 +2189,10 @@
    "injectant_env": "retail",
    "deid_hash": "b7b033ab02fdf2ca",
    "len": 8,
+   "cell": [
+    "b2(7-10)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_email"
   },
   {
@@ -1714,6 +2205,10 @@
    "injectant_env": "retail",
    "deid_hash": "495acc17db58fe82",
    "len": 13,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
@@ -1721,11 +2216,15 @@
    "tau_env": "retail",
    "sig": "3d05a416ea71",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-042",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-040",
    "injectant_env": "airline",
-   "deid_hash": "b5cdda705189d5e7",
-   "len": 3,
+   "deid_hash": "6ebe878530e4d1e4",
+   "len": 7,
+   "cell": [
+    "b2(7-10)",
+    "transfer_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -1733,11 +2232,15 @@
    "tau_env": "retail",
    "sig": "3d05a416ea71",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-042",
+   "reason": "r1_stratified",
+   "injectant": "TAU-A-016",
    "injectant_env": "airline",
-   "deid_hash": "b5cdda705189d5e7",
-   "len": 3,
+   "deid_hash": "e616c63fd6671214",
+   "len": 11,
+   "cell": [
+    "b3(11+)",
+    "state_change_end"
+   ],
    "first_tool": "tau__get_user_details"
   },
   {
@@ -1750,6 +2253,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   },
   {
@@ -1757,12 +2261,16 @@
    "tau_env": "retail",
    "sig": "3d05a416ea71",
    "arm": "unrelated",
-   "reason": "form_matched",
-   "injectant": "TAU-A-042",
-   "injectant_env": "airline",
-   "deid_hash": "b5cdda705189d5e7",
-   "len": 3,
-   "first_tool": "tau__get_user_details"
+   "reason": "r1_stratified",
+   "injectant": "TAU-R-027",
+   "injectant_env": "retail",
+   "deid_hash": "c2898e715b4a6812",
+   "len": 11,
+   "cell": [
+    "b3(11+)",
+    "transfer_end"
+   ],
+   "first_tool": "tau__find_user_id_by_name_zip"
   },
   {
    "req_id": "TAU-R-114",
@@ -1774,6 +2282,7 @@
    "injectant_env": null,
    "deid_hash": null,
    "len": 0,
+   "cell": null,
    "first_tool": null
   }
  ]
