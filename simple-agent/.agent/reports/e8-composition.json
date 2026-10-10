@@ -1,0 +1,34 @@
+{
+ "note": "P5a.41 §二 组成分析；E 门审查附件",
+ "task_set": {
+  "airline": {
+   "read_only": 11,
+   "state_change": 23,
+   "correct_refusal": 7
+  },
+  "retail": {
+   "state_change": 85,
+   "read_only": 7,
+   "correct_refusal": 2
+  },
+  "total": {
+   "read_only": 18,
+   "state_change": 108,
+   "correct_refusal": 9
+  },
+  "n": 135
+ },
+ "pool_all": {
+  "query_end": 82,
+  "state_change_end": 259,
+  "transfer_end": 109
+ },
+ "pool_pass_only": {
+  "state_change_end": 151,
+  "transfer_end": 97,
+  "query_end": 52
+ },
+ "pool_pass_only_n": 300,
+ "state_change_share_pass_only": 50.3,
+ "stratification_required": false
+}
