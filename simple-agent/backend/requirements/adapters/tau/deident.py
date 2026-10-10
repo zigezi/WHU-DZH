@@ -138,7 +138,7 @@ class DeIdentifier:
                 alts.add(v)
                 if pref in ("NAME", "PROD") and " " in v:      # 多词名 → 词元变体
                     for tok in v.split():
-                        if len(tok) >= 4:
+                        if len(tok) >= 4 and tok.lower() not in STOPWORDS:
                             alts.add(tok)
             if alts:
                 rx = re.compile(
@@ -247,6 +247,22 @@ def lint_no_residual(orig_plan, deid_plan):
 
 PSEUDO_PREFIXES = ("RES_", "FLT_", "ORD_", "USR_", "PAY_", "ITEM_", "PROD_",
                    "NAME_", "ADDR_", "EMAIL_", "CERT_", "PHONE_", "XID_")
+
+# P5a.40 §三.1：停用词护栏——普通英语词即使撞字典也不得伪真值化（杀死可读性的过宽替换）
+STOPWORDS = {
+    "action", "actions", "request", "requests", "modification", "modifications",
+    "change", "changes", "item", "items", "order", "orders", "return", "returns",
+    "exchange", "exchanges", "refund", "refunds", "product", "products",
+    "customer", "customers", "agent", "user", "users", "system", "service",
+    "number", "detail", "details", "price", "prices", "payment", "payments",
+    "address", "addresses", "date", "dates", "time", "status", "type", "note",
+    "reason", "update", "updates", "success", "succeeded", "fail", "failed",
+    "error", "please", "today", "recent", "new", "old", "only", "same", "other",
+    "this", "that", "with", "from", "have", "will", "your", "their", "and",
+    "the", "for", "was", "are", "but", "not", "all", "any", "can", "get",
+    "use", "one", "two", "set", "light", "water", "book", "table", "chair",
+    "phone", "watch", "gaming", "camera", "lamp", "tablet", "bottle", "bag",
+}
 # IV 类（领域词表/枚举）：允许保留裸值
 ENUM_KEYS = {"origin", "destination", "cabin", "flight_type", "insurance",
              "trip_type", "status", "source", "request_type", "payment_type"}
@@ -312,6 +328,28 @@ def lint_price_residual(deid_plan, orig_plan):
     toks = set(_RE_TWO.findall(deid_txt))
     hits = sorted(t for t in toks if t not in scaled)
     return {"hits": hits[:20], "n": len(hits), "ok": not hits}
+
+
+def membership_proof(mapping, db_sets):
+    """P5a.40 §三.1：过宽替换检测 + 字典覆盖报告。
+
+    FAIL = 被替换的值是**停用词**（普通英语词，D1 病灶）；
+    not_in_dict = 不在静态 DB dump 的实体值（运行中派生的地址/email 等，**informational**，
+    因 dump 为静态、计划含 run 派生值，不作 FAIL）。
+    """
+    fails, not_in_dict = [], []
+    for (typ, real), fake in mapping.items():
+        members = db_sets.get(typ, set())
+        if real in members or any(real.lower() == m.lower() for m in members):
+            continue                   # DB 成员（含大小写变体）→ 通过
+        if typ in ("NAME", "PROD"):
+            if real.lower() in STOPWORDS:      # 非成员 + 停用词 = 过宽替换（D1）
+                fails.append({"type": typ, "real": real, "fake": fake, "why": "stopword-token"})
+                continue
+            if any(real.lower() == t.lower() for m in members for t in m.split()):
+                continue                        # 合法成员词元
+        not_in_dict.append({"type": typ, "real": real})
+    return fails, not_in_dict
 
 
 _DB_RX_CACHE = None

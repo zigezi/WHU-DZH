@@ -1,17 +1,21 @@
-# e8 终轮人工核查样本（自由文本重度单元，P5a.39 §三）
+# e8 终轮人工核查样本 v2（P5a.40 后；自由文本重度单元）
 
-> 只判两条：**(a) 读得通吗**（替换后文本作为先例是否连贯、无突兀伪值堆砌）
-> **(b) 有无违和裸字符串**（既不像伪真值 `XXX_0x…` 又不像封闭词表的字符串=未知类探测器）。
-> ②③④①⑤ 已全部机检通过，不必再判。
+> 只判两条：**(a) 读得通吗** **(b) 有无违和裸字符串**。①-⑤ 机检已过 + D1 停用词护栏已修。
 
-
-## Case 01  (task=TAU-A-014 <- injectant=TAU-A-027)  free_text_chars=668
-lint: no_residual=True db_nonmember=True db_dict_ok=True
+## Case 01  (task=TAU-A-030 <- injectant=TAU-A-016)  free_text_chars=2039
 
 **自由文本片段：**
+- `thought`:
+  ```
+  User is silver member, reservation RES_0x558BA7 is economy, no insurance. Policy: compensation for delayed flights can be offered only if user is silver/gold OR has travel insurance OR flies business, and only after changing or cancelling the reservation, and only if user complains and asks. Here silver member qualifies by membership, but the policy says "and wants to change or cancel the reservation... offer a certificate after confirming facts and changing or cancelling the reservation." So compensation requires changing or cancelling. User hasn't asked to change/cancel. Also refund to original payment method not allowed for delay since cancellation rules: economy without insurance not cancellable unless within 24 hours or airline cancelled. So cannot offer refund. Could offer certificate if they change/cancel reservation, amount 50 × passengers = 150. Need to ask if they want to change/cancel.
+  ```
+- `thought`:
+  ```
+  Need to check cancellation eligibility for RES_0x558BA7. Reservation created 2027-02-06, current time 2027-02-16, more than 24 hours after booking. Economy cabin, no travel insurance. Airline did not cancel the flight; user says flight is delayed. Policy: basic economy or economy flights can be cancelled only if travel insurance bought and condition met; business can always cancel. Here no insurance, economy. So cannot cancel. Therefore cannot cancel and cannot offer certificate (which requires changing/cancelling). Also segments: flight FLT_0x43F4AD on 2027-02-16, FLT_0x12FFBA on same date, not flown yet (departed? no info). Cannot cancel. So deny.
+  ```
 - `summary`:
   ```
-  User USR_0x620727 requests cancellation of reservation RES_0x05EFC4 (MCO -> PHX -> SEA, one-way, business, 2 passengers). Flight segments were scheduled for 2027-02-14 and 2027-02-15, both in the past relative to the current date 2027-02-16, so the trip may contain already-flown segments. Agent cannot cancel a trip with used segments and is transferring for human handling. Note: user's separate request to cancel RES_0x66C878 was denied as ineligible (basic economy, no travel insurance, booked more than 24 hours prior, airline did not cancel). RES_0xCC919A nonstop change could not be made (no nonstop JFK -> MCO flights on 2027-02-21, 2027-02-22, or 2027-02-23).
+  User USR_0xA184CF (silver member) is requesting goodwill compensation (voucher or refund) for a delayed flight FLT_0x43F4AD on reservation RES_0x558BA7 (ORD-SEA, economy, no travel insurance, created 2027-02-06). Reservation cannot be cancelled under policy because it is outside 24 hours, no insurance, and flight was delayed not cancelled. Certificate cannot be offered because change/cancel is not possible. User asks to escalate for goodwill compensation authorization.
   ```
 **完整脱敏计划：**
 ```
@@ -19,88 +23,131 @@ lint: no_residual=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__get_user_details",
   "args": {
-   "user_id": "USR_0x620727"
+   "user_id": "USR_0xA184CF"
   }
  },
  {
   "tool": "tau__get_reservation_details",
   "args": {
-   "reservation_id": "RES_0x66C878"
+   "reservation_id": "RES_0x9503E1"
   }
  },
  {
   "tool": "tau__get_reservation_details",
   "args": {
-   "reservation_id": "RES_0x05EFC4"
+   "reservation_id": "RES_0xDD1073"
   }
  },
  {
   "tool": "tau__get_reservation_details",
   "args": {
-   "reservation_id": "RES_0xCC919A"
+   "reservation_id": "RES_0xD0FD6F"
   }
  },
  {
-  "tool": "tau__search_direct_flight",
+  "tool": "tau__get_reservation_details",
   "args": {
-   "origin": "JFK",
-   "destination": "MCO",
-   "date": "2027-02-23"
+   "reservation_id": "RES_0xFF6C0E"
   }
  },
  {
-  "tool": "tau__search_direct_flight",
+  "tool": "tau__get_reservation_details",
   "args": {
-   "origin": "JFK",
-   "destination": "MCO",
-   "date": "2027-02-21"
+   "reservation_id": "RES_0xD0D39C"
   }
  },
  {
-  "tool": "tau__search_direct_flight",
+  "tool": "tau__get_reservation_details",
   "args": {
-   "origin": "JFK",
-   "destination": "MCO",
-   "date": "2027-02-22"
+   "reservation_id": "RES_0x3D1765"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x6CCFE9"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x38341C"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x558BA7"
+  }
+ },
+ {
+  "tool": "tau__think",
+  "args": {
+   "thought": "User is silver member, reservation RES_0x558BA7 is economy, no insurance. Policy: compensation for delayed flights can be offered only if user is silver/gold OR has travel insurance OR flies business, and only after changing or cancelling the reservation, and only if user complains and asks. Here silver member qualifies by membership, but the policy says \"and wants to change or cancel the reservation... offer a certificate after confirming facts and changing or cancelling the reservation.\" So compensation requires changing or cancelling. User hasn't asked to change/cancel. Also refund to original payment method not allowed for delay since cancellation rules: economy without insurance not cancellable unless within 24 hours or airline cancelled. So cannot offer refund. Could offer certificate if they change/cancel reservation, amount 50 × passengers = 150. Need to ask if they want to change/cancel."
+  }
+ },
+ {
+  "tool": "tau__think",
+  "args": {
+   "thought": "Need to check cancellation eligibility for RES_0x558BA7. Reservation created 2027-02-06, current time 2027-02-16, more than 24 hours after booking. Economy cabin, no travel insurance. Airline did not cancel the flight; user says flight is delayed. Policy: basic economy or economy flights can be cancelled only if travel insurance bought and condition met; business can always cancel. Here no insurance, economy. So cannot cancel. Therefore cannot cancel and cannot offer certificate (which requires changing/cancelling). Also segments: flight FLT_0x43F4AD on 2027-02-16, FLT_0x12FFBA on same date, not flown yet (departed? no info). Cannot cancel. So deny."
   }
  },
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "User USR_0x620727 requests cancellation of reservation RES_0x05EFC4 (MCO -> PHX -> SEA, one-way, business, 2 passengers). Flight segments were scheduled for 2027-02-14 and 2027-02-15, both in the past relative to the current date 2027-02-16, so the trip may contain already-flown segments. Agent cannot cancel a trip with used segments and is transferring for human handling. Note: user's separate request to cancel RES_0x66C878 was denied as ineligible (basic economy, no travel insurance, booked more than 24 hours prior, airline did not cancel). RES_0xCC919A nonstop change could not be made (no nonstop JFK -> MCO flights on 2027-02-21, 2027-02-22, or 2027-02-23)."
-  }
- }
-]
+   "summary": "User USR_0xA184CF (silver member) is requesting goodwill compensation (voucher or refund) for a delayed flight FLT_0x43F4AD on reservation RES_0x558BA7 (ORD-SEA, economy, no travel insurance, created 2027-02-06). Reservation cannot b
 ```
 
-## Case 02  (task=TAU-A-044 <- injectant=TAU-A-042)  free_text_chars=526
-lint: no_residual=True db_nonmember=True db_dict_ok=True
+## Case 02  (task=TAU-A-048 <- injectant=TAU-A-037)  free_text_chars=620
 
 **自由文本片段：**
 - `summary`:
   ```
-  User USR_0xF47CC1 wants to cancel reservation RES_0x5EE04D (basic economy, one way MCO→SFO, flights RES_0xD35880 on 2027-02-20 and RES_0xE5C089 on 2027-02-21, booked 2027-02-03) due to illness and receive a refund. Reservation record shows insurance: no, and the booking is outside the 24-hour window, so cancellation is not permitted under policy. User insists she purchased travel insurance with this flight and requests that a human agent investigate the insurance purchase separately, potentially under a different record.
+  User USR_0xACD976 is requesting compensation for a delayed flight (FLT_0xF87F08 PHX→SEA, reservation RES_0x9767C8, business class, 4 passengers, no travel insurance). User claims Gold membership but system shows regular. Policy allows only a $50/passenger certificate ($200) for a delay complaint, and only if the reservation is changed or cancelled. User wants the original payment method refunded or a higher-value voucher/goodwill credit backed by proof of a missed meeting, both of which are outside the agent's allowed actions. User is asking for escalation to explore anything beyond the standard $200 certificate.
   ```
 **完整脱敏计划：**
 ```
 [
  {
+  "tool": "tau__get_user_details",
+  "args": {
+   "user_id": "USR_0xACD976"
+  }
+ },
+ {
   "tool": "tau__get_reservation_details",
   "args": {
-   "reservation_id": "RES_0x5EE04D"
+   "reservation_id": "RES_0xBAD0E6"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0xF7F3DB"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x9767C8"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x1FEB12"
   }
  },
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "User USR_0xF47CC1 wants to cancel reservation RES_0x5EE04D (basic economy, one way MCO→SFO, flights RES_0xD35880 on 2027-02-20 and RES_0xE5C089 on 2027-02-21, booked 2027-02-03) due to illness and receive a refund. Reservation record shows insurance: no, and the booking is outside the 24-hour window, so cancellation is not permitted under policy. User insists she purchased travel insurance with this flight and requests that a human agent investigate the insurance purchase separately, potentially under a different record."
+   "summary": "User USR_0xACD976 is requesting compensation for a delayed flight (FLT_0xF87F08 PHX→SEA, reservation RES_0x9767C8, business class, 4 passengers, no travel insurance). User claims Gold membership but system shows regular. Policy allows only a $50/passenger certificate ($200) for a delay complaint, and only if the reservation is changed or cancelled. User wants the original payment method refunded or a higher-value voucher/goodwill credit backed by proof of a missed meeting, both of which are outside the agent's allowed actions. User is asking for escalation to explore anything beyond the standard $200 certificate."
   }
  }
 ]
 ```
 
 ## Case 03  (task=TAU-A-016 <- injectant=TAU-A-022)  free_text_chars=454
-lint: no_residual=True db_nonmember=True db_dict_ok=True
 
 **自由文本片段：**
 - `summary`:
@@ -149,13 +196,12 @@ lint: no_residual=True db_nonmember=True db_dict_ok=True
 ]
 ```
 
-## Case 04  (task=TAU-A-025 <- injectant=TAU-A-013)  free_text_chars=446
-lint: no_residual=True db_nonmember=True db_dict_ok=True
+## Case 04  (task=TAU-A-019 <- injectant=TAU-A-016)  free_text_chars=447
 
 **自由文本片段：**
 - `summary`:
   ```
-  User USR_0xEABE8B (regular member) requests changing reservation RES_0x2E8786 to a nonstop ATL→LAS flight, changing destination and routing. Reservation is basic_economy, round_trip (LAX-ATL), and the first two segments (LAX→ORD 2027-02-14, ORD→ATL 2027-02-15) have already been flown. Change is not possible via agent tools (cabin upgrade would not permit flight/destination change; used segments cannot be modified). User requests human review.
+  User USR_0xA184CF is requesting compensation for a delayed flight (FLT_0x43F4AD ATL-SEA on 2027-02-16, reservation RES_0x558BA7, 3 passengers, economy, no insurance). User is a silver member but does not want to change or cancel the reservation, so standard delay certificate eligibility does not apply. User would accept a travel voucher or refund to original payment method and is asking to escalate to another department for delay compensation.
   ```
 **完整脱敏计划：**
 ```
@@ -163,31 +209,135 @@ lint: no_residual=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__get_user_details",
   "args": {
-   "user_id": "USR_0xEABE8B"
+   "user_id": "USR_0xA184CF"
   }
  },
  {
   "tool": "tau__get_reservation_details",
   "args": {
-   "reservation_id": "RES_0x2E8786"
+   "reservation_id": "RES_0x9503E1"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0xDD1073"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0xD0FD6F"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0xFF6C0E"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0xD0D39C"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x3D1765"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x6CCFE9"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x38341C"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0x558BA7"
   }
  },
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "User USR_0xEABE8B (regular member) requests changing reservation RES_0x2E8786 to a nonstop ATL→LAS flight, changing destination and routing. Reservation is basic_economy, round_trip (LAX-ATL), and the first two segments (LAX→ORD 2027-02-14, ORD→ATL 2027-02-15) have already been flown. Change is not possible via agent tools (cabin upgrade would not permit flight/destination change; used segments cannot be modified). User requests human review."
+   "summary": "User USR_0xA184CF is requesting compensation for a delayed flight (FLT_0x43F4AD ATL-SEA on 2027-02-16, reservation RES_0x558BA7, 3 passengers, economy, no insurance). User is a silver member but does not want to change or cancel the reservation, so standard delay certificate eligibility does not apply. User would accept a travel voucher or refund to original payment method and is asking to escalate to another department for delay compensation."
   }
  }
 ]
 ```
 
-## Case 05  (task=TAU-R-081 <- injectant=TAU-R-098)  free_text_chars=663
-lint: no_residual=True db_nonmember=True db_dict_ok=True
+## Case 05  (task=TAU-R-044 <- injectant=TAU-A-020)  free_text_chars=1190
+
+**自由文本片段：**
+- `thought`:
+  ```
+  Need to calculate price difference for changing flights. Current outbound segments: FLT_0x8E50D4 price 161 + FLT_0xAD398D price 192 = 353. New outbound FLT_0x3CDF76 economy price 146 per passenger. Return FLT_0xE58FC8 price remains 184 (unchanged). New total per passenger = 146 + 184 = 330. Current total per passenger = 161 + 192 + 184 = 537. Difference = 330 - 537 = -207 per passenger, so refund of 207 per passenger for 2 passengers = 414 refund. Need to confirm with user and ask refund method. Reservation insurance yes, cabin economy. This is allowed: non-basic economy flight can be modified without changing origin/destination/trip type. Flights are not flown presumably. Need to list action details and obtain explicit confirmation before API. Also payment: user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC and PAY_0xCFA333. Refund method should be gift card or credit card, not certificate? Policy: If flights are changed, user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC, so ask for that or credit card? They don't have credit card in profile. Gift card available. Ask.
+  ```
+**完整脱敏计划：**
+```
+[
+ {
+  "tool": "tau__get_user_details",
+  "args": {
+   "user_id": "USR_0x02736E"
+  }
+ },
+ {
+  "tool": "tau__get_reservation_details",
+  "args": {
+   "reservation_id": "RES_0xBA6780"
+  }
+ },
+ {
+  "tool": "tau__search_direct_flight",
+  "args": {
+   "origin": "LAS",
+   "destination": "IAH",
+   "date": "2027-02-20"
+  }
+ },
+ {
+  "tool": "tau__think",
+  "args": {
+   "thought": "Need to calculate price difference for changing flights. Current outbound segments: FLT_0x8E50D4 price 161 + FLT_0xAD398D price 192 = 353. New outbound FLT_0x3CDF76 economy price 146 per passenger. Return FLT_0xE58FC8 price remains 184 (unchanged). New total per passenger = 146 + 184 = 330. Current total per passenger = 161 + 192 + 184 = 537. Difference = 330 - 537 = -207 per passenger, so refund of 207 per passenger for 2 passengers = 414 refund. Need to confirm with user and ask refund method. Reservation insurance yes, cabin economy. This is allowed: non-basic economy flight can be modified without changing origin/destination/trip type. Flights are not flown presumably. Need to list action details and obtain explicit confirmation before API. Also payment: user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC and PAY_0xCFA333. Refund method should be gift card or credit card, not certificate? Policy: If flights are changed, user needs to provide one gift card or credit card for payment or refund method. User has PAY_0x968FEC, so ask for that or credit card? They don't have credit card in profile. Gift card available. Ask."
+  }
+ },
+ {
+  "tool": "tau__update_reservation_flights",
+  "args": {
+   "reservation_id": "RES_0xBA6780",
+   "cabin": "economy",
+   "flights": [
+    {
+     "flight_number": "FLT_0x3CDF76",
+     "date": "2027-02-20"
+    },
+    {
+     "flight_number": "FLT_0xE58FC8",
+     "date": "2027-02-28"
+    }
+   ],
+   "payment_id": "PAY_0x968FEC"
+  }
+ }
+]
+```
+
+## Case 06  (task=TAU-R-100 <- injectant=TAU-R-072)  free_text_chars=743
 
 **自由文本片段：**
 - `summary`:
   ```
-  User NAME_0xA1D11C Li (USR_0xE22ADC) requested two NAME_0x6F4DC8 on pending order ORD_0x591F0D: (1) modify the NAME_0xD8BA77 to the cheapest available green type, and (2) change the shipping address from the LA address (ADDR_0xB85EDF, ADDR_0x7424C5, ADDR_0x031416, CA ADDR_0xDCCFD3) to his NYC address (ADDR_0x74B2AF, ADDR_0x1DEC63, ADDR_0x63E28F, NY ADDR_0x1DDF4D). NAME_0xD3C1AF 1 succeeded (order now 'pending (item modified)', $5.15 refund issued to PayPal). NAME_0xD3C1AF 2 failed because the order status changed to 'pending (item modified)', which can no longer be modified. User needs human assistance to update the shipping address on order ORD_0x591F0D.
+  Customer NAME_0x11F42F NAME_0x4D7B97 (USR_0x2BE482) requested modifications to order ORD_0x6CB070, which was pending: change PROD_0x8744BF to black/medium/USB, change PROD_0x004466 to grey/medium/polyester, and update shipping address to his ADDR_0xFC0C6B default address. The item modification was completed (status now 'pending (item modified)'), which locked the order from any further changes. The customer then wanted to switch payment from gift card to PayPal, revert the lamp change, keep only the PROD_0x004466 change, and still update the shipping address — but these are not possible since the order is locked. Customer is requesting human review to see if the shipping address can still be updated or if there's another way to help.
   ```
 **完整脱敏计划：**
 ```
@@ -195,76 +345,95 @@ lint: no_residual=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__find_user_id_by_name_zip",
   "args": {
-   "first_name": "NAME_0xA1D11C",
-   "last_name": "NAME_0xDA2707",
-   "zip": "ADDR_0xDCCFD3"
+   "first_name": "NAME_0x11F42F",
+   "last_name": "NAME_0x4D7B97",
+   "zip": "ADDR_0xD22DBF"
   }
  },
  {
   "tool": "tau__get_user_details",
   "args": {
-   "user_id": "USR_0xE22ADC"
+   "user_id": "USR_0x2BE482"
   }
  },
  {
   "tool": "tau__get_order_details",
   "args": {
-   "order_id": "ORD_0x591F0D"
+   "order_id": "ORD_0x6CB070"
   }
  },
  {
   "tool": "tau__get_order_details",
   "args": {
-   "order_id": "ORD_0xB65D6F"
+   "order_id": "ORD_0x4F9502"
+  }
+ },
+ {
+  "tool": "tau__get_order_details",
+  "args": {
+   "order_id": "ORD_0x0FC8BE"
+  }
+ },
+ {
+  "tool": "tau__get_order_details",
+  "args": {
+   "order_id": "ORD_0xE7A974"
   }
  },
  {
   "tool": "tau__get_product_details",
   "args": {
-   "product_id": "PROD_0x5D18A5"
+   "product_id": "PROD_0xD57700"
+  }
+ },
+ {
+  "tool": "tau__get_product_details",
+  "args": {
+   "product_id": "PROD_0x780F1B"
   }
  },
  {
   "tool": "tau__modify_pending_order_items",
   "args": {
-   "order_id": "ORD_0x591F0D",
+   "order_id": "ORD_0x6CB070",
    "item_ids": [
-    "ITEM_0x8C2C94"
+    "ITEM_0x115236",
+    "ITEM_0x46B1AC"
    ],
    "new_item_ids": [
-    "ITEM_0xC511F9"
+    "ITEM_0xFAD329",
+    "ITEM_0x257126"
    ],
-   "payment_method_id": "PAY_0x745E8A"
+   "payment_method_id": "PAY_0x212AF1"
   }
  },
  {
   "tool": "tau__modify_pending_order_address",
   "args": {
-   "order_id": "ORD_0x591F0D",
-   "address1": "ADDR_0x74B2AF",
-   "address2": "ADDR_0x1DEC63",
-   "city": "ADDR_0x63E28F",
-   "state": "NY",
+   "order_id": "ORD_0x6CB070",
+   "address1": "ADDR_0x98D64A",
+   "address2": "ADDR_0x616ED6",
+   "city": "ADDR_0xFC0C6B",
+   "state": "NC",
    "country": "USA",
-   "zip": "ADDR_0x1DDF4D"
+   "zip": "ADDR_0xD22DBF"
   }
  },
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "User NAME_0xA1D11C Li (USR_0xE22ADC) requested two NAME_0x6F4DC8 on pending order ORD_0x591F0D: (1) modify the NAME_0xD8BA77 to the cheapest available green type, and (2) change the shipping address from the LA address (ADDR_0xB85EDF, ADDR_0x7424C5, ADDR_0x031416, CA ADDR_0xDCCFD3) to his NYC address (ADDR_0x74B2AF, ADDR_0x1DEC63, ADDR_0x63E28F, NY ADDR_0x1DDF4D). NAME_0xD3C1AF 1 succeeded (order now 'pending (item modified)', $5.15 refund issued to PayPal). NAME_0xD3C1AF 2 failed because the order status changed to 'pending (item modified)', which can no longer be modified. User needs human assistance to update the shipping address on order ORD_0x591F0D."
+   "summary": "Customer NAME_0x11F42F NAME_0x4D7B97 (USR_0x2BE482) requested modifications to order ORD_0x6CB070, which was pending: change PROD_0x8744BF to black/medium/USB, change PROD_0x004466 to grey/medium/polyester, and update shipping address to his ADDR_0xFC0C6B default address. The item modification was completed (status now 'pending (item modified)'), which locked the order from any further changes. The customer then wanted to switch payment from gift card to PayPal, revert the lamp change, keep only the PROD_0x004466 change, and still update the shipping address — but these are not possible since the order is locked. Customer is requesting human review to see if the shipping address can still be updated or if there's another way to help."
   }
  }
 ]
 ```
 
-## Case 06  (task=TAU-R-051 <- injectant=TAU-R-019)  free_text_chars=629
-lint: no_residual=True db_nonmember=True db_dict_ok=True
+## Case 07  (task=TAU-R-051 <- injectant=TAU-R-019)  free_text_chars=629
 
 **自由文本片段：**
 - `summary`:
   ```
-  User NAME_0xC74B27 NAME_0xE0D15C (USR_0x66EAB5) had a delivered order ORD_0x71BC44. She wanted to return the NAME_0x51F714 AND exchange the NAME_0xBEEB1A and NAME_0x3FB902 for the cheapest available versions of the same products. The return was processed successfully (order status now 'return requested'), but the exchange failed because the order was no longer in 'delivered' status. Requesting the exchange to: NAME_0xBEEB1A ITEM_0xBA6D31 -> ITEM_0xFD6373 (large, memory foam, beige, $247.87), NAME_0x3FB902 ITEM_0x44BFA9 -> ITEM_0xF2C251 (leather, blue, no armrest, standard back, $646.39), refund difference to PAY_0x1DBCAD.
+  User NAME_0xC74B27 NAME_0xE0D15C (USR_0x66EAB5) had a delivered order ORD_0x71BC44. She wanted to return the PROD_0x3A2A2A AND exchange the PROD_0x5B857E and PROD_0x287763 for the cheapest available versions of the same products. The return was processed successfully (order status now 'return requested'), but the exchange failed because the order was no longer in 'delivered' status. Requesting the exchange to: PROD_0x5B857E ITEM_0xBA6D31 -> ITEM_0xFD6373 (large, memory foam, beige, $247.87), PROD_0x287763 ITEM_0x44BFA9 -> ITEM_0xF2C251 (leather, blue, no armrest, standard back, $646.39), refund difference to PAY_0x1DBCAD.
   ```
 **完整脱敏计划：**
 ```
@@ -335,19 +504,18 @@ lint: no_residual=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "User NAME_0xC74B27 NAME_0xE0D15C (USR_0x66EAB5) had a delivered order ORD_0x71BC44. She wanted to return the NAME_0x51F714 AND exchange the NAME_0xBEEB1A and NAME_0x3FB902 for the cheapest available versions of the same products. The return was processed successfully (order status now 'return requested'), but the exchange failed because the order was no longer in 'delivered' status. Requesting the exchange to: NAME_0xBEEB1A ITEM_0xBA6D31 -> ITEM_0xFD6373 (large, memory foam, beige, $247.87), NAME_0x3FB902 ITEM_0x44BFA9 -> ITEM_0xF2C251 (leather, blue, no armrest, standard back, $646.39), refund difference to PAY_0x1DBCAD."
+   "summary": "User NAME_0xC74B27 NAME_0xE0D15C (USR_0x66EAB5) had a delivered order ORD_0x71BC44. She wanted to return the PROD_0x3A2A2A AND exchange the PROD_0x5B857E and PROD_0x287763 for the cheapest available versions of the same products. The return was processed successfully (order status now 'return requested'), but the exchange failed because the order was no longer in 'delivered' status. Requesting the exchange to: PROD_0x5B857E ITEM_0xBA6D31 -> ITEM_0xFD6373 (large, memory foam, beige, $247.87), PROD_0x287763 ITEM_0x44BFA9 -> ITEM_0xF2C251 (leather, blue, no armrest, standard back, $646.39), refund difference to PAY_0x1DBCAD."
   }
  }
 ]
 ```
 
-## Case 07  (task=TAU-R-002 <- injectant=TAU-R-027)  free_text_chars=621
-lint: no_residual=True db_nonmember=True db_dict_ok=True
+## Case 08  (task=TAU-R-002 <- injectant=TAU-R-027)  free_text_chars=621
 
 **自由文本片段：**
 - `summary`:
   ```
-  Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a NAME_0x4E4E59 and NAME_0x19E5A1 and exchange NAME_0x11AACF for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the NAME_0x8243AA and NAME_0x4C446F, which changed the order status to 'return requested'. The subsequent exchange for the NAME_0xF4F9A5 (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible.
+  Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a PROD_0xC3AFED and PROD_0x3F98D1 and exchange PROD_0x64B794 for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the PROD_0x45AADC and PROD_0x004466, which changed the order status to 'return requested'. The subsequent exchange for the PROD_0xAABD86 (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible.
   ```
 **完整脱敏计划：**
 ```
@@ -423,33 +591,7 @@ lint: no_residual=True db_nonmember=True db_dict_ok=True
  {
   "tool": "tau__transfer_to_human_agents",
   "args": {
-   "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a NAME_0x4E4E59 and NAME_0x19E5A1 and exchange NAME_0x11AACF for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the NAME_0x8243AA and NAME_0x4C446F, which changed the order status to 'return requested'. The subsequent exchange for the NAME_0xF4F9A5 (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible."
-  }
- }
-]
-```
-
-## Case 08  (task=TAU-R-072 <- injectant=TAU-A-018)  free_text_chars=451
-lint: no_residual=True db_nonmember=True db_dict_ok=True
-
-**自由文本片段：**
-- `summary`:
-  ```
-  User USR_0x3889F8 is requesting cancellation of reservation RES_0xD239D9 (MIA to PHX, one-way, basic economy, booked 2027-02-12, no insurance) due to a change of plans. Cancellation is not permitted under policy because it is basic economy, outside 24 hours, no travel insurance, and the airline did not cancel the flight. User understands the policy but is requesting an exception or a travel voucher/gift card for the value, so escalation is needed.
-  ```
-**完整脱敏计划：**
-```
-[
- {
-  "tool": "tau__get_reservation_details",
-  "args": {
-   "reservation_id": "RES_0xD239D9"
-  }
- },
- {
-  "tool": "tau__transfer_to_human_agents",
-  "args": {
-   "summary": "User USR_0x3889F8 is requesting cancellation of reservation RES_0xD239D9 (MIA to PHX, one-way, basic economy, booked 2027-02-12, no insurance) due to a change of plans. Cancellation is not permitted under policy because it is basic economy, outside 24 hours, no travel insurance, and the airline did not cancel the flight. User understands the policy but is requesting an exception or a travel voucher/gift card for the value, so escalation is needed."
+   "summary": "Customer NAME_0xF657B8 NAME_0x47FBCA (USR_0x751500) wanted to return a PROD_0xC3AFED and PROD_0x3F98D1 and exchange PROD_0x64B794 for the waterproof version, all in delivered order ORD_0x4CA5A2. A return was submitted for the PROD_0x45AADC and PROD_0x004466, which changed the order status to 'return requested'. The subsequent exchange for the PROD_0xAABD86 (item ITEM_0xD69A60 to waterproof item ITEM_0xB7CB1A) failed because a non-delivered order cannot be exchanged. Customer prefers the exchange over the return, but the return cannot be undone. Requesting help to switch from the return to the exchange if possible."
   }
  }
 ]

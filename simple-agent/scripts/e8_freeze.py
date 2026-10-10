@@ -36,6 +36,34 @@ def domain_of(req_id):
     return None
 
 
+def run_epoch_of(ts):
+    for p, v in (("2026-09-11", 1), ("2026-09-14", 3), ("2026-09-15", 4),
+                 ("2026-09-16", 5), ("2026-09-29", 6)):
+        if ts and ts.startswith(p):
+            return v
+    return None
+
+
+def load_run_meta(con):
+    """P5a.40 §二/§三.3：源 run verdict + 工具调用数。"""
+    verd, calls = {}, {}
+    for t in con.execute("SELECT task_id,req_id,created_at FROM tasks WHERE req_id LIKE 'TAU-%'"):
+        e = run_epoch_of(t["created_at"])
+        if e is None:
+            continue
+        for s in con.execute("SELECT attributes FROM spans WHERE trace_id=? AND type='verdict'",
+                             (t["task_id"],)):
+            try:
+                a = json.loads(s["attributes"]) if s["attributes"] else {}
+            except Exception:
+                a = {}
+            verd[(t["req_id"], e)] = a.get("decision")
+        calls[(t["req_id"], e)] = con.execute(
+            "SELECT count(*) FROM spans WHERE trace_id=? AND type='tool_call'",
+            (t["task_id"],)).fetchone()[0]
+    return verd, calls
+
+
 def gt_ref(env, tid):
     if env == "airline":
         from tau_bench.envs.airline.tasks_test import TASKS
@@ -60,10 +88,18 @@ def main():
     import sqlite3
     con = sqlite3.connect(os.path.join(BACKEND, "logs", "trace.db"))
     con.row_factory = sqlite3.Row
+    verd, calls = load_run_meta(con)
     cands = []
-    for r in con.execute("SELECT req_id,sig,plan_json FROM precedent_snapshots WHERE epoch=?", (args.epoch,)):
+    rejected_fail, extract_defects = 0, []
+    for r in con.execute("SELECT req_id,sig,plan_json,created_at FROM precedent_snapshots WHERE epoch=?",
+                         (args.epoch,)):
         dom = domain_of(r["req_id"])
         if not dom:
+            continue
+        # D3：池合格性 = 源 run verdict=PASS
+        e = run_epoch_of(r["created_at"])
+        if verd.get((r["req_id"], e)) != "PASS":
+            rejected_fail += 1
             continue
         try:
             plan = json.loads(r["plan_json"]) if r["plan_json"] else []
@@ -72,6 +108,11 @@ def main():
         oh = ps.content_hash(plan)
         if oh not in deid:
             continue
+        # 提取保真：计划工具数 vs 源 run tool_call 数
+        n_calls = calls.get((r["req_id"], e))
+        if n_calls is not None and n_calls != len(plan):
+            extract_defects.append({"req_id": r["req_id"], "epoch": e,
+                                    "plan_tools": len(plan), "run_tool_calls": n_calls})
         cands.append({"req_id": r["req_id"], "sig": r["sig"], "domain": dom, "plan": plan,
                       "hash": deid[oh]["deid_hash"], "orig_hash": oh})
     # dedup candidates by hash (keep first req)
@@ -142,8 +183,11 @@ def main():
              "arms": {a: sum(1 for r in rows if r["arm"] == a) for a in ARMS}}
     gates["all_pass"] = gates["top1_pass"] and gates["distinct_pass"] and gates["same_domain_pass"]
 
-    out = {"note": "e8 矩阵冻结（a30 §二.3 / §5.2 / a31 / a33）；不达标不开工",
+    out = {"note": "e8 矩阵冻结（a30/a31/a33/a40）；不达标不开工",
            "seed": args.seed, "k": args.k, "near_jaccard": args.near,
+           "pool_rejected_nonpass": rejected_fail,          # P5a.40 §二 D3
+           "extraction_defects": extract_defects[:20],       # P5a.40 §三.3
+           "extraction_defect_n": len(extract_defects),
            "gates": gates, "form_balance": balance, "matrix": rows}
     json.dump(out, open(os.path.join(R, "e8-matrix-freeze.json"), "w"),
               ensure_ascii=False, indent=1)

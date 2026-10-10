@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(BACKEND, "requirements", "adapters", "tau"))
 import sqlite3  # noqa: E402
 from deident import (DeIdentifier, classify_lint, field_class, lint_db_dictionary,  # noqa: E402
                      lint_db_nonmember, lint_lint_parse_and_names, lint_no_residual,
-                     lint_price_residual, prefix_for)
+                     lint_price_residual, membership_proof, prefix_for)
 
 _ID_KEY = re.compile(r"^(#W\d{6,}|[A-Z0-9]{6}|[a-z]+_[a-z]+_\d{3,5}|"
                      r"(?:credit_card|gift_card|certificate|paypal)_\d+)$")
@@ -92,39 +92,73 @@ def build_enums():
 
 
 def collect_db_sets():
-    """P5a.37 §四：DB 全量实体字典（按类别前缀分组）——分类法注册表驱动。"""
+    """P5a.37/40：DB 全量实体字典（按类别前缀分组）——**定向采集**（商品名归 PROD，人名归 NAME）。"""
     sets = {}
 
     def add(pref, v):
         if v and isinstance(v, str) and len(v) >= 3:
             sets.setdefault(pref, set()).add(v)
 
-    def walk(o, key=None):
-        if isinstance(o, dict):
-            for k, v in o.items():
-                if isinstance(k, str) and _ID_KEY.match(k):
-                    add(prefix_for("order_id") if k.startswith("#W") else
-                        ("RES" if re.match(r"^[A-Z0-9]{6}$", k) else
-                         ("PAY" if re.match(r"^(credit_card|gift_card|certificate|paypal)_", k) else "USR")), k)
-                if isinstance(v, str) and field_class(k) in ("I", "III") and prefix_for(k) != "XID":
-                    add(prefix_for(k), v)
-                if k in ("price", "amount", "total", "balance", "refund", "cost", "fee") \
-                        and isinstance(v, (int, float)) and not isinstance(v, bool):
-                    add("PRICE", str(v))          # P5a.38 §二.3：价格入机器④字典
-                walk(v, k)
-        elif isinstance(o, list):
-            for v in o:
-                walk(v, key)
+    try:
+        from tau_bench.envs.retail.data import load_data as rdata
+        d = rdata()
+        for uid, u in d["users"].items():
+            add("USR", uid)
+            nm = u.get("name") or {}
+            add("NAME", nm.get("first_name")); add("NAME", nm.get("last_name"))
+            add("EMAIL", nm.get("email") or u.get("email"))
+            ad = u.get("address") or {}
+            for k in ("address1", "address2"):
+                add("ADDR", ad.get(k))
+            add("ADDR", ad.get("city")); add("ADDR", ad.get("zip"))
+            for pid in (u.get("payment_methods") or {}):
+                add("PAY", pid)
+        for oid, o in d["orders"].items():
+            add("ORD", oid); add("USR", o.get("user_id"))
+            for it in o.get("items", []):
+                add("ITEM", it.get("item_id")); add("PROD", it.get("product_id"))
+                if it.get("price") is not None:
+                    add("PRICE", str(it.get("price")))
+            for ph in o.get("payment_history", []):
+                add("PAY", ph.get("payment_method_id"))
+        for pid, p in d["products"].items():
+            add("PROD", pid); add("PROD", p.get("name"))
+            for v in (p.get("variants") or {}).values():
+                if isinstance(v, dict) and v.get("price") is not None:
+                    add("PRICE", str(v.get("price")))
+    except Exception as e:  # noqa: BLE001
+        print("[warn] retail db_sets:", e)
 
-    for loader in ("retail", "airline"):
-        try:
-            if loader == "retail":
-                from tau_bench.envs.retail.data import load_data
-            else:
-                from tau_bench.envs.airline.data import load_data
-            walk(load_data())
-        except Exception as e:  # noqa: BLE001
-            print(f"[warn] db_sets {loader}:", e)
+    try:
+        from tau_bench.envs.airline.data import load_data as adata
+        d = adata()
+        for uid, u in (d.get("users") or {}).items():
+            add("USR", uid)
+            nm = u.get("name") or {}
+            add("NAME", nm.get("first_name")); add("NAME", nm.get("last_name"))
+            add("EMAIL", nm.get("email") or u.get("email"))
+            ad = u.get("address") or {}
+            for k in ("address1", "address2"):
+                add("ADDR", ad.get(k))
+            add("ADDR", ad.get("city")); add("ADDR", ad.get("zip"))
+            for pid in (u.get("payment_methods") or {}):
+                add("PAY", pid)
+        for rid, r in (d.get("reservations") or {}).items():
+            add("RES", rid); add("USR", r.get("user_id"))
+            for f in r.get("flights", []):
+                add("FLT", f.get("flight_number"))
+            for pa in r.get("passengers", []):
+                add("NAME", pa.get("first_name")); add("NAME", pa.get("last_name"))
+        fl = d.get("flights")
+        if isinstance(fl, dict):
+            for fid, f in fl.items():
+                add("FLT", (f or {}).get("flight_number") or fid)
+        elif isinstance(fl, list):
+            for f in fl:
+                if isinstance(f, dict):
+                    add("FLT", f.get("flight_number"))
+    except Exception as e:  # noqa: BLE001
+        print("[warn] airline db_sets:", e)
     return sets
 
 
@@ -196,6 +230,7 @@ def main():
     deid_lib, lint_rows, mapping = {}, [], {}
     unclassified = {}
     non_tau = 0
+    proof_n = cover_n = 0
     for h, p in sorted(plans.items()):
         if not all(str(s.get("tool", "")).startswith("tau__") for s in p):
             non_tau += 1
@@ -212,6 +247,8 @@ def main():
         l5p = lint_price_residual(dp, p)
         l5["ok"] = l5["ok"] and l5p["ok"]
         l5["price_residual"] = l5p["hits"]
+        proof, not_in_dict = membership_proof(d.mapping, SCRUB_SETS)   # P5a.40 §三.1
+        proof_n += len(proof); cover_n += len(not_in_dict)
         for k, v in l4["unclassified"]:
             unclassified.setdefault((k, v), 0)
             unclassified[(k, v)] += 1
@@ -220,7 +257,8 @@ def main():
                           "json_ok": l2["json_ok"], "bad_tools": l2["bad_tools"],
                           "db_nonmember": l3["ok"], "iv_bare": len(l4["iv_bare"]),
                           "unclassified_n": l4["unclassified_n"],
-                          "db_dict_hits": l5["n"], "db_dict_ok": l5["ok"]})
+                          "db_dict_hits": l5["n"], "db_dict_ok": l5["ok"],
+                          "proof_fails": len(proof), "not_in_dict": len(not_in_dict)})
         deid_lib[h] = {"deid_hash": chash(dp), "deid_plan": dp}
 
     os.makedirs(LOCAL, exist_ok=True)
@@ -236,8 +274,11 @@ def main():
         "non_tau_plans_skipped": non_tau,
         "distinct_deid_plans": len({v["deid_hash"] for v in deid_lib.values()}),
         "all_pass": all(r["no_residual"] and r["json_ok"] and r["db_nonmember"]
-                        and r["db_dict_ok"] and not r["bad_tools"] for r in lint_rows),
+                        and r["db_dict_ok"] and not r["bad_tools"] and r["proof_fails"] == 0
+                        for r in lint_rows),
         "iv_unclassified_by_key": _bykey(unclassified),
+        "membership_proof_fails": proof_n,
+        "not_in_static_dict_total": cover_n,
         "rows": lint_rows,
     }
     json.dump(lint, open(os.path.join(R, "e8-deid-lint.json"), "w"),
