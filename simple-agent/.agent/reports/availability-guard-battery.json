@@ -1,0 +1,32 @@
+{
+ "note": "flight_availability_v1 电池",
+ "n": 6,
+ "passed": 6,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_few_seats_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_enough_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_unobserved_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_non_target_passes",
+   "pass": true
+  },
+  {
+   "probe": "N4_unknown_pax_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}

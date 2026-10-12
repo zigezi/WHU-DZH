@@ -1,0 +1,32 @@
+{
+ "note": "gift_card_balance_v1 电池",
+ "n": 6,
+ "passed": 6,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_over_balance_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_within_balance_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_unobserved_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_credit_card_passes",
+   "pass": true
+  },
+  {
+   "probe": "N4_update_out_of_scope_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}
