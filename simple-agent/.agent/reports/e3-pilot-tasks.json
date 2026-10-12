@@ -1,6 +1,6 @@
 {
  "note": "E3 先导任务（spec+hidden_tests+reference+mutants_killed）",
- "n": 40,
+ "n": 42,
  "tasks": [
   {
    "task_id": "E3-000",
@@ -688,6 +688,42 @@
   },
   {
    "task_id": "E3-040",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "e4bbe7d20737d0f9",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "hidden_tests": [
+    "assert count_vowels('ncqwqqgqoy') == 1",
+    "assert count_vowels('srkbujsz') == 1",
+    "assert count_vowels('tknckute') == 2",
+    "assert count_vowels('jkqqfgeocd') == 2",
+    "assert count_vowels('zijvox') == 2",
+    "assert count_vowels('vbxl') == 0"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-041",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "ffdf501e462564a5",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('hulmeda') == False",
+    "assert is_pal('cs') == False",
+    "assert is_pal('pmpyltqd') == False",
+    "assert is_pal('i') == True",
+    "assert is_pal('ochtobvb') == False",
+    "assert is_pal('fnnnc') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 6
+  },
+  {
+   "task_id": "E3-042",
    "template_family": "canary",
    "is_canary": true,
    "prompt_hash": "fae0fe77331b6d11",
@@ -700,7 +736,7 @@
    "mutants_killed": 4
   },
   {
-   "task_id": "E3-041",
+   "task_id": "E3-043",
    "template_family": "canary",
    "is_canary": true,
    "prompt_hash": "97a3161073d79864",
