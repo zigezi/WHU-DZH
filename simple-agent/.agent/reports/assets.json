@@ -7,7 +7,7 @@
    "trigger": "modify_pending_order_items ∧ 同 order_id 未成功改地址 ∧ 未否决过",
    "validated_domain": "tau",
    "death_cause": "lock_order",
-   "credit_level": "T1_candidate",
+   "credit_level": "field_validated",
    "status": "active",
    "evidence": "P5a.28 backtest 0/12; B-2 battery 7/7",
    "domain_pack": "tau",
@@ -29,6 +29,12 @@
      "at": "2026-10-12T11:44:09",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-qpb6zxc7；电池 7/7；资产在场=True；零 token）",
      "result": "pass"
+    },
+    {
+     "at": "2026-10-12T16:56:07",
+     "evidence": "firing-audit: benign re-issue tax 118/962≈12.3%",
+     "result": "credit_raised",
+     "level": "field_validated"
     }
    ]
   },
@@ -67,7 +73,7 @@
    "trigger": "len(item_ids)!=len(new_item_ids)",
    "validated_domain": "tau",
    "death_cause": "syntactic_mismatch",
-   "credit_level": "T1_candidate",
+   "credit_level": "field_validated",
    "status": "active",
    "evidence": "failure-mine items-count; count-guard-battery",
    "domain_pack": "tau",
@@ -79,6 +85,12 @@
      "at": "2026-10-12T11:44:13",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-8hc7nffj；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
+    },
+    {
+     "at": "2026-10-12T16:56:07",
+     "evidence": "firing-audit: misfire 0, coverage 1.0",
+     "result": "credit_raised",
+     "level": "field_validated"
     }
    ]
   },
@@ -89,7 +101,7 @@
    "trigger": "exchange_* on order with known status!=delivered",
    "validated_domain": "tau",
    "death_cause": "precondition_unmet",
-   "credit_level": "T1_candidate",
+   "credit_level": "field_validated",
    "status": "active",
    "evidence": "failure-mine non-delivered; exchange-guard-battery",
    "domain_pack": "tau",
@@ -101,6 +113,12 @@
      "at": "2026-10-12T11:44:15",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-vviaapxp；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
+    },
+    {
+     "at": "2026-10-12T16:56:07",
+     "evidence": "firing-audit: misfire 0, coverage 0.50(注记)",
+     "result": "credit_raised",
+     "level": "field_validated"
     }
    ]
   },
@@ -134,7 +152,7 @@
    "validated_domain": "tau",
    "death_cause": "certificate_update",
    "credit_level": "T1_candidate",
-   "status": "active",
+   "status": "revoked",
    "evidence": "failure-mine certificate; certificate-guard-battery 7/7",
    "domain_pack": "tau",
    "rule_id": "certificate_update_v1",
@@ -147,7 +165,10 @@
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-rh42fc4j；电池 7/7；资产在场=True；零 token）",
      "result": "pass"
     }
-   ]
+   ],
+   "revoked_at": "2026-10-12T16:56:07",
+   "revoked_reason": "行为改道型误伤（否决合法改签并强推换支付）；点火必要条件'是否需费用'在 args 不可观测 → 无窄化余地",
+   "knowledge_moved_to": "negative_precedents"
   },
   {
    "asset_id": "flight_availability_v1",
@@ -192,6 +213,30 @@
     {
      "at": "2026-10-12T16:28:36",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-q9npsx7x；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ]
+  },
+  {
+   "asset_id": "flight_availability_enforce_v1",
+   "type": "interceptor_rule",
+   "text": "book/update 前若本 run 未查询该航班可用性 → 否决（先查座位，查完重发即通过）。",
+   "trigger": "book/update flights 中 (flight,cabin) 无本 run search 观测 → 否决（once-per-key）",
+   "validated_domain": "tau",
+   "death_cause": "flight_availability_unchecked",
+   "credit_level": "T1_candidate",
+   "status": "active",
+   "evidence": "availability-enforce-battery; P5a.56 §三 试产原型",
+   "domain_pack": "tau",
+   "rule_id": "flight_availability_enforce_v1",
+   "observability_proof": "点火条件=本 run search 观测缺失（可观测），无需 args 内金额",
+   "created_at": "2026-10-12T16:57:14",
+   "schema_version": "b3-v2",
+   "last_revalidated": "2026-10-12T16:57:16",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T16:57:16",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-c_wyh2jg；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
    ]

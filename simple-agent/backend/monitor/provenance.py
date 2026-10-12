@@ -11,8 +11,8 @@ from datetime import datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 FILE = os.path.join(ROOT, ".agent", "reports", "assets.json")
 
-CREDIT_LEVELS = ("T1_candidate", "T1", "T2", "T3")
-SCHEMA_VERSION = "b3-v1"
+CREDIT_LEVELS = ("T1_candidate", "field_validated", "T1", "T2", "T3")
+SCHEMA_VERSION = "b3-v2"
 # B-3 溯源层 schema（P5a.30 B-3 / P5a.54）：资产的最小必填字段
 REQUIRED_FIELDS = ("asset_id", "type", "validated_domain", "credit_level", "status", "evidence")
 ASSET_TYPES = ("interceptor_rule", "prompt_patch", "threshold_patch", "precedent_update")
@@ -66,6 +66,32 @@ def list_assets(domain: str = None):
     if domain:
         return [a for a in d["assets"] if a.get("validated_domain") == domain]
     return d["assets"]
+
+
+def set_credit(asset_id: str, level: str, evidence: str) -> dict:
+    d = _load()
+    for a in d["assets"]:
+        if a.get("asset_id") == asset_id:
+            if level not in CREDIT_LEVELS:
+                raise ValueError(f"bad credit_level: {level}")
+            a["credit_level"] = level
+            a.setdefault("revalidation_log", []).append(
+                {"at": datetime.now().isoformat(timespec="seconds"),
+                 "evidence": evidence, "result": "credit_raised", "level": level})
+    _save(d)
+    return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
+
+
+def revoke(asset_id: str, reason: str, knowledge_moved_to: str = "negative_precedents") -> dict:
+    d = _load()
+    for a in d["assets"]:
+        if a.get("asset_id") == asset_id:
+            a["status"] = "revoked"
+            a["revoked_at"] = datetime.now().isoformat(timespec="seconds")
+            a["revoked_reason"] = reason
+            a["knowledge_moved_to"] = knowledge_moved_to
+    _save(d)
+    return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
 
 
 def revalidate(asset_id: str, evidence: str, result: str = "pass"):

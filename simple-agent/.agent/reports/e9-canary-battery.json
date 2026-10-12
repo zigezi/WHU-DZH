@@ -1,7 +1,7 @@
 {
  "note": "e9 锁序拦截器 B-2 金丝雀电池（≥5 探针，已知答案）",
- "n": 7,
- "passed": 7,
+ "n": 8,
+ "passed": 8,
  "all_pass": true,
  "results": [
   {
@@ -30,6 +30,10 @@
   },
   {
    "probe": "P7_synthetic_text_correct",
+   "pass": true
+  },
+  {
+   "probe": "N6_no_address_needed_benign_reissue",
    "pass": true
   }
  ]

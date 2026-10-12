@@ -72,6 +72,15 @@ def p7():
 probe("P7_synthetic_text_correct", p7)
 
 
+def p8():   # P5a.56 案2 电池补案：**本任务无需改地址**（真实合法形状）
+    # 首次 items → 否决（良性）；重发同调用 → 通过（once-per-order，结局保持）
+    I = OrderLockInterceptor()
+    first, _ = I.before("modify_pending_order_items", {"order_id": "#W1"})
+    second, _ = I.before("modify_pending_order_items", {"order_id": "#W1"})
+    return first is True and second is False
+probe("N6_no_address_needed_benign_reissue", p8)
+
+
 def main():
     results = []
     for name, fn in PROBES:

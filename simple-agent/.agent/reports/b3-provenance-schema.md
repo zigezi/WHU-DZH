@@ -1,7 +1,7 @@
 # B-3 溯源层 schema（P5a.30 B-3 / P5a.54）
 
 **载体**：`backend/monitor/provenance.py` → `.agent/reports/assets.json`（tracked；规则为 L2，非敏感）。
-**版本**：`schema_version = b3-v1`。
+**版本**：`schema_version = b3-v2`（P5a.56：加 `field_validated` 信用级、`revoke`、`observability_proof`）。
 
 ## 资产记录字段
 | 字段 | 必填 | 说明 |
@@ -12,9 +12,11 @@
 | `trigger` | | 确定性点火规则 |
 | `validated_domain` | ✔ | 域标签（τ / code …）——跨域复用须再验证（域标签铁律） |
 | `death_cause` | | 死因（lock_order / repeat_failure / …） |
-| `credit_level` | ✔ | ∈ {T1_candidate, T1, T2, T3}（P5a.24 信用级别，逐级爬） |
+| `credit_level` | ✔ | ∈ {T1_candidate, **field_validated**, T1, T2, T3} |
 | `status` | ✔ | active / dormant / pending_revalidation |
-| `evidence` | ✔ | 证据串（金丝雀电池 + C-1 + 回测 …） |
+| `evidence` | ✔ | 证据串（金丝雀电池 + C-1 + 回测 + firing-audit …） |
+| `observability_proof` | ✔(新) | P5a.56 出生要件：谓词点火条件须可由 args/可观测状态确定性计算 |
+| `status`(revoked) | | `revoke()` 置 status=revoked + reason + knowledge_moved_to |
 | `domain_pack` / `rule_id` | | 与 `backend/domains/` 的域包关联 |
 | `created_at` | 自动 | |
 | `last_revalidated` | 自动 | 最近复验时间（衰减管理触发用） |

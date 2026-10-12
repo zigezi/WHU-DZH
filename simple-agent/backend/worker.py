@@ -288,7 +288,8 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                           ("SA_PAYMENT_GUARD", payment_guard.guard, "payment_amount_sum_v1"),
                           ("SA_CERT_GUARD", certificate_guard.guard, "certificate_update_v1"),
                           ("SA_AVAIL_GUARD", availability_guard.guard, "flight_availability_v1"),
-                          ("SA_GIFTCARD_GUARD", giftcard_guard.guard, "gift_card_balance_v1")):
+                          ("SA_GIFTCARD_GUARD", giftcard_guard.guard, "gift_card_balance_v1"),
+                          ("SA_AVAIL_ENFORCE_GUARD", availability_guard.guard_enforce, "flight_availability_enforce_v1")):
         if os.environ.get(flag) == "1":
             veto, synth = g.before(tool_name, args)
             if veto:
@@ -316,6 +317,8 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
         availability_guard.guard.observe(tool_name, args, res.output)
     if os.environ.get("SA_GIFTCARD_GUARD") == "1":
         giftcard_guard.guard.observe(tool_name, args, res.output)
+    if os.environ.get("SA_AVAIL_ENFORCE_GUARD") == "1":
+        availability_guard.guard_enforce.observe(tool_name, args, res.output)
     return res
 
 
@@ -348,7 +351,8 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
         repeat_guard.reset()
     for flag, mod in (("SA_COUNT_GUARD", count_guard), ("SA_EXCHANGE_GUARD", exchange_guard),
                       ("SA_PAYMENT_GUARD", payment_guard), ("SA_CERT_GUARD", certificate_guard),
-                      ("SA_AVAIL_GUARD", availability_guard), ("SA_GIFTCARD_GUARD", giftcard_guard)):
+                      ("SA_AVAIL_GUARD", availability_guard), ("SA_GIFTCARD_GUARD", giftcard_guard),
+                      ("SA_AVAIL_ENFORCE_GUARD", availability_guard)):
         if os.environ.get(flag) == "1":
             mod.reset()
 

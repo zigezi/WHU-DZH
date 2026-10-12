@@ -10,8 +10,12 @@ from typing import Optional, Tuple
 
 
 class FlightAvailabilityGuard:
-    def __init__(self):
+    TARGETS = ("book_reservation", "update_reservation_flights")
+
+    def __init__(self, enforce=False):
         self._seats = {}   # flight_number -> {cabin: available_seats}
+        self.enforce = enforce          # 前置强制型（P5a.56 §三 试产原型）
+        self._vetoed = set()            # 前置强制：once-per-key 良性再发
 
     def observe(self, tool_name: str, args: dict, output: str):
         if not tool_name.startswith("search_"):
@@ -35,7 +39,18 @@ class FlightAvailabilityGuard:
         else:
             return False, None
         cabin = a.get("cabin")
-        if n <= 0 or not cabin:
+        if not cabin:
+            return False, None
+        # 前置强制型（P5a.56 §三）：无本 run 可用性观测 → 否决；查完重发即通过（once-per-key）
+        if self.enforce:
+            for f in a.get("flights") or []:
+                fn = f.get("flight_number") if isinstance(f, dict) else None
+                key = (tool_name, fn, cabin)
+                if fn and self._seats.get(fn, {}).get(cabin) is None and key not in self._vetoed:
+                    self._vetoed.add(key)
+                    return True, (f"NO-OBS：本 run 尚未查询航班 {fn} 的 {cabin} 可用性。"
+                                  "请先 search 确认有座，然后重新发起本调用即通过。")
+        if n <= 0:
             return False, None
         for f in a.get("flights") or []:
             fn = f.get("flight_number") if isinstance(f, dict) else None
@@ -46,10 +61,12 @@ class FlightAvailabilityGuard:
         return False, None
 
 
-guard = FlightAvailabilityGuard()
+guard = FlightAvailabilityGuard()                 # 观测依赖型（默认）
+guard_enforce = FlightAvailabilityGuard(enforce=True)  # 前置强制型原型（P5a.56 §三）
 
 
 def reset():
-    global guard
+    global guard, guard_enforce
     guard = FlightAvailabilityGuard()
+    guard_enforce = FlightAvailabilityGuard(enforce=True)
     return guard

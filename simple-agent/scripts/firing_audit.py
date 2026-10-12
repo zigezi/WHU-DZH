@@ -32,20 +32,24 @@ def classify_run(errors, tools):
     return "verdict_fail"
 
 
-# asset -> (guard factory, 死因匹配子串，对 run 死因字符串匹配)
+# asset -> (guard factory, 死因匹配子串, 干预语义型)
+#  benign = veto-then-reissue（点火 PASS 记税，不记硬线违例）
+#  hard   = 行为改道型（点火 PASS = 硬线违例）
 ASSETS = {
-    "lock_order_v1": (lambda: interceptor.OrderLockInterceptor(), ["lock_order"]),
-    "repeat_failure_v1": (lambda: repeat_guard.RepeatFailureGuard(), ["repeat_mutating"]),
-    "items_count_match_v1": (lambda: count_guard.CountMatchGuard(), ["number of items"]),
-    "non_delivered_exchange_v1": (lambda: exchange_guard.ExchangeGuard(), ["non-delivered"]),
+    "lock_order_v1": (lambda: interceptor.OrderLockInterceptor(), ["lock_order"], "benign"),
+    "repeat_failure_v1": (lambda: repeat_guard.RepeatFailureGuard(), ["repeat_mutating"], "benign"),
+    "items_count_match_v1": (lambda: count_guard.CountMatchGuard(), ["number of items"], "hard"),
+    "non_delivered_exchange_v1": (lambda: exchange_guard.ExchangeGuard(), ["non-delivered"], "hard"),
     "payment_amount_sum_v1": (lambda: payment_guard.PaymentSumGuard(),
-                              ["payment amount does not add up"]),
+                              ["payment amount does not add up"], "hard"),
     "certificate_update_v1": (lambda: certificate_guard.CertificateUpdateGuard(),
-                              ["certificate cannot be used"]),
+                              ["certificate cannot be used"], "hard"),
     "flight_availability_v1": (lambda: availability_guard.FlightAvailabilityGuard(),
-                               ["not enough seats"]),
+                               ["not enough seats"], "hard"),
+    "flight_availability_enforce_v1": (lambda: availability_guard.FlightAvailabilityGuard(enforce=True),
+                                       [], "benign"),
     "gift_card_balance_v1": (lambda: giftcard_guard.GiftCardBalanceGuard(),
-                             ["gift card balance is not enough", "not enough balance in payment"]),
+                             ["gift card balance is not enough", "not enough balance in payment"], "hard"),
 }
 
 
@@ -76,7 +80,7 @@ def main():
     con.row_factory = sqlite3.Row
     runs = load_runs(con)
     results = {}
-    for asset, (factory, causes) in ASSETS.items():
+    for asset, (factory, causes, mode) in ASSETS.items():
         fired_fail = fired_pass = rescue = miss = 0
         for r in runs:
             g = factory()
@@ -107,13 +111,16 @@ def main():
             if (not fired) and is_fail and match:
                 miss += 1
         coverage = round(rescue / (rescue + miss), 3) if (rescue + miss) else None
-        results[asset] = {"fired_on_fail": fired_fail, "misfire_on_pass": fired_pass,
+        viol = (mode == "hard") and fired_pass > 0        # 行为改道型才记硬线
+        results[asset] = {"mode": mode, "fired_on_fail": fired_fail,
+                          "fires_on_pass": fired_pass, "tax": fired_pass if mode == "benign" else 0,
                           "rescue": rescue, "miss": miss, "coverage": coverage,
-                          "misfire_zero": fired_pass == 0}
+                          "hardline_violation": viol}
     total_rescue = sum(v["rescue"] for v in results.values())
-    out = {"note": "P5a.55 追溯点火审计（静态回放 e1–e8）", "runs": len(runs),
+    out = {"note": "P5a.55/56 追溯点火审计（干预语义分级）", "runs": len(runs),
            "assets": results, "total_rescue": total_rescue,
-           "all_misfire_zero": all(v["misfire_zero"] for v in results.values())}
+           "hardline_violations": [a for a, v in results.items() if v["hardline_violation"]],
+           "all_hardline_zero": not any(v["hardline_violation"] for v in results.values())}
     json.dump(out, open(OUT, "w"), ensure_ascii=False, indent=1)
     print(json.dumps(out, ensure_ascii=False, indent=1))
     return 0

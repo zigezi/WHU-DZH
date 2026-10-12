@@ -1,0 +1,32 @@
+{
+ "note": "flight_availability_enforce_v1 电池（前置强制型原型）",
+ "n": 6,
+ "passed": 6,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_no_obs_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_observed_enough_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_reissue_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_observed_few_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N4_non_target_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}

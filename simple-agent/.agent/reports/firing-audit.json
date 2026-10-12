@@ -1,72 +1,101 @@
 {
- "note": "P5a.55 追溯点火审计（静态回放 e1–e8）",
+ "note": "P5a.55/56 追溯点火审计（干预语义分级）",
  "runs": 962,
  "assets": {
   "lock_order_v1": {
+   "mode": "benign",
    "fired_on_fail": 45,
-   "misfire_on_pass": 118,
+   "fires_on_pass": 118,
+   "tax": 118,
    "rescue": 6,
    "miss": 0,
    "coverage": 1.0,
-   "misfire_zero": false
+   "hardline_violation": false
   },
   "repeat_failure_v1": {
+   "mode": "benign",
    "fired_on_fail": 0,
-   "misfire_on_pass": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
    "rescue": 0,
    "miss": 10,
    "coverage": 0.0,
-   "misfire_zero": true
+   "hardline_violation": false
   },
   "items_count_match_v1": {
+   "mode": "hard",
    "fired_on_fail": 1,
-   "misfire_on_pass": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
    "rescue": 1,
    "miss": 0,
    "coverage": 1.0,
-   "misfire_zero": true
+   "hardline_violation": false
   },
   "non_delivered_exchange_v1": {
+   "mode": "hard",
    "fired_on_fail": 1,
-   "misfire_on_pass": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
    "rescue": 1,
    "miss": 1,
    "coverage": 0.5,
-   "misfire_zero": true
+   "hardline_violation": false
   },
   "payment_amount_sum_v1": {
+   "mode": "hard",
    "fired_on_fail": 0,
-   "misfire_on_pass": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
    "rescue": 0,
    "miss": 4,
    "coverage": 0.0,
-   "misfire_zero": true
+   "hardline_violation": false
   },
   "certificate_update_v1": {
+   "mode": "hard",
    "fired_on_fail": 1,
-   "misfire_on_pass": 1,
+   "fires_on_pass": 1,
+   "tax": 0,
    "rescue": 0,
    "miss": 0,
    "coverage": null,
-   "misfire_zero": false
+   "hardline_violation": true
   },
   "flight_availability_v1": {
+   "mode": "hard",
    "fired_on_fail": 0,
-   "misfire_on_pass": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
    "rescue": 0,
    "miss": 8,
    "coverage": 0.0,
-   "misfire_zero": true
+   "hardline_violation": false
+  },
+  "flight_availability_enforce_v1": {
+   "mode": "benign",
+   "fired_on_fail": 60,
+   "fires_on_pass": 46,
+   "tax": 46,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "hardline_violation": false
   },
   "gift_card_balance_v1": {
+   "mode": "hard",
    "fired_on_fail": 0,
-   "misfire_on_pass": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
    "rescue": 0,
    "miss": 3,
    "coverage": 0.0,
-   "misfire_zero": true
+   "hardline_violation": false
   }
  },
  "total_rescue": 8,
- "all_misfire_zero": false
+ "hardline_violations": [
+  "certificate_update_v1"
+ ],
+ "all_hardline_zero": false
 }
