@@ -1,11 +1,11 @@
 {
- "asset": "lock_order_v1",
- "clean_dir": "/tmp/opencode/c1-clean-xec35tts",
+ "asset": "repeat_failure_v1",
+ "clean_dir": "/tmp/opencode/c1-clean-rv3mgda4",
  "battery": true,
- "battery_passed": 7,
+ "battery_passed": 6,
  "asset_present": true,
  "c1_pass": true,
- "birth_cert_line": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-xec35tts；电池 7/7；资产在场=True；零 token）",
+ "birth_cert_line": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-rv3mgda4；电池 6/6；资产在场=True；零 token）",
  "rc": 0,
  "stderr": ""
 }

@@ -13,11 +13,39 @@
    "domain_pack": "tau",
    "rule_id": "lock_order_v1",
    "created_at": "2026-10-12T09:38:18",
-   "last_revalidated": "2026-10-12T10:17:03",
+   "last_revalidated": "2026-10-12T10:28:14",
    "revalidation_log": [
     {
      "at": "2026-10-12T10:17:03",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-xec35tts；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T10:28:14",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-tj8hcrkg；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ]
+  },
+  {
+   "asset_id": "repeat_failure_v1",
+   "type": "interceptor_rule",
+   "text": "凡完全相同的工具调用（工具+参数）连续失败达阈值，否决并要求改变方法，禁止原地重试。",
+   "trigger": "同一 (tool,canonical_args) 键失败次数 >= threshold-1 时，下一次相同调用被否决",
+   "validated_domain": "tau",
+   "death_cause": "repeat_failure",
+   "credit_level": "T1_candidate",
+   "status": "active",
+   "evidence": "failure-mine REPEAT::*; repeat-guard-battery",
+   "domain_pack": "tau",
+   "rule_id": "repeat_failure_v1",
+   "threshold": 3,
+   "created_at": "2026-10-12T10:28:13",
+   "last_revalidated": "2026-10-12T10:28:41",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T10:28:41",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-rv3mgda4；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
    ]

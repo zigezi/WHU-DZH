@@ -24,27 +24,30 @@ from monitor import provenance  # noqa: E402
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--asset", default="lock_order_v1")
+    ap.add_argument("--battery", default="e9_canary_battery.py")
+    ap.add_argument("--battery-json", default="e9-canary-battery.json")
     args = ap.parse_args()
 
     clean = tempfile.mkdtemp(prefix="c1-clean-", dir="/tmp/opencode")
-    # 只装入：harness（interceptor） + 资产注册表 + 验证器（电池）
+    # 只装入：harness（monitor 资产模块） + 资产注册表 + 验证器（电池）
     os.makedirs(os.path.join(clean, "backend", "monitor"), exist_ok=True)
     os.makedirs(os.path.join(clean, "scripts"), exist_ok=True)
     os.makedirs(os.path.join(clean, ".agent", "reports"), exist_ok=True)
     open(os.path.join(clean, "backend", "monitor", "__init__.py"), "w").close()
-    shutil.copy(os.path.join(BACKEND, "monitor", "interceptor.py"),
-                os.path.join(clean, "backend", "monitor", "interceptor.py"))
+    for mod in ("interceptor.py", "repeat_guard.py"):
+        shutil.copy(os.path.join(BACKEND, "monitor", mod),
+                    os.path.join(clean, "backend", "monitor", mod))
     shutil.copy(os.path.join(ROOT, ".agent", "reports", "assets.json"),
                 os.path.join(clean, ".agent", "reports", "assets.json"))
-    shutil.copy(os.path.join(ROOT, "scripts", "e9_canary_battery.py"),
-                os.path.join(clean, "scripts", "e9_canary_battery.py"))
+    shutil.copy(os.path.join(ROOT, "scripts", args.battery),
+                os.path.join(clean, "scripts", args.battery))
 
     env = {"PATH": os.environ.get("PATH", ""), "HOME": clean,
            "PYTHONPATH": os.path.join(clean, "backend")}
-    proc = subprocess.run([sys.executable, os.path.join(clean, "scripts", "e9_canary_battery.py")],
+    proc = subprocess.run([sys.executable, os.path.join(clean, "scripts", args.battery)],
                           cwd=clean, env=env, capture_output=True, text=True, timeout=120)
-    battery = json.load(open(os.path.join(clean, ".agent", "reports", "e9-canary-battery.json"))) \
-        if os.path.exists(os.path.join(clean, ".agent", "reports", "e9-canary-battery.json")) else {}
+    bpath = os.path.join(clean, ".agent", "reports", args.battery_json)
+    battery = json.load(open(bpath)) if os.path.exists(bpath) else {}
     # 资产注册表在干净环境里可加载且存在该资产
     reg = json.load(open(os.path.join(clean, ".agent", "reports", "assets.json")))
     present = any(a.get("asset_id") == args.asset for a in reg.get("assets", []))

@@ -19,6 +19,7 @@ from monitor.guard import Guard
 from monitor.routing import router
 from monitor import precedent_select
 from monitor import interceptor as lockguard
+from monitor import repeat_guard
 from requirements import loader
 import signature
 import planner
@@ -261,8 +262,9 @@ def _inject_frozen(req: TaskRequest, trace_id: str, messages: list, parent_span_
 def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                  plan_node_id: str = None, registry=None) -> ToolResult:
     """统一工具执行入口：E 层埋点由 ToolRegistry 负责。"""
-    # e9 部署资产：锁序执行期拦截器（Path B' 否决式；SA_LOCK_INTERCEPTOR=1 启用）
+    # e9 部署资产：锁序拦截器 + 重复失败拦截器（否决式；env 开关）
     guarded = os.environ.get("SA_LOCK_INTERCEPTOR") == "1"
+    rg = os.environ.get("SA_REPEAT_GUARD") == "1"
     if guarded:
         veto, synth = lockguard.interceptor.before(tool_name, args)
         if veto:
@@ -271,6 +273,13 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                       attributes={"tool": tool_name,
                                   "order_id": (args or {}).get("order_id"),
                                   "rule": "lock_order_v1"})
+            return ToolResult(success=False, output=synth, error="")
+    if rg:
+        veto, synth = repeat_guard.guard.before(tool_name, args)
+        if veto:
+            add_event(trace_id=trace_id, name="重复失败拦截", layer="G",
+                      span_type="interceptor_fire", parent_span_id=parent_span_id,
+                      attributes={"tool": tool_name, "rule": "repeat_failure_v1"})
             return ToolResult(success=False, output=synth, error="")
     reg = registry or tool_registry
     res = reg.execute(ToolCall(
@@ -282,6 +291,8 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
     ))
     if guarded:
         lockguard.interceptor.after(tool_name, args, res.success)
+    if rg:
+        repeat_guard.guard.after(tool_name, args, res.success)
     return res
 
 
@@ -310,6 +321,8 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
 
     if os.environ.get("SA_LOCK_INTERCEPTOR") == "1":
         lockguard.reset()  # e9：每任务重置锁序拦截状态位
+    if os.environ.get("SA_REPEAT_GUARD") == "1":
+        repeat_guard.reset()
 
     budget = _load_budget(req.req_id)
     guard = Guard(
