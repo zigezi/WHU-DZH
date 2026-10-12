@@ -31,10 +31,10 @@ def build_prompt(task, examples=None):
 
 
 def build_prompt_v2(task):
-    """P5a.50 变体 B：给坏模块 + 显示测试，要求输出修好的函数。"""
-    vis = "\n".join(task["hidden_tests"][:3])
-    return ("# 下面这个 Python 模块有 bug，导致测试失败。请修复它。\n"
-            "# 坏模块：\n" + task["buggy"] + "\n# 必须通过的测试：\n" + vis + "\n"
+    """P5a.50/51 变体 B：给坏模块 + 可见测试（v2.1= 仅 happy-path），要求输出修好的函数。"""
+    vis = "\n".join(task.get("visible") or task["hidden_tests"][:3])
+    return ("# 下面这个 Python 模块可能有 bug。请审查并修复它，使其满足全部测试。\n"
+            "# 现可运行的测试（当前已通过）：\n" + vis + "\n# 坏模块：\n" + task["buggy"] + "\n"
             "# 只输出修正后的函数定义（完整函数），不要解释、不要 markdown 围栏。")
 
 
