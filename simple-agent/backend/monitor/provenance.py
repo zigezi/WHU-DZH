@@ -12,6 +12,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 FILE = os.path.join(ROOT, ".agent", "reports", "assets.json")
 
 CREDIT_LEVELS = ("T1_candidate", "T1", "T2", "T3")
+SCHEMA_VERSION = "b3-v1"
+# B-3 溯源层 schema（P5a.30 B-3 / P5a.54）：资产的最小必填字段
+REQUIRED_FIELDS = ("asset_id", "type", "validated_domain", "credit_level", "status", "evidence")
+ASSET_TYPES = ("interceptor_rule", "prompt_patch", "threshold_patch", "precedent_update")
+
+
+def validate_asset(rec: dict) -> list:
+    """返回缺失/非法字段清单（空 = 合法）。"""
+    errs = []
+    for f in REQUIRED_FIELDS:
+        if not rec.get(f):
+            errs.append(f"missing:{f}")
+    if rec.get("credit_level") and rec["credit_level"] not in CREDIT_LEVELS:
+        errs.append(f"bad_credit_level:{rec['credit_level']}")
+    if rec.get("type") and rec["type"] not in ASSET_TYPES:
+        errs.append(f"bad_type:{rec['type']}")
+    return errs
 
 
 def _load():
@@ -34,8 +51,10 @@ def register_asset(rec: dict) -> dict:
     rec.setdefault("created_at", datetime.now().isoformat(timespec="seconds"))
     rec.setdefault("status", "active")
     rec.setdefault("credit_level", "T1_candidate")
-    if rec["credit_level"] not in CREDIT_LEVELS:
-        raise ValueError(f"bad credit_level: {rec['credit_level']}")
+    rec["schema_version"] = SCHEMA_VERSION
+    errs = validate_asset(rec)
+    if errs:
+        raise ValueError(f"invalid asset record: {errs}")
     d["assets"] = [a for a in d["assets"] if a.get("asset_id") != rec.get("asset_id")]
     d["assets"].append(rec)
     _save(d)

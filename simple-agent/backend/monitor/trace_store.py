@@ -126,6 +126,19 @@ class TraceStore:
                     PRIMARY KEY (epoch, id)
                 )
             """)
+            # L1.5 负先例库（P5a.47 §三.4 / P5a.54）：失败轨迹作为**警告**，独立通道，不注入
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS negative_precedents (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    req_id TEXT,
+                    death_cause TEXT,
+                    verdict TEXT,
+                    epoch INTEGER,
+                    plan_json TEXT,
+                    tokens INTEGER,
+                    created_at TEXT
+                )
+            """)
             # 兼容旧库：补充 result / error / code_version 列
             self._ensure_column("traces", "result", "TEXT")
             self._ensure_column("traces", "error", "TEXT")
