@@ -1,0 +1,18 @@
+{
+ "assets": [
+  {
+   "asset_id": "lock_order_v1",
+   "type": "interceptor_rule",
+   "text": "对同一实体的多步修改，先执行不改变实体锁定状态的操作。",
+   "trigger": "modify_pending_order_items ∧ 同 order_id 未成功改地址 ∧ 未否决过",
+   "validated_domain": "tau",
+   "death_cause": "lock_order",
+   "credit_level": "T1_candidate",
+   "status": "active",
+   "evidence": "P5a.28 backtest 0/12; B-2 battery 7/7",
+   "domain_pack": "tau",
+   "rule_id": "lock_order_v1",
+   "created_at": "2026-10-12T09:38:18"
+  }
+ ]
+}
