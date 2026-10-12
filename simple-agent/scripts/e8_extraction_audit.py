@@ -64,10 +64,25 @@ def main():
         by_epoch[e] += 1
         rows.append({"req_id": rid, "epoch": e, "plan_tools": len(plan), "run_tool_calls": n,
                      "direction": d})
+    # P5a.44 §四.2：R3 缺陷 ∩ 冻结矩阵在用注入物
+    inuse = set()
+    try:
+        mx = json.load(open(os.path.join(R, "e8-matrix-freeze.json")))
+        inuse = {r["injectant"] for r in mx["matrix"] if r.get("injectant")}
+    except Exception:
+        pass
+    defect_reqs = {r["req_id"] for r in rows}
+    inter = sorted(defect_reqs & inuse)
+    inter_detail = [{"injectant": r["req_id"], "epoch": r["epoch"],
+                     "plan_tools": r["plan_tools"], "run_tool_calls": r["run_tool_calls"],
+                     "direction": r["direction"]} for r in rows if r["req_id"] in inuse]
     out = {
-        "note": "P5a.42 R3 提取保真；机器只分类，性质判定待审。计划来源=run 事后抽取（_store_precedent 采 tool_call 步）",
+        "note": "P5a.42 R3 提取保真 + P5a.44 §四.2 交集；机器只分类，性质判定待审。计划来源=run 事后抽取",
         "defect_n": len(rows), "direction": dict(direction), "by_epoch": dict(by_epoch),
         "epoch_concentration": (max(by_epoch.values()) / len(rows) if rows else 0),
+        "inuse_injectants": len(inuse),
+        "inuse_with_defect_n": len(inter),
+        "inuse_with_defect": inter_detail[:50],
         "rows": rows[:200],
     }
     json.dump(out, open(os.path.join(R, "e8-extraction-audit.json"), "w"), ensure_ascii=False, indent=1)

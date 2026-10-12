@@ -18,6 +18,7 @@ from monitor import plan_observer
 from monitor.guard import Guard
 from monitor.routing import router
 from monitor import precedent_select
+from monitor import interceptor as lockguard
 from requirements import loader
 import signature
 import planner
@@ -260,14 +261,28 @@ def _inject_frozen(req: TaskRequest, trace_id: str, messages: list, parent_span_
 def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                  plan_node_id: str = None, registry=None) -> ToolResult:
     """统一工具执行入口：E 层埋点由 ToolRegistry 负责。"""
+    # e9 部署资产：锁序执行期拦截器（Path B' 否决式；SA_LOCK_INTERCEPTOR=1 启用）
+    guarded = os.environ.get("SA_LOCK_INTERCEPTOR") == "1"
+    if guarded:
+        veto, synth = lockguard.interceptor.before(tool_name, args)
+        if veto:
+            add_event(trace_id=trace_id, name="锁序拦截", layer="G",
+                      span_type="interceptor_fire", parent_span_id=parent_span_id,
+                      attributes={"tool": tool_name,
+                                  "order_id": (args or {}).get("order_id"),
+                                  "rule": "lock_order_v1"})
+            return ToolResult(success=False, output=synth, error="")
     reg = registry or tool_registry
-    return reg.execute(ToolCall(
+    res = reg.execute(ToolCall(
         tool_name=tool_name,
         args=args,
         trace_id=trace_id,
         parent_span_id=parent_span_id,
         plan_node_id=plan_node_id,
     ))
+    if guarded:
+        lockguard.interceptor.after(tool_name, args, res.success)
+    return res
 
 
 def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
@@ -292,6 +307,9 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
         req_id=req.req_id,
     )
     trace_store.upsert_task(status.model_dump())
+
+    if os.environ.get("SA_LOCK_INTERCEPTOR") == "1":
+        lockguard.reset()  # e9：每任务重置锁序拦截状态位
 
     budget = _load_budget(req.req_id)
     guard = Guard(

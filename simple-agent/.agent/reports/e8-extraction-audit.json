@@ -1,5 +1,5 @@
 {
- "note": "P5a.42 R3 提取保真；机器只分类，性质判定待审。计划来源=run 事后抽取（_store_precedent 采 tool_call 步）",
+ "note": "P5a.42 R3 提取保真 + P5a.44 §四.2 交集；机器只分类，性质判定待审。计划来源=run 事后抽取",
  "defect_n": 138,
  "direction": {
   "plan<run(truncation)": 69,
@@ -10,6 +10,360 @@
   "6": 72
  },
  "epoch_concentration": 0.5217391304347826,
+ "inuse_injectants": 44,
+ "inuse_with_defect_n": 36,
+ "inuse_with_defect": [
+  {
+   "injectant": "TAU-A-002",
+   "epoch": 3,
+   "plan_tools": 24,
+   "run_tool_calls": 30,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-008",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 7,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-013",
+   "epoch": 3,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-015",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-016",
+   "epoch": 3,
+   "plan_tools": 11,
+   "run_tool_calls": 13,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-017",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 18,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-020",
+   "epoch": 3,
+   "plan_tools": 5,
+   "run_tool_calls": 3,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-022",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-024",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 5,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-036",
+   "epoch": 3,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-037",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-040",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-042",
+   "epoch": 3,
+   "plan_tools": 3,
+   "run_tool_calls": 2,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-048",
+   "epoch": 3,
+   "plan_tools": 8,
+   "run_tool_calls": 3,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-019",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-021",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-027",
+   "epoch": 3,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-038",
+   "epoch": 3,
+   "plan_tools": 10,
+   "run_tool_calls": 11,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-045",
+   "epoch": 3,
+   "plan_tools": 6,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-052",
+   "epoch": 3,
+   "plan_tools": 7,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-072",
+   "epoch": 3,
+   "plan_tools": 11,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-076",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-080",
+   "epoch": 3,
+   "plan_tools": 4,
+   "run_tool_calls": 5,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-081",
+   "epoch": 3,
+   "plan_tools": 11,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-100",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-101",
+   "epoch": 3,
+   "plan_tools": 12,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-002",
+   "epoch": 3,
+   "plan_tools": 31,
+   "run_tool_calls": 30,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-006",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-008",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 12,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-013",
+   "epoch": 6,
+   "plan_tools": 1,
+   "run_tool_calls": 4,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-014",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 4,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-016",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 11,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-017",
+   "epoch": 6,
+   "plan_tools": 13,
+   "run_tool_calls": 9,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-022",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-024",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-027",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-A-036",
+   "epoch": 6,
+   "plan_tools": 1,
+   "run_tool_calls": 2,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-037",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 13,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-040",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 8,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-A-042",
+   "epoch": 6,
+   "plan_tools": 2,
+   "run_tool_calls": 3,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-013",
+   "epoch": 6,
+   "plan_tools": 5,
+   "run_tool_calls": 6,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-019",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 7,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-021",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 9,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-041",
+   "epoch": 6,
+   "plan_tools": 8,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-042",
+   "epoch": 6,
+   "plan_tools": 9,
+   "run_tool_calls": 10,
+   "direction": "plan<run(truncation)"
+  },
+  {
+   "injectant": "TAU-R-044",
+   "epoch": 6,
+   "plan_tools": 10,
+   "run_tool_calls": 4,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-045",
+   "epoch": 6,
+   "plan_tools": 6,
+   "run_tool_calls": 5,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-052",
+   "epoch": 6,
+   "plan_tools": 9,
+   "run_tool_calls": 8,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-062",
+   "epoch": 6,
+   "plan_tools": 7,
+   "run_tool_calls": 6,
+   "direction": "plan>run(expansion)"
+  },
+  {
+   "injectant": "TAU-R-071",
+   "epoch": 6,
+   "plan_tools": 11,
+   "run_tool_calls": 10,
+   "direction": "plan>run(expansion)"
+  }
+ ],
  "rows": [
   {
    "req_id": "TAU-A-000",

@@ -76,25 +76,32 @@ def main():
     d1 = s_rate - d_rate
     d3 = u_rate - d_rate
 
-    # family cluster wild bootstrap for Δ2
+    # family cluster wild bootstrap for Δ1/Δ2/Δ3
     fams = {}
     for r in rows:
-        if r["arm"] in ("sibling", "unrelated"):
-            fams.setdefault(r["sig"], []).append(r)
+        fams.setdefault(r["sig"], []).append(r)
     fam_list = list(fams)
     random.seed(20261010)
-    boots = []
-    for _ in range(5000):
-        sample = []
-        for _f in fam_list:
-            sample += fams[random.choice(fam_list)]
-        s = [r["pass"] for r in sample if r["arm"] == "sibling"]
-        u = [r["pass"] for r in sample if r["arm"] == "unrelated"]
-        if s and u:
-            boots.append(sum(s) / len(s) * 100 - sum(u) / len(u) * 100)
-    boots.sort()
-    ci = (boots[int(0.025 * len(boots))], boots[int(0.975 * len(boots))]) if boots else (None, None)
-    p_le0 = sum(1 for b in boots if b <= 0) / len(boots) if boots else None
+
+    def boot(pairs_index):
+        s_arm, u_arm = pairs_index
+        boots = []
+        for _ in range(5000):
+            sample = []
+            for _f in fam_list:
+                sample += fams[random.choice(fam_list)]
+            a = [r["pass"] for r in sample if r["arm"] == s_arm]
+            b = [r["pass"] for r in sample if r["arm"] == u_arm]
+            if a and b:
+                boots.append(sum(a) / len(a) * 100 - sum(b) / len(b) * 100)
+        boots.sort()
+        ci = (boots[int(0.025 * len(boots))], boots[int(0.975 * len(boots))]) if boots else (None, None)
+        p_le0 = sum(1 for x in boots if x <= 0) / len(boots) if boots else None
+        return [round(ci[0], 1), round(ci[1], 1)], round(p_le0, 4)
+
+    ci, p_le0 = boot(("sibling", "unrelated"))
+    ci1, p1 = boot(("sibling", "direct"))
+    ci3, p3 = boot(("unrelated", "direct"))
 
     # skeleton decomposition: Δ2 within each injectant ending class
     decomp = {}
@@ -115,7 +122,9 @@ def main():
         "delta2_p_le0": round(p_le0, 4),
         "delta2_win": (ci[0] is not None and ci[0] > 0),
         "delta1_sibling_minus_direct_pp": round(d1, 1),
+        "delta1_cluster_bootstrap_95CI": ci1, "delta1_p_le0": p1,
         "delta3_unrelated_minus_direct_pp": round(d3, 1),
+        "delta3_cluster_bootstrap_95CI": ci3, "delta3_p_le0": p3,
         "placebo_band_ref_pp": [2.6, 11.5],
         "skeleton_decomposition": decomp,
         "families": len(fam_list),
