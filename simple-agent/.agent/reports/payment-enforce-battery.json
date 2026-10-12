@@ -1,0 +1,32 @@
+{
+ "note": "payment_amount_sum_enforce_v1 电池",
+ "n": 6,
+ "passed": 6,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_no_total_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_observed_match_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_reissue_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_observed_mismatch_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N4_non_target_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}

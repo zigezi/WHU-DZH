@@ -12,7 +12,9 @@ from typing import Optional, Tuple
 
 
 class GiftCardBalanceGuard:
-    def __init__(self):
+    def __init__(self, enforce: bool = False):
+        self.enforce = enforce          # 前置强制型（P5a.56 §三）
+        self._vetoed = set()
         self._bal = {}   # payment_id -> balance
 
     def observe(self, tool_name: str, args: dict, output: str):
@@ -39,17 +41,26 @@ class GiftCardBalanceGuard:
             if not isinstance(p, dict):
                 continue
             pid, amt = p.get("payment_id"), p.get("amount")
-            if isinstance(pid, str) and pid.startswith("gift_card_") and pid in self._bal \
-                    and isinstance(amt, (int, float)) and amt > self._bal[pid] + 1e-9:
+            if not (isinstance(pid, str) and pid.startswith("gift_card_")):
+                continue
+            if self.enforce and pid not in self._bal:     # 前置强制：无余额观测 → 否决（once）
+                if pid not in self._vetoed:
+                    self._vetoed.add(pid)
+                    return True, (f"NO-OBS：本 run 尚未查询 {pid} 的余额。"
+                                  "请先核对余额，然后重新发起本调用即通过。")
+                continue                                   # 重发即通过（良性）
+            if pid in self._bal and isinstance(amt, (int, float)) and amt > self._bal[pid] + 1e-9:
                 return True, (f"GIFTCARD-BALANCE：{pid} 余额 {self._bal[pid]} < 支付额 {amt}。"
                               "请改用余额足够的卡或调整金额。")
         return False, None
 
 
 guard = GiftCardBalanceGuard()
+guard_enforce = GiftCardBalanceGuard(enforce=True)
 
 
 def reset():
-    global guard
+    global guard, guard_enforce
     guard = GiftCardBalanceGuard()
+    guard_enforce = GiftCardBalanceGuard(enforce=True)
     return guard

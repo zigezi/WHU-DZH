@@ -224,7 +224,7 @@
    "trigger": "book/update flights 中 (flight,cabin) 无本 run search 观测 → 否决（once-per-key）",
    "validated_domain": "tau",
    "death_cause": "flight_availability_unchecked",
-   "credit_level": "T1_candidate",
+   "credit_level": "field_validated",
    "status": "active",
    "evidence": "availability-enforce-battery; P5a.56 §三 试产原型",
    "domain_pack": "tau",
@@ -232,11 +232,70 @@
    "observability_proof": "点火条件=本 run search 观测缺失（可观测），无需 args 内金额",
    "created_at": "2026-10-12T16:57:14",
    "schema_version": "b3-v2",
-   "last_revalidated": "2026-10-12T16:57:16",
+   "last_revalidated": "2026-10-12T17:05:18",
    "revalidation_log": [
     {
      "at": "2026-10-12T16:57:16",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-c_wyh2jg；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T17:05:16",
+     "evidence": "prototype audit: benign 0 hardline, tax 46; battery 6/6 + C-1",
+     "result": "credit_raised",
+     "level": "field_validated"
+    },
+    {
+     "at": "2026-10-12T17:05:18",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-29h43602；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ]
+  },
+  {
+   "asset_id": "payment_amount_sum_enforce_v1",
+   "type": "interceptor_rule",
+   "text": "前置强制：支付前无本 run 观测（总额/余额）→ 否决，查完重发即通过。",
+   "trigger": "book/payment 前 (total|gift_card balance) 无本 run 观测",
+   "validated_domain": "tau",
+   "death_cause": "payment_amount_sum_enforce_v1",
+   "credit_level": "T1_candidate",
+   "status": "active",
+   "evidence": "payment-enforce-battery",
+   "domain_pack": "tau",
+   "rule_id": "payment_amount_sum_enforce_v1",
+   "observability_proof": "点火=观测缺失（可观测）",
+   "created_at": "2026-10-12T17:05:16",
+   "schema_version": "b3-v2",
+   "last_revalidated": "2026-10-12T17:05:20",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T17:05:20",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-qb0x_3en；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ]
+  },
+  {
+   "asset_id": "gift_card_balance_enforce_v1",
+   "type": "interceptor_rule",
+   "text": "前置强制：支付前无本 run 观测（总额/余额）→ 否决，查完重发即通过。",
+   "trigger": "book/payment 前 (total|gift_card balance) 无本 run 观测",
+   "validated_domain": "tau",
+   "death_cause": "gift_card_balance_enforce_v1",
+   "credit_level": "T1_candidate",
+   "status": "active",
+   "evidence": "giftcard-enforce-battery",
+   "domain_pack": "tau",
+   "rule_id": "gift_card_balance_enforce_v1",
+   "observability_proof": "点火=观测缺失（可观测）",
+   "created_at": "2026-10-12T17:05:16",
+   "schema_version": "b3-v2",
+   "last_revalidated": "2026-10-12T17:05:22",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T17:05:22",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-4hoalguq；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
    ]

@@ -52,16 +52,6 @@
    "coverage": 0.0,
    "hardline_violation": false
   },
-  "certificate_update_v1": {
-   "mode": "hard",
-   "fired_on_fail": 1,
-   "fires_on_pass": 1,
-   "tax": 0,
-   "rescue": 0,
-   "miss": 0,
-   "coverage": null,
-   "hardline_violation": true
-  },
   "flight_availability_v1": {
    "mode": "hard",
    "fired_on_fail": 0,
@@ -91,11 +81,29 @@
    "miss": 3,
    "coverage": 0.0,
    "hardline_violation": false
+  },
+  "payment_amount_sum_enforce_v1": {
+   "mode": "benign",
+   "fired_on_fail": 25,
+   "fires_on_pass": 4,
+   "tax": 4,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "hardline_violation": false
+  },
+  "gift_card_balance_enforce_v1": {
+   "mode": "benign",
+   "fired_on_fail": 13,
+   "fires_on_pass": 2,
+   "tax": 2,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "hardline_violation": false
   }
  },
  "total_rescue": 8,
- "hardline_violations": [
-  "certificate_update_v1"
- ],
- "all_hardline_zero": false
+ "hardline_violations": [],
+ "all_hardline_zero": true
 }

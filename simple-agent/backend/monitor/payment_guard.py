@@ -22,8 +22,10 @@ def to_cents(x) -> int:
 
 
 class PaymentSumGuard:
-    def __init__(self, tol_cents: int = 1):
+    def __init__(self, tol_cents: int = 1, enforce: bool = False):
         self.tol = tol_cents
+        self.enforce = enforce          # 前置强制型（P5a.56 §三）
+        self._vetoed = set()
         self._total = {}    # order_scope -> total cents（用 user_id 或最近 total）
 
     def observe(self, tool_name: str, args: dict, output: str):
@@ -39,6 +41,12 @@ class PaymentSumGuard:
         if tool_name != TARGET:
             return False, None
         total = self._total.get("_last")
+        if self.enforce and total is None:      # 前置强制：无本 run 总额观测 → 否决（once）
+            if "book" not in self._vetoed:
+                self._vetoed.add("book")
+                return True, ("NO-OBS：本 run 尚未确认应付总额。请先核对总额，"
+                              "然后重新发起本调用即通过。")
+            return False, None                  # 重发即通过（良性）
         if total is None:
             return False, None            # 未知 total → 不拦
         pms = (args or {}).get("payment_methods")
@@ -54,9 +62,11 @@ class PaymentSumGuard:
 
 
 guard = PaymentSumGuard()
+guard_enforce = PaymentSumGuard(enforce=True)
 
 
 def reset():
-    global guard
+    global guard, guard_enforce
     guard = PaymentSumGuard()
+    guard_enforce = PaymentSumGuard(enforce=True)
     return guard

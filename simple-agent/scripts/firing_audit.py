@@ -42,14 +42,15 @@ ASSETS = {
     "non_delivered_exchange_v1": (lambda: exchange_guard.ExchangeGuard(), ["non-delivered"], "hard"),
     "payment_amount_sum_v1": (lambda: payment_guard.PaymentSumGuard(),
                               ["payment amount does not add up"], "hard"),
-    "certificate_update_v1": (lambda: certificate_guard.CertificateUpdateGuard(),
-                              ["certificate cannot be used"], "hard"),
+    # certificate_update_v1 已撤销（P5a.56 案1）→ 不再纳入在役审计
     "flight_availability_v1": (lambda: availability_guard.FlightAvailabilityGuard(),
                                ["not enough seats"], "hard"),
     "flight_availability_enforce_v1": (lambda: availability_guard.FlightAvailabilityGuard(enforce=True),
                                        [], "benign"),
     "gift_card_balance_v1": (lambda: giftcard_guard.GiftCardBalanceGuard(),
                              ["gift card balance is not enough", "not enough balance in payment"], "hard"),
+    "payment_amount_sum_enforce_v1": (lambda: payment_guard.PaymentSumGuard(enforce=True), [], "benign"),
+    "gift_card_balance_enforce_v1": (lambda: giftcard_guard.GiftCardBalanceGuard(enforce=True), [], "benign"),
 }
 
 
