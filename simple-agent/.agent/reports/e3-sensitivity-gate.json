@@ -1,0 +1,10 @@
+{
+ "note": "P5a.49 C1 灵敏度门良率（参考解全过 ∧ ≥3 变异体被杀）",
+ "requested": 40,
+ "admitted": 38,
+ "rejected": 4,
+ "admit_rate": 0.95,
+ "canary_n": 4,
+ "seed": 20261012,
+ "mutants_killed_min": 4
+}

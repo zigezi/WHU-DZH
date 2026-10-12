@@ -1,0 +1,716 @@
+{
+ "note": "E3 先导任务（spec+hidden_tests+reference+mutants_killed）",
+ "n": 40,
+ "tasks": [
+  {
+   "task_id": "E3-000",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "2c6ffd35f0cca315",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(6,-10,0) == max(-10, min(6, 0))",
+    "assert clamp(-20,-10,8) == max(-10, min(-20, 8))",
+    "assert clamp(13,0,1) == max(0, min(13, 1))",
+    "assert clamp(-6,-4,0) == max(-4, min(-6, 0))",
+    "assert clamp(-10,-7,8) == max(-7, min(-10, 8))",
+    "assert clamp(15,-7,1) == max(-7, min(15, 1))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-001",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "c98438bbaa2a01d8",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(39,35) == _m.gcd(39,35)",
+    "import math as _m; assert gcd(58,42) == _m.gcd(58,42)",
+    "import math as _m; assert gcd(21,28) == _m.gcd(21,28)",
+    "import math as _m; assert gcd(8,48) == _m.gcd(8,48)",
+    "import math as _m; assert gcd(35,9) == _m.gcd(35,9)",
+    "import math as _m; assert gcd(6,57) == _m.gcd(6,57)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-002",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "671e8ee3bfe7aab9",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(359491) == 31",
+    "assert digit_sum(892868) == 41",
+    "assert digit_sum(289790) == 35",
+    "assert digit_sum(623768) == 32",
+    "assert digit_sum(603088) == 25",
+    "assert digit_sum(742879) == 37"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 8
+  },
+  {
+   "task_id": "E3-003",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "c11a25fa42a38d54",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(21,15) == (21*15)//_m.gcd(21,15)",
+    "import math as _m; assert lcm(20,3) == (20*3)//_m.gcd(20,3)",
+    "import math as _m; assert lcm(10,23) == (10*23)//_m.gcd(10,23)",
+    "import math as _m; assert lcm(24,4) == (24*4)//_m.gcd(24,4)",
+    "import math as _m; assert lcm(3,13) == (3*13)//_m.gcd(3,13)",
+    "import math as _m; assert lcm(27,15) == (27*15)//_m.gcd(27,15)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-005",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "8815fb5ccf02947c",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('oiaxehna') == False",
+    "assert is_pal('sahyxydz') == False",
+    "assert is_pal('f') == True",
+    "assert is_pal('e') == True",
+    "assert is_pal('yynf') == False",
+    "assert is_pal('agtrsjfx') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 6
+  },
+  {
+   "task_id": "E3-006",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "8854c834028f6792",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(-6,-1,8) == max(-1, min(-6, 8))",
+    "assert clamp(7,-6,5) == max(-6, min(7, 5))",
+    "assert clamp(8,-8,8) == max(-8, min(8, 8))",
+    "assert clamp(1,-10,1) == max(-10, min(1, 1))",
+    "assert clamp(-8,-10,9) == max(-10, min(-8, 9))",
+    "assert clamp(-7,-4,10) == max(-4, min(-7, 10))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-007",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "1e92a3abbe3c0e82",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(35,50) == _m.gcd(35,50)",
+    "import math as _m; assert gcd(29,53) == _m.gcd(29,53)",
+    "import math as _m; assert gcd(11,21) == _m.gcd(11,21)",
+    "import math as _m; assert gcd(37,48) == _m.gcd(37,48)",
+    "import math as _m; assert gcd(27,58) == _m.gcd(27,58)",
+    "import math as _m; assert gcd(30,58) == _m.gcd(30,58)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-008",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "24c1ae510a1b0f36",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(472209) == 24",
+    "assert digit_sum(705047) == 23",
+    "assert digit_sum(607033) == 19",
+    "assert digit_sum(899683) == 43",
+    "assert digit_sum(332413) == 16",
+    "assert digit_sum(418861) == 28"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 8
+  },
+  {
+   "task_id": "E3-009",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "4eb63701e4192926",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(2,11) == (2*11)//_m.gcd(2,11)",
+    "import math as _m; assert lcm(28,5) == (28*5)//_m.gcd(28,5)",
+    "import math as _m; assert lcm(22,4) == (22*4)//_m.gcd(22,4)",
+    "import math as _m; assert lcm(29,14) == (29*14)//_m.gcd(29,14)",
+    "import math as _m; assert lcm(6,28) == (6*28)//_m.gcd(6,28)",
+    "import math as _m; assert lcm(8,28) == (8*28)//_m.gcd(8,28)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-010",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "857d2d8c2c7ca807",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "hidden_tests": [
+    "assert count_vowels('axdqmcymgd') == 1",
+    "assert count_vowels('htaf') == 1",
+    "assert count_vowels('seto') == 2",
+    "assert count_vowels('tpbqslug') == 1",
+    "assert count_vowels('walnraixqowb') == 4",
+    "assert count_vowels('rfyksexr') == 1"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-011",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "9e8e188027a3fae2",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('hv') == False",
+    "assert is_pal('u') == True",
+    "assert is_pal('fjnghc') == False",
+    "assert is_pal('ukldx') == False",
+    "assert is_pal('idxfc') == False",
+    "assert is_pal('do') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 6
+  },
+  {
+   "task_id": "E3-012",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "e2ef2006e7d363cf",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(15,-8,5) == max(-8, min(15, 5))",
+    "assert clamp(14,0,6) == max(0, min(14, 6))",
+    "assert clamp(17,-2,8) == max(-2, min(17, 8))",
+    "assert clamp(-4,-2,4) == max(-2, min(-4, 4))",
+    "assert clamp(-16,-1,7) == max(-1, min(-16, 7))",
+    "assert clamp(0,-3,6) == max(-3, min(0, 6))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-013",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "260c58cb68571018",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(57,32) == _m.gcd(57,32)",
+    "import math as _m; assert gcd(51,38) == _m.gcd(51,38)",
+    "import math as _m; assert gcd(50,9) == _m.gcd(50,9)",
+    "import math as _m; assert gcd(59,20) == _m.gcd(59,20)",
+    "import math as _m; assert gcd(37,42) == _m.gcd(37,42)",
+    "import math as _m; assert gcd(27,21) == _m.gcd(27,21)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-014",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "24439f1fe012d8e6",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(488506) == 31",
+    "assert digit_sum(482214) == 21",
+    "assert digit_sum(184418) == 26",
+    "assert digit_sum(899824) == 40",
+    "assert digit_sum(182404) == 19",
+    "assert digit_sum(906330) == 21"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 10
+  },
+  {
+   "task_id": "E3-015",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "c0717e3c182d178f",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(23,16) == (23*16)//_m.gcd(23,16)",
+    "import math as _m; assert lcm(19,18) == (19*18)//_m.gcd(19,18)",
+    "import math as _m; assert lcm(15,13) == (15*13)//_m.gcd(15,13)",
+    "import math as _m; assert lcm(26,10) == (26*10)//_m.gcd(26,10)",
+    "import math as _m; assert lcm(19,11) == (19*11)//_m.gcd(19,11)",
+    "import math as _m; assert lcm(5,17) == (5*17)//_m.gcd(5,17)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-016",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "1915e90a2f2d7c92",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "hidden_tests": [
+    "assert count_vowels('fphddluhmwd') == 1",
+    "assert count_vowels('txk') == 0",
+    "assert count_vowels('elcvqyea') == 3",
+    "assert count_vowels('tpvvwgx') == 0",
+    "assert count_vowels('cjrttowtyqrc') == 1",
+    "assert count_vowels('ledty') == 1"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-017",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "0dd73dd9808b9ae6",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('yyuvmcvv') == False",
+    "assert is_pal('w') == True",
+    "assert is_pal('lque') == False",
+    "assert is_pal('arqt') == False",
+    "assert is_pal('f') == True",
+    "assert is_pal('rvfoqrb') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 6
+  },
+  {
+   "task_id": "E3-018",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "af1e7cbc76af4c2f",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(-1,-8,3) == max(-8, min(-1, 3))",
+    "assert clamp(17,-9,0) == max(-9, min(17, 0))",
+    "assert clamp(-7,-1,0) == max(-1, min(-7, 0))",
+    "assert clamp(-19,0,10) == max(0, min(-19, 10))",
+    "assert clamp(-3,-2,10) == max(-2, min(-3, 10))",
+    "assert clamp(-10,-9,0) == max(-9, min(-10, 0))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-019",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "93e4aeb82d425049",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(48,50) == _m.gcd(48,50)",
+    "import math as _m; assert gcd(59,58) == _m.gcd(59,58)",
+    "import math as _m; assert gcd(34,11) == _m.gcd(34,11)",
+    "import math as _m; assert gcd(59,50) == _m.gcd(59,50)",
+    "import math as _m; assert gcd(47,48) == _m.gcd(47,48)",
+    "import math as _m; assert gcd(22,15) == _m.gcd(22,15)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-020",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "6dc0c138974f1b93",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(623439) == 27",
+    "assert digit_sum(244061) == 17",
+    "assert digit_sum(33035) == 14",
+    "assert digit_sum(969636) == 39",
+    "assert digit_sum(70709) == 23",
+    "assert digit_sum(738394) == 34"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 8
+  },
+  {
+   "task_id": "E3-021",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "7254daba2873fedb",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(7,15) == (7*15)//_m.gcd(7,15)",
+    "import math as _m; assert lcm(9,21) == (9*21)//_m.gcd(9,21)",
+    "import math as _m; assert lcm(29,8) == (29*8)//_m.gcd(29,8)",
+    "import math as _m; assert lcm(23,3) == (23*3)//_m.gcd(23,3)",
+    "import math as _m; assert lcm(3,7) == (3*7)//_m.gcd(3,7)",
+    "import math as _m; assert lcm(23,21) == (23*21)//_m.gcd(23,21)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-023",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "9b0e884197637919",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('kxriyu') == False",
+    "assert is_pal('awp') == False",
+    "assert is_pal('gsig') == False",
+    "assert is_pal('ho') == False",
+    "assert is_pal('bswze') == False",
+    "assert is_pal('j') == True"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 6
+  },
+  {
+   "task_id": "E3-024",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "dd383d28d1be0f90",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(-4,-2,4) == max(-2, min(-4, 4))",
+    "assert clamp(14,-6,8) == max(-6, min(14, 8))",
+    "assert clamp(-12,-7,6) == max(-7, min(-12, 6))",
+    "assert clamp(19,-6,5) == max(-6, min(19, 5))",
+    "assert clamp(-6,-3,8) == max(-3, min(-6, 8))",
+    "assert clamp(-10,-4,3) == max(-4, min(-10, 3))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-025",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "c0ea1df85334bb95",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(2,57) == _m.gcd(2,57)",
+    "import math as _m; assert gcd(47,35) == _m.gcd(47,35)",
+    "import math as _m; assert gcd(14,8) == _m.gcd(14,8)",
+    "import math as _m; assert gcd(25,22) == _m.gcd(25,22)",
+    "import math as _m; assert gcd(15,31) == _m.gcd(15,31)",
+    "import math as _m; assert gcd(39,60) == _m.gcd(39,60)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-026",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "5ac32caa4df22ca5",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(919367) == 35",
+    "assert digit_sum(8371) == 19",
+    "assert digit_sum(44555) == 23",
+    "assert digit_sum(989179) == 43",
+    "assert digit_sum(666420) == 24",
+    "assert digit_sum(350394) == 24"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 8
+  },
+  {
+   "task_id": "E3-027",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "803b56a6d9510716",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(12,16) == (12*16)//_m.gcd(12,16)",
+    "import math as _m; assert lcm(12,13) == (12*13)//_m.gcd(12,13)",
+    "import math as _m; assert lcm(27,1) == (27*1)//_m.gcd(27,1)",
+    "import math as _m; assert lcm(25,17) == (25*17)//_m.gcd(25,17)",
+    "import math as _m; assert lcm(5,23) == (5*23)//_m.gcd(5,23)",
+    "import math as _m; assert lcm(21,3) == (21*3)//_m.gcd(21,3)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-028",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "bbbe7c1e1935c7ec",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "hidden_tests": [
+    "assert count_vowels('vjwnnznkw') == 0",
+    "assert count_vowels('rxfpxiya') == 2",
+    "assert count_vowels('eebedueiqrfz') == 6",
+    "assert count_vowels('emabmwv') == 2",
+    "assert count_vowels('wuwirxcigtrx') == 3",
+    "assert count_vowels('dplwyzmprwwd') == 0"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-029",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "d202969059f4d6f2",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('mttz') == False",
+    "assert is_pal('hibvmowx') == False",
+    "assert is_pal('lmpbyf') == False",
+    "assert is_pal('hnqrf') == False",
+    "assert is_pal('omuetha') == False",
+    "assert is_pal('jccqe') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-030",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "e4084f6cc7ce9385",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(2,-4,10) == max(-4, min(2, 10))",
+    "assert clamp(5,0,2) == max(0, min(5, 2))",
+    "assert clamp(-1,-6,0) == max(-6, min(-1, 0))",
+    "assert clamp(-17,-3,4) == max(-3, min(-17, 4))",
+    "assert clamp(-13,-2,8) == max(-2, min(-13, 8))",
+    "assert clamp(-14,-4,8) == max(-4, min(-14, 8))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-031",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "24128f783994c00f",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(55,20) == _m.gcd(55,20)",
+    "import math as _m; assert gcd(48,1) == _m.gcd(48,1)",
+    "import math as _m; assert gcd(34,42) == _m.gcd(34,42)",
+    "import math as _m; assert gcd(60,14) == _m.gcd(60,14)",
+    "import math as _m; assert gcd(30,34) == _m.gcd(30,34)",
+    "import math as _m; assert gcd(51,9) == _m.gcd(51,9)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-032",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "a6c902ba2ea062f9",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(109268) == 26",
+    "assert digit_sum(433439) == 26",
+    "assert digit_sum(795364) == 34",
+    "assert digit_sum(254072) == 20",
+    "assert digit_sum(356685) == 33",
+    "assert digit_sum(268371) == 27"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 10
+  },
+  {
+   "task_id": "E3-033",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "91b5020f894549d2",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(26,14) == (26*14)//_m.gcd(26,14)",
+    "import math as _m; assert lcm(6,3) == (6*3)//_m.gcd(6,3)",
+    "import math as _m; assert lcm(29,15) == (29*15)//_m.gcd(29,15)",
+    "import math as _m; assert lcm(5,9) == (5*9)//_m.gcd(5,9)",
+    "import math as _m; assert lcm(10,1) == (10*1)//_m.gcd(10,1)",
+    "import math as _m; assert lcm(24,27) == (24*27)//_m.gcd(24,27)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-034",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "001fa8829054cac0",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "hidden_tests": [
+    "assert count_vowels('jnhkdjxmiwaw') == 2",
+    "assert count_vowels('ffmhv') == 0",
+    "assert count_vowels('godsdb') == 1",
+    "assert count_vowels('lfgug') == 1",
+    "assert count_vowels('yhy') == 0",
+    "assert count_vowels('lsjogfaaigcn') == 4"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-035",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "ae4e9471cf32000e",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "hidden_tests": [
+    "assert is_pal('iv') == False",
+    "assert is_pal('pjukb') == False",
+    "assert is_pal('gnr') == False",
+    "assert is_pal('lojdy') == False",
+    "assert is_pal('pbxhdu') == False",
+    "assert is_pal('ttahdc') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-036",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "d60d6ec754f1926c",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "hidden_tests": [
+    "assert clamp(-6,-4,6) == max(-4, min(-6, 6))",
+    "assert clamp(15,-5,4) == max(-5, min(15, 4))",
+    "assert clamp(11,-3,8) == max(-3, min(11, 8))",
+    "assert clamp(2,-9,0) == max(-9, min(2, 0))",
+    "assert clamp(-20,-2,9) == max(-2, min(-20, 9))",
+    "assert clamp(-15,0,3) == max(0, min(-15, 3))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-037",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "785d2014d45b033f",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "hidden_tests": [
+    "import math as _m; assert gcd(26,49) == _m.gcd(26,49)",
+    "import math as _m; assert gcd(51,12) == _m.gcd(51,12)",
+    "import math as _m; assert gcd(13,4) == _m.gcd(13,4)",
+    "import math as _m; assert gcd(29,39) == _m.gcd(29,39)",
+    "import math as _m; assert gcd(37,36) == _m.gcd(37,36)",
+    "import math as _m; assert gcd(4,21) == _m.gcd(4,21)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "mutants_killed": 5
+  },
+  {
+   "task_id": "E3-038",
+   "template_family": "digit_sum",
+   "is_canary": false,
+   "prompt_hash": "ba95a7398ba10b43",
+   "signature": "def digit_sum(n)",
+   "doc": "Return sum of decimal digits of non-negative n.",
+   "hidden_tests": [
+    "assert digit_sum(603166) == 22",
+    "assert digit_sum(748895) == 41",
+    "assert digit_sum(786154) == 31",
+    "assert digit_sum(580916) == 29",
+    "assert digit_sum(961468) == 34",
+    "assert digit_sum(714095) == 26"
+   ],
+   "reference": "def digit_sum(n):\n    s = 0\n    while n > 0:\n        s += n % 10\n        n //= 10\n    return s",
+   "mutants_killed": 8
+  },
+  {
+   "task_id": "E3-039",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "df9620d1569df345",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "hidden_tests": [
+    "import math as _m; assert lcm(28,5) == (28*5)//_m.gcd(28,5)",
+    "import math as _m; assert lcm(29,29) == (29*29)//_m.gcd(29,29)",
+    "import math as _m; assert lcm(21,18) == (21*18)//_m.gcd(21,18)",
+    "import math as _m; assert lcm(26,18) == (26*18)//_m.gcd(26,18)",
+    "import math as _m; assert lcm(29,1) == (29*1)//_m.gcd(29,1)",
+    "import math as _m; assert lcm(24,6) == (24*6)//_m.gcd(24,6)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-040",
+   "template_family": "canary",
+   "is_canary": true,
+   "prompt_hash": "fae0fe77331b6d11",
+   "signature": "def has_close_elements(numbers, threshold)",
+   "doc": "[public canary] HumanEval-style.",
+   "hidden_tests": [
+    "import math as _m"
+   ],
+   "reference": "def has_close_elements(numbers, threshold):\n    return any(abs(a-b) < threshold for i,a in enumerate(numbers) for b in numbers[i+1:])",
+   "mutants_killed": 4
+  },
+  {
+   "task_id": "E3-041",
+   "template_family": "canary",
+   "is_canary": true,
+   "prompt_hash": "97a3161073d79864",
+   "signature": "def separate_paren_groups(s)",
+   "doc": "[public canary] HumanEval-style.",
+   "hidden_tests": [
+    "import math as _m"
+   ],
+   "reference": "def separate_paren_groups(s):\n    return [s]",
+   "mutants_killed": 4
+  }
+ ]
+}
