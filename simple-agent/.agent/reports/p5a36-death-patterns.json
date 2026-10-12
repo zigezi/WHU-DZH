@@ -1,0 +1,277 @@
+{
+ "note": "P5a.36 失败开采首跑；全部为谓词**候选**，须过金丝雀电池方可登记资产",
+ "fail_tasks": 259,
+ "pattern_n": 25,
+ "patterns": [
+  {
+   "pattern_id": "ERR::user not found",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: user not found'",
+   "occurrences": 15,
+   "examples": [
+    "TAU-R-000",
+    "TAU-R-034",
+    "TAU-R-036",
+    "TAU-R-038",
+    "TAU-R-055",
+    "TAU-R-064"
+   ]
+  },
+  {
+   "pattern_id": "ERR::non-pending order cannot be modified",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: non-pending order cannot be modified'",
+   "occurrences": 6,
+   "examples": [
+    "TAU-R-072",
+    "TAU-R-098",
+    "TAU-R-099",
+    "TAU-R-105"
+   ]
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT290",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: not enough seats on flight HAT290'",
+   "occurrences": 5,
+   "examples": [
+    "TAU-A-015"
+   ]
+  },
+  {
+   "pattern_id": "ERR::gift card balance is not enough",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: gift card balance is not enough'",
+   "occurrences": 4,
+   "examples": [
+    "TAU-A-003",
+    "TAU-A-023",
+    "TAU-A-033"
+   ]
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT229",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: not enough seats on flight HAT229'",
+   "occurrences": 2,
+   "examples": [
+    "TAU-A-003"
+   ]
+  },
+  {
+   "pattern_id": "ERR::non-delivered order cannot be exchanged",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: non-delivered order cannot be exchanged'",
+   "occurrences": 2,
+   "examples": [
+    "TAU-R-019",
+    "TAU-R-074"
+   ]
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT213",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: not enough seats on flight HAT213'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-000"
+   ]
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: payment amount does not add up, total price is 2613, but paid 2113'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-009"
+   ]
+  },
+  {
+   "pattern_id": "ERR::certificate cannot be used to update res",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: certificate cannot be used to update reservation'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-033"
+   ]
+  },
+  {
+   "pattern_id": "ERR::not enough balance in payment method gif",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: not enough balance in payment method gift_card_7344518'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-022"
+   ]
+  },
+  {
+   "pattern_id": "ERR::the number of items to be exchanged shou",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: the number of items to be exchanged should match'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-R-076"
+   ]
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: payment amount does not add up, total price is 405, but paid 255'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-000"
+   ]
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: payment amount does not add up, total price is 3690, but paid 3501'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-008"
+   ]
+  },
+  {
+   "pattern_id": "ERR::BookReservation.invoke() got an unexpect",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: BookReservation.invoke() got an unexpected keyword argument'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-008"
+   ]
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "detector": "tool result contains 'Error: payment amount does not add up, total price is 2613, but paid 2612'",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-008"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_order_details",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__get_order_details' called >=3 times in a run",
+   "occurrences": 39,
+   "examples": [
+    "TAU-R-002",
+    "TAU-R-005",
+    "TAU-R-006",
+    "TAU-R-020",
+    "TAU-R-022",
+    "TAU-R-023"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_reservation_details",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__get_reservation_details' called >=3 times in a run",
+   "occurrences": 16,
+   "examples": [
+    "TAU-A-002",
+    "TAU-A-003",
+    "TAU-A-005",
+    "TAU-A-015",
+    "TAU-A-017",
+    "TAU-A-021"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__search_direct_flight",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__search_direct_flight' called >=3 times in a run",
+   "occurrences": 11,
+   "examples": [
+    "TAU-A-000",
+    "TAU-A-002",
+    "TAU-A-008",
+    "TAU-A-017",
+    "TAU-A-019",
+    "TAU-A-021"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_product_details",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__get_product_details' called >=3 times in a run",
+   "occurrences": 6,
+   "examples": [
+    "TAU-R-020",
+    "TAU-R-023",
+    "TAU-R-036",
+    "TAU-R-038",
+    "TAU-R-099",
+    "TAU-R-100"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__calculate",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__calculate' called >=3 times in a run",
+   "occurrences": 5,
+   "examples": [
+    "TAU-A-000",
+    "TAU-A-002",
+    "TAU-A-009",
+    "TAU-A-017",
+    "TAU-A-019"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__search_onestop_flight",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__search_onestop_flight' called >=3 times in a run",
+   "occurrences": 3,
+   "examples": [
+    "TAU-A-000",
+    "TAU-A-008",
+    "TAU-A-037"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__update_reservation_flights",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__update_reservation_flights' called >=3 times in a run",
+   "occurrences": 3,
+   "examples": [
+    "TAU-A-002",
+    "TAU-A-003",
+    "TAU-A-023"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__return_delivered_order_items",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__return_delivered_order_items' called >=3 times in a run",
+   "occurrences": 2,
+   "examples": [
+    "TAU-R-028",
+    "TAU-R-105"
+   ]
+  },
+  {
+   "pattern_id": "REPEAT::tau__book_reservation",
+   "kind": "repeat_failure",
+   "detector": "same tool 'tau__book_reservation' called >=3 times in a run",
+   "occurrences": 1,
+   "examples": [
+    "TAU-A-008"
+   ]
+  },
+  {
+   "pattern_id": "LOCK_ORDER::modify_items_first",
+   "kind": "order_lock",
+   "detector": "modify_pending_order_items before modify_pending_order_address on same order",
+   "occurrences": 7,
+   "examples": [
+    "TAU-R-041",
+    "TAU-R-058",
+    "TAU-R-072",
+    "TAU-R-098",
+    "TAU-R-099",
+    "TAU-R-105"
+   ]
+  }
+ ]
+}

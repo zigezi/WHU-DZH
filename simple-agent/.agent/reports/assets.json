@@ -12,7 +12,15 @@
    "evidence": "P5a.28 backtest 0/12; B-2 battery 7/7",
    "domain_pack": "tau",
    "rule_id": "lock_order_v1",
-   "created_at": "2026-10-12T09:38:18"
+   "created_at": "2026-10-12T09:38:18",
+   "last_revalidated": "2026-10-12T10:17:03",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T10:17:03",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-xec35tts；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ]
   }
  ]
 }
