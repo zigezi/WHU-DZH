@@ -12,7 +12,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 FILE = os.path.join(ROOT, ".agent", "reports", "assets.json")
 
 CREDIT_LEVELS = ("T1_candidate", "field_validated", "T1", "T2", "T3")
-SCHEMA_VERSION = "b3-v2"
+SCHEMA_VERSION = "b3-v3"
+STATUSES = ("active", "dormant", "pending_revalidation", "revoked", "superseded", "ineligible")
 # B-3 溯源层 schema（P5a.30 B-3 / P5a.54）：资产的最小必填字段
 REQUIRED_FIELDS = ("asset_id", "type", "validated_domain", "credit_level", "status", "evidence")
 ASSET_TYPES = ("interceptor_rule", "prompt_patch", "threshold_patch", "precedent_update")
@@ -78,6 +79,28 @@ def set_credit(asset_id: str, level: str, evidence: str) -> dict:
             a.setdefault("revalidation_log", []).append(
                 {"at": datetime.now().isoformat(timespec="seconds"),
                  "evidence": evidence, "result": "credit_raised", "level": level})
+    _save(d)
+    return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
+
+
+def patch_asset(asset_id: str, **fields) -> dict:
+    d = _load()
+    for a in d["assets"]:
+        if a.get("asset_id") == asset_id:
+            a.update(fields)
+    _save(d)
+    return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
+
+
+def supersede(asset_id: str, superseded_by: str, reason: str = "") -> dict:
+    d = _load()
+    for a in d["assets"]:
+        if a.get("asset_id") == asset_id:
+            a["status"] = "superseded"
+            a["superseded_by"] = superseded_by
+            a["superseded_at"] = datetime.now().isoformat(timespec="seconds")
+            if reason:
+                a["superseded_reason"] = reason
     _save(d)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
 

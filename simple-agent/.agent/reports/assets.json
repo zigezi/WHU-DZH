@@ -130,7 +130,7 @@
    "validated_domain": "tau",
    "death_cause": "numeric_sum",
    "credit_level": "T1_candidate",
-   "status": "active",
+   "status": "superseded",
    "evidence": "failure-mine payment-amount; payment-guard-battery",
    "domain_pack": "tau",
    "rule_id": "payment_amount_sum_v1",
@@ -142,7 +142,10 @@
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-sjdyq103；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
-   ]
+   ],
+   "superseded_by": "payment_amount_sum_enforce_v1",
+   "superseded_at": "2026-10-12T17:29:09",
+   "superseded_reason": "enforce 版承接；舍入口径等价（整数分/ROUND_HALF_UP/容差0.01）"
   },
   {
    "asset_id": "certificate_update_v1",
@@ -178,7 +181,7 @@
    "validated_domain": "tau",
    "death_cause": "flight_availability",
    "credit_level": "T1_candidate",
-   "status": "active",
+   "status": "superseded",
    "evidence": "failure-mine not-enough-seats; availability-guard-battery",
    "domain_pack": "tau",
    "rule_id": "flight_availability_v1",
@@ -191,7 +194,10 @@
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-hjvzpit7；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
-   ]
+   ],
+   "superseded_by": "flight_availability_enforce_v1",
+   "superseded_at": "2026-10-12T17:29:09",
+   "superseded_reason": "enforce 版第二段包含旧版职责"
   },
   {
    "asset_id": "gift_card_balance_v1",
@@ -201,7 +207,7 @@
    "validated_domain": "tau",
    "death_cause": "gift_card_balance",
    "credit_level": "T1_candidate",
-   "status": "active",
+   "status": "superseded",
    "evidence": "failure-mine gift-card; giftcard-guard-battery; 覆盖外=update_reservation_*",
    "domain_pack": "tau",
    "rule_id": "gift_card_balance_v1",
@@ -215,7 +221,10 @@
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-q9npsx7x；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
-   ]
+   ],
+   "superseded_by": "gift_card_balance_enforce_v1",
+   "superseded_at": "2026-10-12T17:29:09",
+   "superseded_reason": "enforce 版承接；A-003 覆盖缺口限制随承接转移"
   },
   {
    "asset_id": "flight_availability_enforce_v1",
@@ -258,10 +267,10 @@
    "text": "前置强制：支付前无本 run 观测（总额/余额）→ 否决，查完重发即通过。",
    "trigger": "book/payment 前 (total|gift_card balance) 无本 run 观测",
    "validated_domain": "tau",
-   "death_cause": "payment_amount_sum_enforce_v1",
-   "credit_level": "T1_candidate",
+   "death_cause": "payment_total_unchecked",
+   "credit_level": "field_validated",
    "status": "active",
-   "evidence": "payment-enforce-battery",
+   "evidence": "payment-enforce-battery 6/6; C-1; audit benign; 等价=旧版舍入口径(整数分/ROUND_HALF_UP/容差0.01)",
    "domain_pack": "tau",
    "rule_id": "payment_amount_sum_enforce_v1",
    "observability_proof": "点火=观测缺失（可观测）",
@@ -273,6 +282,12 @@
      "at": "2026-10-12T17:05:20",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-qb0x_3en；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
+    },
+    {
+     "at": "2026-10-12T17:29:09",
+     "evidence": "battery 6/6 + C-1 + audit 0 hardline; 承接旧版舍入口径",
+     "result": "credit_raised",
+     "level": "field_validated"
     }
    ]
   },
@@ -282,10 +297,10 @@
    "text": "前置强制：支付前无本 run 观测（总额/余额）→ 否决，查完重发即通过。",
    "trigger": "book/payment 前 (total|gift_card balance) 无本 run 观测",
    "validated_domain": "tau",
-   "death_cause": "gift_card_balance_enforce_v1",
-   "credit_level": "T1_candidate",
+   "death_cause": "giftcard_balance_unchecked",
+   "credit_level": "field_validated",
    "status": "active",
-   "evidence": "giftcard-enforce-battery",
+   "evidence": "giftcard-enforce-battery 6/6; C-1; audit benign; 承接限制=A-003型(update_* 金额不在args) 仍不可覆盖",
    "domain_pack": "tau",
    "rule_id": "gift_card_balance_enforce_v1",
    "observability_proof": "点火=观测缺失（可观测）",
@@ -297,6 +312,12 @@
      "at": "2026-10-12T17:05:22",
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-4hoalguq；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
+    },
+    {
+     "at": "2026-10-12T17:29:09",
+     "evidence": "battery 6/6 + C-1 + audit 0 hardline; 承接 A-003 覆盖限制",
+     "result": "credit_raised",
+     "level": "field_validated"
     }
    ]
   }
