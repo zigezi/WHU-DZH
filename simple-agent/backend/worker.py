@@ -20,6 +20,7 @@ from monitor.routing import router
 from monitor import precedent_select
 from monitor import interceptor as lockguard
 from monitor import repeat_guard
+from monitor import count_guard, exchange_guard, payment_guard
 from requirements import loader
 import signature
 import planner
@@ -281,6 +282,16 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                       span_type="interceptor_fire", parent_span_id=parent_span_id,
                       attributes={"tool": tool_name, "rule": "repeat_failure_v1"})
             return ToolResult(success=False, output=synth, error="")
+    for flag, g, rule in (("SA_COUNT_GUARD", count_guard.guard, "items_count_match_v1"),
+                          ("SA_EXCHANGE_GUARD", exchange_guard.guard, "non_delivered_exchange_v1"),
+                          ("SA_PAYMENT_GUARD", payment_guard.guard, "payment_amount_sum_v1")):
+        if os.environ.get(flag) == "1":
+            veto, synth = g.before(tool_name, args)
+            if veto:
+                add_event(trace_id=trace_id, name="资产拦截", layer="G",
+                          span_type="interceptor_fire", parent_span_id=parent_span_id,
+                          attributes={"tool": tool_name, "rule": rule})
+                return ToolResult(success=False, output=synth, error="")
     reg = registry or tool_registry
     res = reg.execute(ToolCall(
         tool_name=tool_name,
@@ -293,6 +304,10 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
         lockguard.interceptor.after(tool_name, args, res.success)
     if rg:
         repeat_guard.guard.after(tool_name, args, res.success)
+    if os.environ.get("SA_EXCHANGE_GUARD") == "1":
+        exchange_guard.guard.observe(tool_name, args, res.output)
+    if os.environ.get("SA_PAYMENT_GUARD") == "1":
+        payment_guard.guard.observe(tool_name, args, res.output)
     return res
 
 
@@ -323,6 +338,10 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
         lockguard.reset()  # e9：每任务重置锁序拦截状态位
     if os.environ.get("SA_REPEAT_GUARD") == "1":
         repeat_guard.reset()
+    for flag, mod in (("SA_COUNT_GUARD", count_guard), ("SA_EXCHANGE_GUARD", exchange_guard),
+                      ("SA_PAYMENT_GUARD", payment_guard)):
+        if os.environ.get(flag) == "1":
+            mod.reset()
 
     budget = _load_budget(req.req_id)
     guard = Guard(

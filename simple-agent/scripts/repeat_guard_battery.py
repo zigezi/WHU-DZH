@@ -69,6 +69,17 @@ def p_synthetic_text():
 probe("P3_synthetic_text_correct", p_synthetic_text)
 
 
+def p_state_change_resets():   # N4（P5a.48 修正）：中间状态变更成功 → 同参放行
+    G = RepeatFailureGuard()
+    m = {"order_id": "#W1", "item_ids": ["a"], "new_item_ids": ["b"]}
+    G.after("modify_pending_order_items", m, False)
+    G.after("modify_pending_order_items", m, False)
+    G.after("modify_pending_order_address", {"order_id": "#W1"}, True)   # 状态变更成功
+    v, _ = G.before("modify_pending_order_items", m)
+    return v is False
+probe("N4_state_change_resets_no_block", p_state_change_resets)
+
+
 def main():
     res = []
     for n, f in PROBES:

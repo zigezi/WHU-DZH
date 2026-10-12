@@ -1,7 +1,7 @@
 {
  "note": "repeat_failure_v1 电池（含 3 阴性对照）",
- "n": 6,
- "passed": 6,
+ "n": 7,
+ "passed": 7,
  "all_pass": true,
  "results": [
   {
@@ -26,6 +26,10 @@
   },
   {
    "probe": "P3_synthetic_text_correct",
+   "pass": true
+  },
+  {
+   "probe": "N4_state_change_resets_no_block",
    "pass": true
   }
  ]

@@ -34,9 +34,10 @@ def main():
     os.makedirs(os.path.join(clean, "scripts"), exist_ok=True)
     os.makedirs(os.path.join(clean, ".agent", "reports"), exist_ok=True)
     open(os.path.join(clean, "backend", "monitor", "__init__.py"), "w").close()
-    for mod in ("interceptor.py", "repeat_guard.py"):
-        shutil.copy(os.path.join(BACKEND, "monitor", mod),
-                    os.path.join(clean, "backend", "monitor", mod))
+    for mod in os.listdir(os.path.join(BACKEND, "monitor")):
+        if mod.endswith(".py"):
+            shutil.copy(os.path.join(BACKEND, "monitor", mod),
+                        os.path.join(clean, "backend", "monitor", mod))
     shutil.copy(os.path.join(ROOT, ".agent", "reports", "assets.json"),
                 os.path.join(clean, ".agent", "reports", "assets.json"))
     shutil.copy(os.path.join(ROOT, "scripts", args.battery),

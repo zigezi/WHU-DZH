@@ -30,10 +30,20 @@ class RepeatFailureGuard:
             return True, SYNTHETIC.format(n=n)
         return False, None
 
+    @staticmethod
+    def _is_state_change(tool_name: str) -> bool:
+        return not tool_name.startswith(("get_", "search_", "list_", "find_",
+                                         "calculate", "think"))
+
     def after(self, tool_name: str, args: dict, success: bool):
         k = self._key(tool_name, args)
         if success:
-            self._fails.pop(k, None)       # 成功 → 清零（合法重演）
+            # P5a.48 修正（N4）：任意**状态变更**成功后，环境已变，
+            # 先前失败的键可能本会成功 → 清零全部计数（避免把合法重试拦死）
+            if self._is_state_change(tool_name):
+                self._fails.clear()
+            else:
+                self._fails.pop(k, None)   # 只读成功 → 清本键
         else:
             self._fails[k] = self._fails.get(k, 0) + 1
 

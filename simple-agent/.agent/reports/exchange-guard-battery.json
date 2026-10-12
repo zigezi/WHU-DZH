@@ -1,0 +1,32 @@
+{
+ "note": "non_delivered_exchange_v1 电池",
+ "n": 6,
+ "passed": 6,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_pending_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_delivered_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_unknown_status_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_non_target_passes",
+   "pass": true
+  },
+  {
+   "probe": "N4_status_update_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}
