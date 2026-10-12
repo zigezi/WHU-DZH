@@ -30,6 +30,14 @@ def build_prompt(task, examples=None):
     return base + "# Write ONLY the function definition."
 
 
+def build_prompt_v2(task):
+    """P5a.50 变体 B：给坏模块 + 显示测试，要求输出修好的函数。"""
+    vis = "\n".join(task["hidden_tests"][:3])
+    return ("# 下面这个 Python 模块有 bug，导致测试失败。请修复它。\n"
+            "# 坏模块：\n" + task["buggy"] + "\n# 必须通过的测试：\n" + vis + "\n"
+            "# 只输出修正后的函数定义（完整函数），不要解释、不要 markdown 围栏。")
+
+
 def run_task(task, solution_code, timeout=3.0):
     """返回 {verdict, failure_class, stderr_tail}。verdict=1 PASS / 0 FAIL。"""
     prog = solution_code + "\n\n" + "\n".join(task["hidden_tests"]) + "\nprint('__OK__')\n"
@@ -106,13 +114,37 @@ def smoke():
     return 0 if all_ok else 1
 
 
+def smoke_v2():
+    tasks = json.load(open(os.path.join(R, "e3-pilot-tasks-v2.json")))["tasks"]
+    fams = {}
+    for t in tasks:
+        fams.setdefault(t["template_family"], t)
+    sample = list(fams.values())
+    results = []
+    for t in sample:
+        ref = run_task(t, t["reference"])     # 参考解 → PASS
+        bug = run_task(t, t["buggy"])         # 坏模块原样 → FAIL
+        results.append({"task": t["task_id"], "family": t["template_family"],
+                        "ref": ref["failure_class"], "bug": bug["failure_class"],
+                        "ok": ref["verdict"] == 1 and bug["verdict"] == 0})
+    all_ok = all(r["ok"] for r in results)
+    out = {"note": "E3 v2 执行器冒烟（坏模块原样→FAIL；参考解→PASS；零模型 token）",
+           "n": len(results), "all_pass": all_ok, "results": results}
+    json.dump(out, open(os.path.join(R, "e3-executor-smoke-v2.json"), "w"), ensure_ascii=False, indent=1)
+    print(json.dumps(out, ensure_ascii=False, indent=1))
+    return 0 if all_ok else 1
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--smoke-v2", action="store_true")
     args = ap.parse_args()
     if args.smoke:
         return smoke()
-    print("usage: --smoke")
+    if args.smoke_v2:
+        return smoke_v2()
+    print("usage: --smoke | --smoke-v2")
     return 2
 
 

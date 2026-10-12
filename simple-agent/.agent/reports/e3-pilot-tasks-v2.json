@@ -1,0 +1,626 @@
+{
+ "note": "E3 v2 任务（坏模块+隐藏单测；修复目标=参考解）",
+ "n": 33,
+ "tasks": [
+  {
+   "task_id": "E3-000",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "2c6ffd35f0cca315",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(6,-10,0) == max(-10, min(6, 0))",
+    "assert clamp(-20,-10,8) == max(-10, min(-20, 8))",
+    "assert clamp(13,0,1) == max(0, min(13, 1))",
+    "assert clamp(-6,-4,0) == max(-4, min(-6, 0))",
+    "assert clamp(-10,-7,8) == max(-7, min(-10, 8))",
+    "assert clamp(15,-7,1) == max(-7, min(15, 1))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-001",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "c98438bbaa2a01d8",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(39,35) == _m.gcd(39,35)",
+    "import math as _m; assert gcd(58,42) == _m.gcd(58,42)",
+    "import math as _m; assert gcd(21,28) == _m.gcd(21,28)",
+    "import math as _m; assert gcd(8,48) == _m.gcd(8,48)",
+    "import math as _m; assert gcd(35,9) == _m.gcd(35,9)",
+    "import math as _m; assert gcd(6,57) == _m.gcd(6,57)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-003",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "c11a25fa42a38d54",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(21,15) == (21*15)//_m.gcd(21,15)",
+    "import math as _m; assert lcm(20,3) == (20*3)//_m.gcd(20,3)",
+    "import math as _m; assert lcm(10,23) == (10*23)//_m.gcd(10,23)",
+    "import math as _m; assert lcm(24,4) == (24*4)//_m.gcd(24,4)",
+    "import math as _m; assert lcm(3,13) == (3*13)//_m.gcd(3,13)",
+    "import math as _m; assert lcm(27,15) == (27*15)//_m.gcd(27,15)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-005",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "8815fb5ccf02947c",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "buggy": "def is_pal(s):\n    return s != s[::+1]",
+   "hidden_tests": [
+    "assert is_pal('oiaxehna') == False",
+    "assert is_pal('sahyxydz') == False",
+    "assert is_pal('f') == True",
+    "assert is_pal('e') == True",
+    "assert is_pal('yynf') == False",
+    "assert is_pal('agtrsjfx') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "bug_kind": "is_pal::bugs2"
+  },
+  {
+   "task_id": "E3-006",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "8854c834028f6792",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(-6,-1,8) == max(-1, min(-6, 8))",
+    "assert clamp(7,-6,5) == max(-6, min(7, 5))",
+    "assert clamp(8,-8,8) == max(-8, min(8, 8))",
+    "assert clamp(1,-10,1) == max(-10, min(1, 1))",
+    "assert clamp(-8,-10,9) == max(-10, min(-8, 9))",
+    "assert clamp(-7,-4,10) == max(-4, min(-7, 10))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-007",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "1e92a3abbe3c0e82",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(35,50) == _m.gcd(35,50)",
+    "import math as _m; assert gcd(29,53) == _m.gcd(29,53)",
+    "import math as _m; assert gcd(11,21) == _m.gcd(11,21)",
+    "import math as _m; assert gcd(37,48) == _m.gcd(37,48)",
+    "import math as _m; assert gcd(27,58) == _m.gcd(27,58)",
+    "import math as _m; assert gcd(30,58) == _m.gcd(30,58)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-009",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "4eb63701e4192926",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(2,11) == (2*11)//_m.gcd(2,11)",
+    "import math as _m; assert lcm(28,5) == (28*5)//_m.gcd(28,5)",
+    "import math as _m; assert lcm(22,4) == (22*4)//_m.gcd(22,4)",
+    "import math as _m; assert lcm(29,14) == (29*14)//_m.gcd(29,14)",
+    "import math as _m; assert lcm(6,28) == (6*28)//_m.gcd(6,28)",
+    "import math as _m; assert lcm(8,28) == (8*28)//_m.gcd(8,28)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-010",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "857d2d8c2c7ca807",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "buggy": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeio')",
+   "hidden_tests": [
+    "assert count_vowels('axdqmcymgd') == 1",
+    "assert count_vowels('htaf') == 1",
+    "assert count_vowels('seto') == 2",
+    "assert count_vowels('tpbqslug') == 1",
+    "assert count_vowels('walnraixqowb') == 4",
+    "assert count_vowels('rfyksexr') == 1"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "bug_kind": "count_vowels::bugs1"
+  },
+  {
+   "task_id": "E3-011",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "9e8e188027a3fae2",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "buggy": "def is_pal(s):\n    return s != s[::+1]",
+   "hidden_tests": [
+    "assert is_pal('hv') == False",
+    "assert is_pal('u') == True",
+    "assert is_pal('fjnghc') == False",
+    "assert is_pal('ukldx') == False",
+    "assert is_pal('idxfc') == False",
+    "assert is_pal('do') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "bug_kind": "is_pal::bugs2"
+  },
+  {
+   "task_id": "E3-012",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "e2ef2006e7d363cf",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(15,-8,5) == max(-8, min(15, 5))",
+    "assert clamp(14,0,6) == max(0, min(14, 6))",
+    "assert clamp(17,-2,8) == max(-2, min(17, 8))",
+    "assert clamp(-4,-2,4) == max(-2, min(-4, 4))",
+    "assert clamp(-16,-1,7) == max(-1, min(-16, 7))",
+    "assert clamp(0,-3,6) == max(-3, min(0, 6))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-013",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "260c58cb68571018",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(57,32) == _m.gcd(57,32)",
+    "import math as _m; assert gcd(51,38) == _m.gcd(51,38)",
+    "import math as _m; assert gcd(50,9) == _m.gcd(50,9)",
+    "import math as _m; assert gcd(59,20) == _m.gcd(59,20)",
+    "import math as _m; assert gcd(37,42) == _m.gcd(37,42)",
+    "import math as _m; assert gcd(27,21) == _m.gcd(27,21)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-015",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "c0717e3c182d178f",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(23,16) == (23*16)//_m.gcd(23,16)",
+    "import math as _m; assert lcm(19,18) == (19*18)//_m.gcd(19,18)",
+    "import math as _m; assert lcm(15,13) == (15*13)//_m.gcd(15,13)",
+    "import math as _m; assert lcm(26,10) == (26*10)//_m.gcd(26,10)",
+    "import math as _m; assert lcm(19,11) == (19*11)//_m.gcd(19,11)",
+    "import math as _m; assert lcm(5,17) == (5*17)//_m.gcd(5,17)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-016",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "1915e90a2f2d7c92",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "buggy": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeio')",
+   "hidden_tests": [
+    "assert count_vowels('fphddluhmwd') == 1",
+    "assert count_vowels('txk') == 0",
+    "assert count_vowels('elcvqyea') == 3",
+    "assert count_vowels('tpvvwgx') == 0",
+    "assert count_vowels('cjrttowtyqrc') == 1",
+    "assert count_vowels('ledty') == 1"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "bug_kind": "count_vowels::bugs1"
+  },
+  {
+   "task_id": "E3-017",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "0dd73dd9808b9ae6",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "buggy": "def is_pal(s):\n    return s != s[::+1]",
+   "hidden_tests": [
+    "assert is_pal('yyuvmcvv') == False",
+    "assert is_pal('w') == True",
+    "assert is_pal('lque') == False",
+    "assert is_pal('arqt') == False",
+    "assert is_pal('f') == True",
+    "assert is_pal('rvfoqrb') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "bug_kind": "is_pal::bugs2"
+  },
+  {
+   "task_id": "E3-018",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "af1e7cbc76af4c2f",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(-1,-8,3) == max(-8, min(-1, 3))",
+    "assert clamp(17,-9,0) == max(-9, min(17, 0))",
+    "assert clamp(-7,-1,0) == max(-1, min(-7, 0))",
+    "assert clamp(-19,0,10) == max(0, min(-19, 10))",
+    "assert clamp(-3,-2,10) == max(-2, min(-3, 10))",
+    "assert clamp(-10,-9,0) == max(-9, min(-10, 0))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-019",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "93e4aeb82d425049",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(48,50) == _m.gcd(48,50)",
+    "import math as _m; assert gcd(59,58) == _m.gcd(59,58)",
+    "import math as _m; assert gcd(34,11) == _m.gcd(34,11)",
+    "import math as _m; assert gcd(59,50) == _m.gcd(59,50)",
+    "import math as _m; assert gcd(47,48) == _m.gcd(47,48)",
+    "import math as _m; assert gcd(22,15) == _m.gcd(22,15)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-021",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "7254daba2873fedb",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(7,15) == (7*15)//_m.gcd(7,15)",
+    "import math as _m; assert lcm(9,21) == (9*21)//_m.gcd(9,21)",
+    "import math as _m; assert lcm(29,8) == (29*8)//_m.gcd(29,8)",
+    "import math as _m; assert lcm(23,3) == (23*3)//_m.gcd(23,3)",
+    "import math as _m; assert lcm(3,7) == (3*7)//_m.gcd(3,7)",
+    "import math as _m; assert lcm(23,21) == (23*21)//_m.gcd(23,21)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-023",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "9b0e884197637919",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "buggy": "def is_pal(s):\n    return s != s[::+1]",
+   "hidden_tests": [
+    "assert is_pal('kxriyu') == False",
+    "assert is_pal('awp') == False",
+    "assert is_pal('gsig') == False",
+    "assert is_pal('ho') == False",
+    "assert is_pal('bswze') == False",
+    "assert is_pal('j') == True"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "bug_kind": "is_pal::bugs2"
+  },
+  {
+   "task_id": "E3-024",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "dd383d28d1be0f90",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(-4,-2,4) == max(-2, min(-4, 4))",
+    "assert clamp(14,-6,8) == max(-6, min(14, 8))",
+    "assert clamp(-12,-7,6) == max(-7, min(-12, 6))",
+    "assert clamp(19,-6,5) == max(-6, min(19, 5))",
+    "assert clamp(-6,-3,8) == max(-3, min(-6, 8))",
+    "assert clamp(-10,-4,3) == max(-4, min(-10, 3))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-025",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "c0ea1df85334bb95",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(2,57) == _m.gcd(2,57)",
+    "import math as _m; assert gcd(47,35) == _m.gcd(47,35)",
+    "import math as _m; assert gcd(14,8) == _m.gcd(14,8)",
+    "import math as _m; assert gcd(25,22) == _m.gcd(25,22)",
+    "import math as _m; assert gcd(15,31) == _m.gcd(15,31)",
+    "import math as _m; assert gcd(39,60) == _m.gcd(39,60)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-027",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "803b56a6d9510716",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(12,16) == (12*16)//_m.gcd(12,16)",
+    "import math as _m; assert lcm(12,13) == (12*13)//_m.gcd(12,13)",
+    "import math as _m; assert lcm(27,1) == (27*1)//_m.gcd(27,1)",
+    "import math as _m; assert lcm(25,17) == (25*17)//_m.gcd(25,17)",
+    "import math as _m; assert lcm(5,23) == (5*23)//_m.gcd(5,23)",
+    "import math as _m; assert lcm(21,3) == (21*3)//_m.gcd(21,3)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-028",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "bbbe7c1e1935c7ec",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "buggy": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeio')",
+   "hidden_tests": [
+    "assert count_vowels('vjwnnznkw') == 0",
+    "assert count_vowels('rxfpxiya') == 2",
+    "assert count_vowels('eebedueiqrfz') == 6",
+    "assert count_vowels('emabmwv') == 2",
+    "assert count_vowels('wuwirxcigtrx') == 3",
+    "assert count_vowels('dplwyzmprwwd') == 0"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "bug_kind": "count_vowels::bugs1"
+  },
+  {
+   "task_id": "E3-030",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "e4084f6cc7ce9385",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(2,-4,10) == max(-4, min(2, 10))",
+    "assert clamp(5,0,2) == max(0, min(5, 2))",
+    "assert clamp(-1,-6,0) == max(-6, min(-1, 0))",
+    "assert clamp(-17,-3,4) == max(-3, min(-17, 4))",
+    "assert clamp(-13,-2,8) == max(-2, min(-13, 8))",
+    "assert clamp(-14,-4,8) == max(-4, min(-14, 8))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-031",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "24128f783994c00f",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(55,20) == _m.gcd(55,20)",
+    "import math as _m; assert gcd(48,1) == _m.gcd(48,1)",
+    "import math as _m; assert gcd(34,42) == _m.gcd(34,42)",
+    "import math as _m; assert gcd(60,14) == _m.gcd(60,14)",
+    "import math as _m; assert gcd(30,34) == _m.gcd(30,34)",
+    "import math as _m; assert gcd(51,9) == _m.gcd(51,9)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-033",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "91b5020f894549d2",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(26,14) == (26*14)//_m.gcd(26,14)",
+    "import math as _m; assert lcm(6,3) == (6*3)//_m.gcd(6,3)",
+    "import math as _m; assert lcm(29,15) == (29*15)//_m.gcd(29,15)",
+    "import math as _m; assert lcm(5,9) == (5*9)//_m.gcd(5,9)",
+    "import math as _m; assert lcm(10,1) == (10*1)//_m.gcd(10,1)",
+    "import math as _m; assert lcm(24,27) == (24*27)//_m.gcd(24,27)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-034",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "001fa8829054cac0",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "buggy": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeio')",
+   "hidden_tests": [
+    "assert count_vowels('jnhkdjxmiwaw') == 2",
+    "assert count_vowels('ffmhv') == 0",
+    "assert count_vowels('godsdb') == 1",
+    "assert count_vowels('lfgug') == 1",
+    "assert count_vowels('yhy') == 0",
+    "assert count_vowels('lsjogfaaigcn') == 4"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "bug_kind": "count_vowels::bugs1"
+  },
+  {
+   "task_id": "E3-036",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "d60d6ec754f1926c",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(lo, max(x, hi))",
+   "hidden_tests": [
+    "assert clamp(-6,-4,6) == max(-4, min(-6, 6))",
+    "assert clamp(15,-5,4) == max(-5, min(15, 4))",
+    "assert clamp(11,-3,8) == max(-3, min(11, 8))",
+    "assert clamp(2,-9,0) == max(-9, min(2, 0))",
+    "assert clamp(-20,-2,9) == max(-2, min(-20, 9))",
+    "assert clamp(-15,0,3) == max(0, min(-15, 3))"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::bugs2"
+  },
+  {
+   "task_id": "E3-037",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "785d2014d45b033f",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (both > 0).",
+   "buggy": "def gcd(a, b):\n    while not b:\n        a, b = b, a // b\n    return a",
+   "hidden_tests": [
+    "import math as _m; assert gcd(26,49) == _m.gcd(26,49)",
+    "import math as _m; assert gcd(51,12) == _m.gcd(51,12)",
+    "import math as _m; assert gcd(13,4) == _m.gcd(13,4)",
+    "import math as _m; assert gcd(29,39) == _m.gcd(29,39)",
+    "import math as _m; assert gcd(37,36) == _m.gcd(37,36)",
+    "import math as _m; assert gcd(4,21) == _m.gcd(4,21)"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::bugs2"
+  },
+  {
+   "task_id": "E3-039",
+   "template_family": "lcm",
+   "is_canary": false,
+   "prompt_hash": "df9620d1569df345",
+   "signature": "def lcm(a, b)",
+   "doc": "Return least common multiple of a,b (>0).",
+   "buggy": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x // y\n        return x\n    return a / g(a, b) * b",
+   "hidden_tests": [
+    "import math as _m; assert lcm(28,5) == (28*5)//_m.gcd(28,5)",
+    "import math as _m; assert lcm(29,29) == (29*29)//_m.gcd(29,29)",
+    "import math as _m; assert lcm(21,18) == (21*18)//_m.gcd(21,18)",
+    "import math as _m; assert lcm(26,18) == (26*18)//_m.gcd(26,18)",
+    "import math as _m; assert lcm(29,1) == (29*1)//_m.gcd(29,1)",
+    "import math as _m; assert lcm(24,6) == (24*6)//_m.gcd(24,6)"
+   ],
+   "reference": "def lcm(a, b):\n    def g(x, y):\n        while y:\n            x, y = y, x % y\n        return x\n    return a // g(a, b) * b",
+   "bug_kind": "lcm::bugs2"
+  },
+  {
+   "task_id": "E3-040",
+   "template_family": "count_vowels",
+   "is_canary": false,
+   "prompt_hash": "e4bbe7d20737d0f9",
+   "signature": "def count_vowels(s)",
+   "doc": "Count vowels (aeiou) in lowercase string s.",
+   "buggy": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeio')",
+   "hidden_tests": [
+    "assert count_vowels('ncqwqqgqoy') == 1",
+    "assert count_vowels('srkbujsz') == 1",
+    "assert count_vowels('tknckute') == 2",
+    "assert count_vowels('jkqqfgeocd') == 2",
+    "assert count_vowels('zijvox') == 2",
+    "assert count_vowels('vbxl') == 0"
+   ],
+   "reference": "def count_vowels(s):\n    return sum(1 for c in s if c in 'aeiou')",
+   "bug_kind": "count_vowels::bugs1"
+  },
+  {
+   "task_id": "E3-041",
+   "template_family": "is_pal",
+   "is_canary": false,
+   "prompt_hash": "ffdf501e462564a5",
+   "signature": "def is_pal(s)",
+   "doc": "Return True if string s is a palindrome.",
+   "buggy": "def is_pal(s):\n    return s != s[::+1]",
+   "hidden_tests": [
+    "assert is_pal('hulmeda') == False",
+    "assert is_pal('cs') == False",
+    "assert is_pal('pmpyltqd') == False",
+    "assert is_pal('i') == True",
+    "assert is_pal('ochtobvb') == False",
+    "assert is_pal('fnnnc') == False"
+   ],
+   "reference": "def is_pal(s):\n    return s == s[::-1]",
+   "bug_kind": "is_pal::bugs2"
+  },
+  {
+   "task_id": "E3-C01",
+   "template_family": "canary",
+   "is_canary": true,
+   "prompt_hash": "b66d032a33a73b35",
+   "signature": "def has_close_elements(numbers, threshold)",
+   "doc": "[public canary] Return True if any two numbers are within threshold.",
+   "buggy": "def has_close_elements(numbers, threshold):\n    return False",
+   "hidden_tests": [
+    "assert has_close_elements([1.0,2.0,3.0],0.5) == False",
+    "assert has_close_elements([1.0,2.8,3.0],0.3) == True",
+    "assert has_close_elements([1.0,2.0,3.0],1.5) == True"
+   ],
+   "reference": "def has_close_elements(numbers, threshold):\n    return any(abs(a-b) < threshold for i,a in enumerate(numbers) for b in numbers[i+1:])",
+   "bug_kind": "canary::buggy"
+  },
+  {
+   "task_id": "E3-C02",
+   "template_family": "canary",
+   "is_canary": true,
+   "prompt_hash": "c489cf0b293a07ee",
+   "signature": "def separate_paren_groups(s)",
+   "doc": "[public canary] Return list of balanced parenthesized groups.",
+   "buggy": "def separate_paren_groups(s):\n    return [s]",
+   "hidden_tests": [
+    "assert separate_paren_groups('(()()) ((())) ()') == ['(()())','((()))','()']",
+    "assert separate_paren_groups('()') == ['()']"
+   ],
+   "reference": "def separate_paren_groups(s):\n    out=[];depth=0;cur=''\n    for c in s:\n        cur+=c\n        if c=='(':depth+=1\n        elif c==')':depth-=1\n        if depth==0 and cur.strip():\n            out.append(cur.strip());cur=''\n    return out",
+   "bug_kind": "canary::buggy"
+  }
+ ]
+}

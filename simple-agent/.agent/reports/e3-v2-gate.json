@@ -1,0 +1,7 @@
+{
+ "note": "P5a.50 v2 装配门（坏模块 FAIL ∧ 参考解 PASS）",
+ "admitted": 33,
+ "rejected": 9,
+ "self": 31,
+ "canary": 2
+}
