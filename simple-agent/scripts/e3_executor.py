@@ -38,6 +38,14 @@ def build_prompt_v2(task):
             "# 只输出修正后的函数定义（完整函数），不要解释、不要 markdown 围栏。")
 
 
+def build_prompt_v3(task):
+    """P5a.52 v3：给真实模块的变异态 + 可见测试，要求输出修好的完整模块。"""
+    vis = "\n".join(task.get("visible") or task["hidden_tests"][:2])
+    return ("# 下面这个 Python 模块有 bug（它原本通过下列测试）。请修复它。\n"
+            "# 可见测试（当前通过）：\n" + vis + "\n# 模块源码：\n" + task["buggy"] + "\n"
+            "# 只输出修正后的完整模块源码，不要解释、不要 markdown 围栏。")
+
+
 def run_task(task, solution_code, timeout=3.0):
     """返回 {verdict, failure_class, stderr_tail}。verdict=1 PASS / 0 FAIL。"""
     prog = solution_code + "\n\n" + "\n".join(task["hidden_tests"]) + "\nprint('__OK__')\n"
@@ -135,16 +143,39 @@ def smoke_v2():
     return 0 if all_ok else 1
 
 
+def smoke_v3():
+    tasks = json.load(open(os.path.join(R, "e3-pilot-tasks-v3.json")))["tasks"]
+    fams = {}
+    for t in tasks:
+        fams.setdefault(t["template_family"], t)
+    results = []
+    for t in list(fams.values()):
+        ref = run_task(t, t["reference"])
+        bug = run_task(t, t["buggy"])
+        results.append({"task": t["task_id"], "family": t["template_family"],
+                        "ref": ref["failure_class"], "bug": bug["failure_class"],
+                        "ok": ref["verdict"] == 1 and bug["verdict"] == 0})
+    all_ok = all(r["ok"] for r in results)
+    out = {"note": "E3 v3 冒烟（变异态原样→FAIL；参考态→PASS；零模型 token）",
+           "n": len(results), "all_pass": all_ok, "results": results}
+    json.dump(out, open(os.path.join(R, "e3-executor-smoke-v3.json"), "w"), ensure_ascii=False, indent=1)
+    print(json.dumps(out, ensure_ascii=False, indent=1))
+    return 0 if all_ok else 1
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--smoke-v2", action="store_true")
+    ap.add_argument("--smoke-v3", action="store_true")
     args = ap.parse_args()
     if args.smoke:
         return smoke()
     if args.smoke_v2:
         return smoke_v2()
-    print("usage: --smoke | --smoke-v2")
+    if args.smoke_v3:
+        return smoke_v3()
+    print("usage: --smoke | --smoke-v2 | --smoke-v3")
     return 2
 
 

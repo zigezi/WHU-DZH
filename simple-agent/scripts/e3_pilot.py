@@ -15,7 +15,7 @@ BACKEND = os.path.join(ROOT, "backend")
 R = os.path.join(ROOT, ".agent", "reports")
 sys.path.insert(0, BACKEND)
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
-from e3_executor import build_prompt, build_prompt_v2, run_task  # noqa: E402
+from e3_executor import build_prompt, build_prompt_v2, build_prompt_v3, run_task  # noqa: E402
 
 _env = {}
 with open(os.path.join(BACKEND, ".env"), encoding="utf-8") as f:
@@ -50,8 +50,9 @@ def agent_fn(prompt, task):
     return extract_code(r.choices[0].message.content), toks
 
 
-def run_stage(stage, n_self, n_canary, v2=False):
-    fname = "e3-pilot-tasks-v2.json" if v2 else "e3-pilot-tasks.json"
+def run_stage(stage, n_self, n_canary, v2=False, v3=False):
+    fname = ("e3-pilot-tasks-v3.json" if v3 else
+             "e3-pilot-tasks-v2.json" if v2 else "e3-pilot-tasks.json")
     tasks = json.load(open(os.path.join(R, fname)))["tasks"]
     self_t = [t for t in tasks if not t["is_canary"]]
     can_t = [t for t in tasks if t["is_canary"]]
@@ -59,7 +60,8 @@ def run_stage(stage, n_self, n_canary, v2=False):
     rows = []
     tokens = 0
     for t in sel:
-        code, tk = agent_fn(build_prompt_v2(t) if v2 else build_prompt(t), t)
+        prompt = (build_prompt_v3(t) if v3 else build_prompt_v2(t) if v2 else build_prompt(t))
+        code, tk = agent_fn(prompt, t)
         tokens += tk
         res = run_task(t, code)
         rows.append({"task_id": t["task_id"], "family": t["template_family"],
@@ -74,7 +76,8 @@ def run_stage(stage, n_self, n_canary, v2=False):
            "canary_n": len(canary),
            "canary_fail": sum(1 for r in canary if not r["verdict"]),
            "rows": rows}
-    json.dump(out, open(os.path.join(R, f"e3-pilot-stage{stage}{'-v2' if v2 else ''}.json"), "w"),
+    suffix = "-v3" if v3 else "-v2" if v2 else ""
+    json.dump(out, open(os.path.join(R, f"e3-pilot-stage{stage}{suffix}.json"), "w"),
               ensure_ascii=False, indent=1)
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, ensure_ascii=False, indent=1))
     return 0
@@ -84,10 +87,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", type=int, default=1)
     ap.add_argument("--v2", action="store_true")
+    ap.add_argument("--v3", action="store_true")
     args = ap.parse_args()
+    if args.v3:
+        return run_stage(1, n_self=10, n_canary=0, v3=True)
     if args.stage == 1:
-        return run_stage(1, n_self=8, n_canary=2, v2=args.v2)   # 10 题，含 2 金丝雀
-    return run_stage(2, n_self=30, n_canary=0, v2=args.v2)      # 阶段二（待 checkpoint 后开）
+        return run_stage(1, n_self=8, n_canary=2, v2=args.v2)
+    return run_stage(2, n_self=30, n_canary=0, v2=args.v2)
 
 
 if __name__ == "__main__":

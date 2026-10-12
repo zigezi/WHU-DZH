@@ -1,0 +1,56 @@
+{
+ "note": "E3 v3 冒烟（变异态原样→FAIL；参考态→PASS；零模型 token）",
+ "n": 7,
+ "all_pass": true,
+ "results": [
+  {
+   "task": "E3V3-precedent_select-0",
+   "family": "precedent_select",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3V3-repeat_guard-0",
+   "family": "repeat_guard",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3V3-count_guard-0",
+   "family": "count_guard",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3V3-interceptor-0",
+   "family": "interceptor",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3V3-payment_guard-0",
+   "family": "payment_guard",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3V3-exchange_guard-0",
+   "family": "exchange_guard",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3V3-diff-0",
+   "family": "diff",
+   "ref": "pass",
+   "bug": "runtime_exception",
+   "ok": true
+  }
+ ]
+}
