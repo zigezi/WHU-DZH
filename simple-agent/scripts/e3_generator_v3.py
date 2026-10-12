@@ -101,7 +101,28 @@ def mutate(src):
                 yield f"op:{a}->{b}", m
 
 
+def compose_pairs(src):
+    """难度旋钮（bugs>=2）：从不同起点叠加 2 个变异算子 → 多个 2-bug 坏模块。"""
+    tf = MUT_TRANSFORMS
+    for i in range(len(tf)):
+        out, applied, kinds = src, 0, []
+        for a, b in tf[i:]:
+            if applied >= 2:
+                break
+            if a in out and a not in b:
+                m = out.replace(a, b, 1)
+                if m != out:
+                    out, applied = m, applied + 1
+                    kinds.append(f"{a}->{b}")
+        if applied == 2:
+            yield "+".join(kinds), out
+
+
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--bugs", type=int, default=1)
+    _a = ap.parse_args()
     tasks, rejected, mutants = [], 0, {}
     per_module = 8          # 每模块最多 8 个变异任务（凑 ≥30 题普查）
     for fam, rel in MODULES.items():
@@ -115,11 +136,14 @@ def main():
             rejected += 1
             continue
         cnt = 0
-        for kind, m in mutate(src):
+        candidates = list(compose_pairs(src)) if _a.bugs >= 2 else list(mutate(src))
+        for kind, m in candidates:
             if not run_ok(m, tests):         # 变异态杀 ≥1 测试
+                # 静默配置（a53 §三）：可见 = 变异态**当前已通过**的测试（happy），边界入暗袋
+                visible = [t for t in tests if run_ok(m, [t])]
                 tasks.append({"task_id": f"E3V3-{fam}-{cnt}", "template_family": fam,
                               "is_canary": False, "buggy": m, "reference": src,
-                              "hidden_tests": tests, "visible": tests[:2],
+                              "hidden_tests": tests, "visible": visible,
                               "bug_kind": kind, "module": rel})
                 mutants.setdefault(fam, []).append(kind)
                 cnt += 1

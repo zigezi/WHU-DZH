@@ -1,0 +1,25 @@
+{
+ "note": "多步执行器冒烟（桩，零 token）",
+ "checks": {
+  "good_pass": true,
+  "lazy_premature_done": true,
+  "loop_detected": true
+ },
+ "good": {
+  "v": 1,
+  "pd": []
+ },
+ "lazy": {
+  "v": 0,
+  "pd": [
+   "premature_done"
+  ]
+ },
+ "loop": {
+  "v": 0,
+  "pd": [
+   "test_loop"
+  ]
+ },
+ "all_pass": true
+}
