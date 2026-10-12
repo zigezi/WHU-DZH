@@ -90,7 +90,9 @@ def main():
     ap.add_argument("--v3", action="store_true")
     args = ap.parse_args()
     if args.v3:
-        return run_stage(1, n_self=10, n_canary=0, v3=True)
+        if args.stage == 1:
+            return run_stage(1, n_self=10, n_canary=0, v3=True)
+        return run_stage(2, n_self=30, n_canary=0, v3=True)
     if args.stage == 1:
         return run_stage(1, n_self=8, n_canary=2, v2=args.v2)
     return run_stage(2, n_self=30, n_canary=0, v2=args.v2)

@@ -103,7 +103,7 @@ def mutate(src):
 
 def main():
     tasks, rejected, mutants = [], 0, {}
-    per_module = 2          # 每模块最多 2 个变异任务（凑 10 题）
+    per_module = 8          # 每模块最多 8 个变异任务（凑 ≥30 题普查）
     for fam, rel in MODULES.items():
         path = os.path.join(ROOT, rel)
         if not os.path.exists(path):
