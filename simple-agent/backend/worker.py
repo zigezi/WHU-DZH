@@ -226,7 +226,8 @@ def _e8_load():
             print(f"[e8] matrix load failed: {e}")
         try:
             with open(dp, encoding="utf-8") as f:
-                _E8_DEID = json.load(f)
+                raw = json.load(f)          # {orig_hash: {deid_hash, deid_plan}}
+            _E8_DEID = {v["deid_hash"]: v for v in raw.values()}
         except Exception as e:  # noqa: BLE001
             _E8_DEID = {}
             print(f"[e8] deid load failed: {e}")

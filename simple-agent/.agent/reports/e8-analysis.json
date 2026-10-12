@@ -1,0 +1,50 @@
+{
+ "note": "P5a.43 e8 判读；不做跨 epoch 对比",
+ "n": 135,
+ "arms": {
+  "direct": {
+   "pass": "36/46",
+   "rate": 78.3
+  },
+  "sibling": {
+   "pass": "32/45",
+   "rate": 71.1
+  },
+  "unrelated": {
+   "pass": "33/44",
+   "rate": 75.0
+  }
+ },
+ "delta2_sibling_minus_unrelated_pp": -3.9,
+ "delta2_cluster_bootstrap_95CI": [
+  -22.1,
+  12.9
+ ],
+ "delta2_p_le0": 0.662,
+ "delta2_win": false,
+ "delta1_sibling_minus_direct_pp": -7.1,
+ "delta3_unrelated_minus_direct_pp": -3.3,
+ "placebo_band_ref_pp": [
+  2.6,
+  11.5
+ ],
+ "skeleton_decomposition": {
+  "state_change_end": {
+   "sibling": "18/25",
+   "unrelated": "19/26",
+   "delta_pp": -1.1
+  },
+  "transfer_end": {
+   "sibling": "9/13",
+   "unrelated": "10/13",
+   "delta_pp": -7.7
+  },
+  "query_end": {
+   "sibling": "4/5",
+   "unrelated": "4/5",
+   "delta_pp": 0.0
+  }
+ },
+ "families": 13,
+ "itt_note": "136 行按所分臂全量分析（ineligible 2 例 sibling 留在分母）"
+}

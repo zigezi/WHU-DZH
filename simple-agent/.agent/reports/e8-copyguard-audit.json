@@ -1,0 +1,5 @@
+{
+ "note": "CopyGuard e8 审计（watch=原始注入值；脱敏后预期 0）",
+ "with_hits": 0,
+ "rows": []
+}
