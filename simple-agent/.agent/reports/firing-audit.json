@@ -1,0 +1,72 @@
+{
+ "note": "P5a.55 追溯点火审计（静态回放 e1–e8）",
+ "runs": 962,
+ "assets": {
+  "lock_order_v1": {
+   "fired_on_fail": 45,
+   "misfire_on_pass": 118,
+   "rescue": 6,
+   "miss": 0,
+   "coverage": 1.0,
+   "misfire_zero": false
+  },
+  "repeat_failure_v1": {
+   "fired_on_fail": 0,
+   "misfire_on_pass": 0,
+   "rescue": 0,
+   "miss": 10,
+   "coverage": 0.0,
+   "misfire_zero": true
+  },
+  "items_count_match_v1": {
+   "fired_on_fail": 1,
+   "misfire_on_pass": 0,
+   "rescue": 1,
+   "miss": 0,
+   "coverage": 1.0,
+   "misfire_zero": true
+  },
+  "non_delivered_exchange_v1": {
+   "fired_on_fail": 1,
+   "misfire_on_pass": 0,
+   "rescue": 1,
+   "miss": 1,
+   "coverage": 0.5,
+   "misfire_zero": true
+  },
+  "payment_amount_sum_v1": {
+   "fired_on_fail": 0,
+   "misfire_on_pass": 0,
+   "rescue": 0,
+   "miss": 4,
+   "coverage": 0.0,
+   "misfire_zero": true
+  },
+  "certificate_update_v1": {
+   "fired_on_fail": 1,
+   "misfire_on_pass": 1,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "misfire_zero": false
+  },
+  "flight_availability_v1": {
+   "fired_on_fail": 0,
+   "misfire_on_pass": 0,
+   "rescue": 0,
+   "miss": 8,
+   "coverage": 0.0,
+   "misfire_zero": true
+  },
+  "gift_card_balance_v1": {
+   "fired_on_fail": 0,
+   "misfire_on_pass": 0,
+   "rescue": 0,
+   "miss": 3,
+   "coverage": 0.0,
+   "misfire_zero": true
+  }
+ },
+ "total_rescue": 8,
+ "all_misfire_zero": false
+}
