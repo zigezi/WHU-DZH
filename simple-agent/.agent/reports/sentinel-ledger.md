@@ -17,4 +17,10 @@
 ## 汇总
 - 在役 7；field_validated 6；live_confirmed True: lock_order_v1, flight_availability_enforce_v1, gift_card_balance_enforce_v1
 - superseded 3；revoked 1
-- 哨兵静默可解性：接线电池全绿后，静默=未发生，非失能。
+
+---
+## 常设规则（模板页脚，随生成保留）
+- **哨兵静默可解性**：接线金丝雀电池全绿后，哨兵不点火的唯一解释是「该模式未发生」，不再是「可能没接线」。
+- **50-run 检查点**：累计 50 个哨兵在岗 run 后盘点；届时仍 `live_confirmed=False` 者，二选一呈裁——靶向小批（≤0.3M tokens）或降级休眠（`dormant`：保留注册、退出在岗）。持续静默本身是信息，不许烂尾。
+- **出生要件**：可观测性证明 + `naming_proof`（名称匹配守卫须经真实 `execute_tool`、生产命名点火证明）+ 金丝雀电池 + C-1 + 影子模式，一要件不免。
+- **治理缺陷类记录**：生成器不得吞掉人工立法注记——立法文本进生成模板的常设页脚，不进数据行（P5a.67 立案）。
