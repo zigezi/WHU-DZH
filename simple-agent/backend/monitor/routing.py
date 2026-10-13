@@ -16,7 +16,9 @@ MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-chat")
 
 
 def env_fingerprint() -> str:
-    return MODEL_NAME
+    # P5a.66 B-1：真实指纹 = 响应模型|system_fingerprint（观测自响应），回退别名
+    from . import env_state
+    return env_state.fingerprint(MODEL_NAME)
 
 
 class Router:

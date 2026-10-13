@@ -21,7 +21,7 @@ from monitor import precedent_select
 from monitor import interceptor as lockguard
 from monitor import repeat_guard
 from monitor import (count_guard, exchange_guard, payment_guard, certificate_guard,
-                     availability_guard, giftcard_guard)
+                     availability_guard, giftcard_guard, env_state)
 from requirements import loader
 import signature
 import planner
@@ -515,9 +515,12 @@ def run_task(req: TaskRequest, plan_node_id: str = None) -> TaskStatus:
                         tools=active_registry.get_schemas(),
                         tool_choice="auto",
                     )
+                    env_state.observe(resp)  # P5a.66 B-1：记录真实响应模型 + system_fingerprint
                     usage = resp.usage
                     llm_span.set_attributes({
                         "model": MODEL_NAME,
+                        "response_model": getattr(resp, "model", None),
+                        "system_fingerprint": getattr(resp, "system_fingerprint", None),
                         "prompt_tokens": usage.prompt_tokens,
                         "completion_tokens": usage.completion_tokens,
                         "total_tokens": usage.total_tokens,

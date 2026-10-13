@@ -1,4 +1,4 @@
-# τ 哨兵台账 v3（P5a.61；增 live_confirmed 列，与 assets.json 对齐）
+# τ 哨兵台账（自动生成；源 assets.json + firing-audit.json）
 
 | 资产 | 状态 | 信用 | live_confirmed | 死因 | 型 | 救场 | 覆盖 | 税 |
 |---|---|---|---|---|---|---|---|---|
@@ -15,7 +15,6 @@
 | `certificate_update_v1` | revoked | T1_candidate | — | certificate_update | - | - | - | - |
 
 ## 汇总
-- 在役 7；field_validated 6
-- live_confirmed True：lock_order_v1 / flight_availability_enforce_v1 / gift_card_balance_enforce_v1
-- live_confirmed False（本批未触发，非失能）：items_count_match_v1 / non_delivered_exchange_v1 / payment_amount_sum_enforce_v1
-- 哨兵静默可解性立法：接线电池全绿后，静默=未发生，非失能；累计 50 哨兵 run 后盘点。
+- 在役 7；field_validated 6；live_confirmed True: lock_order_v1, flight_availability_enforce_v1, gift_card_balance_enforce_v1
+- superseded 3；revoked 1
+- 哨兵静默可解性：接线电池全绿后，静默=未发生，非失能。
