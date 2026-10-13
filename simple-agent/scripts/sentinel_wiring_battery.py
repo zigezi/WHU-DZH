@@ -84,6 +84,9 @@ def main():
                           {"order_id": "#W1"}, False,
                           setup=lambda: interceptor.interceptor.after(
                               "modify_pending_order_address", {"order_id": "#W1"}, True)))
+    # P5a.61 §六.1：无前缀目标工具（裸名）→ 应 veto（双向稳健性）
+    cases.append(run_case("bare_target_tool_veto", "modify_pending_order_items",
+                          {"order_id": "#W1"}, True))
     n = len(cases); passed = sum(1 for c in cases if c["pass"])
     out = {"note": "P5a.59 四：哨兵接线金丝雀（真实 execute_tool + tau__ 生产命名）",
            "n": n, "passed": passed, "all_pass": passed == n, "cases": cases}

@@ -88,6 +88,16 @@ def main():
            "passed": sum(1 for r in rows if r["verdict"] == "PASS"),
            "fire_table": by, "lock_batch": [{"req": r["req_id"], "verdict": r["verdict"], "fires": r["fires"]} for r in lock_batch],
            "rows": rows}
+    # P5a.61 §三.2 立法：批次结束时 ring_mine 自动消化本批全部 FAIL 尸体
+    try:
+        import subprocess
+        subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "organ_ingest_corpses.py")],
+                       cwd=ROOT, capture_output=True, text=True, timeout=120)
+        cj = os.path.join(R, "organ-corpse-triage.json")
+        if os.path.exists(cj):
+            out["corpse_triage"] = json.load(open(cj))
+    except Exception as e:  # noqa: BLE001
+        out["corpse_triage_error"] = repr(e)[:120]
     json.dump(out, open(os.path.join(R, "organ-stage2.json"), "w"), ensure_ascii=False, indent=1)
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, ensure_ascii=False, indent=1))
     return 0
