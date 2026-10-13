@@ -139,6 +139,14 @@ class TraceStore:
                     created_at TEXT
                 )
             """)
+            # P5a.62 §四：代码域尸体库（opencode 代码操作日志 → 死亡事件）
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS code_corpses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ts TEXT, op TEXT, command TEXT, exit_code INTEGER,
+                    error TEXT, death_class TEXT
+                )
+            """)
             # 兼容旧库：补充 result / error / code_version 列
             self._ensure_column("traces", "result", "TEXT")
             self._ensure_column("traces", "error", "TEXT")

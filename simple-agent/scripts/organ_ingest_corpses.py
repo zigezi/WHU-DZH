@@ -58,10 +58,20 @@ def main():
         disp = pipe.classify_disposition(p)
         rows.append({"req_id": t["req_id"], "at": t["created_at"][11:19],
                      "death": p["pattern_id"], "kind": p["kind"], "disposition": disp})
+    # P5a.62 §一 微修：deploy 拆分 deploy_new / covered_by_existing
+    COVER = ["non-pending order cannot", "not enough seats", "gift card balance",
+             "not enough balance", "certificate cannot be used", "non-delivered order",
+             "payment amount does not add up", "number of items"]
+    for r in rows:
+        blob = (r["death"] + " " + r["kind"]).lower()
+        r["covered_by_existing"] = (r["kind"] in ("order_lock", "repeat_failure")) or \
+            any(s in blob for s in COVER)
     cnt = Counter(r["disposition"] for r in rows)
-    out = {"note": "P5a.61 器官消化本批 FAIL 尸体（ring_mine→ring_triage）；处置=分诊单",
+    dn = sum(1 for r in rows if r["disposition"] == "deploy" and not r["covered_by_existing"])
+    cov = sum(1 for r in rows if r["covered_by_existing"])
+    out = {"note": "P5a.61/62 器官消化本批 FAIL 尸体（ring_mine→ring_triage）；deploy 已拆分",
            "corpses": len(rows), "disposition_counts": dict(cnt),
-           "candidates_new": sum(1 for r in rows if r["disposition"] == "deploy"),
+           "covered_by_existing": cov, "deploy_new": dn,
            "rows": rows}
     json.dump(out, open(os.path.join(R, "organ-corpse-triage.json"), "w"), ensure_ascii=False, indent=1)
     print(json.dumps({k: v for k, v in out.items() if k != "rows"}, ensure_ascii=False, indent=1))
