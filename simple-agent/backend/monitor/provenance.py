@@ -13,7 +13,10 @@ FILE = os.path.join(ROOT, ".agent", "reports", "assets.json")
 
 CREDIT_LEVELS = ("T1_candidate", "field_validated", "T1", "T2", "T3")
 SCHEMA_VERSION = "b3-v3"
-STATUSES = ("active", "dormant", "pending_revalidation", "revoked", "superseded", "ineligible")
+STATUSES = ("active", "shadow", "dormant", "pending_revalidation", "revoked",
+            "superseded", "ineligible")
+# P5a.58 §二：影子期毕业条件（累计 ≥10 次影子点火 ∧ 零影子误伤）
+SHADOW_GRADUATION = {"min_firings": 10, "max_misfires": 0}
 # B-3 溯源层 schema（P5a.30 B-3 / P5a.54）：资产的最小必填字段
 REQUIRED_FIELDS = ("asset_id", "type", "validated_domain", "credit_level", "status", "evidence")
 ASSET_TYPES = ("interceptor_rule", "prompt_patch", "threshold_patch", "precedent_update")
@@ -81,6 +84,35 @@ def set_credit(asset_id: str, level: str, evidence: str) -> dict:
                  "evidence": evidence, "result": "credit_raised", "level": level})
     _save(d)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
+
+
+def shadow_event(asset_id: str, run_verdict: str) -> dict:
+    """P5a.58 §二：影子点火记账 + 自动毕业/降级。
+    run_verdict=FAIL → shadow_firings+1（本会拦下的潜在救场）；=PASS → shadow_misfires+1（误伤）。
+    毕业：firings≥10 ∧ misfires=0 → status=active；任一 misfire>0 → status=pending_revalidation（回炉）。"""
+    d = _load()
+    a = next((x for x in d["assets"] if x.get("asset_id") == asset_id), None)
+    if a is None:
+        return None
+    if (run_verdict or "").upper() == "FAIL":
+        a["shadow_firings"] = a.get("shadow_firings", 0) + 1
+    else:
+        a["shadow_misfires"] = a.get("shadow_misfires", 0) + 1
+    if a.get("status") == "shadow":
+        if a.get("shadow_misfires", 0) > SHADOW_GRADUATION["max_misfires"]:
+            a["status"] = "pending_revalidation"
+            a["shadow_note"] = "misfire>0 → 回炉"
+            a.setdefault("revalidation_log", []).append(
+                {"at": datetime.now().isoformat(timespec="seconds"),
+                 "evidence": "shadow misfire", "result": "demote_shadow"})
+        elif a.get("shadow_firings", 0) >= SHADOW_GRADUATION["min_firings"]:
+            a["status"] = "active"
+            a.setdefault("revalidation_log", []).append(
+                {"at": datetime.now().isoformat(timespec="seconds"),
+                 "evidence": f"shadow graduated: firings={a['shadow_firings']}, misfires=0",
+                 "result": "promote_shadow"})
+    _save(d)
+    return a
 
 
 def patch_asset(asset_id: str, **fields) -> dict:
