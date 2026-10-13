@@ -55,14 +55,36 @@ class Pipeline:
         """环1 开采（触发化）：批次落盘即跑（MVP 委托 p5a36 逻辑）。"""
         return {"ring": "mine", "epoch": epoch, "note": "见 scripts/p5a36_failure_mine.py"}
 
+    # 死因 → 处置（确定性规则；校准用）
+    #  reject   = 非过程陷阱（数据/能力/实现 bug）→ 拦截器拦不出
+    #  deploy   = 可拦截 ∧ 直接可观测
+    #  decompose= 可拦截但需先验观测（改写为前置强制型）→ 允许与人工分歧
+    REJECT_SIG = ("user not found", "invoke()")
+    DECOMPOSE_SIG = ("not enough seats", "gift card balance",
+                     "not enough balance", "certificate cannot be used")
+
+    def classify_disposition(self, pattern: dict) -> str:
+        kind = pattern.get("kind")
+        if kind in ("order_lock", "repeat_failure"):
+            return "deploy"
+        sig = (pattern.get("pattern_id") or "") + " " + " ".join(pattern.get("examples", []))
+        low = sig.lower()
+        if any(s in low for s in self.REJECT_SIG):
+            return "reject"
+        if any(s in low for s in self.DECOMPOSE_SIG):
+            return "decompose"
+        if kind == "tool_error":
+            return "deploy"
+        return "decompose"
+
     def ring_triage(self, patterns: List[dict]) -> List[dict]:
-        """环2 分诊（全机检）：可观测性 / 死因归类 / 可拦截性。"""
+        """环2 分诊（全机检）：死因归类 + 可拦截性 + 处置。"""
         out = []
         for p in patterns:
-            kind = p.get("kind")
-            interceptable = kind in ("order_lock", "repeat_failure")
-            out.append({**p, "interceptable": interceptable,
-                        "observable": kind in ("order_lock", "repeat_failure")})
+            disp = self.classify_disposition(p)
+            out.append({**p, "disposition": disp,
+                        "interceptable": disp in ("deploy", "decompose"),
+                        "observable": disp == "deploy"})
         return out
 
     def ring_draft(self, corpse_cluster: dict, llm=None) -> dict:

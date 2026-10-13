@@ -1,0 +1,224 @@
+{
+ "note": "P5a.59 阶段二 活体验证批（7 哨兵在岗，无 A/B）",
+ "n": 18,
+ "tokens": 1854737,
+ "passed": 6,
+ "fire_table": {
+  "lock_order_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "repeat_failure_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "items_count_match_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "non_delivered_exchange_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "flight_availability_enforce_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "payment_amount_sum_enforce_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "gift_card_balance_enforce_v1": {
+   "fires": 5,
+   "on_pass": 0,
+   "on_fail": 5
+  }
+ },
+ "lock_batch": [
+  {
+   "req": "TAU-R-041",
+   "verdict": "FAIL",
+   "fires": []
+  },
+  {
+   "req": "TAU-R-072",
+   "verdict": "FAIL",
+   "fires": []
+  },
+  {
+   "req": "TAU-R-098",
+   "verdict": "FAIL",
+   "fires": []
+  },
+  {
+   "req": "TAU-R-105",
+   "verdict": "FAIL",
+   "fires": []
+  },
+  {
+   "req": "TAU-R-058",
+   "verdict": "PASS",
+   "fires": []
+  }
+ ],
+ "rows": [
+  {
+   "req_id": "TAU-R-041",
+   "task_id": "fd219c3e-dfe1-49be-92aa-30ad73676be4",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 82661
+  },
+  {
+   "req_id": "TAU-R-072",
+   "task_id": "274cd175-dc67-4562-aee2-89b55bc35924",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 69349
+  },
+  {
+   "req_id": "TAU-R-098",
+   "task_id": "702402a5-f35f-4a53-a54f-32703775c545",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 82494
+  },
+  {
+   "req_id": "TAU-R-105",
+   "task_id": "574597e1-4260-49b7-bcfc-0a4f7b0fa743",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 161867
+  },
+  {
+   "req_id": "TAU-R-058",
+   "task_id": "afb4fc76-154e-4865-bf4f-9e8346fd4c1d",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 85511
+  },
+  {
+   "req_id": "TAU-A-009",
+   "task_id": "0ac8d93f-ae29-4ec5-9dac-575aa364c53b",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [
+    "gift_card_balance_enforce_v1",
+    "gift_card_balance_enforce_v1"
+   ],
+   "tokens": 180707
+  },
+  {
+   "req_id": "TAU-A-000",
+   "task_id": "6fc22ada-3e11-4363-b4d3-4bd8191474e2",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 65855
+  },
+  {
+   "req_id": "TAU-A-008",
+   "task_id": "103b0f84-9e42-4000-9e0b-bd3603c9732e",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [
+    "gift_card_balance_enforce_v1",
+    "gift_card_balance_enforce_v1"
+   ],
+   "tokens": 167166
+  },
+  {
+   "req_id": "TAU-R-019",
+   "task_id": "0a9295f8-335f-4153-992e-fbcd11cc0f8d",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 82046
+  },
+  {
+   "req_id": "TAU-R-074",
+   "task_id": "f9346a6b-b081-4d8d-b12e-ef3d6eb6171c",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 110261
+  },
+  {
+   "req_id": "TAU-R-002",
+   "task_id": "0c461d71-4dd1-410d-af59-3e004c342ce4",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 75953
+  },
+  {
+   "req_id": "TAU-A-002",
+   "task_id": "6375cb35-8af0-4109-b553-5cae3e3a72ec",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 76516
+  },
+  {
+   "req_id": "TAU-A-015",
+   "task_id": "c77c577b-46b9-4a4a-a215-fb63a3a0ab2a",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 68695
+  },
+  {
+   "req_id": "TAU-A-003",
+   "task_id": "b850e08e-8364-4fa2-8e7e-2baa8cb67907",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 98695
+  },
+  {
+   "req_id": "TAU-A-033",
+   "task_id": "7e225a72-ec55-48d9-9635-8ac6a6797e64",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 163805
+  },
+  {
+   "req_id": "TAU-A-023",
+   "task_id": "9c740dee-9752-49d0-ac97-311ac9c6b1ab",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 134739
+  },
+  {
+   "req_id": "TAU-A-022",
+   "task_id": "61131601-de47-4eff-8c71-f9f0d3f346c4",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [
+    "gift_card_balance_enforce_v1"
+   ],
+   "tokens": 72517
+  },
+  {
+   "req_id": "TAU-A-007",
+   "task_id": "cfb856ae-79c3-4d47-a3bd-f13500b4964a",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 75900
+  }
+ ]
+}

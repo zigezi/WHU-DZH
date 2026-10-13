@@ -264,24 +264,26 @@ def _inject_frozen(req: TaskRequest, trace_id: str, messages: list, parent_span_
 def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                  plan_node_id: str = None, registry=None) -> ToolResult:
     """统一工具执行入口：E 层埋点由 ToolRegistry 负责。"""
+    # τ 工具名带 `tau__` 前缀；拦截器按无前缀名匹配 → 统一归一（接线修复，P5a.59 阶段二发现）
+    gname = tool_name[len("tau__"):] if tool_name.startswith("tau__") else tool_name
     # e9 部署资产：锁序拦截器 + 重复失败拦截器（否决式；env 开关）
     guarded = os.environ.get("SA_LOCK_INTERCEPTOR") == "1"
     rg = os.environ.get("SA_REPEAT_GUARD") == "1"
     if guarded:
-        veto, synth = lockguard.interceptor.before(tool_name, args)
+        veto, synth = lockguard.interceptor.before(gname, args)
         if veto:
             add_event(trace_id=trace_id, name="锁序拦截", layer="G",
                       span_type="interceptor_fire", parent_span_id=parent_span_id,
-                      attributes={"tool": tool_name,
+                      attributes={"tool": gname,
                                   "order_id": (args or {}).get("order_id"),
                                   "rule": "lock_order_v1"})
             return ToolResult(success=False, output=synth, error="")
     if rg:
-        veto, synth = repeat_guard.guard.before(tool_name, args)
+        veto, synth = repeat_guard.guard.before(gname, args)
         if veto:
             add_event(trace_id=trace_id, name="重复失败拦截", layer="G",
                       span_type="interceptor_fire", parent_span_id=parent_span_id,
-                      attributes={"tool": tool_name, "rule": "repeat_failure_v1"})
+                      attributes={"tool": gname, "rule": "repeat_failure_v1"})
             return ToolResult(success=False, output=synth, error="")
     for flag, g, rule in (("SA_COUNT_GUARD", count_guard.guard, "items_count_match_v1"),
                           ("SA_EXCHANGE_GUARD", exchange_guard.guard, "non_delivered_exchange_v1"),
@@ -293,11 +295,11 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
                           ("SA_PAYMENT_ENFORCE_GUARD", payment_guard.guard_enforce, "payment_amount_sum_enforce_v1"),
                           ("SA_GIFTCARD_ENFORCE_GUARD", giftcard_guard.guard_enforce, "gift_card_balance_enforce_v1")):
         if os.environ.get(flag) == "1":
-            veto, synth = g.before(tool_name, args)
+            veto, synth = g.before(gname, args)
             if veto:
                 add_event(trace_id=trace_id, name="资产拦截", layer="G",
                           span_type="interceptor_fire", parent_span_id=parent_span_id,
-                          attributes={"tool": tool_name, "rule": rule})
+                          attributes={"tool": gname, "rule": rule})
                 return ToolResult(success=False, output=synth, error="")
     reg = registry or tool_registry
     res = reg.execute(ToolCall(
@@ -308,23 +310,23 @@ def execute_tool(trace_id: str, parent_span_id: str, tool_name: str, args: dict,
         plan_node_id=plan_node_id,
     ))
     if guarded:
-        lockguard.interceptor.after(tool_name, args, res.success)
+        lockguard.interceptor.after(gname, args, res.success)
     if rg:
-        repeat_guard.guard.after(tool_name, args, res.success)
+        repeat_guard.guard.after(gname, args, res.success)
     if os.environ.get("SA_EXCHANGE_GUARD") == "1":
-        exchange_guard.guard.observe(tool_name, args, res.output)
+        exchange_guard.guard.observe(gname, args, res.output)
     if os.environ.get("SA_PAYMENT_GUARD") == "1":
-        payment_guard.guard.observe(tool_name, args, res.output)
+        payment_guard.guard.observe(gname, args, res.output)
     if os.environ.get("SA_AVAIL_GUARD") == "1":
-        availability_guard.guard.observe(tool_name, args, res.output)
+        availability_guard.guard.observe(gname, args, res.output)
     if os.environ.get("SA_GIFTCARD_GUARD") == "1":
-        giftcard_guard.guard.observe(tool_name, args, res.output)
+        giftcard_guard.guard.observe(gname, args, res.output)
     if os.environ.get("SA_AVAIL_ENFORCE_GUARD") == "1":
-        availability_guard.guard_enforce.observe(tool_name, args, res.output)
+        availability_guard.guard_enforce.observe(gname, args, res.output)
     if os.environ.get("SA_PAYMENT_ENFORCE_GUARD") == "1":
-        payment_guard.guard_enforce.observe(tool_name, args, res.output)
+        payment_guard.guard_enforce.observe(gname, args, res.output)
     if os.environ.get("SA_GIFTCARD_ENFORCE_GUARD") == "1":
-        giftcard_guard.guard_enforce.observe(tool_name, args, res.output)
+        giftcard_guard.guard_enforce.observe(gname, args, res.output)
     return res
 
 
