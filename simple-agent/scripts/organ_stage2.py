@@ -17,14 +17,11 @@ import requests  # noqa: E402
 BASE = os.getenv("SA_BASE_URL", "http://localhost:8000")
 DB = os.path.join(BACKEND, "logs", "trace.db")
 
-# 陷阱富集批（锁死 5 全上 + 支付/换货/重复/可用性/礼品卡易发 + 少量对照）
+# P5a.59 §六 重跑批：锁死 5 + giftcard 2 + 对照 3（硬顶 1.5M，运行时闸强制）
 BATCH = ["TAU-R-041", "TAU-R-072", "TAU-R-098", "TAU-R-105", "TAU-R-058",   # 锁死 5
-         "TAU-A-009", "TAU-A-000", "TAU-A-008",                             # 支付求和
-         "TAU-R-019", "TAU-R-074",                                          # 非送达换货
-         "TAU-R-002", "TAU-A-002",                                          # 重复读
-         "TAU-A-015", "TAU-A-003", "TAU-A-033",                             # 可用性/证书
-         "TAU-A-023", "TAU-A-022",                                          # 礼品卡余额
-         "TAU-A-007"]                                                       # 对照
+         "TAU-A-023", "TAU-A-022",                                          # 礼品卡余额 2
+         "TAU-A-007", "TAU-R-019", "TAU-A-002"]                             # 对照 3
+BUDGET_CAP = int(os.getenv("SA_BUDGET_CAP", "1500000"))
 ASSETS = ["lock_order_v1", "repeat_failure_v1", "items_count_match_v1",
           "non_delivered_exchange_v1", "flight_availability_enforce_v1",
           "payment_amount_sum_enforce_v1", "gift_card_balance_enforce_v1"]
@@ -65,7 +62,11 @@ def verdict(con, task_id):
 def main():
     con = sqlite3.connect(DB); con.row_factory = sqlite3.Row
     rows, tokens = [], 0
+    stopped = None
     for rid in BATCH:
+        if tokens >= BUDGET_CAP:                 # P5a.59 §三：运行时预算闸（任务间累计检查，触顶即停）
+            stopped = f"budget_cap_reached:{tokens}>={BUDGET_CAP}"
+            print("[budget] STOP:", stopped); break
         tid = submit(rid)
         j = wait(tid)
         v = verdict(con, tid)
@@ -81,8 +82,10 @@ def main():
                 by[rule]["fires"] += 1
                 by[rule]["on_pass" if r["verdict"] == "PASS" else "on_fail"] += 1
     lock_batch = [r for r in rows if r["req_id"] in ("TAU-R-041", "TAU-R-072", "TAU-R-098", "TAU-R-105", "TAU-R-058")]
-    out = {"note": "P5a.59 阶段二 活体验证批（7 哨兵在岗，无 A/B）", "n": len(rows),
-           "tokens": tokens, "passed": sum(1 for r in rows if r["verdict"] == "PASS"),
+    out = {"note": "P5a.59 阶段二 重跑批（10 题，7 哨兵在岗，无 A/B，运行时预算闸）",
+           "budget_cap": BUDGET_CAP, "stopped": stopped,
+           "n": len(rows), "tokens": tokens,
+           "passed": sum(1 for r in rows if r["verdict"] == "PASS"),
            "fire_table": by, "lock_batch": [{"req": r["req_id"], "verdict": r["verdict"], "fires": r["fires"]} for r in lock_batch],
            "rows": rows}
     json.dump(out, open(os.path.join(R, "organ-stage2.json"), "w"), ensure_ascii=False, indent=1)

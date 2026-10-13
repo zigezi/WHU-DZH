@@ -53,15 +53,23 @@ def main():
     reg = json.load(open(os.path.join(clean, ".agent", "reports", "assets.json")))
     present = any(a.get("asset_id") == args.asset for a in reg.get("assets", []))
 
-    fired = bool(battery.get("all_pass")) and present
+    # P5a.59 §五 保真度增修：名称型守卫须经真实 execute_tool、按生产命名(tau__)过零 token 点火证明
+    name_proc = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", "sentinel_wiring_battery.py")],
+                               cwd=ROOT, capture_output=True, text=True, timeout=180)
+    np_path = os.path.join(ROOT, ".agent", "reports", "sentinel-wiring-battery.json")
+    naming = json.load(open(np_path)) if os.path.exists(np_path) else {}
+    naming_ok = bool(naming.get("all_pass"))
+    fired = bool(battery.get("all_pass")) and present and naming_ok
     line = (f"C-1 冷启动复现门：{'PASS' if fired else 'FAIL'}（干净容器 {clean}；"
             f"电池 {battery.get('passed','?')}/{battery.get('n','?')}；资产在场={present}；零 token）")
     if fired:
         provenance.revalidate(args.asset, evidence=line, result="pass")
+    line += f"；naming_proof={naming_ok}"
     out = {"asset": args.asset, "clean_dir": clean, "battery": battery.get("all_pass"),
            "battery_passed": battery.get("passed"), "asset_present": present,
-           "c1_pass": fired, "birth_cert_line": line,
-           "rc": proc.returncode, "stderr": (proc.stderr or "")[-300:]}
+           "naming_proof": naming_ok, "c1_pass": fired, "birth_cert_line": line,
+           "rc": proc.returncode, "name_rc": name_proc.returncode,
+           "stderr": (proc.stderr or "")[-300:]}
     json.dump(out, open(os.path.join(ROOT, ".agent", "reports", "c1-coldstart-gate.json"), "w"),
               ensure_ascii=False, indent=1)
     print(json.dumps(out, ensure_ascii=False, indent=1))

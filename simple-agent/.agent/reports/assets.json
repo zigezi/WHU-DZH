@@ -13,7 +13,7 @@
    "domain_pack": "tau",
    "rule_id": "lock_order_v1",
    "created_at": "2026-10-12T09:38:18",
-   "last_revalidated": "2026-10-12T11:44:09",
+   "last_revalidated": "2026-10-13T14:19:02",
    "revalidation_log": [
     {
      "at": "2026-10-12T10:17:03",
@@ -35,8 +35,15 @@
      "evidence": "firing-audit: benign re-issue tax 118/962≈12.3%",
      "result": "credit_raised",
      "level": "field_validated"
+    },
+    {
+     "at": "2026-10-13T14:19:02",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-cfi9iwia；电池 8/8；资产在场=True；零 token）",
+     "result": "pass"
     }
-   ]
+   ],
+   "live_confirmed": true,
+   "live_note": "P5a.59 阶段二重跑首次活体点火3次；R-041 良性再发结局保持"
   },
   {
    "asset_id": "repeat_failure_v1",
@@ -92,7 +99,9 @@
      "result": "credit_raised",
      "level": "field_validated"
     }
-   ]
+   ],
+   "live_confirmed": false,
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放"
   },
   {
    "asset_id": "non_delivered_exchange_v1",
@@ -120,7 +129,9 @@
      "result": "credit_raised",
      "level": "field_validated"
     }
-   ]
+   ],
+   "live_confirmed": false,
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放"
   },
   {
    "asset_id": "payment_amount_sum_v1",
@@ -259,7 +270,9 @@
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-29h43602；电池 6/6；资产在场=True；零 token）",
      "result": "pass"
     }
-   ]
+   ],
+   "live_confirmed": true,
+   "live_note": "P5a.59 阶段二重跑 A-007 PASS 且点火2次=良性再发结局保持(活体)"
   },
   {
    "asset_id": "payment_amount_sum_enforce_v1",
@@ -289,7 +302,9 @@
      "result": "credit_raised",
      "level": "field_validated"
     }
-   ]
+   ],
+   "live_confirmed": false,
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放"
   },
   {
    "asset_id": "gift_card_balance_enforce_v1",
@@ -319,7 +334,9 @@
      "result": "credit_raised",
      "level": "field_validated"
     }
-   ]
+   ],
+   "live_confirmed": true,
+   "live_note": "系统史上首次真实活体点火（P5a.59 阶段二 5 次 on_fail）；不依赖工具名匹配"
   }
  ]
 }

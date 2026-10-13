@@ -27,8 +27,10 @@ def assert_in_scope(path: str):
 
 
 def can_birth(candidate: dict) -> Tuple[bool, List[str]]:
-    """§三.4：可观测性证明失败者永不许进入影子期（机检）。"""
+    """§三.4 可观测性证明 + §五(P5a.59) 名称匹配守卫须有 naming_proof（经真实 execute_tool、生产命名）。"""
     errs = [f"missing:{f}" for f in REQUIRED_BIRTH_FIELDS if not candidate.get(f)]
+    if candidate.get("name_matching") and not candidate.get("naming_proof"):
+        errs.append("missing:naming_proof(名称匹配守卫须经真实 execute_tool 生产命名点火证明)")
     errs += prov.validate_asset({**candidate, "credit_level": "T1_candidate", "status": "shadow"})
     return (not errs), errs
 
