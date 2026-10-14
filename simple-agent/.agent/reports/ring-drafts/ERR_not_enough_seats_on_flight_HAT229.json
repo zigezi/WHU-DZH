@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::not enough seats on flight HAT229",
+ "kind": "tool_error",
+ "disposition": "decompose",
+ "draft": {
+  "predicate_text": "当工具调用返回错误且错误信息表明航班座位不足时，拦截该调用并触发分解处置。",
+  "firing_condition": "tool_result.error is not None AND 'not enough seats on flight' in tool_result.error.message AND 'HAT229' in tool_result.error.message",
+  "observability_declaration": "该条件仅依赖工具调用返回的错误对象中的 message 字段，该字段在工具执行失败时由工具返回，属于可观测状态。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 错误信息中恰好包含 'not enough seats on flight' 和 'HAT229' 但实际为其他类型错误（如测试模拟、日志回显）；2) 航班号 HAT229 作为子串出现在其他航班号中（如 HAT2290）；3) 错误信息为多语言或格式变体导致匹配偏差。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 376
+}

@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::certificate cannot be used to update res",
+ "kind": "tool_error",
+ "disposition": "decompose",
+ "draft": {
+  "predicate_text": "当工具调用返回错误信息包含 'certificate cannot be used to update res' 时，拦截该调用并触发分解处置。",
+  "firing_condition": "tool_result.error_message 包含子串 'certificate cannot be used to update res'（大小写敏感，精确匹配）。",
+  "observability_declaration": "该条件仅依赖工具调用返回的 error_message 字段，该字段在工具执行后立即可观测，无需额外状态或外部查询。",
+  "false_positive_self_assessment": "合法形状可能被撞：1) 错误信息中恰好包含该子串但实际为其他证书更新资源失败（如测试桩、日志回显）；2) 工具返回的 error_message 包含该子串但属于非证书更新场景的误报。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 350
+}

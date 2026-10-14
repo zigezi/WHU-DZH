@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__get_product_details",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话内对 tau__get_product_details 的调用在短时间内重复失败达到阈值时，拦截后续重复调用并触发处置。",
+  "firing_condition": "在同一 session_id 下，统计最近 window_ms 毫秒内 tau__get_product_details 的调用结果，若连续或累计失败次数 >= max_failures 且相邻失败调用间隔 <= min_interval_ms，则点火。",
+  "observability_declaration": "可观测：session_id、tool_name、调用时间戳、调用结果状态（成功/失败/错误码）、失败原因；均可由 args 与运行时可观测状态计算。",
+  "false_positive_self_assessment": "可能误伤：1) 合法重试且最终成功的场景；2) 上游依赖短暂抖动导致的连续失败；3) 用户主动重复查询同一商品详情；4) 并发多请求共享 session_id 造成的统计混淆。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 377
+}

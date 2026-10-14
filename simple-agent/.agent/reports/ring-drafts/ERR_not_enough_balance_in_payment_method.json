@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::not enough balance in payment method gif",
+ "kind": "tool_error",
+ "disposition": "decompose",
+ "draft": {
+  "predicate_text": "当支付工具调用返回错误信息包含 'not enough balance in payment method' 时，拦截该调用并触发分解处置。",
+  "firing_condition": "tool_result.error_message 包含子串 'not enough balance in payment method'（大小写不敏感），且 tool_name 属于支付类工具（如 payment、checkout、pay 等）。",
+  "observability_declaration": "点火条件完全由工具调用的返回结果（error_message）和工具名称（tool_name）决定，二者均为可观测的确定性字段。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 错误信息中恰好包含该子串但实际为测试或模拟支付场景；2) 支付工具返回的余额不足提示用于合法重试或用户提示流程；3) 工具名称匹配但错误信息来自其他非支付余额不足的上下文。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 371
+}

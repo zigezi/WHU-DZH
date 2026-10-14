@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__get_reservation_details",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话中 tau__get_reservation_details 工具在短时间内被重复调用且每次返回相同或等价的失败结果时，拦截该重复调用并触发处置。",
+  "firing_condition": "在滑动窗口 W（默认 60 秒）内，同一 session_id 下对 tau__get_reservation_details 的调用次数 >= N（默认 3），且这些调用的参数指纹（工具名 + 规范化 args 的哈希）相同，且最近一次调用返回的 error_code 或 failure_signature 与前次相同（或均为空结果/超时）。",
+  "observability_declaration": "点火条件仅依赖可观测的调用日志与返回状态：session_id、tool_name、args 规范化哈希、调用时间戳、返回的 error_code/failure_signature/结果摘要；不依赖模型内部状态或不可观测的隐式上下文。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 用户在同一会话中因参数微调而重复查询同一预订详情，但 args 规范化后恰好相同；2) 前端重试机制在超时后自动重发相同请求，且前几次失败属于瞬时网络抖动；3) 多轮对话中用户明确要求“再查一次”且前次返回为空但实际数据尚未就绪。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 466
+}

@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__get_order_details",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话内对 tau__get_order_details 的调用在短时间内重复失败达到阈值时，拦截后续重复调用并触发处置。",
+  "firing_condition": "在同一 session_id 下，统计最近 window_ms 毫秒内 tau__get_order_details 的调用结果，若连续失败次数 >= max_consecutive_failures 或失败率 >= failure_rate_threshold 且总调用次数 >= min_calls，则点火。",
+  "observability_declaration": "点火条件仅依赖可观测的调用日志字段：session_id、tool_name、call_timestamp、call_result（success/failure/error_code）。这些字段由工具调用拦截层或审计日志提供，无需访问内部状态。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 用户主动重试因临时网络抖动导致的失败，且重试次数恰好达到阈值；2) 批量任务中对同一订单的合法多次查询（如轮询订单状态），若失败率因下游限流短暂升高；3) 测试或调试场景中故意触发失败以验证错误处理。",
+  "intervention_semantics": "benign-reissue"
+ },
+ "tokens": 418
+}

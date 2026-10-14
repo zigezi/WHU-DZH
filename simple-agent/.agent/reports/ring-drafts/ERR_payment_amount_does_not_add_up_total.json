@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::payment amount does not add up, total pr",
+ "kind": "tool_error",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当支付工具调用返回的错误信息包含 'payment amount does not add up' 或 'total pr' 时，判定为支付金额合计不一致的工具错误。",
+  "firing_condition": "tool_result.error 字段（字符串）经小写化后，包含子串 'payment amount does not add up' 或包含子串 'total pr'。",
+  "observability_declaration": "点火条件仅依赖工具调用返回的 error 字符串，该字段在工具执行结果中可观测且确定。",
+  "false_positive_self_assessment": "合法形状可能被撞：1) 错误信息中恰好包含 'total pr' 作为其他单词的一部分（如 'total price'、'total product'），但实际并非金额合计错误；2) 错误信息包含 'payment amount does not add up' 但属于测试或模拟场景的预期错误。",
+  "intervention_semantics": "benign-reissue"
+ },
+ "tokens": 370
+}

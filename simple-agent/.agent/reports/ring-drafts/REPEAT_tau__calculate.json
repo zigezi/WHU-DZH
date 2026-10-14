@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__calculate",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一 tau__calculate 调用在滑动窗口内重复失败达到阈值时，拦截并重新签发一次良性调用。",
+  "firing_condition": "在最近 W 次 tau__calculate 调用中，失败次数 >= N（默认 W=5, N=3），且当前调用与最近一次失败调用的参数指纹相同。",
+  "observability_declaration": "可观测：调用序列、每次调用的成功/失败状态、参数指纹、时间戳；均可由运行时调用日志与状态计数器计算。",
+  "false_positive_self_assessment": "可能误伤：合法重试且参数相同但外部依赖已恢复的调用；幂等计算中因瞬时资源竞争导致的连续失败；参数指纹碰撞导致的无关调用。",
+  "intervention_semantics": "benign-reissue"
+ },
+ "tokens": 338
+}

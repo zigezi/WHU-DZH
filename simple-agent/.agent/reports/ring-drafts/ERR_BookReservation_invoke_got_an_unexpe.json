@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::BookReservation.invoke() got an unexpect",
+ "kind": "tool_error",
+ "disposition": "reject",
+ "draft": {
+  "predicate_text": "当工具调用 BookReservation.invoke() 的实参中出现未预期的关键字参数时，拒绝该调用。",
+  "firing_condition": "tool_name == 'BookReservation.invoke' 且 kwargs 中存在至少一个不在允许参数集合 {book_id, user_id, start_time, end_time, seat_id, room_id, reservation_id} 中的键。",
+  "observability_declaration": "点火条件仅依赖工具调用名与调用实参的键集合，二者均在拦截器处可直接观测，无需外部状态或副作用。",
+  "false_positive_self_assessment": "若合法调用方使用别名参数、扩展参数（如 metadata、trace_id、idempotency_key）或未来新增的合法参数，会被误判为未预期参数而拒绝；若工具签名本身允许 **kwargs 透传，则所有透传键都会被撞。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 370
+}

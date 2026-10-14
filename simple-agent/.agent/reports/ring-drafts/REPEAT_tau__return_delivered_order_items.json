@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__return_delivered_order_items",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话中 tau__return_delivered_order_items 工具在已交付订单上连续失败达到阈值时，拦截后续重复调用并改走人工/替代退货流程。",
+  "firing_condition": "在滑动窗口 W 内，同一 session_id 下对同一 order_id 调用 tau__return_delivered_order_items 且返回失败（is_error=true 或 status 非 success）的连续次数 >= N（建议 N=3，W=10 分钟），且订单状态为 delivered。",
+  "observability_declaration": "所需字段均可观测：session_id、order_id、工具名、调用时间戳、返回状态/错误码、订单交付状态；不依赖隐藏内部推理。",
+  "false_positive_self_assessment": "可能误伤：1) 用户修正参数后合法重试（如换退货原因/商品项）被计入连续失败；2) 上游瞬时故障恢复后的正常重试；3) 同一订单多商品分次退货的合法多次调用。需按参数指纹去重并区分错误类型以降低误伤。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 418
+}

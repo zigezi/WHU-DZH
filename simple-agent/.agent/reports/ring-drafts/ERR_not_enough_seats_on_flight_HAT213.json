@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::not enough seats on flight HAT213",
+ "kind": "tool_error",
+ "disposition": "decompose",
+ "draft": {
+  "predicate_text": "当工具调用返回错误且错误信息表明航班座位不足时，拦截该调用并触发分解处置。",
+  "firing_condition": "tool_result.error is not None AND ('not enough seats' in tool_result.error.lower() OR 'insufficient seats' in tool_result.error.lower()) AND 'flight' in tool_result.error.lower()",
+  "observability_declaration": "点火条件仅依赖工具调用返回的错误对象（tool_result.error）的文本内容，该内容在工具调用完成后即可观测，无需额外状态。",
+  "false_positive_self_assessment": "可能误伤合法形状：1) 错误信息中恰好包含 'not enough seats' 和 'flight' 但实际并非座位不足（如测试数据、模拟错误）；2) 其他资源不足错误（如 'not enough seats in row' 但指代非航班场景）；3) 多语言或变体表述未被覆盖导致漏报，但误伤面主要限于错误文本的语义歧义。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 392
+}
