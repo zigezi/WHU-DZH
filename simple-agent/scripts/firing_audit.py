@@ -37,7 +37,7 @@ def classify_run(errors, tools):
 #  hard   = 行为改道型（点火 PASS = 硬线违例）
 ASSETS = {
     "lock_order_v1": (lambda: interceptor.OrderLockInterceptor(), ["lock_order"], "benign"),
-    "repeat_failure_v1": (lambda: repeat_guard.RepeatFailureGuard(), ["repeat_mutating"], "benign"),
+    "repeat_failure_v1": (lambda: repeat_guard.RepeatFailureGuard(), ["repeat_mutating"], "hard"),
     "items_count_match_v1": (lambda: count_guard.CountMatchGuard(), ["number of items"], "hard"),
     "non_delivered_exchange_v1": (lambda: exchange_guard.ExchangeGuard(), ["non-delivered"], "hard"),
     "payment_amount_sum_v1": (lambda: payment_guard.PaymentSumGuard(),

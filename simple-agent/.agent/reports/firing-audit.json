@@ -1,24 +1,24 @@
 {
  "note": "P5a.55/56 追溯点火审计（干预语义分级）",
- "runs": 962,
+ "runs": 991,
  "assets": {
   "lock_order_v1": {
    "mode": "benign",
-   "fired_on_fail": 45,
-   "fires_on_pass": 118,
-   "tax": 118,
-   "rescue": 6,
+   "fired_on_fail": 51,
+   "fires_on_pass": 119,
+   "tax": 119,
+   "rescue": 7,
    "miss": 0,
    "coverage": 1.0,
    "hardline_violation": false
   },
   "repeat_failure_v1": {
-   "mode": "benign",
+   "mode": "hard",
    "fired_on_fail": 0,
    "fires_on_pass": 0,
    "tax": 0,
    "rescue": 0,
-   "miss": 10,
+   "miss": 13,
    "coverage": 0.0,
    "hardline_violation": false
   },
@@ -38,8 +38,8 @@
    "fires_on_pass": 0,
    "tax": 0,
    "rescue": 1,
-   "miss": 1,
-   "coverage": 0.5,
+   "miss": 2,
+   "coverage": 0.333,
    "hardline_violation": false
   },
   "payment_amount_sum_v1": {
@@ -58,15 +58,15 @@
    "fires_on_pass": 0,
    "tax": 0,
    "rescue": 0,
-   "miss": 8,
+   "miss": 9,
    "coverage": 0.0,
    "hardline_violation": false
   },
   "flight_availability_enforce_v1": {
    "mode": "benign",
-   "fired_on_fail": 60,
-   "fires_on_pass": 46,
-   "tax": 46,
+   "fired_on_fail": 68,
+   "fires_on_pass": 50,
+   "tax": 50,
    "rescue": 0,
    "miss": 0,
    "coverage": null,
@@ -78,13 +78,13 @@
    "fires_on_pass": 0,
    "tax": 0,
    "rescue": 0,
-   "miss": 3,
+   "miss": 6,
    "coverage": 0.0,
    "hardline_violation": false
   },
   "payment_amount_sum_enforce_v1": {
    "mode": "benign",
-   "fired_on_fail": 25,
+   "fired_on_fail": 29,
    "fires_on_pass": 4,
    "tax": 4,
    "rescue": 0,
@@ -94,7 +94,7 @@
   },
   "gift_card_balance_enforce_v1": {
    "mode": "benign",
-   "fired_on_fail": 13,
+   "fired_on_fail": 16,
    "fires_on_pass": 2,
    "tax": 2,
    "rescue": 0,
@@ -103,7 +103,7 @@
    "hardline_violation": false
   }
  },
- "total_rescue": 8,
+ "total_rescue": 9,
  "hardline_violations": [],
  "all_hardline_zero": true
 }

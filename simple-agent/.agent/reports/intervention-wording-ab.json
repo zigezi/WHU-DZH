@@ -1,0 +1,49 @@
+{
+ "detector_id": "intervention_wording_ab",
+ "version": "iw-20261014",
+ "note": "P5a.70 ③ 干预语义文案变体校准（金丝雀化，temp=0）",
+ "results": {
+  "V1_current": {
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address",
+    "modify_pending_order_items",
+    "modify_pending_order_items"
+   ],
+   "comprehension": true,
+   "canary_leak": false
+  },
+  "V2_imperative": {
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address",
+    "modify_pending_order_address",
+    "modify_pending_order_items"
+   ],
+   "comprehension": true,
+   "canary_leak": false
+  },
+  "V3_structured": {
+   "calls": [
+    "modify_pending_order_items",
+    "modify_pending_order_address",
+    "modify_pending_order_items",
+    "modify_pending_order_address",
+    "modify_pending_order_items"
+   ],
+   "comprehension": true,
+   "canary_leak": false
+  }
+ },
+ "comprehension": {
+  "V1_current": true,
+  "V2_imperative": true,
+  "V3_structured": true
+ },
+ "best": [
+  "V1_current",
+  "V2_imperative",
+  "V3_structured"
+ ],
+ "canary_leak": false
+}

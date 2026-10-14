@@ -43,7 +43,8 @@
     }
    ],
    "live_confirmed": true,
-   "live_note": "P5a.59 阶段二重跑首次活体点火3次；R-041 良性再发结局保持"
+   "live_note": "P5a.59 阶段二重跑首次活体点火3次；R-041 良性再发结局保持",
+   "intervention_type": "benign-reissue"
   },
   {
    "asset_id": "repeat_failure_v1",
@@ -71,7 +72,9 @@
      "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-lv2qe5e7；电池 7/7；资产在场=True；零 token）",
      "result": "pass"
     }
-   ]
+   ],
+   "intervention_type": "behavior-reroute",
+   "intervention_note": "窄触发·死行为阻断；τ 工具确定性下（同参同态必同败）被否决调用成功率=0，误伤≈0——benign 是把事实误写成型；代码域非确定工具沿用此族须按行为改道型对待"
   },
   {
    "asset_id": "items_count_match_v1",
@@ -101,7 +104,8 @@
     }
    ],
    "live_confirmed": false,
-   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放"
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放",
+   "intervention_type": "behavior-reroute"
   },
   {
    "asset_id": "non_delivered_exchange_v1",
@@ -131,7 +135,8 @@
     }
    ],
    "live_confirmed": false,
-   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放"
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放",
+   "intervention_type": "behavior-reroute"
   },
   {
    "asset_id": "payment_amount_sum_v1",
@@ -156,7 +161,8 @@
    ],
    "superseded_by": "payment_amount_sum_enforce_v1",
    "superseded_at": "2026-10-12T17:29:09",
-   "superseded_reason": "enforce 版承接；舍入口径等价（整数分/ROUND_HALF_UP/容差0.01）"
+   "superseded_reason": "enforce 版承接；舍入口径等价（整数分/ROUND_HALF_UP/容差0.01）",
+   "intervention_type": "behavior-reroute"
   },
   {
    "asset_id": "certificate_update_v1",
@@ -182,7 +188,8 @@
    ],
    "revoked_at": "2026-10-12T16:56:07",
    "revoked_reason": "行为改道型误伤（否决合法改签并强推换支付）；点火必要条件'是否需费用'在 args 不可观测 → 无窄化余地",
-   "knowledge_moved_to": "negative_precedents"
+   "knowledge_moved_to": "negative_precedents",
+   "intervention_type": "behavior-reroute"
   },
   {
    "asset_id": "flight_availability_v1",
@@ -208,7 +215,8 @@
    ],
    "superseded_by": "flight_availability_enforce_v1",
    "superseded_at": "2026-10-12T17:29:09",
-   "superseded_reason": "enforce 版第二段包含旧版职责"
+   "superseded_reason": "enforce 版第二段包含旧版职责",
+   "intervention_type": "behavior-reroute"
   },
   {
    "asset_id": "gift_card_balance_v1",
@@ -235,7 +243,8 @@
    ],
    "superseded_by": "gift_card_balance_enforce_v1",
    "superseded_at": "2026-10-12T17:29:09",
-   "superseded_reason": "enforce 版承接；A-003 覆盖缺口限制随承接转移"
+   "superseded_reason": "enforce 版承接；A-003 覆盖缺口限制随承接转移",
+   "intervention_type": "behavior-reroute"
   },
   {
    "asset_id": "flight_availability_enforce_v1",
@@ -272,7 +281,8 @@
     }
    ],
    "live_confirmed": true,
-   "live_note": "P5a.59 阶段二重跑 A-007 PASS 且点火2次=良性再发结局保持(活体)"
+   "live_note": "P5a.59 阶段二重跑 A-007 PASS 且点火2次=良性再发结局保持(活体)",
+   "intervention_type": "benign-reissue"
   },
   {
    "asset_id": "payment_amount_sum_enforce_v1",
@@ -304,7 +314,8 @@
     }
    ],
    "live_confirmed": false,
-   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放"
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放",
+   "intervention_type": "benign-reissue"
   },
   {
    "asset_id": "gift_card_balance_enforce_v1",
@@ -336,7 +347,8 @@
     }
    ],
    "live_confirmed": true,
-   "live_note": "系统史上首次真实活体点火（P5a.59 阶段二 5 次 on_fail）；不依赖工具名匹配"
+   "live_note": "系统史上首次真实活体点火（P5a.59 阶段二 5 次 on_fail）；不依赖工具名匹配",
+   "intervention_type": "benign-reissue"
   }
  ]
 }

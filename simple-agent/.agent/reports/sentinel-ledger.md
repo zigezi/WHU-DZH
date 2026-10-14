@@ -2,11 +2,11 @@
 
 | 资产 | 状态 | 信用 | live_confirmed | 死因 | 型 | 救场 | 覆盖 | 税 |
 |---|---|---|---|---|---|---|---|---|
-| `lock_order_v1` | active | field_validated | True | lock_order | benign | 6 | 1.0 | 118 |
-| `repeat_failure_v1` | active | T1_candidate | — | repeat_failure | benign | 0 | 0.0 | 0 |
+| `lock_order_v1` | active | field_validated | True | lock_order | benign | 7 | 1.0 | 119 |
+| `repeat_failure_v1` | active | T1_candidate | — | repeat_failure | hard | 0 | 0.0 | 0 |
 | `items_count_match_v1` | active | field_validated | False | syntactic_mismatch | hard | 1 | 1.0 | 0 |
-| `non_delivered_exchange_v1` | active | field_validated | False | precondition_unmet | hard | 1 | 0.5 | 0 |
-| `flight_availability_enforce_v1` | active | field_validated | True | flight_availability_unchecked | benign | 0 | None | 46 |
+| `non_delivered_exchange_v1` | active | field_validated | False | precondition_unmet | hard | 1 | 0.333 | 0 |
+| `flight_availability_enforce_v1` | active | field_validated | True | flight_availability_unchecked | benign | 0 | None | 50 |
 | `payment_amount_sum_enforce_v1` | active | field_validated | False | payment_total_unchecked | benign | 0 | None | 4 |
 | `gift_card_balance_enforce_v1` | active | field_validated | True | giftcard_balance_unchecked | benign | 0 | None | 2 |
 | `flight_availability_v1` | superseded | T1_candidate | — | flight_availability | hard | 0 | 0.0 | 0 |
