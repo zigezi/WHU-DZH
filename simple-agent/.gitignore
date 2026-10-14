@@ -9,6 +9,9 @@ venv/
 .env
 .env.*
 !.env.example
+/key.txt
+*.pem
+*.key
 
 # Agent runtime artifacts
 # NOTE: .agent/ (dir) must NOT be ignored as a whole, otherwise `!` exceptions

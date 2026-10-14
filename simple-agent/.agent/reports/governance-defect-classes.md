@@ -35,6 +35,22 @@
 - **现象**：lock_order_v1 活体点火 3 次仅救 1 次。
 - **处置**：否决消息**措辞质量**列为 `ring_draft` 显性设计变量（素材库 `ring-draft-prompt-notes.md`）。
 - **状态**：登记（随 C① ring_draft 联调验证）。
+---
+
+## DC-7 密钥入上下文（P5a.72 §一）
+- **现象**：compaction 摘要 "Important Details" 段含 **DeepSeek API key 与 GitHub classic token 明文值**，经截图进入对话——两处暴露。
+- **根因**：摘要/日志/证据制品生成器无 secret 脱敏；"只存位置"纪律此前只覆盖 hidden instruction，未覆盖全部 secret 类。
+- **修法**：① 一切 compaction/摘要/日志/证据制品只许存密钥的**位置**（`backend/.env`，mode 600），禁止存**值**；② 摘要生成器加密钥脱敏（正则被撞库式扫描 `sk-`/`ghz_`/`ghp_` 前缀）；③ 红线由"hidden instruction 明文禁令"扩展至**全部 secret 类**；④ 暴露面（opencode 会话上下文、compaction 摘要文件、对话记录）立即轮换，不等计划窗口。
+- **状态**：立法中（值轮换为用户侧动作；掩码纪律即刻生效）。
 
 ---
+
+## DC-8 工作区残留未清算（未暂存改动跨轮漂移）
+- **现象**：四个 `reports/` 未暂存改动（10-12~10-13 实验轮残留：c1/e3-smoke/e3-v3-gate/decomposition）长期滞留工作区，至 a71/v1.1 会话被裁者误判为 a71 收割产物。
+- **根因**：测试脚本就地写 tracked 报告，轮末未统一 `git status` 清算；提交只 stage 意图内文件，残留随轮漂移。法医证伪见 `.agent/evidence/phase-P5a73-forensics-and-dc7-masking.md`。
+- **修法**：① **每会话开工先 `git status`，工作区不净先清算**；② 轮末收割增"工作区清点"一步；③ 测试产物二选一——补提交（注明来源轮次）或 `git checkout --` 清场，不留中间态。
+- **状态**：✅ 已成类（a73 §二 法医定性）。
+
+---
+
 **元注**：本册是"元器官的记忆体"——每类缺陷的**修法即一条可复用的结构性不变式**，供未来域迁移与器官成熟复用。

@@ -1,11 +1,13 @@
 {
- "asset": "repeat_failure_v1",
- "clean_dir": "/tmp/opencode/c1-clean-rv3mgda4",
+ "asset": "lock_order_v1",
+ "clean_dir": "/tmp/opencode/c1-clean-cfi9iwia",
  "battery": true,
- "battery_passed": 6,
+ "battery_passed": 8,
  "asset_present": true,
+ "naming_proof": true,
  "c1_pass": true,
- "birth_cert_line": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-rv3mgda4；电池 6/6；资产在场=True；零 token）",
+ "birth_cert_line": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-cfi9iwia；电池 8/8；资产在场=True；零 token）；naming_proof=True",
  "rc": 0,
+ "name_rc": 0,
  "stderr": ""
 }
