@@ -7,6 +7,33 @@ from typing import List, Optional
 
 from .trace_store import trace_store
 
+# P5a.80 §三：尸体 schema 版本（语境锚定；分析工具对缺字段旧条目按 unknown 处理）
+SCHEMA_V = "cc-v2"
+_GIT_HEAD = {"v": None}
+
+
+def _git_head() -> str:
+    if _GIT_HEAD["v"] is None:
+        import os
+        import subprocess
+        root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        try:
+            _GIT_HEAD["v"] = subprocess.run(
+                ["git", "-C", root, "rev-parse", "--short", "HEAD"],
+                capture_output=True, text=True, timeout=5).stdout.strip() or "unknown"
+        except Exception:  # noqa: BLE001
+            _GIT_HEAD["v"] = "unknown"
+    return _GIT_HEAD["v"]
+
+
+def _env_fingerprint() -> str:
+    try:
+        from .env_state import fingerprint
+        return fingerprint()
+    except Exception:  # noqa: BLE001
+        return "unknown"
+
+
 
 def classify(op: str, exit_code: int, error: str) -> Optional[str]:
     """代码域死亡分类（种子，待尸体确认）。返回 None = 非死亡。"""
@@ -25,20 +52,25 @@ def classify(op: str, exit_code: int, error: str) -> Optional[str]:
 
 
 def add(ts: str, op: str, command: str, exit_code: int, error: str,
-        source: str = "real", capture: str = "live") -> Optional[int]:
+        source: str = "real", capture: str = "live",
+        git_head: str = None, env_fingerprint: str = None, schema_v: str = None) -> Optional[int]:
     dc = classify(op, exit_code, error)
     if dc is None:
         return None
     trace_store.conn.execute(
-        "INSERT INTO code_corpses (ts, op, command, exit_code, error, death_class, source, capture)"
-        " VALUES (?,?,?,?,?,?,?,?)", (ts, op, command, exit_code, error, dc, source, capture))
+        "INSERT INTO code_corpses"
+        " (ts, op, command, exit_code, error, death_class, source, capture,"
+        "  git_head, env_fingerprint, schema_v)"
+        " VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+        (ts, op, command, exit_code, error, dc, source, capture,
+         git_head or _git_head(), env_fingerprint or _env_fingerprint(), schema_v or SCHEMA_V))
     trace_store.conn.commit()
     return dc
 
 
 def list_all(limit: int = 1000, source: str = None) -> List[dict]:
-    q = ("SELECT id, ts, op, command, exit_code, error, death_class, source, capture"
-         " FROM code_corpses")
+    q = ("SELECT id, ts, op, command, exit_code, error, death_class, source, capture,"
+         " git_head, env_fingerprint, schema_v FROM code_corpses")
     params: tuple = ()
     if source:
         q += " WHERE source = ?"
@@ -47,7 +79,9 @@ def list_all(limit: int = 1000, source: str = None) -> List[dict]:
     params = params + (limit,)
     rows = trace_store.conn.execute(q, params).fetchall()
     return [{"id": r[0], "ts": r[1], "op": r[2], "command": r[3], "exit_code": r[4],
-             "error": r[5], "death_class": r[6], "source": r[7], "capture": r[8]} for r in rows]
+             "error": r[5], "death_class": r[6], "source": r[7], "capture": r[8],
+             "git_head": r[9] or "unknown", "env_fingerprint": r[10] or "unknown",
+             "schema_v": r[11] or "unknown"} for r in rows]
 
 
 def real_count() -> int:

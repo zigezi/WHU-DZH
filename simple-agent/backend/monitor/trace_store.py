@@ -154,6 +154,10 @@ class TraceStore:
             # P5a.79 §二.1：尸体来源与采集渠道（洁池：demo 不入校准分布）
             self._ensure_column("code_corpses", "source", "TEXT")
             self._ensure_column("code_corpses", "capture", "TEXT")
+            # P5a.80 §三：死因语境锚定（采集时刻版本，用于历史语境重建）
+            self._ensure_column("code_corpses", "git_head", "TEXT")
+            self._ensure_column("code_corpses", "env_fingerprint", "TEXT")
+            self._ensure_column("code_corpses", "schema_v", "TEXT")
             self.conn.commit()
 
     def _ensure_column(self, table: str, column: str, decl: str):

@@ -17,11 +17,13 @@ fi
 __oplog_file="${CODE_OPS_LOG:-$HOME/.local/state/simple-agent/code-ops.jsonl}"
 __oplog_stderr=""
 
-# 最小 JSON 字符串转义（避免每条命令 fork python）
+# 最小 JSON 字符串转义（避免每条命令 fork python；须处理换行，否则 JSONL 断行）
 __oplog_jsonstr() {
     local s=$1
     s=${s//\\/\\\\}
     s=${s//\"/\\\"}
+    s=${s//$'\r'/\\r}
+    s=${s//$'\n'/\\n}
     s=${s//$'\t'/\\t}
     printf '"%s"' "$s"
 }
