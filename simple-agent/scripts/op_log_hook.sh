@@ -8,6 +8,9 @@
 # 用法（由 install_op_hook.sh 安装，或临时）：
 #   CODE_OPS_LOG=/path/code-ops.jsonl BASH_ENV=/path/op_log_hook.sh bash -c 'false'
 # 禁用：CODE_OPS_HOOK_DISABLE=1（走关闭回归）
+#
+# 契约盲区（P5a.82 §五.3 文档化）：本钩子经 BASH_ENV 只对 **bash** 生效；
+# 若子进程经 /bin/sh（dash）调用，则不源入、不采集——不在采集契约内。
 
 # 禁用路径：不装 trap、不写日志、零副作用
 if [ "${CODE_OPS_HOOK_DISABLE:-0}" = "1" ]; then
@@ -25,6 +28,8 @@ __oplog_jsonstr() {
     s=${s//$'\r'/\\r}
     s=${s//$'\n'/\\n}
     s=${s//$'\t'/\\t}
+    # P5a.82 §五.1：其余 C0 控制字符（U+0000–001F 除已转义者）剔除，防断行
+    s=$(printf '%s' "$s" | tr -d '\000-\010\013\014\016-\037')
     printf '"%s"' "$s"
 }
 
@@ -51,8 +56,9 @@ fi
 
 __oplog_fini() {
     local rc=$?
-    # stderr 经进程替换异步落盘，稍等其刷写
-    [ -n "$__oplog_stderr" ] && sleep 0.1
+    # P5a.82 §五.2：先 wait 再短睡兜底（进程替换的 tee 非可 wait 的后台作业，
+    # 单 wait 有竞态会截断摘要——见 a82 §五 注记，保留小睡为低危兜底）
+    if [ -n "$__oplog_stderr" ]; then wait 2>/dev/null || true; sleep 0.1; fi
     __oplog_emit "$BASH_EXECUTION_STRING" "$rc"
     [ -n "$__oplog_stderr" ] && rm -f "$__oplog_stderr"
     return $rc

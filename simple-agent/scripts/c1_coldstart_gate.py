@@ -63,7 +63,7 @@ def main():
     line = (f"C-1 冷启动复现门：{'PASS' if fired else 'FAIL'}（干净容器 {clean}；"
             f"电池 {battery.get('passed','?')}/{battery.get('n','?')}；资产在场={present}；零 token）")
     if fired:
-        provenance.revalidate(args.asset, evidence=line, result="pass")
+        provenance.revalidate(args.asset, evidence=line, result="pass", production=True)
     line += f"；naming_proof={naming_ok}"
     out = {"asset": args.asset, "clean_dir": clean, "battery": battery.get("all_pass"),
            "battery_passed": battery.get("passed"), "asset_present": present,

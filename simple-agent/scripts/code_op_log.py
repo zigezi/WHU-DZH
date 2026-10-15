@@ -42,9 +42,7 @@ def main():
     added = 0
     for e in events:
         _append(e)
-        if cc.add(e.get("ts"), e.get("op"), e.get("command"),
-                  int(e.get("exit_code", 0)), e.get("error", ""),
-                  source=e.get("source", "real"), capture=e.get("capture", "op_log")):
+        if cc.ingest_event(e, source=e.get("source", "real"), capture=e.get("capture", "op_log")):
             added += 1
     total = cc.real_count()
     classes = set(cc.real_classes())

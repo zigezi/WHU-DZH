@@ -57,7 +57,7 @@
 - **现象**：`e3_substrate_check.py` 运行后把 `lock_order_v1` 重置回 `T1_candidate`，丢失 `field_validated` + `live_confirmed` + 5 条 `revalidation_log`（a76 建设段设施核验时发现）。
 - **根因**：自检脚本 `register_asset(...)` 指向**真实** `.agent/reports/assets.json`，以初始候选态覆盖已晋级资产；无隔离存储。
 - **修法**：① 自检/校验脚本一律走隔离存储（`organ_selftest` 的临时 `prov.FILE` 模板），禁写生产注册表；② 或 `register_asset` 对已存在 asset_id 做合并/保留富字段而非覆盖；③ §三 回扫触发面增"注册表 diff 应为空"核查。
-- **状态**：✅ 已修（P5a.77 §二）：`provenance` 支持 `SA_REGISTRY_PATH` 沙盒 + `register_asset` 生产写须显式授权（缺省即沙盒）；`regression_sweep.py` 增注册表前后 hash 不变性断言；封线脚本移 `scripts/attic/` + `scripts/manifest` 清单。原发现：`.agent/evidence/phase-P5a76-instrument-mutation-finding.md`。
+- **状态**：✅ 已修（P5a.77 §二）+ **P5a.82 §四 下沉加固**：守卫自 `register_asset` 下沉至 I/O 层 `_save(d, allow_production)`，堵住 `set_credit/shadow_event/patch_asset/supersede/revoke/revalidate` 的直写绕过（QB-2 确认）；`provenance_guard_battery.py` 17/17。原发现：`.agent/evidence/phase-P5a76-instrument-mutation-finding.md`。
 
 ---
 

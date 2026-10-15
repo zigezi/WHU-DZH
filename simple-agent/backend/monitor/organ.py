@@ -47,9 +47,9 @@ def birth(candidate: dict, production: bool = False) -> dict:
     return prov.register_asset(rec, production=production)
 
 
-def shadow_fire(asset_id: str, run_verdict: str) -> dict:
+def shadow_fire(asset_id: str, run_verdict: str, production: bool = False) -> dict:
     """影子期点火记账 → 自动毕业(active)或回炉(pending_revalidation)。"""
-    return prov.shadow_event(asset_id, run_verdict)
+    return prov.shadow_event(asset_id, run_verdict, production=production)
 
 
 # ---- 五环管线（MVP；ring_draft 是唯一允许 LLM 的格子）----

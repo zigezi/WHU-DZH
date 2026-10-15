@@ -1,0 +1,193 @@
+{
+ "note": "P5a.82 §三.8 offline replay（filter_oplog_v1）",
+ "lines": 21,
+ "tally": {
+  "collect": 4,
+  "tier:gray": 3,
+  "dupe_skipped": 4,
+  "tier:signal": 1,
+  "drop": 17
+ },
+ "added_by_tier": {},
+ "farm_real_countable": 6,
+ "farm_real_classes": [
+  "env_missing",
+  "syntax_death",
+  "test_or_build_fail",
+  "timeout_loop"
+ ],
+ "rows": [
+  {
+   "verdict": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "command": "scripts/e3_generator.py --n 40",
+   "exit_code": 124
+  },
+  {
+   "verdict": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "command": "generate audit sample v2",
+   "exit_code": 1
+  },
+  {
+   "verdict": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "command": "review generator heredoc",
+   "exit_code": 1
+  },
+  {
+   "verdict": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   },
+   "command": "git push origin simple-agent",
+   "exit_code": 128
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\n/root/miniconda3/envs/mini-agent/bin/python scripts/regres",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\ngit add backend/monitor/trace_store.py backend/monitor/cod",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\ngit diff -- .agent/reports/op-log-hook-battery.json | head",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "echo \"=== /root/simple-agent ===\"; git -C /root/simple-agent remote -v || true; ",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "echo \"== pwd=/root/simple-agent ==（你刚才所在）\"; git -C /root/simple-agent remote || ",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/WHU-DZH\nrm -rf simple-agent && mkdir -p simple-agent\ngit -C /root/simpl",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/WHU-DZH\nGIT_TOKEN=$(tr -d '\\r\\n' < /root/simple-agent/github-token.txt)",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "for f in /root/WHU-DZH/.git/config /root/simple-agent/.git/config ~/.gitconfig ~",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\necho \"=== local source commits (since 3f2c3da) ===\"; git l",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\necho \"########## provenance.py (a77) diff ##########\"; git",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\nchmod +x push_mirror.sh\necho \"=== syntax check ===\"; bash ",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent; ls P5a.81* P5a.82* 2>/dev/null",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\necho \"=== provenance.py 写路径审计 ===\"\ngrep -nE \"^def |_save\\(",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent; grep -c \"^    _save(d)$\" backend/monitor/provenance.py",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent; sed -n '60,72p' scripts/c1_coldstart_gate.py",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\n/root/miniconda3/envs/mini-agent/bin/python scripts/proven",
+   "exit_code": 0
+  },
+  {
+   "verdict": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "command": "cd /root/simple-agent\n/root/miniconda3/envs/mini-agent/bin/python scripts/oplog_",
+   "exit_code": 0
+  }
+ ]
+}

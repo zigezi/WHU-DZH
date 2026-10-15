@@ -31,9 +31,7 @@ def main():
         key = (e.get("ts"), e.get("command"), int(e.get("exit_code", 0)))
         if key in existing:
             continue
-        if cc.add(e.get("ts"), e.get("op"), e.get("command"),
-                  int(e.get("exit_code", 0)), e.get("error", ""),
-                  source="real", capture="turn_harvest"):
+        if cc.ingest_event(e, source="real", capture="turn_harvest"):
             added += 1
             existing.add(key)
     total = cc.real_count()

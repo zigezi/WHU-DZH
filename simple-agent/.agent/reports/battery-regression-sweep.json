@@ -1,7 +1,7 @@
 {
  "note": "P5a.77 §二.2 全量电池回归扫（零 token；注册表不变性断言）",
  "token": 0,
- "batteries": 13,
+ "batteries": 15,
  "firing_audit": true,
  "results": [
   {
@@ -41,11 +41,19 @@
    "rc": 0
   },
   {
+   "file": "oplog_filter_battery.py",
+   "rc": 0
+  },
+  {
    "file": "payment_enforce_battery.py",
    "rc": 0
   },
   {
    "file": "payment_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "provenance_guard_battery.py",
    "rc": 0
   },
   {

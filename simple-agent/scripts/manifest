@@ -10,6 +10,9 @@
 op_log_hook.sh
 install_op_hook.sh
 op_log_hook_battery.py
+oplog_filter_battery.py
+oplog_replay.py
+provenance_guard_battery.py
 
 # —— 电池 / 回归（零 token 卫生） ——
 availability_enforce_battery.py

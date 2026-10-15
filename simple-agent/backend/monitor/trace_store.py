@@ -158,6 +158,8 @@ class TraceStore:
             self._ensure_column("code_corpses", "git_head", "TEXT")
             self._ensure_column("code_corpses", "env_fingerprint", "TEXT")
             self._ensure_column("code_corpses", "schema_v", "TEXT")
+            # P5a.82 §三：采集口径 v1 分层（signal/build/gray；gray 不计触发线/不进校准）
+            self._ensure_column("code_corpses", "tier", "TEXT")
             self.conn.commit()
 
     def _ensure_column(self, table: str, column: str, decl: str):

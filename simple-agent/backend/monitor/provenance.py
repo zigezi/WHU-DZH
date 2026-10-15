@@ -65,14 +65,15 @@ def _load():
     return {"assets": []}
 
 
-def _save(d):
+def _save(d, allow_production: bool = False):
+    """P5a.82 §四：一切写路径必经此 I/O 层守卫（DC-9 下沉，堵 QB-2 绕过）。"""
     path = _active_file()
+    _guard_production(path, allow_production)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     json.dump(d, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
 def register_asset(rec: dict, production: bool = False) -> dict:
-    _guard_production(_active_file(), production)   # P5a.77 §二.1 / DC-9
     d = _load()
     rec = dict(rec)
     rec.setdefault("created_at", datetime.now().isoformat(timespec="seconds"))
@@ -84,7 +85,7 @@ def register_asset(rec: dict, production: bool = False) -> dict:
         raise ValueError(f"invalid asset record: {errs}")
     d["assets"] = [a for a in d["assets"] if a.get("asset_id") != rec.get("asset_id")]
     d["assets"].append(rec)
-    _save(d)
+    _save(d, production)
     return rec
 
 
@@ -95,7 +96,7 @@ def list_assets(domain: str = None):
     return d["assets"]
 
 
-def set_credit(asset_id: str, level: str, evidence: str) -> dict:
+def set_credit(asset_id: str, level: str, evidence: str, production: bool = False) -> dict:
     d = _load()
     for a in d["assets"]:
         if a.get("asset_id") == asset_id:
@@ -105,11 +106,11 @@ def set_credit(asset_id: str, level: str, evidence: str) -> dict:
             a.setdefault("revalidation_log", []).append(
                 {"at": datetime.now().isoformat(timespec="seconds"),
                  "evidence": evidence, "result": "credit_raised", "level": level})
-    _save(d)
+    _save(d, production)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
 
 
-def shadow_event(asset_id: str, run_verdict: str) -> dict:
+def shadow_event(asset_id: str, run_verdict: str, production: bool = False) -> dict:
     """P5a.58 §二：影子点火记账 + 自动毕业/降级。
     run_verdict=FAIL → shadow_firings+1（本会拦下的潜在救场）；=PASS → shadow_misfires+1（误伤）。
     毕业：firings≥10 ∧ misfires=0 → status=active；任一 misfire>0 → status=pending_revalidation（回炉）。"""
@@ -134,20 +135,20 @@ def shadow_event(asset_id: str, run_verdict: str) -> dict:
                 {"at": datetime.now().isoformat(timespec="seconds"),
                  "evidence": f"shadow graduated: firings={a['shadow_firings']}, misfires=0",
                  "result": "promote_shadow"})
-    _save(d)
+    _save(d, production)
     return a
 
 
-def patch_asset(asset_id: str, **fields) -> dict:
+def patch_asset(asset_id: str, production: bool = False, **fields) -> dict:
     d = _load()
     for a in d["assets"]:
         if a.get("asset_id") == asset_id:
             a.update(fields)
-    _save(d)
+    _save(d, production)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
 
 
-def supersede(asset_id: str, superseded_by: str, reason: str = "") -> dict:
+def supersede(asset_id: str, superseded_by: str, reason: str = "", production: bool = False) -> dict:
     d = _load()
     for a in d["assets"]:
         if a.get("asset_id") == asset_id:
@@ -156,11 +157,11 @@ def supersede(asset_id: str, superseded_by: str, reason: str = "") -> dict:
             a["superseded_at"] = datetime.now().isoformat(timespec="seconds")
             if reason:
                 a["superseded_reason"] = reason
-    _save(d)
+    _save(d, production)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
 
 
-def revoke(asset_id: str, reason: str, knowledge_moved_to: str = "negative_precedents") -> dict:
+def revoke(asset_id: str, reason: str, knowledge_moved_to: str = "negative_precedents", production: bool = False) -> dict:
     d = _load()
     for a in d["assets"]:
         if a.get("asset_id") == asset_id:
@@ -168,11 +169,11 @@ def revoke(asset_id: str, reason: str, knowledge_moved_to: str = "negative_prece
             a["revoked_at"] = datetime.now().isoformat(timespec="seconds")
             a["revoked_reason"] = reason
             a["knowledge_moved_to"] = knowledge_moved_to
-    _save(d)
+    _save(d, production)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
 
 
-def revalidate(asset_id: str, evidence: str, result: str = "pass"):
+def revalidate(asset_id: str, evidence: str, result: str = "pass", production: bool = False):
     d = _load()
     for a in d["assets"]:
         if a.get("asset_id") == asset_id:
@@ -181,5 +182,5 @@ def revalidate(asset_id: str, evidence: str, result: str = "pass"):
                 {"at": a["last_revalidated"], "evidence": evidence, "result": result})
             if result != "pass":
                 a["status"] = "pending_revalidation"
-    _save(d)
+    _save(d, production)
     return next((a for a in d["assets"] if a.get("asset_id") == asset_id), None)
