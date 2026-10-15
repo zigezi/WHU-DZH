@@ -144,13 +144,16 @@ class TraceStore:
                 CREATE TABLE IF NOT EXISTS code_corpses (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     ts TEXT, op TEXT, command TEXT, exit_code INTEGER,
-                    error TEXT, death_class TEXT
+                    error TEXT, death_class TEXT, source TEXT, capture TEXT
                 )
             """)
             # 兼容旧库：补充 result / error / code_version 列
             self._ensure_column("traces", "result", "TEXT")
             self._ensure_column("traces", "error", "TEXT")
             self._ensure_column("traces", "code_version", "TEXT")
+            # P5a.79 §二.1：尸体来源与采集渠道（洁池：demo 不入校准分布）
+            self._ensure_column("code_corpses", "source", "TEXT")
+            self._ensure_column("code_corpses", "capture", "TEXT")
             self.conn.commit()
 
     def _ensure_column(self, table: str, column: str, decl: str):

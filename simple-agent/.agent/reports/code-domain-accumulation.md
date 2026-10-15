@@ -20,9 +20,9 @@
 可观测性证明 + `naming_proof` + 金丝雀电池 + C-1 + **影子模式**——一要件不免。
 
 ## 五、当前状态（攒批中）
-- **尸体 6 具 / death_class 4 类**（含首批真实操作失败：timeout_loop / syntax_death / test_or_build_fail / env_missing；由本 session 观测的代码操作失败与 demo 组成）。
-- 触发线（30 / 3）：**未达**（尸体数不足）→ 继续攒批。
-- 落盘：`.agent/logs/code-ops.jsonl`。
+- **real 尸体 6 具 / death_class 4 类**（test_or_build_fail 2 / syntax_death 2 / timeout_loop 1 / env_missing 1；另 **2 具 a64 demo 已隔离**，source=demo，不入校准分布——a79 §二.1 洁池）。
+- 触发线（30 / 3）：**只计 real**，当前 6/30 → **未达**（尸体数不足）→ 继续攒批。
+- 落盘：`.agent/logs/code-ops.jsonl`（权威计数以仪器表 `code_corpses` 为准；schema 增 `source`(real/demo) / `capture` 字段）。
 
 ## 六、换道裁决与双触发线（P5a.65）
 - **不换道**：SWE-bench 属代理域，资产须在部署域尸体上出生；自有日志全保真、零 token、骑行真实工作。自有日志主线继续。
@@ -31,4 +31,4 @@
   - **多样性线**：Phase 1 代码域校准时死因类过窄（分诊尺测不出特异度）。
   - 任一线触发 → 启动时四件套预注册：① 零 token 可行性道钉 ② 污染金丝雀（e7 教训：DeepSeek 或见过 GitHub issue 语料）③ 预算上限 ④ 定位写明"语料富化，非能力声明"。
 - **§四 禁令**：**禁止为攒尸体而人造任务跑批**（E3 已封顶此路）；**尸体只从真实工作中捡拾**。
-- 状态：6 尸体 / 4 类；量线与多样性线**均未触发**。
+- 状态：real 6 尸体 / 4 类（另 2 demo 隔离）；量线与多样性线**均未触发**。

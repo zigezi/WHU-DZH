@@ -5,9 +5,18 @@
 """
 import os
 import sys
+import tempfile
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "backend"))
+
+# P5a.77 §二.1：自检禁写生产注册表 —— 注册表路径指向临时副本（DC-9）
+_TMP = tempfile.mkdtemp(prefix="e3-substrate-")
+os.environ["SA_REGISTRY_PATH"] = os.path.join(_TMP, "assets.json")
+_prod = os.path.join(ROOT, ".agent", "reports", "assets.json")
+if os.path.exists(_prod):
+    import shutil
+    shutil.copy(_prod, os.environ["SA_REGISTRY_PATH"])
 
 import domains  # noqa: E402
 from monitor import provenance  # noqa: E402

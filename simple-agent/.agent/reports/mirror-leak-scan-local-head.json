@@ -1,0 +1,11 @@
+{
+ "label": "local-head",
+ "repo": "/root/simple-agent",
+ "ref": "HEAD",
+ "prefix": null,
+ "files_scanned": 512,
+ "files_skipped_binary_large_or_excluded": 1,
+ "secret_hits": 0,
+ "plaintext_leak": false,
+ "hits": []
+}

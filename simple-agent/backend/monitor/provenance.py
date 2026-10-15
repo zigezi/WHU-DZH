@@ -9,7 +9,27 @@ import os
 from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-FILE = os.path.join(ROOT, ".agent", "reports", "assets.json")
+# 生产注册表（唯一真值）。FILE 保留为向后兼容的覆写点（自检用隔离存储时直接赋临时路径）。
+PRODUCTION_FILE = os.path.join(ROOT, ".agent", "reports", "assets.json")
+FILE = PRODUCTION_FILE
+
+
+def _active_file():
+    """P5a.77 §二.1：注册表路径解析——SA_REGISTRY_PATH 优先（沙盒），否则 FILE（默认生产）。"""
+    return os.environ.get("SA_REGISTRY_PATH") or FILE
+
+
+def _is_production(path):
+    return os.path.abspath(path) == os.path.abspath(PRODUCTION_FILE)
+
+
+def _guard_production(path, allow):
+    """DC-9 修法：写生产注册表须显式授权（production=True 或 SA_REGISTRY_PRODUCTION=1），缺省即沙盒。"""
+    if _is_production(path) and not (allow or os.environ.get("SA_REGISTRY_PRODUCTION") == "1"):
+        raise PermissionError(
+            "DC-9: refusing to write PRODUCTION registry without explicit opt-in "
+            "(pass production=True or set SA_REGISTRY_PRODUCTION=1); test/self-check "
+            "scripts must set SA_REGISTRY_PATH to a temp copy")
 
 CREDIT_LEVELS = ("T1_candidate", "field_validated", "T1", "T2", "T3")
 SCHEMA_VERSION = "b3-v3"
@@ -36,20 +56,23 @@ def validate_asset(rec: dict) -> list:
 
 
 def _load():
-    if os.path.exists(FILE):
+    path = _active_file()
+    if os.path.exists(path):
         try:
-            return json.load(open(FILE, encoding="utf-8"))
+            return json.load(open(path, encoding="utf-8"))
         except Exception:  # noqa: BLE001
             return {"assets": []}
     return {"assets": []}
 
 
 def _save(d):
-    os.makedirs(os.path.dirname(FILE), exist_ok=True)
-    json.dump(d, open(FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    path = _active_file()
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    json.dump(d, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
-def register_asset(rec: dict) -> dict:
+def register_asset(rec: dict, production: bool = False) -> dict:
+    _guard_production(_active_file(), production)   # P5a.77 §二.1 / DC-9
     d = _load()
     rec = dict(rec)
     rec.setdefault("created_at", datetime.now().isoformat(timespec="seconds"))

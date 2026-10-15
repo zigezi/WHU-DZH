@@ -43,10 +43,11 @@ def main():
     for e in events:
         _append(e)
         if cc.add(e.get("ts"), e.get("op"), e.get("command"),
-                  int(e.get("exit_code", 0)), e.get("error", "")):
+                  int(e.get("exit_code", 0)), e.get("error", ""),
+                  source=e.get("source", "real"), capture=e.get("capture", "op_log")):
             added += 1
-    total = len(cc.list_all(limit=100000))
-    classes = set(c["death_class"] for c in cc.list_all(limit=100000))
+    total = cc.real_count()
+    classes = set(cc.real_classes())
     out = {"note": "P5a.64 代码域尸体攒批（零 token；攒批期：只攒尸体不开药）",
            "this_added": added, "corpses_total": total, "death_classes": sorted(classes),
            "trigger_line": {"min_corpses": 30, "min_classes": 3},

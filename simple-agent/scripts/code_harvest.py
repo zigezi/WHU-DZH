@@ -32,15 +32,17 @@ def main():
         if key in existing:
             continue
         if cc.add(e.get("ts"), e.get("op"), e.get("command"),
-                  int(e.get("exit_code", 0)), e.get("error", "")):
+                  int(e.get("exit_code", 0)), e.get("error", ""),
+                  source="real", capture="turn_harvest"):
             added += 1
             existing.add(key)
-    all_c = cc.list_all(limit=100000)
-    classes = sorted(set(c["death_class"] for c in all_c))
-    out = {"note": "P5a.66 回合末收割（只捡真实失败）", "events_read": len(events),
-           "added": added, "corpses_total": len(all_c), "death_classes": classes,
+    total = cc.real_count()
+    classes = cc.real_classes()
+    out = {"note": "P5a.66 回合末收割（只捡真实失败；触发线只计 real，a79 §二.1）",
+           "events_read": len(events), "added": added, "real_total": total,
+           "death_classes": classes,
            "trigger_line": {"min_corpses": 30, "min_classes": 3},
-           "trigger_reached": len(all_c) >= 30 and len(classes) >= 3}
+           "trigger_reached": total >= 30 and len(classes) >= 3}
     print(json.dumps(out, ensure_ascii=False, indent=1))
     return 0
 

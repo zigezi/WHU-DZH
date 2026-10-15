@@ -1,0 +1,11 @@
+{
+ "label": "mirror-9ec0c8b",
+ "repo": "/root/WHU-DZH",
+ "ref": "9ec0c8b",
+ "prefix": "simple-agent",
+ "files_scanned": 510,
+ "files_skipped_binary_large_or_excluded": 1,
+ "secret_hits": 0,
+ "plaintext_leak": false,
+ "hits": []
+}

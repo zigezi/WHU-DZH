@@ -1,0 +1,69 @@
+{
+ "note": "P5a.77 §二.2 全量电池回归扫（零 token；注册表不变性断言）",
+ "token": 0,
+ "batteries": 13,
+ "firing_audit": true,
+ "results": [
+  {
+   "file": "availability_enforce_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "availability_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "certificate_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "count_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "e9_canary_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "exchange_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "giftcard_enforce_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "giftcard_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "op_log_hook_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "payment_enforce_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "payment_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "repeat_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "sentinel_wiring_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "firing_audit.py",
+   "rc": 0
+  }
+ ],
+ "all_rc_ok": true,
+ "registry_sha_before": "4840c2324098c45d",
+ "registry_sha_after": "4840c2324098c45d",
+ "registry_invariant_ok": true,
+ "verdict": "GREEN"
+}

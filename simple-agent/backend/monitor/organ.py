@@ -35,15 +35,16 @@ def can_birth(candidate: dict) -> Tuple[bool, List[str]]:
     return (not errs), errs
 
 
-def birth(candidate: dict) -> dict:
-    """出生路径：通过门 → 登记为 **shadow**（拦截器在线运行但只记日志不否决）。"""
+def birth(candidate: dict, production: bool = False) -> dict:
+    """出生路径：通过门 → 登记为 **shadow**（拦截器在线运行但只记日志不否决）。
+    写生产注册表须显式 production=True（DC-9；自检走 SA_REGISTRY_PATH 沙盒）。"""
     ok, errs = can_birth(candidate)
     if not ok:
         raise ValueError(f"[organ] birth rejected: {errs}")
     rec = dict(candidate)
     rec.update({"status": "shadow", "credit_level": "T1_candidate",
                 "shadow_firings": 0, "shadow_misfires": 0})
-    return prov.register_asset(rec)
+    return prov.register_asset(rec, production=production)
 
 
 def shadow_fire(asset_id: str, run_verdict: str) -> dict:
