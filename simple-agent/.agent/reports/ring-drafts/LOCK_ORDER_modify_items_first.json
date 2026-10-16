@@ -1,0 +1,13 @@
+{
+ "pattern": "LOCK_ORDER::modify_items_first",
+ "kind": "order_lock",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一订单锁内先修改订单项（modify_items）再修改订单头（modify_order）时，判定为 LOCK_ORDER::modify_items_first 死亡模式并拦截。",
+  "firing_condition": "在同一 order_lock 持有区间内，观测到事件序列满足：存在事件 A 的 op == 'modify_items' 且存在后续事件 B 的 op == 'modify_order'，且 A.timestamp < B.timestamp，且 A.lock_id == B.lock_id，且 A.order_id == B.order_id。",
+  "observability_declaration": "点火条件可由 args 与可观测状态确定性计算：需要可观测到每个锁内事件的 op、timestamp、lock_id、order_id；这些字段均来自订单锁事件日志/追踪上下文，不依赖不可观测的内部状态。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 同一订单锁内先改项再改头但业务上无死锁风险的顺序操作；2) 批量操作中 modify_items 与 modify_order 属于不同子事务但共享同一 lock_id 的并发交错；3) 重试/补偿流程中先改项后改头的幂等重放；4) 测试或管理工具中人为构造的合法顺序。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 460
+}

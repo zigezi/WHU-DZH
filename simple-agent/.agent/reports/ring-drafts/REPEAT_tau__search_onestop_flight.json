@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__search_onestop_flight",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话中 tau__search_onestop_flight 工具在最近 3 次调用内连续失败且失败原因相同（均为超时或均为空结果）时，拦截下一次相同参数的调用。",
+  "firing_condition": "在会话状态中维护 tau__search_onestop_flight 的调用历史，若最近连续 3 次调用均返回失败（status=error 或 status=empty），且这 3 次调用的参数指纹（出发地、目的地、日期、舱位等关键字段的哈希）完全一致，则触发拦截。",
+  "observability_declaration": "点火条件仅依赖会话内可观测的调用历史记录（工具名、参数指纹、返回状态），不依赖外部系统或隐藏状态。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 用户主动重试相同查询以确认结果（如网络抖动后恢复）；2) 工具返回空结果但实际是合法无航班，用户期望再次确认；3) 参数相同但底层数据源已更新，重试可能成功。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 421
+}

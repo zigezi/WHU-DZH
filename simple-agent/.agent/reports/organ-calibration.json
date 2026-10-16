@@ -1,0 +1,166 @@
+{
+ "note": "P5a.59 阶段一 器官校准（已知答案）",
+ "n": 25,
+ "pass_a_reject_all": true,
+ "misfire_release": [],
+ "pass_b_recall_deployed": true,
+ "miss_recall": [],
+ "calibrated": true,
+ "disposition_counts": {
+  "reject": 2,
+  "deploy": 17,
+  "decompose": 6
+ },
+ "rows": [
+  {
+   "pattern_id": "ERR::user not found",
+   "kind": "tool_error",
+   "disposition": "reject",
+   "human": "reject"
+  },
+  {
+   "pattern_id": "ERR::non-pending order cannot be modified",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT290",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "human": "decompose/review"
+  },
+  {
+   "pattern_id": "ERR::gift card balance is not enough",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "human": "decompose/review"
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT229",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "human": "decompose/review"
+  },
+  {
+   "pattern_id": "ERR::non-delivered order cannot be exchanged",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT213",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "human": "decompose/review"
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "ERR::certificate cannot be used to update res",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "human": "decompose/review"
+  },
+  {
+   "pattern_id": "ERR::not enough balance in payment method gif",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "human": "decompose/review"
+  },
+  {
+   "pattern_id": "ERR::the number of items to be exchanged shou",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "ERR::BookReservation.invoke() got an unexpect",
+   "kind": "tool_error",
+   "disposition": "reject",
+   "human": "reject"
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_order_details",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_reservation_details",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__search_direct_flight",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_product_details",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__calculate",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__search_onestop_flight",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__update_reservation_flights",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__return_delivered_order_items",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "REPEAT::tau__book_reservation",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "human": "deploy"
+  },
+  {
+   "pattern_id": "LOCK_ORDER::modify_items_first",
+   "kind": "order_lock",
+   "disposition": "deploy",
+   "human": "deploy"
+  }
+ ]
+}

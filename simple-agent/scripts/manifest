@@ -1,0 +1,94 @@
+# scripts/manifest — 在册脚本清单（P5a.77 §二.3）
+#
+# 规则：清单内 = 在役、可运行；清单外（含 scripts/attic/）= 默认不可执行写路径。
+# 写路径的具体闸门 = provenance.register_asset 的生产授权（DC-9：缺省即沙盒，须 SA_REGISTRY_PRODUCTION=1）。
+# 设施变更后须跑 scripts/regression_sweep.py（含注册表不变性断言）；清单随变更同步更新。
+#
+# 生成/核对：ls scripts/*.py scripts/*.sh（不含 attic/）
+
+# —— 采集钩子（a79 §二.2） ——
+op_log_hook.sh
+install_op_hook.sh
+op_log_hook_battery.py
+oplog_filter_battery.py
+oplog_replay.py
+provenance_guard_battery.py
+
+# —— 电池 / 回归（零 token 卫生） ——
+availability_enforce_battery.py
+availability_guard_battery.py
+certificate_guard_battery.py
+count_guard_battery.py
+e9_canary_battery.py
+exchange_guard_battery.py
+giftcard_enforce_battery.py
+giftcard_guard_battery.py
+payment_enforce_battery.py
+payment_guard_battery.py
+repeat_guard_battery.py
+sentinel_wiring_battery.py
+firing_audit.py
+regression_sweep.py
+
+# —— 门 / 器官 / 证书 ——
+c1_coldstart_gate.py
+canary_gate_v1.py
+canary_gate_v11.py
+canary_guard.py
+epoch_gate.py
+organ_calibration.py
+organ_census.py
+organ_ingest_corpses.py
+organ_selftest.py
+organ_stage2.py
+ring_draft.py
+sentinel_ledger.py
+
+# —— 尸体攒批 / 收割 ——
+code_corpse_collect.py
+code_harvest.py
+code_op_log.py
+p5a36_failure_mine.py
+
+# —— 安全 / 治理 ——
+secret_mask.py
+mirror_leak_scan.py
+
+# —— E2 建设段（a83-86）——
+e2_deident.py
+e2_whitelist.json
+e2_variants.json
+e2_ruleset_v0.4.json
+e2_deid_fixtures.py
+e2_deid_closure_probe.py
+e2_deid_invariance.py
+assert_deid_invariance.py
+e2_deid_recall_fixture.py
+e2_deid_recall_probe.py
+e2_unit_norm.py
+e2_eval.py
+e2_eval_params.json
+e2_ruleset_provisional.json
+e2_ruleset_v0.3.json
+e2_prompt_v1.1.md
+e2_eval_rules_battery.py
+e2_fingerprint.py
+taskbook_fingerprint.json
+e2_defect_injector.py
+e2_eval_calibration.py
+
+# —— 分析 / 工具 ——
+family_stats.py
+freeze_precedents.py
+harness_screen.py
+intervention_wording_ab.py
+janitor.py
+p5a11_fingerprints.py
+p5a20_memo1_selftest.py
+p5a20_memo3_selftest.py
+p5a27_audit_sample.py
+p5a27_injectant_lint.py
+p5a27_predicate_backtest.py
+tau_ingest.py
+shadow.sh
+tau_sidecar.sh

@@ -1,0 +1,36 @@
+{
+ "note": "certificate_update_v1 电池",
+ "n": 7,
+ "passed": 7,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_update_certificate_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_update_credit_card_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_update_gift_card_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_book_certificate_passes",
+   "pass": true
+  },
+  {
+   "probe": "N4_non_target_passes",
+   "pass": true
+  },
+  {
+   "probe": "N5_update_no_payment_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}

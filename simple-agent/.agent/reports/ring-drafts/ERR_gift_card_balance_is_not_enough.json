@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::gift card balance is not enough",
+ "kind": "tool_error",
+ "disposition": "decompose",
+ "draft": {
+  "predicate_text": "当工具调用返回的错误信息表明礼品卡余额不足时，拦截该调用并触发分解处置。",
+  "firing_condition": "tool_result.error 字段（或等价的错误消息字段）经小写化后包含子串 'gift card balance is not enough'，且该结果来自工具调用（kind == 'tool_error'）。",
+  "observability_declaration": "点火条件仅依赖工具调用的返回结果中的错误文本字段，该字段在工具执行后即可观测，无需额外状态或外部查询。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 错误消息中恰好包含该子串但实际为其他语义（如测试桩、模拟数据、日志回显）；2) 礼品卡余额不足但业务上允许部分支付或组合支付，直接拦截可能阻断合法降级路径；3) 多语言或变体拼写未被覆盖时不会误伤，但覆盖过宽可能误伤。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 390
+}

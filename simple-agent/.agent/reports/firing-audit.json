@@ -1,0 +1,109 @@
+{
+ "note": "P5a.55/56 追溯点火审计（干预语义分级）",
+ "runs": 991,
+ "assets": {
+  "lock_order_v1": {
+   "mode": "benign",
+   "fired_on_fail": 51,
+   "fires_on_pass": 119,
+   "tax": 119,
+   "rescue": 7,
+   "miss": 0,
+   "coverage": 1.0,
+   "hardline_violation": false
+  },
+  "repeat_failure_v1": {
+   "mode": "hard",
+   "fired_on_fail": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
+   "rescue": 0,
+   "miss": 13,
+   "coverage": 0.0,
+   "hardline_violation": false
+  },
+  "items_count_match_v1": {
+   "mode": "hard",
+   "fired_on_fail": 1,
+   "fires_on_pass": 0,
+   "tax": 0,
+   "rescue": 1,
+   "miss": 0,
+   "coverage": 1.0,
+   "hardline_violation": false
+  },
+  "non_delivered_exchange_v1": {
+   "mode": "hard",
+   "fired_on_fail": 1,
+   "fires_on_pass": 0,
+   "tax": 0,
+   "rescue": 1,
+   "miss": 2,
+   "coverage": 0.333,
+   "hardline_violation": false
+  },
+  "payment_amount_sum_v1": {
+   "mode": "hard",
+   "fired_on_fail": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
+   "rescue": 0,
+   "miss": 4,
+   "coverage": 0.0,
+   "hardline_violation": false
+  },
+  "flight_availability_v1": {
+   "mode": "hard",
+   "fired_on_fail": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
+   "rescue": 0,
+   "miss": 9,
+   "coverage": 0.0,
+   "hardline_violation": false
+  },
+  "flight_availability_enforce_v1": {
+   "mode": "benign",
+   "fired_on_fail": 68,
+   "fires_on_pass": 50,
+   "tax": 50,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "hardline_violation": false
+  },
+  "gift_card_balance_v1": {
+   "mode": "hard",
+   "fired_on_fail": 0,
+   "fires_on_pass": 0,
+   "tax": 0,
+   "rescue": 0,
+   "miss": 6,
+   "coverage": 0.0,
+   "hardline_violation": false
+  },
+  "payment_amount_sum_enforce_v1": {
+   "mode": "benign",
+   "fired_on_fail": 29,
+   "fires_on_pass": 4,
+   "tax": 4,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "hardline_violation": false
+  },
+  "gift_card_balance_enforce_v1": {
+   "mode": "benign",
+   "fired_on_fail": 16,
+   "fires_on_pass": 2,
+   "tax": 2,
+   "rescue": 0,
+   "miss": 0,
+   "coverage": null,
+   "hardline_violation": false
+  }
+ },
+ "total_rescue": 9,
+ "hardline_violations": [],
+ "all_hardline_zero": true
+}

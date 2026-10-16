@@ -1,0 +1,12 @@
+{
+  "req_id": "REQ-001",
+  "split": "train",
+  "title": "创建文本文件并写入内容",
+  "task": "在 workspace 中创建 hello.txt，并写入内容 hi",
+  "ears_text": "WHEN 用户要求在 workspace 创建 hello.txt 并写入 hi, THE SYSTEM SHALL 生成 hello.txt 且内容包含 hi",
+  "assertions": [
+    {"name": "hello_file_exists", "cmd": "test -f {workspace}/hello.txt", "severity": "blocker", "cheap": true},
+    {"name": "hello_content_ok", "cmd": "grep -q hi {workspace}/hello.txt", "severity": "major", "cheap": true}
+  ],
+  "budget": {"max_steps": 10, "max_tokens": 30000, "timeout_s": 600}
+}

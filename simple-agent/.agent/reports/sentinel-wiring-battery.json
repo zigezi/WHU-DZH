@@ -1,0 +1,71 @@
+{
+ "note": "P5a.59 四：哨兵接线金丝雀（真实 execute_tool + tau__ 生产命名）",
+ "n": 9,
+ "passed": 9,
+ "all_pass": true,
+ "cases": [
+  {
+   "case": "lock_tau_prefix_veto",
+   "tool": "tau__modify_pending_order_items",
+   "veto": true,
+   "expect_veto": true,
+   "pass": true
+  },
+  {
+   "case": "count_tau_prefix_veto",
+   "tool": "tau__exchange_delivered_order_items",
+   "veto": true,
+   "expect_veto": true,
+   "pass": true
+  },
+  {
+   "case": "exchange_tau_prefix_veto",
+   "tool": "tau__exchange_delivered_order_items",
+   "veto": true,
+   "expect_veto": true,
+   "pass": true
+  },
+  {
+   "case": "avail_enforce_tau_prefix_veto",
+   "tool": "tau__book_reservation",
+   "veto": true,
+   "expect_veto": true,
+   "pass": true
+  },
+  {
+   "case": "payment_enforce_tau_prefix_veto",
+   "tool": "tau__book_reservation",
+   "veto": true,
+   "expect_veto": true,
+   "pass": true
+  },
+  {
+   "case": "neg_non_target_tool",
+   "tool": "tau__get_order_details",
+   "veto": false,
+   "expect_veto": false,
+   "pass": true
+  },
+  {
+   "case": "neg_unprefixed_non_target",
+   "tool": "get_order_details",
+   "veto": false,
+   "expect_veto": false,
+   "pass": true
+  },
+  {
+   "case": "neg_lock_after_address",
+   "tool": "tau__modify_pending_order_items",
+   "veto": false,
+   "expect_veto": false,
+   "pass": true
+  },
+  {
+   "case": "bare_target_tool_veto",
+   "tool": "modify_pending_order_items",
+   "veto": true,
+   "expect_veto": true,
+   "pass": true
+  }
+ ]
+}

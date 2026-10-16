@@ -1,0 +1,3212 @@
+{
+ "epochs": [
+  4,
+  5
+ ],
+ "note": "机器初筛候选，人审签字后方为约束清单（MR-7）",
+ "counts": {
+  "tasks": 135,
+  "candidates": 83
+ },
+ "tasks": [
+  {
+   "req_id": "TAU-A-000",
+   "tau_env": "airline",
+   "tau_task_id": 0,
+   "instruction_sha256_16": "ba4d1424b28856e2",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    },
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 2,
+     "reason": "user 航点 ['EST'] 不在 GT ['JFK', 'SEA']",
+     "epoch": 4,
+     "trace_id": "7dea12c2-2852-4adb-9607-2f8825dc8220"
+    },
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 2,
+     "reason": "user 航点 ['EST'] 不在 GT ['JFK', 'SEA']",
+     "epoch": 5,
+     "trace_id": "047c1440-b383-4d62-bf6b-a5aaae1ebfd9"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-002",
+   "tau_env": "airline",
+   "tau_task_id": 2,
+   "instruction_sha256_16": "58d709b630e973f6",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-003",
+   "tau_env": "airline",
+   "tau_task_id": 3,
+   "instruction_sha256_16": "e87d98fee780da41",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-005",
+   "tau_env": "airline",
+   "tau_task_id": 5,
+   "instruction_sha256_16": "662959a40b1a08bf",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-006",
+   "tau_env": "airline",
+   "tau_task_id": 6,
+   "instruction_sha256_16": "95558b19e17eacc7",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-007",
+   "tau_env": "airline",
+   "tau_task_id": 7,
+   "instruction_sha256_16": "2b08020c660905aa",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-008",
+   "tau_env": "airline",
+   "tau_task_id": 8,
+   "instruction_sha256_16": "9115851ee5455ca5",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 8,
+     "reason": "'just/only <name>' 收窄，但 GT book 乘客=3",
+     "epoch": 5,
+     "trace_id": "f854dfb5-60ed-413e-8af2-6a5c5b08665c"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-009",
+   "tau_env": "airline",
+   "tau_task_id": 9,
+   "instruction_sha256_16": "f2816ca2a47b8c1c",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-012",
+   "tau_env": "airline",
+   "tau_task_id": 12,
+   "instruction_sha256_16": "0bbf4c88ba00b424",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-013",
+   "tau_env": "airline",
+   "tau_task_id": 13,
+   "instruction_sha256_16": "50b676e0fd5dff72",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-014",
+   "tau_env": "airline",
+   "tau_task_id": 14,
+   "instruction_sha256_16": "1fd9ba8c7c681098",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-015",
+   "tau_env": "airline",
+   "tau_task_id": 15,
+   "instruction_sha256_16": "e140135ca18aae00",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 提及预订号 GV1N64，但 GT 动作未涉及"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-016",
+   "tau_env": "airline",
+   "tau_task_id": 16,
+   "instruction_sha256_16": "72c941b720a25097",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 提及预订号 HAT039，但 GT 动作未涉及"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-017",
+   "tau_env": "airline",
+   "tau_task_id": 17,
+   "instruction_sha256_16": "6778a3550c0ed695",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-018",
+   "tau_env": "airline",
+   "tau_task_id": 18,
+   "instruction_sha256_16": "79f6a43b4f432bd3",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 提及预订号 SI5UKW，但 GT 动作未涉及"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-019",
+   "tau_env": "airline",
+   "tau_task_id": 19,
+   "instruction_sha256_16": "237a9ed13b350043",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    },
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 7,
+     "reason": "user 日期 ['2024-05-20'] 不在 GT ['2024-05-17', '2024-05-19']",
+     "epoch": 4,
+     "trace_id": "f80ea911-7145-42a4-a31e-dcd1abe5a967"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-020",
+   "tau_env": "airline",
+   "tau_task_id": 20,
+   "instruction_sha256_16": "e893d826acda90bc",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-021",
+   "tau_env": "airline",
+   "tau_task_id": 21,
+   "instruction_sha256_16": "c0039851e9c35004",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-022",
+   "tau_env": "airline",
+   "tau_task_id": 22,
+   "instruction_sha256_16": "997821d6577f25de",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-023",
+   "tau_env": "airline",
+   "tau_task_id": 23,
+   "instruction_sha256_16": "435448d51f27cd67",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-024",
+   "tau_env": "airline",
+   "tau_task_id": 24,
+   "instruction_sha256_16": "af0d7f36e0a381be",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-025",
+   "tau_env": "airline",
+   "tau_task_id": 25,
+   "instruction_sha256_16": "8483dee810c5b92b",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    },
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 0,
+     "reason": "user 航点 ['MCO'] 不在 GT ['JFK', 'SFO']",
+     "epoch": 4,
+     "trace_id": "3e283f39-b63a-4d59-905c-2a5e29fe7f44"
+    },
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 0,
+     "reason": "user 航点 ['MCO'] 不在 GT ['JFK', 'SFO']",
+     "epoch": 5,
+     "trace_id": "6b5c6903-8a9f-4e9e-8998-a125155053ee"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-026",
+   "tau_env": "airline",
+   "tau_task_id": 26,
+   "instruction_sha256_16": "70c4f1bbb6b13117",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-027",
+   "tau_env": "airline",
+   "tau_task_id": 27,
+   "instruction_sha256_16": "e1dd3095099ff3a4",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    },
+    {
+     "check": "C3",
+     "confidence": "low",
+     "human_ratify": true,
+     "turn": 6,
+     "reason": "user 航点 ['EWR', 'LGA'] 不在 GT ['ATL', 'JFK', 'MCO']",
+     "epoch": 4,
+     "trace_id": "a6199f2b-c950-457d-91db-34830f55bcc5"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-028",
+   "tau_env": "airline",
+   "tau_task_id": 28,
+   "instruction_sha256_16": "c97f6190c467ba76",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-029",
+   "tau_env": "airline",
+   "tau_task_id": 29,
+   "instruction_sha256_16": "74aadc3bc6f0d2a0",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-030",
+   "tau_env": "airline",
+   "tau_task_id": 30,
+   "instruction_sha256_16": "8e0459df873a4932",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-033",
+   "tau_env": "airline",
+   "tau_task_id": 33,
+   "instruction_sha256_16": "adb47599284fcf93",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-035",
+   "tau_env": "airline",
+   "tau_task_id": 35,
+   "instruction_sha256_16": "d012b745e3b7f6ac",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-036",
+   "tau_env": "airline",
+   "tau_task_id": 36,
+   "instruction_sha256_16": "d5c76dfaf1bb19a9",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-037",
+   "tau_env": "airline",
+   "tau_task_id": 37,
+   "instruction_sha256_16": "0498b367b1d0b557",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 提及预订号 HAT045，但 GT 动作未涉及"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-A-039",
+   "tau_env": "airline",
+   "tau_task_id": 39,
+   "instruction_sha256_16": "e0d62560b98d29f3",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-040",
+   "tau_env": "airline",
+   "tau_task_id": 40,
+   "instruction_sha256_16": "1d7a2a1a3eaa0f1a",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-042",
+   "tau_env": "airline",
+   "tau_task_id": 42,
+   "instruction_sha256_16": "a9e609b3e6a4c708",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-043",
+   "tau_env": "airline",
+   "tau_task_id": 43,
+   "instruction_sha256_16": "5b8984e44bc1a190",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-044",
+   "tau_env": "airline",
+   "tau_task_id": 44,
+   "instruction_sha256_16": "21aaecffbe0d490d",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-045",
+   "tau_env": "airline",
+   "tau_task_id": 45,
+   "instruction_sha256_16": "901f74f8faee3e0b",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-046",
+   "tau_env": "airline",
+   "tau_task_id": 46,
+   "instruction_sha256_16": "d6d7a2250c36b09a",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-047",
+   "tau_env": "airline",
+   "tau_task_id": 47,
+   "instruction_sha256_16": "0f36b1670d8307d0",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-048",
+   "tau_env": "airline",
+   "tau_task_id": 48,
+   "instruction_sha256_16": "818788cb11518229",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-A-049",
+   "tau_env": "airline",
+   "tau_task_id": 49,
+   "instruction_sha256_16": "26c07d5c28b8ace9",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-000",
+   "tau_env": "retail",
+   "tau_task_id": 0,
+   "instruction_sha256_16": "cea82f13f2bdc030",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Watch'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-002",
+   "tau_env": "retail",
+   "tau_task_id": 2,
+   "instruction_sha256_16": "785aab49a84ae89f",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['get_product_details']",
+     "detail": [
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      },
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Thermostat'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-003",
+   "tau_env": "retail",
+   "tau_task_id": 3,
+   "instruction_sha256_16": "a68d7a8aac026ea3",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['get_product_details']",
+     "detail": [
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      },
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-004",
+   "tau_env": "retail",
+   "tau_task_id": 4,
+   "instruction_sha256_16": "789a4b95519a0113",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['get_product_details']",
+     "detail": [
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      },
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-005",
+   "tau_env": "retail",
+   "tau_task_id": 5,
+   "instruction_sha256_16": "d215b894ca43eef3",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Desk Lamp'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-006",
+   "tau_env": "retail",
+   "tau_task_id": 6,
+   "instruction_sha256_16": "4a43da3ef4cb21f1",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Water Bottle'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-010",
+   "tau_env": "retail",
+   "tau_task_id": 10,
+   "instruction_sha256_16": "1c4fcd8cae8902c7",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-011",
+   "tau_env": "retail",
+   "tau_task_id": 11,
+   "instruction_sha256_16": "b7611801b344167b",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-012",
+   "tau_env": "retail",
+   "tau_task_id": 12,
+   "instruction_sha256_16": "f690d2741fb5eebf",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['return_delivered_order_items']",
+     "detail": [
+      {
+       "action": "return_delivered_order_items",
+       "observation": "observation='Error: payment method should be either the original payment method or a gift card' reward=0.0 done=False "
+      },
+      {
+       "action": "return_delivered_order_items",
+       "observation": "observation='Error: payment method should be either the original payment method or a gift card' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Gaming Mouse'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-013",
+   "tau_env": "retail",
+   "tau_task_id": 13,
+   "instruction_sha256_16": "32a6bdf18b252938",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['return_delivered_order_items']",
+     "detail": [
+      {
+       "action": "return_delivered_order_items",
+       "observation": "observation='Error: payment method should be either the original payment method or a gift card' reward=0.0 done=False "
+      },
+      {
+       "action": "return_delivered_order_items",
+       "observation": "observation='Error: payment method should be either the original payment method or a gift card' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Gaming Mouse'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-016",
+   "tau_env": "retail",
+   "tau_task_id": 16,
+   "instruction_sha256_16": "568853faf4309531",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-017",
+   "tau_env": "retail",
+   "tau_task_id": 17,
+   "instruction_sha256_16": "903e6ea273590d63",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-019",
+   "tau_env": "retail",
+   "tau_task_id": 19,
+   "instruction_sha256_16": "8f2713148dcb22f5",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Office Chair'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Pet Bed'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-020",
+   "tau_env": "retail",
+   "tau_task_id": 20,
+   "instruction_sha256_16": "41e2eaeb9e04815b",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-021",
+   "tau_env": "retail",
+   "tau_task_id": 21,
+   "instruction_sha256_16": "7d0a347bbda01266",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['get_product_details']",
+     "detail": [
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      },
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      },
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      },
+      {
+       "action": "get_product_details",
+       "observation": "observation='Error: product not found' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-022",
+   "tau_env": "retail",
+   "tau_task_id": 22,
+   "instruction_sha256_16": "9631200da178d3f7",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-023",
+   "tau_env": "retail",
+   "tau_task_id": 23,
+   "instruction_sha256_16": "7fdacc544b8da43d",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-024",
+   "tau_env": "retail",
+   "tau_task_id": 24,
+   "instruction_sha256_16": "7962f21c15a2f052",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-025",
+   "tau_env": "retail",
+   "tau_task_id": 25,
+   "instruction_sha256_16": "862479544ccff5b7",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Pet Bed'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-026",
+   "tau_env": "retail",
+   "tau_task_id": 26,
+   "instruction_sha256_16": "45853ba4577596a8",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Pet Bed'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-027",
+   "tau_env": "retail",
+   "tau_task_id": 27,
+   "instruction_sha256_16": "19bbebc36905fb03",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Backpack'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Garden Hose'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Water Bottle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-028",
+   "tau_env": "retail",
+   "tau_task_id": 28,
+   "instruction_sha256_16": "98def26d02f6588c",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-029",
+   "tau_env": "retail",
+   "tau_task_id": 29,
+   "instruction_sha256_16": "6d640167b35e6e80",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-030",
+   "tau_env": "retail",
+   "tau_task_id": 30,
+   "instruction_sha256_16": "604960241b47e817",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-031",
+   "tau_env": "retail",
+   "tau_task_id": 31,
+   "instruction_sha256_16": "3de45379e214ede2",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Electric Kettle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Tablet'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Tea Kettle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-032",
+   "tau_env": "retail",
+   "tau_task_id": 32,
+   "instruction_sha256_16": "de82ccb3d5801d35",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Electric Kettle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Tablet'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Tea Kettle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-033",
+   "tau_env": "retail",
+   "tau_task_id": 33,
+   "instruction_sha256_16": "ec9a8909c057daf6",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Hiking Boots'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Office Chair'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-034",
+   "tau_env": "retail",
+   "tau_task_id": 34,
+   "instruction_sha256_16": "af694835de373c94",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Hiking Boots'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Office Chair'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-035",
+   "tau_env": "retail",
+   "tau_task_id": 35,
+   "instruction_sha256_16": "81e06b2efa8abc76",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_email']",
+     "detail": [
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Water Bottle'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-036",
+   "tau_env": "retail",
+   "tau_task_id": 36,
+   "instruction_sha256_16": "e7a3bc0f7b7e8193",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_email']",
+     "detail": [
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-038",
+   "tau_env": "retail",
+   "tau_task_id": 38,
+   "instruction_sha256_16": "ebe6ccef43950486",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_email']",
+     "detail": [
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-039",
+   "tau_env": "retail",
+   "tau_task_id": 39,
+   "instruction_sha256_16": "05dc2d19e0a6aa36",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_name_zip']",
+     "detail": [
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-040",
+   "tau_env": "retail",
+   "tau_task_id": 40,
+   "instruction_sha256_16": "1d92a0c0e0592db6",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-041",
+   "tau_env": "retail",
+   "tau_task_id": 41,
+   "instruction_sha256_16": "12520a32ed86c6e9",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-042",
+   "tau_env": "retail",
+   "tau_task_id": 42,
+   "instruction_sha256_16": "3384fe8943c37f75",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-043",
+   "tau_env": "retail",
+   "tau_task_id": 43,
+   "instruction_sha256_16": "f3070bdc883f5cc9",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-044",
+   "tau_env": "retail",
+   "tau_task_id": 44,
+   "instruction_sha256_16": "c91b6fc63a756086",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-045",
+   "tau_env": "retail",
+   "tau_task_id": 45,
+   "instruction_sha256_16": "b649e3838792e411",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-048",
+   "tau_env": "retail",
+   "tau_task_id": 48,
+   "instruction_sha256_16": "ec549012f4eafc1c",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Vacuum Cleaner'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-049",
+   "tau_env": "retail",
+   "tau_task_id": 49,
+   "instruction_sha256_16": "5a0476a26f3a5ad7",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Water Bottle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-050",
+   "tau_env": "retail",
+   "tau_task_id": 50,
+   "instruction_sha256_16": "b2e3dcf6af8f327c",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-051",
+   "tau_env": "retail",
+   "tau_task_id": 51,
+   "instruction_sha256_16": "413972f383287102",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Action Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Indoor Security Camera'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-052",
+   "tau_env": "retail",
+   "tau_task_id": 52,
+   "instruction_sha256_16": "7197e2867a839692",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Action Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Indoor Security Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Watch'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-053",
+   "tau_env": "retail",
+   "tau_task_id": 53,
+   "instruction_sha256_16": "06b65a7affc537ab",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-055",
+   "tau_env": "retail",
+   "tau_task_id": 55,
+   "instruction_sha256_16": "76235b26507d0cab",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_email']",
+     "detail": [
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_email",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-056",
+   "tau_env": "retail",
+   "tau_task_id": 56,
+   "instruction_sha256_16": "8d63af5e9c253f0c",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Action Camera'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-057",
+   "tau_env": "retail",
+   "tau_task_id": 57,
+   "instruction_sha256_16": "3076b9a7a7454697",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Air Purifier'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-058",
+   "tau_env": "retail",
+   "tau_task_id": 58,
+   "instruction_sha256_16": "4bb51d49aec5329b",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Coffee Maker'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-059",
+   "tau_env": "retail",
+   "tau_task_id": 59,
+   "instruction_sha256_16": "a4348ef7e777c61a",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-060",
+   "tau_env": "retail",
+   "tau_task_id": 60,
+   "instruction_sha256_16": "1c494efff4750b5b",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-061",
+   "tau_env": "retail",
+   "tau_task_id": 61,
+   "instruction_sha256_16": "273253eb230ba936",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-062",
+   "tau_env": "retail",
+   "tau_task_id": 62,
+   "instruction_sha256_16": "95990251f2ace57b",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Bluetooth Speaker'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-063",
+   "tau_env": "retail",
+   "tau_task_id": 63,
+   "instruction_sha256_16": "316a45e92547c9e4",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-064",
+   "tau_env": "retail",
+   "tau_task_id": 64,
+   "instruction_sha256_16": "8b7f762d7afe30d6",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['exchange_delivered_order_items']",
+     "detail": [
+      {
+       "action": "exchange_delivered_order_items",
+       "observation": "observation='Error: non-delivered order cannot be exchanged' reward=0.0 done=False "
+      },
+      {
+       "action": "exchange_delivered_order_items",
+       "observation": "observation='Error: non-delivered order cannot be exchanged' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Digital Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Indoor Security Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Water Bottle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-065",
+   "tau_env": "retail",
+   "tau_task_id": 65,
+   "instruction_sha256_16": "28c5552bf2a76866",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Action Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Bookshelf'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Digital Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Indoor Security Camera'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-067",
+   "tau_env": "retail",
+   "tau_task_id": 67,
+   "instruction_sha256_16": "a471b2233c43a8a6",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_name_zip', 'get_order_details', 'get_user_details']",
+     "detail": [
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='noah_ito_3850' reward=0.0 done=False "
+      },
+      {
+       "action": "get_user_details",
+       "observation": "observation='{\"name\": {\"first_name\": \"Noah\", \"last_name\": \"Ito\"}, \"address\": {\"address1\": \"619 Broadway\", \"address2\": \"S"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-068",
+   "tau_env": "retail",
+   "tau_task_id": 68,
+   "instruction_sha256_16": "26c6c4ad68633cba",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['find_user_id_by_name_zip', 'get_order_details', 'get_user_details']",
+     "detail": [
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='Error: user not found' reward=0.0 done=False "
+      },
+      {
+       "action": "find_user_id_by_name_zip",
+       "observation": "observation='noah_ito_3850' reward=0.0 done=False "
+      },
+      {
+       "action": "get_user_details",
+       "observation": "observation='{\"name\": {\"first_name\": \"Noah\", \"last_name\": \"Ito\"}, \"address\": {\"address1\": \"619 Broadway\", \"address2\": \"S"
+      },
+      {
+       "action": "get_order_details",
+       "observation": "observation='{\"order_id\": \"#W6729841\", \"user_id\": \"noah_ito_3850\", \"address\": {\"address1\": \"619 Broadway\", \"address2\": \""
+      }
+     ]
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-069",
+   "tau_env": "retail",
+   "tau_task_id": 69,
+   "instruction_sha256_16": "073b1aad24eaaf4c",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Laptop'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-070",
+   "tau_env": "retail",
+   "tau_task_id": 70,
+   "instruction_sha256_16": "5820c1578fe62f25",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-071",
+   "tau_env": "retail",
+   "tau_task_id": 71,
+   "instruction_sha256_16": "941df6ba0c623dd4",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-072",
+   "tau_env": "retail",
+   "tau_task_id": 72,
+   "instruction_sha256_16": "151d53113467b541",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-073",
+   "tau_env": "retail",
+   "tau_task_id": 73,
+   "instruction_sha256_16": "ff1dcba172a0942e",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Coffee Maker'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Espresso Machine'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-074",
+   "tau_env": "retail",
+   "tau_task_id": 74,
+   "instruction_sha256_16": "254c0f217358e0d1",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-075",
+   "tau_env": "retail",
+   "tau_task_id": 75,
+   "instruction_sha256_16": "8d0865bd15c18c55",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Water Bottle'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-076",
+   "tau_env": "retail",
+   "tau_task_id": 76,
+   "instruction_sha256_16": "9e16e7a49b181df4",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-077",
+   "tau_env": "retail",
+   "tau_task_id": 77,
+   "instruction_sha256_16": "a2cc4fddf4c2a299",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-079",
+   "tau_env": "retail",
+   "tau_task_id": 79,
+   "instruction_sha256_16": "435e26e866489fa5",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-080",
+   "tau_env": "retail",
+   "tau_task_id": 80,
+   "instruction_sha256_16": "3aaf977cb7079e72",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-081",
+   "tau_env": "retail",
+   "tau_task_id": 81,
+   "instruction_sha256_16": "38d1f68bf228ce3f",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-082",
+   "tau_env": "retail",
+   "tau_task_id": 82,
+   "instruction_sha256_16": "d9e265b66834ca5e",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-083",
+   "tau_env": "retail",
+   "tau_task_id": 83,
+   "instruction_sha256_16": "9812848fa795808a",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-084",
+   "tau_env": "retail",
+   "tau_task_id": 84,
+   "instruction_sha256_16": "6098354eb7a7535d",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-087",
+   "tau_env": "retail",
+   "tau_task_id": 87,
+   "instruction_sha256_16": "c3574052e3282fd1",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-088",
+   "tau_env": "retail",
+   "tau_task_id": 88,
+   "instruction_sha256_16": "b8b1b74fc9d84b61",
+   "arms": {
+    "4": "direct",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'direct', 5: 'precedent-assisted'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-091",
+   "tau_env": "retail",
+   "tau_task_id": 91,
+   "instruction_sha256_16": "b3abd0cbef6797a2",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Thermostat'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-092",
+   "tau_env": "retail",
+   "tau_task_id": 92,
+   "instruction_sha256_16": "5e9d51e822a59d37",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Thermostat'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-093",
+   "tau_env": "retail",
+   "tau_task_id": 93,
+   "instruction_sha256_16": "99b29d3cf49e6808",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-094",
+   "tau_env": "retail",
+   "tau_task_id": 94,
+   "instruction_sha256_16": "749c941926c0e79b",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-096",
+   "tau_env": "retail",
+   "tau_task_id": 96,
+   "instruction_sha256_16": "dbf318fc8a25dc6f",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-097",
+   "tau_env": "retail",
+   "tau_task_id": 97,
+   "instruction_sha256_16": "b64f72b56dacf859",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-098",
+   "tau_env": "retail",
+   "tau_task_id": 98,
+   "instruction_sha256_16": "638155c677d18023",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-099",
+   "tau_env": "retail",
+   "tau_task_id": 99,
+   "instruction_sha256_16": "f1c05a869f9fa41d",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Action Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Indoor Security Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'LED Light Bulb'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-100",
+   "tau_env": "retail",
+   "tau_task_id": 100,
+   "instruction_sha256_16": "04ef582468495828",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Action Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Indoor Security Camera'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'LED Light Bulb'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-101",
+   "tau_env": "retail",
+   "tau_task_id": 101,
+   "instruction_sha256_16": "f343d23ae7132389",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-102",
+   "tau_env": "retail",
+   "tau_task_id": 102,
+   "instruction_sha256_16": "784fafeaff45095b",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Bluetooth Speaker'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-105",
+   "tau_env": "retail",
+   "tau_task_id": 105,
+   "instruction_sha256_16": "340faef9a439c39e",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Jigsaw Puzzle'，但 GT 动作未退货该商品"
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Vacuum Cleaner'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-106",
+   "tau_env": "retail",
+   "tau_task_id": 106,
+   "instruction_sha256_16": "83367a552e57b226",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C4",
+     "confidence": "high",
+     "reason": "GT replay 报错: ['exchange_delivered_order_items']",
+     "detail": [
+      {
+       "action": "exchange_delivered_order_items",
+       "observation": "observation='Error: insufficient gift card balance to pay for the price difference' reward=0.0 done=False "
+      },
+      {
+       "action": "exchange_delivered_order_items",
+       "observation": "observation='Error: insufficient gift card balance to pay for the price difference' reward=0.0 done=False "
+      }
+     ]
+    },
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Electric Kettle'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-107",
+   "tau_env": "retail",
+   "tau_task_id": 107,
+   "instruction_sha256_16": "0c8df37c4b5960e8",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-108",
+   "tau_env": "retail",
+   "tau_task_id": 108,
+   "instruction_sha256_16": "0e6e2157501a7a12",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "FAIL"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  },
+  {
+   "req_id": "TAU-R-110",
+   "tau_env": "retail",
+   "tau_task_id": 110,
+   "instruction_sha256_16": "0adb72965b960df1",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-111",
+   "tau_env": "retail",
+   "tau_task_id": 111,
+   "instruction_sha256_16": "6465cfb35760d0f4",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C5",
+     "confidence": "high",
+     "reason": "跨 epoch arm 不一致: {4: 'precedent-assisted', 5: 'direct'}"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-112",
+   "tau_env": "retail",
+   "tau_task_id": 112,
+   "instruction_sha256_16": "cda37e247981de52",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Watch'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-113",
+   "tau_env": "retail",
+   "tau_task_id": 113,
+   "instruction_sha256_16": "b8f60b2cb72f0d12",
+   "arms": {
+    "4": "direct",
+    "5": "direct"
+   },
+   "verdicts": {
+    "4": "FAIL",
+    "5": "PASS"
+   },
+   "quarantine_candidate": true,
+   "checks": [
+    {
+     "check": "C2",
+     "confidence": "low",
+     "human_ratify": true,
+     "reason": "instruction 退货语境内提及商品 'Smart Watch'，但 GT 动作未退货该商品"
+    }
+   ]
+  },
+  {
+   "req_id": "TAU-R-114",
+   "tau_env": "retail",
+   "tau_task_id": 114,
+   "instruction_sha256_16": "27e95f86b8ce9dd7",
+   "arms": {
+    "4": "precedent-assisted",
+    "5": "precedent-assisted"
+   },
+   "verdicts": {
+    "4": "PASS",
+    "5": "PASS"
+   },
+   "quarantine_candidate": false,
+   "checks": []
+  }
+ ]
+}

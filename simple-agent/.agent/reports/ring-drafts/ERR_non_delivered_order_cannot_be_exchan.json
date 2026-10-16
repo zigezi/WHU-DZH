@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::non-delivered order cannot be exchanged",
+ "kind": "tool_error",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当工具调用请求对一笔未交付订单执行换货操作时，拦截该调用并阻止其执行。",
+  "firing_condition": "tool_name == 'exchange_order' AND args.order_id 存在 AND observable_state.order_delivery_status[args.order_id] == 'not_delivered'",
+  "observability_declaration": "点火条件依赖两个可观测输入：1) 工具调用参数中的 order_id；2) 订单状态查询接口返回的 delivery_status 字段。两者均可在拦截器执行时同步获取，无需异步等待或人工确认。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 订单状态缓存过期或延迟，实际已交付但状态仍显示未交付；2) 换货操作本身包含“先取消未交付订单再新建换货单”的复合语义，被误判为直接换货；3) 测试环境或沙箱中模拟的未交付订单换货流程；4) 具有特殊权限的客服或管理员对异常订单执行强制换货。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 408
+}

@@ -1,0 +1,238 @@
+{
+ "note": "P5a.69 ring_draft 联调（唯一 LLM 格子；草稿入证据域，不部署）",
+ "cap": 100000,
+ "stopped": null,
+ "tokens": 9924,
+ "drafts": 25,
+ "end_to_end_ok": true,
+ "elements_complete_ok": true,
+ "known_answer_semantics_ok": false,
+ "acceptance_ok": true,
+ "rows": [
+  {
+   "pattern_id": "ERR::user not found",
+   "disposition": "reject",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 372
+  },
+  {
+   "pattern_id": "ERR::non-pending order cannot be modified",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 436
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT290",
+   "disposition": "decompose",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 369
+  },
+  {
+   "pattern_id": "ERR::gift card balance is not enough",
+   "disposition": "decompose",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 390
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT229",
+   "disposition": "decompose",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 376
+  },
+  {
+   "pattern_id": "ERR::non-delivered order cannot be exchanged",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 408
+  },
+  {
+   "pattern_id": "ERR::not enough seats on flight HAT213",
+   "disposition": "decompose",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 392
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 379
+  },
+  {
+   "pattern_id": "ERR::certificate cannot be used to update res",
+   "disposition": "decompose",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 350
+  },
+  {
+   "pattern_id": "ERR::not enough balance in payment method gif",
+   "disposition": "decompose",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 371
+  },
+  {
+   "pattern_id": "ERR::the number of items to be exchanged shou",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 474
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 380
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 360
+  },
+  {
+   "pattern_id": "ERR::BookReservation.invoke() got an unexpect",
+   "disposition": "reject",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 370
+  },
+  {
+   "pattern_id": "ERR::payment amount does not add up, total pr",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 370
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_order_details",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": "benign-reissue",
+   "known_answer_match": true,
+   "tokens": 418
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_reservation_details",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 466
+  },
+  {
+   "pattern_id": "REPEAT::tau__search_direct_flight",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 416
+  },
+  {
+   "pattern_id": "REPEAT::tau__get_product_details",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 377
+  },
+  {
+   "pattern_id": "REPEAT::tau__calculate",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "benign-reissue",
+   "expected": "benign-reissue",
+   "known_answer_match": true,
+   "tokens": 338
+  },
+  {
+   "pattern_id": "REPEAT::tau__search_onestop_flight",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 421
+  },
+  {
+   "pattern_id": "REPEAT::tau__update_reservation_flights",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 417
+  },
+  {
+   "pattern_id": "REPEAT::tau__return_delivered_order_items",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 418
+  },
+  {
+   "pattern_id": "REPEAT::tau__book_reservation",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": "benign-reissue",
+   "known_answer_match": false,
+   "tokens": 396
+  },
+  {
+   "pattern_id": "LOCK_ORDER::modify_items_first",
+   "disposition": "deploy",
+   "missing": [],
+   "semantics": "behavior-reroute",
+   "expected": null,
+   "known_answer_match": true,
+   "tokens": 460
+  }
+ ]
+}

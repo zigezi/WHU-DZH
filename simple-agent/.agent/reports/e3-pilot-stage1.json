@@ -1,0 +1,101 @@
+{
+ "note": "E3 先导阶段1",
+ "n": 10,
+ "fail": 0,
+ "fail_rate": 0.0,
+ "tokens": 955,
+ "canary_n": 2,
+ "canary_fail": 0,
+ "rows": [
+  {
+   "task_id": "E3-000",
+   "family": "clamp",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 85,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-001",
+   "family": "gcd",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 88,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-002",
+   "family": "digit_sum",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 77,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-003",
+   "family": "lcm",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 100,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-005",
+   "family": "is_pal",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 75,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-006",
+   "family": "clamp",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 85,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-007",
+   "family": "gcd",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 88,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-008",
+   "family": "digit_sum",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 96,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-042",
+   "family": "canary",
+   "is_canary": true,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 114,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-043",
+   "family": "canary",
+   "is_canary": true,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 147,
+   "stderr": ""
+  }
+ ]
+}

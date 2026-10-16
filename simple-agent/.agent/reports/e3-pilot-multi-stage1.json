@@ -1,0 +1,102 @@
+{
+ "note": "多步 agent 先导 阶段1",
+ "n": 10,
+ "fail": 2,
+ "fail_rate": 0.2,
+ "tokens": 119744,
+ "process_death_total": 0,
+ "difficulty_axis_ok": true,
+ "process_axis_ok": false,
+ "rows": [
+  {
+   "task_id": "E3V3-precedent_select-0",
+   "family": "precedent_select",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 12696
+  },
+  {
+   "task_id": "E3V3-precedent_select-1",
+   "family": "precedent_select",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 12776
+  },
+  {
+   "task_id": "E3V3-precedent_select-2",
+   "family": "precedent_select",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 12728
+  },
+  {
+   "task_id": "E3V3-precedent_select-3",
+   "family": "precedent_select",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 12696
+  },
+  {
+   "task_id": "E3V3-precedent_select-4",
+   "family": "precedent_select",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 12949
+  },
+  {
+   "task_id": "E3V3-precedent_select-5",
+   "family": "precedent_select",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 12867
+  },
+  {
+   "task_id": "E3V3-repeat_guard-0",
+   "family": "repeat_guard",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 6,
+   "tokens": 12667
+  },
+  {
+   "task_id": "E3V3-repeat_guard-1",
+   "family": "repeat_guard",
+   "verdict": 0,
+   "failure_class": "assert_fail",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 10369
+  },
+  {
+   "task_id": "E3V3-repeat_guard-2",
+   "family": "repeat_guard",
+   "verdict": 0,
+   "failure_class": "assert_fail",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 10053
+  },
+  {
+   "task_id": "E3V3-repeat_guard-3",
+   "family": "repeat_guard",
+   "verdict": 1,
+   "failure_class": "pass",
+   "process_deaths": [],
+   "steps": 5,
+   "tokens": 9943
+  }
+ ]
+}

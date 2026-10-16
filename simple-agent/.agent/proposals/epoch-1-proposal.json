@@ -1,0 +1,19 @@
+{
+  "epoch": 1,
+  "generated_at": "2026-09-11T11:46:35.317868",
+  "note": "v1：仅生成提案，需人工审阅后手动应用并单独 commit",
+  "source_report": "epoch-1.json",
+  "proposals": [
+    {
+      "type": "prompt_hint",
+      "target": "unknown",
+      "evidence": [
+        "d6159896-77ee-4479-8d65-270518427fd7"
+      ],
+      "suggested_value": null,
+      "confidence": 0.0,
+      "req_id": "REQ-001",
+      "loss": 0.0037
+    }
+  ]
+}

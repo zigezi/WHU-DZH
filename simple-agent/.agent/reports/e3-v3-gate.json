@@ -1,0 +1,34 @@
+{
+ "note": "P5a.52 v3 装配门（参考态全过 ∧ 变异态杀≥1测试；dogfooding 真模块）",
+ "admitted": 13,
+ "rejected": 0,
+ "mutants": {
+  "precedent_select": [
+   "op:min->max",
+   "op:==->!="
+  ],
+  "repeat_guard": [
+   "op:>=->>",
+   "op:False->True"
+  ],
+  "count_guard": [
+   "op:True->False",
+   "op:False->True"
+  ],
+  "interceptor": [
+   "op:==->!="
+  ],
+  "payment_guard": [
+   "op:+->-",
+   "op:True->False"
+  ],
+  "exchange_guard": [
+   "op:+->-",
+   "op:True->False"
+  ],
+  "diff": [
+   "op:min->max",
+   "op:+->-"
+  ]
+ }
+}

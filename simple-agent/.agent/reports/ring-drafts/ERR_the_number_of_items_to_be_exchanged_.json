@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::the number of items to be exchanged shou",
+ "kind": "tool_error",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当工具调用参数中待交换/待替换的条目数量与目标容器或协议要求的数量不一致时，拦截该调用。",
+  "firing_condition": "args 中存在可计数的交换项集合（如 items、entries、exchanges、replacements 等数组字段），且该集合长度 != args 中显式声明的目标数量字段（如 expected_count、target_count、required_count、count、size、length 等），或 != 由 args 中目标容器/范围字段可确定性推导出的容量/槽位数。",
+  "observability_declaration": "点火条件仅依赖工具调用 args 中可枚举的数组字段长度与显式数量/容量字段，以及可由 args 内目标容器标识确定性推导的槽位数；不依赖外部状态、历史调用或运行时副作用。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 工具允许部分交换或增量替换，数量不匹配是合法语义；2) 数量字段与交换项字段命名不同但语义等价，导致误判；3) 交换项为嵌套结构或分页/分批提交，顶层数组长度不等于实际交换总数；4) 目标容器容量字段为可选或默认值，推导出的槽位数与实际允许数量不一致；5) 同一调用中同时存在多个交换集合，规则错误匹配到非目标集合。",
+  "intervention_semantics": "benign-reissue"
+ },
+ "tokens": 474
+}

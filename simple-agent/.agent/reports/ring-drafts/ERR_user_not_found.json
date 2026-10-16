@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::user not found",
+ "kind": "tool_error",
+ "disposition": "reject",
+ "draft": {
+  "predicate_text": "当工具调用返回错误且错误信息表明目标用户不存在时，拒绝该调用并阻止重试。",
+  "firing_condition": "tool_result.error == true 且 (tool_result.error_code == 'user not found' 或 tool_result.error_message 包含 'user not found' 或 tool_result.error_message 包含 '用户不存在')",
+  "observability_declaration": "点火条件仅依赖工具调用返回结果中的 error 标志、error_code 和 error_message 字段，这些字段在工具执行后均可观测。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 工具返回的 error_message 中偶然包含 'user not found' 但实际为可恢复的临时查询失败；2) 多语言环境下使用其他等价表述（如 'user does not exist'）未被覆盖；3) 测试或模拟环境中故意返回的用户不存在错误被拦截。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 372
+}

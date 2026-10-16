@@ -1,0 +1,17 @@
+{
+ "note": "P5a.62 代码域尸体采集（日志→死亡事件）",
+ "lines": 3,
+ "added_corpses": 2,
+ "mine_input": [
+  {
+   "kind": "code_env_missing",
+   "pattern_id": "CODE::env_missing",
+   "occurrences": 1
+  },
+  {
+   "kind": "code_test_or_build_fail",
+   "pattern_id": "CODE::test_or_build_fail",
+   "occurrences": 1
+  }
+ ]
+}

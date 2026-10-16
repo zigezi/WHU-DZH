@@ -1,0 +1,169 @@
+{
+ "note": "P5a.59 阶段二 重跑批（10 题，7 哨兵在岗，无 A/B，运行时预算闸）",
+ "budget_cap": 1500000,
+ "stopped": null,
+ "n": 10,
+ "tokens": 939737,
+ "passed": 4,
+ "fire_table": {
+  "lock_order_v1": {
+   "fires": 3,
+   "on_pass": 1,
+   "on_fail": 2
+  },
+  "repeat_failure_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "items_count_match_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "non_delivered_exchange_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "flight_availability_enforce_v1": {
+   "fires": 2,
+   "on_pass": 2,
+   "on_fail": 0
+  },
+  "payment_amount_sum_enforce_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  },
+  "gift_card_balance_enforce_v1": {
+   "fires": 0,
+   "on_pass": 0,
+   "on_fail": 0
+  }
+ },
+ "lock_batch": [
+  {
+   "req": "TAU-R-041",
+   "verdict": "PASS",
+   "fires": [
+    "lock_order_v1"
+   ]
+  },
+  {
+   "req": "TAU-R-072",
+   "verdict": "PASS",
+   "fires": []
+  },
+  {
+   "req": "TAU-R-098",
+   "verdict": "FAIL",
+   "fires": [
+    "lock_order_v1"
+   ]
+  },
+  {
+   "req": "TAU-R-105",
+   "verdict": "FAIL",
+   "fires": [
+    "lock_order_v1"
+   ]
+  },
+  {
+   "req": "TAU-R-058",
+   "verdict": "PASS",
+   "fires": []
+  }
+ ],
+ "rows": [
+  {
+   "req_id": "TAU-R-041",
+   "task_id": "7fef1103-33cd-41b1-80d6-e304270e88b5",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [
+    "lock_order_v1"
+   ],
+   "tokens": 112063
+  },
+  {
+   "req_id": "TAU-R-072",
+   "task_id": "ca52ce57-b81f-42d3-b064-4c26fcb01dda",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 74297
+  },
+  {
+   "req_id": "TAU-R-098",
+   "task_id": "05425e04-5304-487c-bba2-8e03b5ddf8b9",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [
+    "lock_order_v1"
+   ],
+   "tokens": 61717
+  },
+  {
+   "req_id": "TAU-R-105",
+   "task_id": "75f61b10-15b3-4e0c-b1eb-385933057f7e",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [
+    "lock_order_v1"
+   ],
+   "tokens": 140145
+  },
+  {
+   "req_id": "TAU-R-058",
+   "task_id": "ae611844-93ad-4b32-838f-1e60f5f73212",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [],
+   "tokens": 89878
+  },
+  {
+   "req_id": "TAU-A-023",
+   "task_id": "5f9e2968-81a0-4abc-87aa-8fa77affa4e7",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 157696
+  },
+  {
+   "req_id": "TAU-A-022",
+   "task_id": "639af989-fe39-489f-9eea-b90116acc7b1",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 24923
+  },
+  {
+   "req_id": "TAU-A-007",
+   "task_id": "a7115ded-d586-4787-8a58-553507e9b2c7",
+   "status": "success",
+   "verdict": "PASS",
+   "fires": [
+    "flight_availability_enforce_v1",
+    "flight_availability_enforce_v1"
+   ],
+   "tokens": 122304
+  },
+  {
+   "req_id": "TAU-R-019",
+   "task_id": "13fc9d47-9fc8-4ad5-b8ac-36f54e894dab",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 61757
+  },
+  {
+   "req_id": "TAU-A-002",
+   "task_id": "09066836-3ede-4cdd-83dd-7bac0c5a552e",
+   "status": "success",
+   "verdict": "FAIL",
+   "fires": [],
+   "tokens": 94957
+  }
+ ]
+}

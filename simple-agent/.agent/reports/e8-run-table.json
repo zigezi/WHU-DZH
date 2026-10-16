@@ -1,0 +1,1221 @@
+{
+ "note": "P5a.43 运行表",
+ "n": 135,
+ "rows": [
+  {
+   "task_id": "1cb5ef0a-b99e-44c1-b6f2-74c48253ab33",
+   "req_id": "TAU-A-000",
+   "arm": "sibling",
+   "injectant": "TAU-A-002",
+   "deid_hash": "7e82669f3eb486a0",
+   "verdict": "FAIL",
+   "tokens": 64043
+  },
+  {
+   "task_id": "f39e3924-1d22-46e2-9931-6f5fba4d9c9e",
+   "req_id": "TAU-A-002",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 130637
+  },
+  {
+   "task_id": "8d59ed2d-8920-463a-913d-958ce916b1a9",
+   "req_id": "TAU-A-003",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 111423
+  },
+  {
+   "task_id": "674f554a-1f9f-486a-ab68-538492378dfc",
+   "req_id": "TAU-A-005",
+   "arm": "sibling",
+   "injectant": "TAU-A-017",
+   "deid_hash": "ffe81e53ddd947a6",
+   "verdict": "PASS",
+   "tokens": 71852
+  },
+  {
+   "task_id": "a4a79422-e67b-43ba-89c7-5522371aa3d5",
+   "req_id": "TAU-A-006",
+   "arm": "unrelated",
+   "injectant": "TAU-R-071",
+   "deid_hash": "a54e728cb51892dd",
+   "verdict": "PASS",
+   "tokens": 66948
+  },
+  {
+   "task_id": "f2d7d85a-118b-4d90-82af-0e4e950ce939",
+   "req_id": "TAU-A-007",
+   "arm": "unrelated",
+   "injectant": "TAU-R-071",
+   "deid_hash": "a54e728cb51892dd",
+   "verdict": "PASS",
+   "tokens": 139579
+  },
+  {
+   "task_id": "73925be7-77b5-43bd-9593-687244a6ad7e",
+   "req_id": "TAU-A-008",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 91244
+  },
+  {
+   "task_id": "65a909fd-af46-4b4c-9093-732a87e20401",
+   "req_id": "TAU-A-009",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 105206
+  },
+  {
+   "task_id": "10f776b7-a532-4682-8f8e-17f9642ccb16",
+   "req_id": "TAU-A-012",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 28006
+  },
+  {
+   "task_id": "edef981b-62d2-47fa-bd7a-fb2191c20632",
+   "req_id": "TAU-A-013",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 18563
+  },
+  {
+   "task_id": "86c4fadf-535d-4213-ab7c-fda9723863a9",
+   "req_id": "TAU-A-014",
+   "arm": "sibling",
+   "injectant": "TAU-A-027",
+   "deid_hash": "e0e6e44f9cdb7607",
+   "verdict": "PASS",
+   "tokens": 57311
+  },
+  {
+   "task_id": "a4f172e6-2097-4a9e-beff-9545d40d62e7",
+   "req_id": "TAU-A-015",
+   "arm": "sibling",
+   "injectant": "TAU-A-012",
+   "deid_hash": "5649df05285976a3",
+   "verdict": "FAIL",
+   "tokens": 67901
+  },
+  {
+   "task_id": "227ce1f4-0d14-485b-90d4-136d3fbb1ff0",
+   "req_id": "TAU-A-016",
+   "arm": "sibling",
+   "injectant": "TAU-A-022",
+   "deid_hash": "a630464ac844b186",
+   "verdict": "PASS",
+   "tokens": 39509
+  },
+  {
+   "task_id": "2541d58d-9712-4a71-bbef-1815d1a999ee",
+   "req_id": "TAU-A-017",
+   "arm": "unrelated",
+   "injectant": "TAU-R-071",
+   "deid_hash": "a54e728cb51892dd",
+   "verdict": "PASS",
+   "tokens": 115325
+  },
+  {
+   "task_id": "65003b74-8171-4321-b8fc-a20a030401ff",
+   "req_id": "TAU-A-018",
+   "arm": "sibling",
+   "injectant": "TAU-A-024",
+   "deid_hash": "9e75ad95a2059717",
+   "verdict": "PASS",
+   "tokens": 24579
+  },
+  {
+   "task_id": "1da3400f-8d2f-4f9d-8d41-3d85951e4d0e",
+   "req_id": "TAU-A-019",
+   "arm": "sibling",
+   "injectant": "TAU-A-016",
+   "deid_hash": "d6cf4682697f9ee7",
+   "verdict": "FAIL",
+   "tokens": 139085
+  },
+  {
+   "task_id": "ab5d3d3a-2750-413f-a0e0-a7d073537fc2",
+   "req_id": "TAU-A-020",
+   "arm": "unrelated",
+   "injectant": "TAU-R-081",
+   "deid_hash": "b4e6a6d5b296c931",
+   "verdict": "PASS",
+   "tokens": 53722
+  },
+  {
+   "task_id": "b8e17943-a8e4-4033-b380-38f816fd992b",
+   "req_id": "TAU-A-021",
+   "arm": "unrelated",
+   "injectant": "TAU-R-081",
+   "deid_hash": "b4e6a6d5b296c931",
+   "verdict": "PASS",
+   "tokens": 36939
+  },
+  {
+   "task_id": "c56fc371-432c-40cb-b8cf-ac4116266db7",
+   "req_id": "TAU-A-022",
+   "arm": "unrelated",
+   "injectant": "TAU-R-044",
+   "deid_hash": "7f32c9f35dff2d10",
+   "verdict": "FAIL",
+   "tokens": 75470
+  },
+  {
+   "task_id": "096dd16a-b7c4-452f-9d1e-c96db8277285",
+   "req_id": "TAU-A-023",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 97868
+  },
+  {
+   "task_id": "5aa05993-7e66-4409-9bf8-a93b3cd51546",
+   "req_id": "TAU-A-024",
+   "arm": "sibling",
+   "injectant": "TAU-A-012",
+   "deid_hash": "e2bb9160f8befe06",
+   "verdict": "PASS",
+   "tokens": 63143
+  },
+  {
+   "task_id": "9190f9e7-c797-4089-b351-b59935135af3",
+   "req_id": "TAU-A-025",
+   "arm": "sibling",
+   "injectant": "TAU-A-013",
+   "deid_hash": "87b84f3cac915830",
+   "verdict": "PASS",
+   "tokens": 38436
+  },
+  {
+   "task_id": "c7a8f537-527a-4c16-8908-109123c00980",
+   "req_id": "TAU-A-026",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 32997
+  },
+  {
+   "task_id": "15644064-3732-4739-b473-67298a9ebc41",
+   "req_id": "TAU-A-027",
+   "arm": "sibling",
+   "injectant": "TAU-A-014",
+   "deid_hash": "7c006e7a7181af6b",
+   "verdict": "PASS",
+   "tokens": 29434
+  },
+  {
+   "task_id": "88179c78-6faf-4331-96db-c09364e0d7b0",
+   "req_id": "TAU-A-028",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 44370
+  },
+  {
+   "task_id": "0ddfa3c0-9364-42d3-81e2-fd5ef48f3dc6",
+   "req_id": "TAU-A-029",
+   "arm": "sibling",
+   "injectant": "TAU-A-048",
+   "deid_hash": "c50db83744a1ec9e",
+   "verdict": "PASS",
+   "tokens": 36046
+  },
+  {
+   "task_id": "f58f21d3-b26c-44dc-ada0-ffc908bc646c",
+   "req_id": "TAU-A-030",
+   "arm": "sibling",
+   "injectant": "TAU-A-016",
+   "deid_hash": "11f17854a549db42",
+   "verdict": "PASS",
+   "tokens": 56430
+  },
+  {
+   "task_id": "e1384fc0-1e45-4530-b3f4-7d30039d1e09",
+   "req_id": "TAU-A-033",
+   "arm": "sibling",
+   "injectant": "TAU-A-020",
+   "deid_hash": "e7a759db86c8cf16",
+   "verdict": "FAIL",
+   "tokens": 148410
+  },
+  {
+   "task_id": "8eef322a-670a-418f-92a6-f07263227054",
+   "req_id": "TAU-A-035",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 38958
+  },
+  {
+   "task_id": "79f6ff34-b4af-44f2-8e44-3376c135ce4c",
+   "req_id": "TAU-A-036",
+   "arm": "sibling",
+   "injectant": "TAU-A-042",
+   "deid_hash": "c7103493af99e5bc",
+   "verdict": "PASS",
+   "tokens": 49070
+  },
+  {
+   "task_id": "7dffbcd8-4769-4c72-b10b-f5c1a39b258f",
+   "req_id": "TAU-A-037",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 38582
+  },
+  {
+   "task_id": "d00bb5aa-c57e-4ec9-b52c-fe277b489a53",
+   "req_id": "TAU-A-039",
+   "arm": "sibling",
+   "injectant": "TAU-A-036",
+   "deid_hash": "dd0ab95a8ad1d24c",
+   "verdict": "FAIL",
+   "tokens": 28616
+  },
+  {
+   "task_id": "66fafb6e-f2cb-40f9-8663-f1041d4d22e8",
+   "req_id": "TAU-A-040",
+   "arm": "unrelated",
+   "injectant": "TAU-R-012",
+   "deid_hash": "0248f58c5682de8e",
+   "verdict": "PASS",
+   "tokens": 53004
+  },
+  {
+   "task_id": "e05bc738-979a-430e-b70c-50a7651007ec",
+   "req_id": "TAU-A-042",
+   "arm": "unrelated",
+   "injectant": "TAU-R-081",
+   "deid_hash": "b4e6a6d5b296c931",
+   "verdict": "PASS",
+   "tokens": 23544
+  },
+  {
+   "task_id": "fafbfff3-fb2a-458f-bd16-847dedebd827",
+   "req_id": "TAU-A-043",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 26958
+  },
+  {
+   "task_id": "11d01f2a-607f-4283-a064-df03b34317a7",
+   "req_id": "TAU-A-044",
+   "arm": "sibling",
+   "injectant": "TAU-A-048",
+   "deid_hash": "c50db83744a1ec9e",
+   "verdict": "PASS",
+   "tokens": 18249
+  },
+  {
+   "task_id": "48bbcfa9-fda4-4c1b-ad53-b1258e55b178",
+   "req_id": "TAU-A-045",
+   "arm": "unrelated",
+   "injectant": "TAU-R-101",
+   "deid_hash": "e4c346977364108d",
+   "verdict": "FAIL",
+   "tokens": 58639
+  },
+  {
+   "task_id": "8d069ff0-22a2-4074-8994-f71442e0ff7b",
+   "req_id": "TAU-A-046",
+   "arm": "unrelated",
+   "injectant": "TAU-R-044",
+   "deid_hash": "7f32c9f35dff2d10",
+   "verdict": "FAIL",
+   "tokens": 60681
+  },
+  {
+   "task_id": "1a4044f8-4d3b-405d-bc6d-a69475d512cf",
+   "req_id": "TAU-A-047",
+   "arm": "unrelated",
+   "injectant": "TAU-R-012",
+   "deid_hash": "0248f58c5682de8e",
+   "verdict": "PASS",
+   "tokens": 35439
+  },
+  {
+   "task_id": "4f82db9f-8ba0-4e40-ad5f-2cab88a5fec5",
+   "req_id": "TAU-A-048",
+   "arm": "sibling",
+   "injectant": "TAU-A-037",
+   "deid_hash": "0dda8936ecbe9ae3",
+   "verdict": "FAIL",
+   "tokens": 54374
+  },
+  {
+   "task_id": "8369c5be-e8f8-414c-be85-755d51412795",
+   "req_id": "TAU-A-049",
+   "arm": "unrelated",
+   "injectant": "TAU-R-019",
+   "deid_hash": "25840a358bc6f9dd",
+   "verdict": "PASS",
+   "tokens": 25463
+  },
+  {
+   "task_id": "96ebbea8-63be-4b43-af2a-acc20fa69c5e",
+   "req_id": "TAU-R-000",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 109710
+  },
+  {
+   "task_id": "57266f1a-f130-4007-988c-3f0eff178e79",
+   "req_id": "TAU-R-002",
+   "arm": "sibling",
+   "injectant": "TAU-R-027",
+   "deid_hash": "d2f9b3a833bb38ab",
+   "verdict": "PASS",
+   "tokens": 80110
+  },
+  {
+   "task_id": "49f00187-64c8-4f93-9ecf-6a7a489f35cb",
+   "req_id": "TAU-R-003",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 67209
+  },
+  {
+   "task_id": "1e7da5e6-6ca2-4f34-ba44-a2c694199817",
+   "req_id": "TAU-R-004",
+   "arm": "unrelated",
+   "injectant": "TAU-R-101",
+   "deid_hash": "e4c346977364108d",
+   "verdict": "PASS",
+   "tokens": 77932
+  },
+  {
+   "task_id": "19b57638-df95-4870-aa62-c1eb92bdf1a0",
+   "req_id": "TAU-R-005",
+   "arm": "sibling",
+   "injectant": "TAU-R-052",
+   "deid_hash": "5f2c7683cdcc79e6",
+   "verdict": "PASS",
+   "tokens": 105818
+  },
+  {
+   "task_id": "95b0864e-6cf6-412f-9122-5321e1521180",
+   "req_id": "TAU-R-006",
+   "arm": "unrelated",
+   "injectant": "TAU-R-044",
+   "deid_hash": "7f32c9f35dff2d10",
+   "verdict": "PASS",
+   "tokens": 70669
+  },
+  {
+   "task_id": "975c50f0-3655-42c7-8068-294d723810e1",
+   "req_id": "TAU-R-010",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 42334
+  },
+  {
+   "task_id": "29638849-626d-4910-865a-e35b3b767f90",
+   "req_id": "TAU-R-011",
+   "arm": "sibling",
+   "injectant": "TAU-R-013",
+   "deid_hash": "9a2d1178c77a9d06",
+   "verdict": "PASS",
+   "tokens": 55749
+  },
+  {
+   "task_id": "69b9d52c-e44a-4d72-9138-0e13bec3c580",
+   "req_id": "TAU-R-012",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 46931
+  },
+  {
+   "task_id": "a2b9db08-f669-4cf5-b3e9-771d025db730",
+   "req_id": "TAU-R-013",
+   "arm": "unrelated",
+   "injectant": "TAU-R-012",
+   "deid_hash": "0248f58c5682de8e",
+   "verdict": "PASS",
+   "tokens": 51480
+  },
+  {
+   "task_id": "d798a9c7-05e7-4edd-9f69-2c0d2e5a4735",
+   "req_id": "TAU-R-016",
+   "arm": "sibling",
+   "injectant": "TAU-R-044",
+   "deid_hash": "b1f0e69d2a827660",
+   "verdict": "PASS",
+   "tokens": 108866
+  },
+  {
+   "task_id": "45cd253e-a5b2-4421-826f-e870771d543c",
+   "req_id": "TAU-R-017",
+   "arm": "unrelated",
+   "injectant": "TAU-R-019",
+   "deid_hash": "25840a358bc6f9dd",
+   "verdict": "PASS",
+   "tokens": 43547
+  },
+  {
+   "task_id": "db6894c5-1ffd-4091-bc1a-352308aeab2e",
+   "req_id": "TAU-R-019",
+   "arm": "unrelated",
+   "injectant": "TAU-R-101",
+   "deid_hash": "e4c346977364108d",
+   "verdict": "PASS",
+   "tokens": 80101
+  },
+  {
+   "task_id": "da7fc9df-9536-4013-8e62-f451b04f5075",
+   "req_id": "TAU-R-020",
+   "arm": "unrelated",
+   "injectant": "TAU-R-000",
+   "deid_hash": "bd904fecf60eecb7",
+   "verdict": "FAIL",
+   "tokens": 86526
+  },
+  {
+   "task_id": "becea5ce-9a5f-4649-a4e9-d2042370703c",
+   "req_id": "TAU-R-021",
+   "arm": "sibling",
+   "injectant": "TAU-R-038",
+   "deid_hash": "cd5ddef083490660",
+   "verdict": "PASS",
+   "tokens": 108646
+  },
+  {
+   "task_id": "14f41e9d-b809-4e04-aa21-20ef619c532d",
+   "req_id": "TAU-R-022",
+   "arm": "unrelated",
+   "injectant": "TAU-R-050",
+   "deid_hash": "e96dacf25bb24e60",
+   "verdict": "FAIL",
+   "tokens": 67749
+  },
+  {
+   "task_id": "b3ac5f86-8182-42fb-a5a8-537497b28feb",
+   "req_id": "TAU-R-023",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 138987
+  },
+  {
+   "task_id": "6656d086-4b04-40b2-b5b2-9e80df9a50cd",
+   "req_id": "TAU-R-024",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 43336
+  },
+  {
+   "task_id": "192231de-ff17-48f0-9e53-1196c8004683",
+   "req_id": "TAU-R-025",
+   "arm": "sibling",
+   "injectant": "TAU-R-062",
+   "deid_hash": "8c77baae65a8495d",
+   "verdict": "PASS",
+   "tokens": 41127
+  },
+  {
+   "task_id": "c15f956d-8cc2-4a29-8602-f251627869bd",
+   "req_id": "TAU-R-026",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 75306
+  },
+  {
+   "task_id": "aec23257-39f5-451f-b684-2f8fb645ed4d",
+   "req_id": "TAU-R-027",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 83851
+  },
+  {
+   "task_id": "07437ae2-fb1b-4108-bd10-c200e8f75834",
+   "req_id": "TAU-R-028",
+   "arm": "sibling",
+   "injectant": "TAU-R-045",
+   "deid_hash": "328789ec17ecd223",
+   "verdict": "PASS",
+   "tokens": 92213
+  },
+  {
+   "task_id": "85f3c165-f49f-4578-9507-e0367463fd18",
+   "req_id": "TAU-R-029",
+   "arm": "unrelated",
+   "injectant": "TAU-R-019",
+   "deid_hash": "25840a358bc6f9dd",
+   "verdict": "FAIL",
+   "tokens": 79875
+  },
+  {
+   "task_id": "e3ddf446-841e-4171-bee9-cc77846f0a17",
+   "req_id": "TAU-R-030",
+   "arm": "sibling",
+   "injectant": "TAU-R-006",
+   "deid_hash": "a4f74ebb1058e083",
+   "verdict": "PASS",
+   "tokens": 118179
+  },
+  {
+   "task_id": "ab7db8db-248b-44e8-9f53-a2c08419edfe",
+   "req_id": "TAU-R-031",
+   "arm": "sibling",
+   "injectant": "TAU-R-042",
+   "deid_hash": "8ec431a017d7731e",
+   "verdict": "PASS",
+   "tokens": 62983
+  },
+  {
+   "task_id": "ee436971-fec8-486e-937c-fc452bfe7cf2",
+   "req_id": "TAU-R-032",
+   "arm": "sibling",
+   "injectant": "TAU-R-002",
+   "deid_hash": "59362aa20aab60d0",
+   "verdict": "PASS",
+   "tokens": 102106
+  },
+  {
+   "task_id": "89356bae-f7e4-46ea-b650-fdb38382e475",
+   "req_id": "TAU-R-033",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 58643
+  },
+  {
+   "task_id": "7c0448e4-345b-4cf5-bb2a-5d71cabc9e6f",
+   "req_id": "TAU-R-034",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 57438
+  },
+  {
+   "task_id": "a5e00d14-b3e7-45c2-90cb-d34702e3f873",
+   "req_id": "TAU-R-035",
+   "arm": "unrelated",
+   "injectant": "TAU-A-008",
+   "deid_hash": "105a76d074c70236",
+   "verdict": "PASS",
+   "tokens": 96318
+  },
+  {
+   "task_id": "70e9839f-fbc1-45df-bb5e-f734eb4b59fa",
+   "req_id": "TAU-R-036",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 65715
+  },
+  {
+   "task_id": "b390135c-92d1-4929-a803-06382538ab73",
+   "req_id": "TAU-R-038",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 92104
+  },
+  {
+   "task_id": "3076c8f8-a188-4944-bd44-6da9ef718398",
+   "req_id": "TAU-R-039",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 62901
+  },
+  {
+   "task_id": "2f7526c3-7aa5-4bfc-9f8a-f123fb039eb5",
+   "req_id": "TAU-R-040",
+   "arm": "sibling",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 50681
+  },
+  {
+   "task_id": "c3eba83e-d3d9-4edb-a019-de01b9c0abd0",
+   "req_id": "TAU-R-041",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 109215
+  },
+  {
+   "task_id": "73312983-556b-414a-a828-ac7dc57cee62",
+   "req_id": "TAU-R-042",
+   "arm": "unrelated",
+   "injectant": "TAU-A-048",
+   "deid_hash": "99e8854c49616857",
+   "verdict": "PASS",
+   "tokens": 118352
+  },
+  {
+   "task_id": "af3214f3-5aa8-4983-ba01-93bb25c82ab1",
+   "req_id": "TAU-R-043",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 71140
+  },
+  {
+   "task_id": "e877f6f1-ec6b-4af3-87bd-fbdcd879be4a",
+   "req_id": "TAU-R-044",
+   "arm": "unrelated",
+   "injectant": "TAU-R-000",
+   "deid_hash": "bd904fecf60eecb7",
+   "verdict": "PASS",
+   "tokens": 56898
+  },
+  {
+   "task_id": "eba5f659-271b-4904-9037-6b0bf672baf3",
+   "req_id": "TAU-R-045",
+   "arm": "unrelated",
+   "injectant": "TAU-R-050",
+   "deid_hash": "e96dacf25bb24e60",
+   "verdict": "PASS",
+   "tokens": 64974
+  },
+  {
+   "task_id": "aebab75b-e7fa-4f0d-9c79-3b76d81493fb",
+   "req_id": "TAU-R-048",
+   "arm": "sibling",
+   "injectant": "TAU-R-012",
+   "deid_hash": "83c88bd60f0cdc56",
+   "verdict": "PASS",
+   "tokens": 59878
+  },
+  {
+   "task_id": "fb34d574-8736-4b73-9ee2-d91492e1d2f7",
+   "req_id": "TAU-R-049",
+   "arm": "sibling",
+   "injectant": "TAU-R-021",
+   "deid_hash": "e895172a3dc1a215",
+   "verdict": "FAIL",
+   "tokens": 74467
+  },
+  {
+   "task_id": "74cedd80-2e37-469a-8aee-3166103dff89",
+   "req_id": "TAU-R-050",
+   "arm": "sibling",
+   "injectant": "TAU-R-080",
+   "deid_hash": "ad5ccb81c91a494f",
+   "verdict": "PASS",
+   "tokens": 19323
+  },
+  {
+   "task_id": "21258da4-8ab1-42c2-8381-7770e1419dcc",
+   "req_id": "TAU-R-051",
+   "arm": "sibling",
+   "injectant": "TAU-R-019",
+   "deid_hash": "c094185c5f76281a",
+   "verdict": "PASS",
+   "tokens": 62828
+  },
+  {
+   "task_id": "c2b3a0bb-bb39-447a-bb8c-06e09728b939",
+   "req_id": "TAU-R-052",
+   "arm": "unrelated",
+   "injectant": "TAU-R-041",
+   "deid_hash": "4e31c29585f37060",
+   "verdict": "PASS",
+   "tokens": 52556
+  },
+  {
+   "task_id": "7a26f7d0-93be-4c5b-b9a3-cb3b799d555e",
+   "req_id": "TAU-R-053",
+   "arm": "unrelated",
+   "injectant": "TAU-A-008",
+   "deid_hash": "105a76d074c70236",
+   "verdict": "PASS",
+   "tokens": 56499
+  },
+  {
+   "task_id": "7abfabc5-cfd4-43ba-8855-5a5108c8ed0d",
+   "req_id": "TAU-R-055",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 44585
+  },
+  {
+   "task_id": "43b44083-a84f-44f0-9bb6-27aae56179e4",
+   "req_id": "TAU-R-056",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 73749
+  },
+  {
+   "task_id": "41cebde9-bd20-49c2-9492-50236cbc990d",
+   "req_id": "TAU-R-057",
+   "arm": "unrelated",
+   "injectant": "TAU-R-027",
+   "deid_hash": "c2898e715b4a6812",
+   "verdict": "PASS",
+   "tokens": 40055
+  },
+  {
+   "task_id": "3a99f62c-fb7e-4625-8cb1-22ff56fcf30f",
+   "req_id": "TAU-R-058",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 70291
+  },
+  {
+   "task_id": "5cda40b4-24a1-416c-ad00-68ea698bc63b",
+   "req_id": "TAU-R-059",
+   "arm": "sibling",
+   "injectant": "TAU-R-049",
+   "deid_hash": "192f953f0cd57f8f",
+   "verdict": "FAIL",
+   "tokens": 85700
+  },
+  {
+   "task_id": "2eff5785-e87a-4bdb-a662-9dfa896b0b91",
+   "req_id": "TAU-R-060",
+   "arm": "unrelated",
+   "injectant": "TAU-A-048",
+   "deid_hash": "99e8854c49616857",
+   "verdict": "PASS",
+   "tokens": 39882
+  },
+  {
+   "task_id": "259a5792-922d-4240-887a-5ad91d9e10e8",
+   "req_id": "TAU-R-061",
+   "arm": "sibling",
+   "injectant": "TAU-R-021",
+   "deid_hash": "e895172a3dc1a215",
+   "verdict": "PASS",
+   "tokens": 42046
+  },
+  {
+   "task_id": "ac63896a-daec-40cc-8eea-a54f324dc26f",
+   "req_id": "TAU-R-062",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 57384
+  },
+  {
+   "task_id": "afc55200-838c-4d22-91a6-f8f8efcf4e2f",
+   "req_id": "TAU-R-063",
+   "arm": "unrelated",
+   "injectant": "TAU-R-000",
+   "deid_hash": "bd904fecf60eecb7",
+   "verdict": "PASS",
+   "tokens": 94878
+  },
+  {
+   "task_id": "6e6f5a82-0771-4f73-b9ce-9a9024b76154",
+   "req_id": "TAU-R-064",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 58299
+  },
+  {
+   "task_id": "4bb4f34b-1771-457e-b4bc-89755cf4b602",
+   "req_id": "TAU-R-065",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 44992
+  },
+  {
+   "task_id": "761a1513-9c1c-4231-a247-695d61da4922",
+   "req_id": "TAU-R-067",
+   "arm": "unrelated",
+   "injectant": "TAU-R-050",
+   "deid_hash": "e96dacf25bb24e60",
+   "verdict": "PASS",
+   "tokens": 75265
+  },
+  {
+   "task_id": "3a4c581d-e56d-495f-b67e-4edb5250af14",
+   "req_id": "TAU-R-068",
+   "arm": "unrelated",
+   "injectant": "TAU-R-021",
+   "deid_hash": "0dee553ad6d39639",
+   "verdict": "PASS",
+   "tokens": 50497
+  },
+  {
+   "task_id": "dc221c80-4df3-4f89-b6b0-85a129ffcd7f",
+   "req_id": "TAU-R-069",
+   "arm": "unrelated",
+   "injectant": "TAU-R-041",
+   "deid_hash": "4e31c29585f37060",
+   "verdict": "PASS",
+   "tokens": 52303
+  },
+  {
+   "task_id": "8abbe53e-2c24-4f0a-85df-feef670ead16",
+   "req_id": "TAU-R-070",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 56997
+  },
+  {
+   "task_id": "176c3d46-8913-4749-9aaf-280de7abf70b",
+   "req_id": "TAU-R-071",
+   "arm": "sibling",
+   "injectant": "TAU-R-076",
+   "deid_hash": "495acc17db58fe82",
+   "verdict": "PASS",
+   "tokens": 99088
+  },
+  {
+   "task_id": "6e02b90e-2c40-4241-a274-00c87831007e",
+   "req_id": "TAU-R-072",
+   "arm": "unrelated",
+   "injectant": "TAU-A-040",
+   "deid_hash": "6ebe878530e4d1e4",
+   "verdict": "FAIL",
+   "tokens": 93875
+  },
+  {
+   "task_id": "7f70b737-abc9-497f-9c80-c90d180112db",
+   "req_id": "TAU-R-073",
+   "arm": "sibling",
+   "injectant": "TAU-R-083",
+   "deid_hash": "b7b033ab02fdf2ca",
+   "verdict": "PASS",
+   "tokens": 44505
+  },
+  {
+   "task_id": "6970fa2e-5cf9-47d2-b802-2171794c3093",
+   "req_id": "TAU-R-074",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 92000
+  },
+  {
+   "task_id": "711e6d66-3400-4f9a-882c-59d7d37a506e",
+   "req_id": "TAU-R-075",
+   "arm": "sibling",
+   "injectant": "TAU-R-080",
+   "deid_hash": "ad5ccb81c91a494f",
+   "verdict": "PASS",
+   "tokens": 50873
+  },
+  {
+   "task_id": "240c14ae-3024-4c51-8bb5-4988ded84f22",
+   "req_id": "TAU-R-076",
+   "arm": "unrelated",
+   "injectant": "TAU-A-008",
+   "deid_hash": "105a76d074c70236",
+   "verdict": "PASS",
+   "tokens": 80267
+  },
+  {
+   "task_id": "94fff4f6-28ac-4b6c-be91-3f32d4456972",
+   "req_id": "TAU-R-077",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 46918
+  },
+  {
+   "task_id": "4017e76d-7b88-46cd-be69-4a3bd5dbb906",
+   "req_id": "TAU-R-079",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 72551
+  },
+  {
+   "task_id": "7d5a27e3-ecaa-42b4-aa2d-d9b02caea12a",
+   "req_id": "TAU-R-080",
+   "arm": "unrelated",
+   "injectant": "TAU-R-027",
+   "deid_hash": "c2898e715b4a6812",
+   "verdict": "PASS",
+   "tokens": 62273
+  },
+  {
+   "task_id": "0e45cb18-3256-4303-8b4d-ef31c3eefeea",
+   "req_id": "TAU-R-081",
+   "arm": "sibling",
+   "injectant": "TAU-R-100",
+   "deid_hash": "36f2d7a93bf9e7bd",
+   "verdict": "PASS",
+   "tokens": 55213
+  },
+  {
+   "task_id": "9900525d-2fe0-4399-87fd-a9e8fa95506a",
+   "req_id": "TAU-R-082",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 51580
+  },
+  {
+   "task_id": "c05ee561-c86e-4f47-b1cb-d961aeb1a10f",
+   "req_id": "TAU-R-083",
+   "arm": "unrelated",
+   "injectant": "TAU-A-048",
+   "deid_hash": "99e8854c49616857",
+   "verdict": "PASS",
+   "tokens": 60469
+  },
+  {
+   "task_id": "925fcbb3-643a-485c-b945-fd31b38607f5",
+   "req_id": "TAU-R-084",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 45592
+  },
+  {
+   "task_id": "426b7af3-c544-46fc-8fb4-cb8c257ff976",
+   "req_id": "TAU-R-087",
+   "arm": "unrelated",
+   "injectant": "TAU-A-042",
+   "deid_hash": "432b2915f525f0d5",
+   "verdict": "PASS",
+   "tokens": 48831
+  },
+  {
+   "task_id": "dc8f110b-1e78-4779-9687-d8083f8a3fde",
+   "req_id": "TAU-R-088",
+   "arm": "sibling",
+   "injectant": "TAU-R-079",
+   "deid_hash": "b16cd5fa58632268",
+   "verdict": "FAIL",
+   "tokens": 54040
+  },
+  {
+   "task_id": "8eabb9c4-5bf9-4bf0-9eda-69e5b2b2b890",
+   "req_id": "TAU-R-091",
+   "arm": "unrelated",
+   "injectant": "TAU-A-006",
+   "deid_hash": "20e98bc7ea0d2cf0",
+   "verdict": "FAIL",
+   "tokens": 81196
+  },
+  {
+   "task_id": "b9cf16a7-2ac2-4114-820a-18b38a174a25",
+   "req_id": "TAU-R-092",
+   "arm": "sibling",
+   "injectant": "TAU-R-072",
+   "deid_hash": "292564f6b2af67d3",
+   "verdict": "PASS",
+   "tokens": 57734
+  },
+  {
+   "task_id": "23521906-7e58-4d1b-9f2c-9c54514d9e63",
+   "req_id": "TAU-R-093",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 56756
+  },
+  {
+   "task_id": "5ac8b1a5-aa38-471f-b9d0-0531c94f9fbd",
+   "req_id": "TAU-R-094",
+   "arm": "unrelated",
+   "injectant": "TAU-A-015",
+   "deid_hash": "b065998228d189fb",
+   "verdict": "PASS",
+   "tokens": 75478
+  },
+  {
+   "task_id": "bcef45ed-6c20-4aaa-ad46-442b7a6bef60",
+   "req_id": "TAU-R-096",
+   "arm": "sibling",
+   "injectant": "TAU-R-076",
+   "deid_hash": "495acc17db58fe82",
+   "verdict": "PASS",
+   "tokens": 95298
+  },
+  {
+   "task_id": "2357fc5a-c976-4ae0-944f-dde53442bae1",
+   "req_id": "TAU-R-097",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 76423
+  },
+  {
+   "task_id": "13a6af22-99f8-485c-a935-471772c9a5e7",
+   "req_id": "TAU-R-098",
+   "arm": "unrelated",
+   "injectant": "TAU-R-021",
+   "deid_hash": "0dee553ad6d39639",
+   "verdict": "FAIL",
+   "tokens": 65820
+  },
+  {
+   "task_id": "52147749-bccb-4a63-9990-d930a8d32dd0",
+   "req_id": "TAU-R-099",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 85092
+  },
+  {
+   "task_id": "40a728ec-71b2-463d-9cc8-9e78bdfbad75",
+   "req_id": "TAU-R-100",
+   "arm": "sibling",
+   "injectant": "TAU-R-072",
+   "deid_hash": "baa6ee3867db4b5e",
+   "verdict": "FAIL",
+   "tokens": 138210
+  },
+  {
+   "task_id": "a5afc251-3c71-472e-b7fc-14887fb5e9d7",
+   "req_id": "TAU-R-101",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 113689
+  },
+  {
+   "task_id": "283fa452-f97a-4df1-b08e-1aaae154479c",
+   "req_id": "TAU-R-102",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 145936
+  },
+  {
+   "task_id": "a0b1f19b-0d85-418e-9bf6-e396c0b311cb",
+   "req_id": "TAU-R-105",
+   "arm": "sibling",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "FAIL",
+   "tokens": 160402
+  },
+  {
+   "task_id": "42d2d1d0-0362-493a-bfec-a8e206769429",
+   "req_id": "TAU-R-106",
+   "arm": "unrelated",
+   "injectant": "TAU-R-041",
+   "deid_hash": "4e31c29585f37060",
+   "verdict": "FAIL",
+   "tokens": 79594
+  },
+  {
+   "task_id": "b6568ee4-83cb-47d0-95aa-9b4385df46b0",
+   "req_id": "TAU-R-107",
+   "arm": "sibling",
+   "injectant": "TAU-R-083",
+   "deid_hash": "b7b033ab02fdf2ca",
+   "verdict": "FAIL",
+   "tokens": 51552
+  },
+  {
+   "task_id": "ed1c46ae-d7a3-4c75-bbe6-c078dea5f0e3",
+   "req_id": "TAU-R-108",
+   "arm": "sibling",
+   "injectant": "TAU-R-076",
+   "deid_hash": "495acc17db58fe82",
+   "verdict": "FAIL",
+   "tokens": 143576
+  },
+  {
+   "task_id": "adfd2609-65f8-47df-af69-f39b47a8b106",
+   "req_id": "TAU-R-110",
+   "arm": "unrelated",
+   "injectant": "TAU-A-040",
+   "deid_hash": "6ebe878530e4d1e4",
+   "verdict": "FAIL",
+   "tokens": 88973
+  },
+  {
+   "task_id": "f2af60bd-cd68-417d-9015-7c47dd53a06a",
+   "req_id": "TAU-R-111",
+   "arm": "unrelated",
+   "injectant": "TAU-A-016",
+   "deid_hash": "e616c63fd6671214",
+   "verdict": "PASS",
+   "tokens": 101105
+  },
+  {
+   "task_id": "c9d64927-dfb5-4909-9ee2-6cca6b566674",
+   "req_id": "TAU-R-112",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 99857
+  },
+  {
+   "task_id": "e4b28ab2-ee76-4ec0-926c-3ce2895fac63",
+   "req_id": "TAU-R-113",
+   "arm": "unrelated",
+   "injectant": "TAU-R-027",
+   "deid_hash": "c2898e715b4a6812",
+   "verdict": "PASS",
+   "tokens": 120551
+  },
+  {
+   "task_id": "7e47be38-d54e-4670-9850-ffc031a6eb8d",
+   "req_id": "TAU-R-114",
+   "arm": "direct",
+   "injectant": null,
+   "deid_hash": null,
+   "verdict": "PASS",
+   "tokens": 56228
+  }
+ ]
+}

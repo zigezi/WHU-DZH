@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__book_reservation",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话在时间窗口内对同一 book_reservation 目标重复发起 tau 操作且连续失败次数达到阈值时，拦截并触发处置。",
+  "firing_condition": "在滑动窗口 W 内，对同一 (session_id, book_reservation_id) 的 tau 操作调用中，连续失败次数 >= N（默认 N=3），且最近一次失败时间距当前 <= W（默认 W=60s）。",
+  "observability_declaration": "点火条件可由以下可观测状态计算：session_id、book_reservation_id、tau 操作调用记录（含时间戳与成功/失败结果）、失败计数与滑动窗口时间。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 用户因网络抖动或临时资源冲突在短时间内重试同一预订操作；2) 合法业务重试策略（如指数退避）在窗口内产生多次失败；3) 并发测试或压测流量对同一预订目标重复调用。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 396
+}

@@ -1,0 +1,63 @@
+"""路由后验表（P3.2）：Beta 后验 + Thompson 采样选择执行臂。
+
+choose: ε=0.1 概率随机探索，否则按 Beta 后验 Thompson 采样选臂；
+update: 成功 α+1，失败 β+1，并累计 token。
+"""
+import hashlib
+import os
+import random
+from typing import List, Optional
+
+from .trace_store import trace_store
+
+DEFAULT_ARMS = ["direct", "precedent-assisted"]
+EPSILON = 0.1
+MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-chat")
+
+
+def env_fingerprint() -> str:
+    # P5a.66 B-1：真实指纹 = 响应模型|system_fingerprint（观测自响应），回退别名
+    from . import env_state
+    return env_state.fingerprint(MODEL_NAME)
+
+
+class Router:
+    def __init__(self, epsilon: float = EPSILON):
+        self.epsilon = epsilon
+
+    def choose(self, sig_family: str, arms: Optional[List[str]] = None) -> str:
+        arm, _ = self.choose_meta(sig_family, arms)
+        return arm
+
+    def choose_meta(self, sig_family: str, arms: Optional[List[str]] = None):
+        """返回 (arm, explored)。explored=True 表示 ε 随机探索。"""
+        arms = arms or DEFAULT_ARMS
+        if not arms:
+            return "direct", False
+        if random.random() < self.epsilon:
+            return random.choice(arms), True
+        best_arm, best_sample = arms[0], -1.0
+        for arm in arms:
+            alpha, beta = trace_store.get_route_params(
+                sig_family, arm, env_fingerprint()
+            )
+            sample = random.betavariate(alpha, beta)
+            if sample > best_sample:
+                best_sample, best_arm = sample, arm
+        return best_arm, False
+
+    def choose_measurement(self, task_id: str,
+                           arms: Optional[List[str]] = None) -> str:
+        """P5a.20 便签3：测量模式固定 50/50 确定性分配（与 Thompson 学习分离）。"""
+        arms = arms or DEFAULT_ARMS
+        h = hashlib.blake2b(f"{MODEL_NAME}:{task_id}".encode(), digest_size=4).digest()
+        return arms[int.from_bytes(h, "big") % len(arms)]
+
+    def update(self, sig_family: str, arm: str, success: bool,
+               tokens: float = 0):
+        return trace_store.update_route(
+            sig_family, arm, env_fingerprint(), success, tokens
+        )
+
+
+router = Router()

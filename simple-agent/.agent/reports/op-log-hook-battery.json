@@ -1,0 +1,36 @@
+{
+ "note": "P5a.79 §二.2 采集钩子自证（naming_proof + 关闭回归；零 token）",
+ "hook": "scripts/op_log_hook.sh",
+ "n": 5,
+ "passed": 5,
+ "all_pass": true,
+ "results": [
+  {
+   "check": "naming_proof_failing_cmd_logged",
+   "pass": true,
+   "detail": {
+    "ts": "2026-10-16T17:49:17",
+    "op": "shell",
+    "command": "false",
+    "exit_code": 1,
+    "error": ""
+   }
+  },
+  {
+   "check": "success_logged_and_stdout_preserved",
+   "pass": true
+  },
+  {
+   "check": "exit_code_preserved",
+   "pass": true
+  },
+  {
+   "check": "disabled_no_log_no_intercept",
+   "pass": true
+  },
+  {
+   "check": "stderr_digest_captured",
+   "pass": true
+  }
+ ]
+}

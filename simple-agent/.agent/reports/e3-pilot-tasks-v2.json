@@ -1,0 +1,104 @@
+{
+ "note": "E3 v2.1 静默 bug 任务（visible=happy；hidden=happy+boundary）",
+ "n": 5,
+ "tasks": [
+  {
+   "task_id": "E3V21-03",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "8543defdbea9498b",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(x, hi) if x > lo else lo - 1",
+   "visible": [
+    "assert clamp(0,-8,4) == 0",
+    "assert clamp(4,-8,4) == 4"
+   ],
+   "hidden_tests": [
+    "assert clamp(0,-8,4) == 0",
+    "assert clamp(4,-8,4) == 4",
+    "assert clamp(-13,-8,4) == -8"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::silent_boundary"
+  },
+  {
+   "task_id": "E3V21-04",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "659bedd0aff1e717",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (>0).",
+   "buggy": "def gcd(a, b):\n    if a == b:\n        return 0\n    while b > 1:\n        a, b = b, a % b\n    return a",
+   "visible": [
+    "assert gcd(10,5) == 5",
+    "assert gcd(10,6) == 2"
+   ],
+   "hidden_tests": [
+    "assert gcd(10,5) == 5",
+    "assert gcd(10,6) == 2",
+    "assert gcd(10,1) == 1"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::silent_boundary"
+  },
+  {
+   "task_id": "E3V21-06",
+   "template_family": "clamp",
+   "is_canary": false,
+   "prompt_hash": "f4c1deb5796a1054",
+   "signature": "def clamp(x, lo, hi)",
+   "doc": "Return x clipped to [lo, hi].",
+   "buggy": "def clamp(x, lo, hi):\n    return min(x, hi) if x > lo else lo - 1",
+   "visible": [
+    "assert clamp(-1,-9,6) == -1",
+    "assert clamp(6,-9,6) == 6"
+   ],
+   "hidden_tests": [
+    "assert clamp(-1,-9,6) == -1",
+    "assert clamp(6,-9,6) == 6",
+    "assert clamp(-14,-9,6) == -9"
+   ],
+   "reference": "def clamp(x, lo, hi):\n    return max(lo, min(x, hi))",
+   "bug_kind": "clamp::silent_boundary"
+  },
+  {
+   "task_id": "E3V21-07",
+   "template_family": "gcd",
+   "is_canary": false,
+   "prompt_hash": "774859bcc052bbc9",
+   "signature": "def gcd(a, b)",
+   "doc": "Return the greatest common divisor of a,b (>0).",
+   "buggy": "def gcd(a, b):\n    if a == b:\n        return 0\n    while b > 1:\n        a, b = b, a % b\n    return a",
+   "visible": [
+    "assert gcd(54,9) == 9",
+    "assert gcd(54,10) == 2"
+   ],
+   "hidden_tests": [
+    "assert gcd(54,9) == 9",
+    "assert gcd(54,10) == 2",
+    "assert gcd(54,1) == 1"
+   ],
+   "reference": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a",
+   "bug_kind": "gcd::silent_boundary"
+  },
+  {
+   "task_id": "E3-C01",
+   "template_family": "canary",
+   "is_canary": true,
+   "prompt_hash": "b66d032a33a73b35",
+   "signature": "def has_close_elements(numbers, threshold)",
+   "doc": "[public canary] Return True if any two numbers are within threshold.",
+   "buggy": "def has_close_elements(numbers, threshold):\n    return any(abs(a-b) <= threshold for i,a in enumerate(numbers) for b in numbers[i+1:])",
+   "visible": [
+    "assert has_close_elements([1.0,2.0,3.0],0.5) == False"
+   ],
+   "hidden_tests": [
+    "assert has_close_elements([1.0,2.0,3.0],0.5) == False",
+    "assert has_close_elements([1.0,2.0,3.0],1.0) == False"
+   ],
+   "reference": "def has_close_elements(numbers, threshold):\n    return any(abs(a-b) < threshold for i,a in enumerate(numbers) for b in numbers[i+1:])",
+   "bug_kind": "canary::silent"
+  }
+ ]
+}

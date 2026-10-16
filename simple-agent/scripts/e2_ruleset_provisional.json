@@ -1,0 +1,6 @@
+{
+ "note": "provisional ruleset — 内容待裁者随任务书预注册冻结（a85 §四）",
+ "required_sections": ["项目"],
+ "dimensions": [{"name": "风险-承诺", "require": ["风险"], "forbid": ["无风险"]}],
+ "number_fields": ["阶段总计"]
+}

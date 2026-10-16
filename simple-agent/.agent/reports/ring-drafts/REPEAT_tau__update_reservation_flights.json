@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__update_reservation_flights",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话中 tau__update_reservation_flights 工具在最近 3 次调用内失败次数达到 2 次，且本次调用参数与上次失败调用参数完全相同时，拦截该调用。",
+  "firing_condition": "在会话状态中维护 tau__update_reservation_flights 的调用历史（最近 3 条），若存在至少 2 条失败记录，且当前调用的 args 与最近一次失败调用的 args 深度相等，则点火。",
+  "observability_declaration": "点火条件依赖会话内工具调用历史（调用名称、参数、成功/失败状态），这些状态可由拦截器在工具调用前后观测并记录，无需额外外部信息。",
+  "false_positive_self_assessment": "合法形状可能被撞：1) 用户修正参数后重试，但参数恰好与上次失败调用相同（例如用户误以为参数未变而重复提交）；2) 工具因瞬时外部故障失败，用户立即原样重试且成功；3) 同一会话中不同用户意图但参数相同的合法调用。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 417
+}

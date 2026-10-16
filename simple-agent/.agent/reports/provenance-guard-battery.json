@@ -1,0 +1,93 @@
+{
+ "note": "P5a.82 §四 DC-9 写路径守卫电池（隔离临时注册表；零 token）",
+ "n": 17,
+ "passed": 17,
+ "all_pass": true,
+ "results": [
+  {
+   "check": "sandbox_ok::register_asset",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "sandbox_ok::set_credit",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "sandbox_ok::shadow_event",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "sandbox_ok::patch_asset",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "sandbox_ok::supersede",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "sandbox_ok::revoke",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "sandbox_ok::revalidate",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "production_refused::register_asset",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_refused::set_credit",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_refused::shadow_event",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_refused::patch_asset",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_refused::supersede",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_refused::revoke",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_refused::revalidate",
+   "pass": true,
+   "got": "refused"
+  },
+  {
+   "check": "production_allowed_kwarg::set_credit",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "production_allowed_kwarg::revalidate",
+   "pass": true,
+   "got": "ok"
+  },
+  {
+   "check": "production_allowed_env::shadow_event",
+   "pass": true,
+   "got": "ok"
+  }
+ ]
+}

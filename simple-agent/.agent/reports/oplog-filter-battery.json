@@ -1,0 +1,298 @@
+{
+ "note": "P5a.82 §三.7 filter_oplog_v1 自证电池（≥2 正 2 负/规则；零 token）",
+ "deployed": true,
+ "n": 24,
+ "passed": 24,
+ "results": [
+  {
+   "case": "signal_pos_139",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   }
+  },
+  {
+   "case": "signal_pos_137",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   }
+  },
+  {
+   "case": "signal_neg_rc1",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": null
+   }
+  },
+  {
+   "case": "signal_neg_rc0",
+   "pass": true,
+   "got": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "want": {
+    "action": "drop",
+    "tier": null,
+    "death_class": null
+   }
+  },
+  {
+   "case": "timeout_pos_a",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "timeout",
+    "death_class": "timeout_loop"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "timeout",
+    "death_class": "timeout_loop"
+   }
+  },
+  {
+   "case": "timeout_pos_b",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "timeout",
+    "death_class": "timeout_loop"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "timeout",
+    "death_class": "timeout_loop"
+   }
+  },
+  {
+   "case": "timeout_neg_nowrap",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": null
+   }
+  },
+  {
+   "case": "timeout_neg_rc0",
+   "pass": true,
+   "got": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "want": {
+    "action": "drop",
+    "tier": null,
+    "death_class": null
+   }
+  },
+  {
+   "case": "wl_pos_pytest",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "build",
+    "death_class": "test_or_build_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "build",
+    "death_class": "test_or_build_fail"
+   }
+  },
+  {
+   "case": "wl_pos_pym",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "build",
+    "death_class": "env_missing"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "build",
+    "death_class": "env_missing"
+   }
+  },
+  {
+   "case": "wl_neg_rc0",
+   "pass": true,
+   "got": {
+    "action": "drop",
+    "reason": "no_death"
+   },
+   "want": {
+    "action": "drop",
+    "tier": null,
+    "death_class": null
+   }
+  },
+  {
+   "case": "wl_neg_fmt",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": null
+   }
+  },
+  {
+   "case": "bl_pos_grep",
+   "pass": true,
+   "got": {
+    "action": "drop",
+    "reason": "benign_nonzero"
+   },
+   "want": {
+    "action": "drop",
+    "tier": null,
+    "death_class": null
+   }
+  },
+  {
+   "case": "bl_pos_gitdiff",
+   "pass": true,
+   "got": {
+    "action": "drop",
+    "reason": "benign_nonzero"
+   },
+   "want": {
+    "action": "drop",
+    "tier": null,
+    "death_class": null
+   }
+  },
+  {
+   "case": "bl_neg_signal",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "signal",
+    "death_class": "signal_death"
+   }
+  },
+  {
+   "case": "bl_neg_unknown",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": null
+   }
+  },
+  {
+   "case": "gray_pos_a",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": null
+   }
+  },
+  {
+   "case": "gray_pos_b",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": "op_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "gray",
+    "death_class": null
+   }
+  },
+  {
+   "case": "gray_neg_grep",
+   "pass": true,
+   "got": {
+    "action": "drop",
+    "reason": "benign_nonzero"
+   },
+   "want": {
+    "action": "drop",
+    "tier": null,
+    "death_class": null
+   }
+  },
+  {
+   "case": "gray_neg_build",
+   "pass": true,
+   "got": {
+    "action": "collect",
+    "tier": "build",
+    "death_class": "test_or_build_fail"
+   },
+   "want": {
+    "action": "collect",
+    "tier": "build",
+    "death_class": null
+   }
+  },
+  {
+   "case": "classify_signal",
+   "pass": true
+  },
+  {
+   "case": "classify_timeout",
+   "pass": true
+  },
+  {
+   "case": "classify_no_blanket",
+   "pass": true
+  },
+  {
+   "case": "classify_assert",
+   "pass": true
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{
+ "note": "E2 独立召回探针",
+ "candidates": 133,
+ "residual_count": 0,
+ "residual_sample": [],
+ "recall_clean": true,
+ "coverage_declaration": "召回残留 0（量程：PII 正则 + 公司全称/核心 + 姓氏表格格 + 长号；未含特征者由人工锚覆盖）"
+}

@@ -1,0 +1,40 @@
+{
+ "note": "P5a.58 器官自检（零 token）",
+ "n": 8,
+ "passed": 8,
+ "all_pass": true,
+ "results": [
+  {
+   "check": "constitution_deny::backend/requirements/adapters/tau/scoring.py",
+   "pass": true
+  },
+  {
+   "check": "constitution_deny::scripts/e9_canary_battery.py",
+   "pass": true
+  },
+  {
+   "check": "constitution_deny::scripts/e3_executor.py",
+   "pass": true
+  },
+  {
+   "check": "constitution_allow::organ",
+   "pass": true
+  },
+  {
+   "check": "birth_gate_reject_no_observability",
+   "pass": true
+  },
+  {
+   "check": "birth_status_shadow",
+   "pass": true
+  },
+  {
+   "check": "shadow_graduate_at_10_0",
+   "pass": true
+  },
+  {
+   "check": "shadow_demote_on_misfire",
+   "pass": true
+  }
+ ]
+}

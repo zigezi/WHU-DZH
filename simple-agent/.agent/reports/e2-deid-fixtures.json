@@ -1,0 +1,36 @@
+{
+ "note": "E2 脱敏 fixture 电池",
+ "n": 4,
+ "passed": 4,
+ "deployed": true,
+ "results": [
+  {
+   "case": "precision_whitelist_zero_mask",
+   "pass": true,
+   "masked_wrongly": []
+  },
+  {
+   "case": "recall_all_forms_masked",
+   "pass": true,
+   "leaks": []
+  },
+  {
+   "case": "watermark_coexist",
+   "pass": true,
+   "sign_kept": true,
+   "real_masked": true,
+   "wm_gone": true,
+   "wm": [
+    "周",
+    "婷",
+    "学"
+   ]
+  },
+  {
+   "case": "watermark_overlap_content_kept",
+   "pass": true,
+   "out_has": true
+  }
+ ],
+ "coverage_domain": "量程：合成埋件（精度白名单 / 召回全形态 / 水印共存·重合）；已知排除：真实语料中未入表实体之发现（由独立召回探针 + 人工锚覆盖）；水印探针量程=孤立+胶合残留"
+}

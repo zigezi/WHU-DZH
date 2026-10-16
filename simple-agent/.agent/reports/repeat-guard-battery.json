@@ -1,0 +1,36 @@
+{
+ "note": "repeat_failure_v1 电池（含 3 阴性对照）",
+ "n": 7,
+ "passed": 7,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_third_identical_fail_blocks",
+   "pass": true
+  },
+  {
+   "probe": "P2_below_threshold_allowed",
+   "pass": true
+  },
+  {
+   "probe": "N1_success_resets_no_block",
+   "pass": true
+  },
+  {
+   "probe": "N2_distinct_args_no_block",
+   "pass": true
+  },
+  {
+   "probe": "N3_distinct_tools_no_block",
+   "pass": true
+  },
+  {
+   "probe": "P3_synthetic_text_correct",
+   "pass": true
+  },
+  {
+   "probe": "N4_state_change_resets_no_block",
+   "pass": true
+  }
+ ]
+}

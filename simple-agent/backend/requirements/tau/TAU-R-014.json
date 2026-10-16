@@ -1,0 +1,29 @@
+{
+  "req_id": "TAU-R-014",
+  "split": "dev",
+  "title": "tau-bench retail task 14",
+  "task": "你好，我需要帮助",
+  "tau_env": "retail",
+  "tau_task_id": 14,
+  "tau_task_split": "test",
+  "tau_bucket": "state-changing",
+  "assertions": [
+    {
+      "name": "db_final_state",
+      "severity": "blocker",
+      "tau": true
+    },
+    {
+      "name": "actions_match",
+      "severity": "blocker",
+      "tau": true
+    }
+  ],
+  "budget": {
+    "max_steps": 30,
+    "max_tokens": 200000,
+    "timeout_s": 1200
+  },
+  "source": "tau-bench/retail",
+  "sig": "2246f912173d"
+}

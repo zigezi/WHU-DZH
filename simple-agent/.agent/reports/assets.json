@@ -1,0 +1,354 @@
+{
+ "assets": [
+  {
+   "asset_id": "lock_order_v1",
+   "type": "interceptor_rule",
+   "text": "对同一实体的多步修改，先执行不改变实体锁定状态的操作。",
+   "trigger": "modify_pending_order_items ∧ 同 order_id 未成功改地址 ∧ 未否决过",
+   "validated_domain": "tau",
+   "death_cause": "lock_order",
+   "credit_level": "field_validated",
+   "status": "active",
+   "evidence": "P5a.28 backtest 0/12; B-2 battery 7/7",
+   "domain_pack": "tau",
+   "rule_id": "lock_order_v1",
+   "created_at": "2026-10-12T09:38:18",
+   "last_revalidated": "2026-10-13T14:19:02",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T10:17:03",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-xec35tts；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T10:28:14",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-tj8hcrkg；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T11:44:09",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-qpb6zxc7；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T16:56:07",
+     "evidence": "firing-audit: benign re-issue tax 118/962≈12.3%",
+     "result": "credit_raised",
+     "level": "field_validated"
+    },
+    {
+     "at": "2026-10-13T14:19:02",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-cfi9iwia；电池 8/8；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "live_confirmed": true,
+   "live_note": "P5a.59 阶段二重跑首次活体点火3次；R-041 良性再发结局保持",
+   "intervention_type": "benign-reissue"
+  },
+  {
+   "asset_id": "repeat_failure_v1",
+   "type": "interceptor_rule",
+   "text": "凡完全相同的工具调用（工具+参数）连续失败达阈值，否决并要求改变方法，禁止原地重试。",
+   "trigger": "同一 (tool,canonical_args) 键失败次数 >= threshold-1 时，下一次相同调用被否决",
+   "validated_domain": "tau",
+   "death_cause": "repeat_failure",
+   "credit_level": "T1_candidate",
+   "status": "active",
+   "evidence": "failure-mine REPEAT::*; repeat-guard-battery",
+   "domain_pack": "tau",
+   "rule_id": "repeat_failure_v1",
+   "threshold": 3,
+   "created_at": "2026-10-12T10:28:13",
+   "last_revalidated": "2026-10-12T11:44:11",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T10:28:41",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-rv3mgda4；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T11:44:11",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-lv2qe5e7；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "intervention_type": "behavior-reroute",
+   "intervention_note": "窄触发·死行为阻断；τ 工具确定性下（同参同态必同败）被否决调用成功率=0，误伤≈0——benign 是把事实误写成型；代码域非确定工具沿用此族须按行为改道型对待"
+  },
+  {
+   "asset_id": "items_count_match_v1",
+   "type": "interceptor_rule",
+   "text": "交换/改物品时 item_ids 与 new_item_ids 必须等长",
+   "trigger": "len(item_ids)!=len(new_item_ids)",
+   "validated_domain": "tau",
+   "death_cause": "syntactic_mismatch",
+   "credit_level": "field_validated",
+   "status": "active",
+   "evidence": "failure-mine items-count; count-guard-battery",
+   "domain_pack": "tau",
+   "rule_id": "items_count_match_v1",
+   "created_at": "2026-10-12T11:44:08",
+   "last_revalidated": "2026-10-12T11:44:13",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T11:44:13",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-8hc7nffj；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T16:56:07",
+     "evidence": "firing-audit: misfire 0, coverage 1.0",
+     "result": "credit_raised",
+     "level": "field_validated"
+    }
+   ],
+   "live_confirmed": false,
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放",
+   "intervention_type": "behavior-reroute"
+  },
+  {
+   "asset_id": "non_delivered_exchange_v1",
+   "type": "interceptor_rule",
+   "text": "非 delivered 订单不可 exchange",
+   "trigger": "exchange_* on order with known status!=delivered",
+   "validated_domain": "tau",
+   "death_cause": "precondition_unmet",
+   "credit_level": "field_validated",
+   "status": "active",
+   "evidence": "failure-mine non-delivered; exchange-guard-battery",
+   "domain_pack": "tau",
+   "rule_id": "non_delivered_exchange_v1",
+   "created_at": "2026-10-12T11:44:08",
+   "last_revalidated": "2026-10-12T11:44:15",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T11:44:15",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-vviaapxp；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T16:56:07",
+     "evidence": "firing-audit: misfire 0, coverage 0.50(注记)",
+     "result": "credit_raised",
+     "level": "field_validated"
+    }
+   ],
+   "live_confirmed": false,
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放",
+   "intervention_type": "behavior-reroute"
+  },
+  {
+   "asset_id": "payment_amount_sum_v1",
+   "type": "interceptor_rule",
+   "text": "支付金额之和必须等于应付总额（整数分/容差1分）",
+   "trigger": "sum(payment amounts)!=observed total",
+   "validated_domain": "tau",
+   "death_cause": "numeric_sum",
+   "credit_level": "T1_candidate",
+   "status": "superseded",
+   "evidence": "failure-mine payment-amount; payment-guard-battery",
+   "domain_pack": "tau",
+   "rule_id": "payment_amount_sum_v1",
+   "created_at": "2026-10-12T11:44:08",
+   "last_revalidated": "2026-10-12T11:44:17",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T11:44:17",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-sjdyq103；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "superseded_by": "payment_amount_sum_enforce_v1",
+   "superseded_at": "2026-10-12T17:29:09",
+   "superseded_reason": "enforce 版承接；舍入口径等价（整数分/ROUND_HALF_UP/容差0.01）",
+   "intervention_type": "behavior-reroute"
+  },
+  {
+   "asset_id": "certificate_update_v1",
+   "type": "interceptor_rule",
+   "text": "改签（update_reservation_*）不可用 certificate 支付。",
+   "trigger": "tool startswith update_reservation_ ∧ payment_id starts with certificate_",
+   "validated_domain": "tau",
+   "death_cause": "certificate_update",
+   "credit_level": "T1_candidate",
+   "status": "revoked",
+   "evidence": "failure-mine certificate; certificate-guard-battery 7/7",
+   "domain_pack": "tau",
+   "rule_id": "certificate_update_v1",
+   "created_at": "2026-10-12T16:24:11",
+   "schema_version": "b3-v1",
+   "last_revalidated": "2026-10-12T16:24:12",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T16:24:12",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-rh42fc4j；电池 7/7；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "revoked_at": "2026-10-12T16:56:07",
+   "revoked_reason": "行为改道型误伤（否决合法改签并强推换支付）；点火必要条件'是否需费用'在 args 不可观测 → 无窄化余地",
+   "knowledge_moved_to": "negative_precedents",
+   "intervention_type": "behavior-reroute"
+  },
+  {
+   "asset_id": "flight_availability_v1",
+   "type": "interceptor_rule",
+   "text": "不得订/改使用已知无座的航班（本 run 观测座位 < 所需）。",
+   "trigger": "book/update flights 中 flight_number 的本 run available_seats[cabin] < 乘客数",
+   "validated_domain": "tau",
+   "death_cause": "flight_availability",
+   "credit_level": "T1_candidate",
+   "status": "superseded",
+   "evidence": "failure-mine not-enough-seats; availability-guard-battery",
+   "domain_pack": "tau",
+   "rule_id": "flight_availability_v1",
+   "created_at": "2026-10-12T16:26:14",
+   "schema_version": "b3-v1",
+   "last_revalidated": "2026-10-12T16:26:15",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T16:26:15",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-hjvzpit7；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "superseded_by": "flight_availability_enforce_v1",
+   "superseded_at": "2026-10-12T17:29:09",
+   "superseded_reason": "enforce 版第二段包含旧版职责",
+   "intervention_type": "behavior-reroute"
+  },
+  {
+   "asset_id": "gift_card_balance_v1",
+   "type": "interceptor_rule",
+   "text": "不得用已知余额不足的礼品卡支付（带 payment_methods 金额的调用）。",
+   "trigger": "payment_methods 中 gift_card 的 amount > 本 run 观测余额",
+   "validated_domain": "tau",
+   "death_cause": "gift_card_balance",
+   "credit_level": "T1_candidate",
+   "status": "superseded",
+   "evidence": "failure-mine gift-card; giftcard-guard-battery; 覆盖外=update_reservation_*",
+   "domain_pack": "tau",
+   "rule_id": "gift_card_balance_v1",
+   "coverage": "book/payment_methods; update_* 金额不在 args → 覆盖外",
+   "created_at": "2026-10-12T16:28:34",
+   "schema_version": "b3-v1",
+   "last_revalidated": "2026-10-12T16:28:36",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T16:28:36",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-q9npsx7x；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "superseded_by": "gift_card_balance_enforce_v1",
+   "superseded_at": "2026-10-12T17:29:09",
+   "superseded_reason": "enforce 版承接；A-003 覆盖缺口限制随承接转移",
+   "intervention_type": "behavior-reroute"
+  },
+  {
+   "asset_id": "flight_availability_enforce_v1",
+   "type": "interceptor_rule",
+   "text": "book/update 前若本 run 未查询该航班可用性 → 否决（先查座位，查完重发即通过）。",
+   "trigger": "book/update flights 中 (flight,cabin) 无本 run search 观测 → 否决（once-per-key）",
+   "validated_domain": "tau",
+   "death_cause": "flight_availability_unchecked",
+   "credit_level": "field_validated",
+   "status": "active",
+   "evidence": "availability-enforce-battery; P5a.56 §三 试产原型",
+   "domain_pack": "tau",
+   "rule_id": "flight_availability_enforce_v1",
+   "observability_proof": "点火条件=本 run search 观测缺失（可观测），无需 args 内金额",
+   "created_at": "2026-10-12T16:57:14",
+   "schema_version": "b3-v2",
+   "last_revalidated": "2026-10-12T17:05:18",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T16:57:16",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-c_wyh2jg；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T17:05:16",
+     "evidence": "prototype audit: benign 0 hardline, tax 46; battery 6/6 + C-1",
+     "result": "credit_raised",
+     "level": "field_validated"
+    },
+    {
+     "at": "2026-10-12T17:05:18",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-29h43602；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    }
+   ],
+   "live_confirmed": true,
+   "live_note": "P5a.59 阶段二重跑 A-007 PASS 且点火2次=良性再发结局保持(活体)",
+   "intervention_type": "benign-reissue"
+  },
+  {
+   "asset_id": "payment_amount_sum_enforce_v1",
+   "type": "interceptor_rule",
+   "text": "前置强制：支付前无本 run 观测（总额/余额）→ 否决，查完重发即通过。",
+   "trigger": "book/payment 前 (total|gift_card balance) 无本 run 观测",
+   "validated_domain": "tau",
+   "death_cause": "payment_total_unchecked",
+   "credit_level": "field_validated",
+   "status": "active",
+   "evidence": "payment-enforce-battery 6/6; C-1; audit benign; 等价=旧版舍入口径(整数分/ROUND_HALF_UP/容差0.01)",
+   "domain_pack": "tau",
+   "rule_id": "payment_amount_sum_enforce_v1",
+   "observability_proof": "点火=观测缺失（可观测）",
+   "created_at": "2026-10-12T17:05:16",
+   "schema_version": "b3-v2",
+   "last_revalidated": "2026-10-12T17:05:20",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T17:05:20",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-qb0x_3en；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T17:29:09",
+     "evidence": "battery 6/6 + C-1 + audit 0 hardline; 承接旧版舍入口径",
+     "result": "credit_raised",
+     "level": "field_validated"
+    }
+   ],
+   "live_confirmed": false,
+   "live_note": "自部署起名称型守卫因 tau__ 前缀失配从未活体点火；field_validated 证据基础=静态回放",
+   "intervention_type": "benign-reissue"
+  },
+  {
+   "asset_id": "gift_card_balance_enforce_v1",
+   "type": "interceptor_rule",
+   "text": "前置强制：支付前无本 run 观测（总额/余额）→ 否决，查完重发即通过。",
+   "trigger": "book/payment 前 (total|gift_card balance) 无本 run 观测",
+   "validated_domain": "tau",
+   "death_cause": "giftcard_balance_unchecked",
+   "credit_level": "field_validated",
+   "status": "active",
+   "evidence": "giftcard-enforce-battery 6/6; C-1; audit benign; 承接限制=A-003型(update_* 金额不在args) 仍不可覆盖",
+   "domain_pack": "tau",
+   "rule_id": "gift_card_balance_enforce_v1",
+   "observability_proof": "点火=观测缺失（可观测）",
+   "created_at": "2026-10-12T17:05:16",
+   "schema_version": "b3-v2",
+   "last_revalidated": "2026-10-12T17:05:22",
+   "revalidation_log": [
+    {
+     "at": "2026-10-12T17:05:22",
+     "evidence": "C-1 冷启动复现门：PASS（干净容器 /tmp/opencode/c1-clean-4hoalguq；电池 6/6；资产在场=True；零 token）",
+     "result": "pass"
+    },
+    {
+     "at": "2026-10-12T17:29:09",
+     "evidence": "battery 6/6 + C-1 + audit 0 hardline; 承接 A-003 覆盖限制",
+     "result": "credit_raised",
+     "level": "field_validated"
+    }
+   ],
+   "live_confirmed": true,
+   "live_note": "系统史上首次真实活体点火（P5a.59 阶段二 5 次 on_fail）；不依赖工具名匹配",
+   "intervention_type": "benign-reissue"
+  }
+ ]
+}

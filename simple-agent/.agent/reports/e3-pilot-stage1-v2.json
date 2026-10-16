@@ -1,0 +1,56 @@
+{
+ "note": "E3 先导阶段1-v2",
+ "n": 5,
+ "fail": 0,
+ "fail_rate": 0.0,
+ "tokens": 861,
+ "canary_n": 1,
+ "canary_fail": 0,
+ "rows": [
+  {
+   "task_id": "E3V21-03",
+   "family": "clamp",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 156,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3V21-04",
+   "family": "gcd",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 183,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3V21-06",
+   "family": "clamp",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 156,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3V21-07",
+   "family": "gcd",
+   "is_canary": false,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 183,
+   "stderr": ""
+  },
+  {
+   "task_id": "E3-C01",
+   "family": "canary",
+   "is_canary": true,
+   "verdict": 1,
+   "failure_class": "pass",
+   "tokens": 183,
+   "stderr": ""
+  }
+ ]
+}

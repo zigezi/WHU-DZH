@@ -1,0 +1,24 @@
+{
+ "note": "P5a.88 §三 指纹脚手架 naming_proof",
+ "n": 4,
+ "passed": 4,
+ "all_pass": true,
+ "results": [
+  {
+   "case": "np_positive",
+   "pass": true
+  },
+  {
+   "case": "np_missing_fpfile",
+   "pass": true
+  },
+  {
+   "case": "np_hash_mismatch",
+   "pass": true
+  },
+  {
+   "case": "np_taskbook_bad_embedded",
+   "pass": true
+  }
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "note": "L1.5 负先例库（不注入；警告通道）",
+ "n": 213,
+ "by_cause": {
+  "lock_order": 6,
+  "repeat_mutating": 8,
+  "tool_error:Error: gift card balance is no": 2,
+  "tool_error:Error: non-delivered order can": 2,
+  "tool_error:Error: not enough balance in p": 1,
+  "tool_error:Error: not enough seats on fli": 5,
+  "tool_error:Error: payment amount does not": 2,
+  "tool_error:Error: the number of items to ": 1,
+  "tool_error:Error: user not found": 13,
+  "verdict_fail": 173
+ }
+}

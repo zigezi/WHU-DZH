@@ -1,0 +1,32 @@
+{
+ "note": "payment_amount_sum_v1 电池",
+ "n": 6,
+ "passed": 6,
+ "all_pass": true,
+ "results": [
+  {
+   "probe": "P1_sum_mismatch_blocks",
+   "pass": true
+  },
+  {
+   "probe": "N1_sum_match_passes",
+   "pass": true
+  },
+  {
+   "probe": "N2_unknown_total_passes",
+   "pass": true
+  },
+  {
+   "probe": "N3_rounding_exact_passes",
+   "pass": true
+  },
+  {
+   "probe": "N4_non_target_passes",
+   "pass": true
+  },
+  {
+   "probe": "P2_text",
+   "pass": true
+  }
+ ]
+}

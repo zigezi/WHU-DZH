@@ -1,0 +1,156 @@
+{
+ "note": "P5a.61/62 器官消化本批 FAIL 尸体（ring_mine→ring_triage）；deploy 已拆分",
+ "corpses": 18,
+ "disposition_counts": {
+  "decompose": 13,
+  "deploy": 5
+ },
+ "covered_by_existing": 9,
+ "deploy_new": 0,
+ "rows": [
+  {
+   "req_id": "TAU-R-041",
+   "at": "11:14:37",
+   "death": "VERDICT_FAIL::TAU-R-041",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-R-072",
+   "at": "11:18:06",
+   "death": "VERDICT_FAIL::TAU-R-072",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-R-098",
+   "at": "11:21:27",
+   "death": "LOCK_ORDER::modify_items_first",
+   "kind": "order_lock",
+   "disposition": "deploy",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-R-105",
+   "at": "11:24:53",
+   "death": "VERDICT_FAIL::TAU-R-105",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-A-009",
+   "at": "11:31:43",
+   "death": "REPEAT::book_reservation",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-A-000",
+   "at": "11:35:23",
+   "death": "VERDICT_FAIL::TAU-A-000",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-A-008",
+   "at": "11:38:54",
+   "death": "REPEAT::book_reservation",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-R-074",
+   "at": "11:46:07",
+   "death": "VERDICT_FAIL::TAU-R-074",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-A-015",
+   "at": "11:56:47",
+   "death": "ERR::Error: not enough seats on flight HAT290",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-A-033",
+   "at": "12:04:02",
+   "death": "ERR::Error: gift card balance is not enough",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-A-023",
+   "at": "12:07:59",
+   "death": "ERR::Error: gift card balance is not enough",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-A-022",
+   "at": "12:11:47",
+   "death": "VERDICT_FAIL::TAU-A-022",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-R-098",
+   "at": "14:26:29",
+   "death": "VERDICT_FAIL::TAU-R-098",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-R-105",
+   "at": "14:30:06",
+   "death": "VERDICT_FAIL::TAU-R-105",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-A-023",
+   "at": "14:37:40",
+   "death": "ERR::Error: gift card balance is not enough",
+   "kind": "tool_error",
+   "disposition": "decompose",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-A-022",
+   "at": "14:41:37",
+   "death": "VERDICT_FAIL::TAU-A-022",
+   "kind": "verdict_fail",
+   "disposition": "decompose",
+   "covered_by_existing": false
+  },
+  {
+   "req_id": "TAU-R-019",
+   "at": "14:48:55",
+   "death": "ERR::Error: non-delivered order cannot be exc",
+   "kind": "tool_error",
+   "disposition": "deploy",
+   "covered_by_existing": true
+  },
+  {
+   "req_id": "TAU-A-002",
+   "at": "14:52:31",
+   "death": "REPEAT::search_direct_flight",
+   "kind": "repeat_failure",
+   "disposition": "deploy",
+   "covered_by_existing": true
+  }
+ ]
+}

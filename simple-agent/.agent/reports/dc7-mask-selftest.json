@@ -1,0 +1,34 @@
+{
+ "note": "DC-7 脱敏自检（假密钥；验证输出无明文）",
+ "mask_rule_location": "scripts/secret_mask.py::mask_secrets",
+ "patterns": [
+  "deepseek_key",
+  "github_pat",
+  "github_token",
+  "github_token_ghz",
+  "anthropic_key",
+  "openai_key",
+  "aws_akid",
+  "bearer"
+ ],
+ "raw_secret_values": 3,
+ "hits": [
+  {
+   "kind": "deepseek_key",
+   "len": 34
+  },
+  {
+   "kind": "github_token",
+   "len": 42
+  },
+  {
+   "kind": "github_token",
+   "len": 24
+  }
+ ],
+ "plaintext_leak_after_mask": 0,
+ "normal_text_preserved": true,
+ "short_stub_preserved": true,
+ "all_pass": true,
+ "redacted_sample": "compaction summary\nImportant Details:\nDEEPSEEK_API_KEY=[REDACTED:deepseek_key len=34 -> backend/.env]\nGITHUB_TOKEN=[REDACTED:github_token len=42 -> backend/.env]\nlegacy=[REDACTED:github_token len=24 -> backend/.env]\nnote=keep this normal text and a short sk-x stub\n"
+}

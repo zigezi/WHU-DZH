@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Secrets
+.env
+.env.*
+!.env.example
+/key.txt
+*.pem
+*.key
+
+# Agent runtime artifacts
+# NOTE: .agent/ (dir) must NOT be ignored as a whole, otherwise `!` exceptions
+# on children are ineffective (git rule: cannot re-include under ignored dir).
+.agent/*
+!.agent/evidence/
+!.agent/reports/
+!.agent/proposals/
+
+# Runtime data / logs
+backend/logs/
+*.log
+*.db
+*.db-wal
+*.db-shm
+
+# Node / frontend build
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+/github-token.txt
+
+# E2 corpus (PII; must stay out of repo — P5a.86 §二)
+E2File/
+/e2-corpus/
+*.pdf

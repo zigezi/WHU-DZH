@@ -1,0 +1,56 @@
+{
+ "note": "E3 v2 执行器冒烟（坏模块原样→FAIL；参考解→PASS；零模型 token）",
+ "n": 7,
+ "all_pass": true,
+ "results": [
+  {
+   "task": "E3-000",
+   "family": "clamp",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3-001",
+   "family": "gcd",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3-002",
+   "family": "digit_sum",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3-003",
+   "family": "lcm",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3-005",
+   "family": "is_pal",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3-010",
+   "family": "count_vowels",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  },
+  {
+   "task": "E3-C01",
+   "family": "canary",
+   "ref": "pass",
+   "bug": "assert_fail",
+   "ok": true
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::not enough seats on flight HAT290",
+ "kind": "tool_error",
+ "disposition": "decompose",
+ "draft": {
+  "predicate_text": "当工具调用返回错误且错误信息表明航班座位不足时，拦截该调用并触发分解处置。",
+  "firing_condition": "tool_result.error is not None AND 'not enough seats on flight' in tool_result.error.message AND 'HAT290' in tool_result.error.message",
+  "observability_declaration": "点火条件仅依赖工具调用返回的错误对象中的 message 字段，该字段在工具执行失败时由工具运行时提供，属于可观测状态。",
+  "false_positive_self_assessment": "可能误伤合法形状：1) 其他航班号包含 'HAT290' 子串（如 'HAT2901'）且同样报座位不足；2) 错误信息中恰好包含该短语但实际为模拟或测试数据；3) 工具返回的 message 被本地化或改写导致匹配失败（漏报而非误伤）。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 369
+}

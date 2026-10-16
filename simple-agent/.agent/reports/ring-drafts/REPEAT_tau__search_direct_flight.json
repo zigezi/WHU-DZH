@@ -1,0 +1,13 @@
+{
+ "pattern": "REPEAT::tau__search_direct_flight",
+ "kind": "repeat_failure",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当同一会话内对同一搜索意图连续两次调用 tau__search_direct_flight 且第二次调用未产生任何新的可观测状态变化时，拦截该重复调用。",
+  "firing_condition": "在同一个 session_id 下，存在两次 tau__search_direct_flight 调用，其 args 的规范化哈希相同（对 origin、destination、date、passengers 等字段排序后哈希），且第二次调用返回后，可观测状态集合（如 last_search_result_hash、flight_options_count、selected_flight_id）与第一次调用后相比无变化，则点火。",
+  "observability_declaration": "点火条件仅依赖可观测的调用参数、session_id、调用序号以及工具返回后记录的状态快照（结果哈希、选项数量、选中项），不依赖模型内部意图或隐藏推理。",
+  "false_positive_self_assessment": "可能误伤合法形状：用户主动要求重新搜索同一航班以刷新价格或余票；两次调用之间外部库存发生变化但返回结果恰好相同；用户在同一会话中先查询后取消再原样重查。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 416
+}

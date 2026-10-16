@@ -1,0 +1,13 @@
+{
+ "pattern": "ERR::non-pending order cannot be modified",
+ "kind": "tool_error",
+ "disposition": "deploy",
+ "draft": {
+  "predicate_text": "当工具调用试图修改一个非 pending 状态的订单时，拦截并阻止该修改操作。",
+  "firing_condition": "tool_call.name == 'modify_order' && tool_call.args.order_id != null && observable_state.order_status[order_id] != 'pending'",
+  "observability_declaration": "点火条件依赖 tool_call.name、tool_call.args.order_id 以及可观测状态 observable_state.order_status（订单状态映射）。其中 order_status 需由订单服务或本地缓存提供，且必须在工具调用前可读取；若状态不可观测或过期，则条件不可判定，不应点火。",
+  "false_positive_self_assessment": "可能误伤以下合法形状：1) 订单状态在读取后、修改前由 pending 变为非 pending（如并发支付），但拦截器仍按旧状态判定；2) 工具名或参数结构相似但语义不同的修改操作（如 modify_order_draft 草稿修改）；3) 订单状态字段缺失或为 null 时被误判为非 pending；4) 合法业务允许对特定非 pending 状态（如 'cancelled' 转 'refunded'）进行修改，但被统一拦截。",
+  "intervention_semantics": "behavior-reroute"
+ },
+ "tokens": 436
+}

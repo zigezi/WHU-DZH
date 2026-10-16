@@ -1,0 +1,119 @@
+{
+ "note": "E3 执行器冒烟（桩 agent，零模型 token）",
+ "n": 8,
+ "all_pass": true,
+ "results": [
+  {
+   "task": "E3-000",
+   "family": "clamp",
+   "ref": {
+    "verdict": 1,
+    "failure_class": "pass",
+    "stderr_tail": ""
+   },
+   "mut": {
+    "verdict": 0,
+    "failure_class": "assert_fail",
+    "stderr_tail": "AssertionError"
+   },
+   "ok": true
+  },
+  {
+   "task": "E3-001",
+   "family": "gcd",
+   "ref": {
+    "verdict": 1,
+    "failure_class": "pass",
+    "stderr_tail": ""
+   },
+   "mut": {
+    "verdict": 0,
+    "failure_class": "assert_fail",
+    "stderr_tail": "AssertionError"
+   },
+   "ok": true
+  },
+  {
+   "task": "E3-002",
+   "family": "digit_sum",
+   "ref": {
+    "verdict": 1,
+    "failure_class": "pass",
+    "stderr_tail": ""
+   },
+   "mut": {
+    "verdict": 0,
+    "failure_class": "assert_fail",
+    "stderr_tail": "AssertionError"
+   },
+   "ok": true
+  },
+  {
+   "task": "E3-003",
+   "family": "lcm",
+   "ref": {
+    "verdict": 1,
+    "failure_class": "pass",
+    "stderr_tail": ""
+   },
+   "mut": {
+    "verdict": 0,
+    "failure_class": "assert_fail",
+    "stderr_tail": "AssertionError"
+   },
+   "ok": true
+  },
+  {
+   "task": "E3-005",
+   "family": "is_pal",
+   "ref": {
+    "verdict": 1,
+    "failure_class": "pass",
+    "stderr_tail": ""
+   },
+   "mut": {
+    "verdict": 0,
+    "failure_class": "assert_fail",
+    "stderr_tail": "AssertionError"
+   },
+   "ok": true
+  },
+  {
+   "task": "E3-010",
+   "family": "count_vowels",
+   "ref": {
+    "verdict": 1,
+    "failure_class": "pass",
+    "stderr_tail": ""
+   },
+   "mut": {
+    "verdict": 0,
+    "failure_class": "assert_fail",
+    "stderr_tail": "AssertionError"
+   },
+   "ok": true
+  },
+  {
+   "task": "syntax_probe",
+   "family": "-",
+   "ref": {},
+   "mut": {
+    "verdict": 0,
+    "failure_class": "syntax_death",
+    "stderr_tail": "SyntaxError: invalid syntax"
+   },
+   "ok": true
+  },
+  {
+   "task": "loop_probe",
+   "family": "-",
+   "ref": {},
+   "mut": {
+    "verdict": 0,
+    "failure_class": "timeout_loop",
+    "stderr_tail": ""
+   },
+   "ok": true
+  }
+ ]
+}
