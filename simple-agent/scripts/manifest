@@ -58,6 +58,8 @@ mirror_leak_scan.py
 e2_deident.py
 e2_deid_invariance.py
 assert_deid_invariance.py
+e2_deid_recall_fixture.py
+e2_deid_recall_probe.py
 e2_unit_norm.py
 e2_eval.py
 e2_eval_params.json

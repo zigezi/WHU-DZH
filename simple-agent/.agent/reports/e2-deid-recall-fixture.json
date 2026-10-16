@@ -1,0 +1,32 @@
+{
+ "note": "P5a.92 §4.2 召回 fixture（100% 遮蔽方可 deployed）",
+ "n": 4,
+ "passed": 4,
+ "deployed": true,
+ "results": [
+  {
+   "case": "no_planted_pii_residual",
+   "pass": true,
+   "residual": []
+  },
+  {
+   "case": "watermark_removed",
+   "pass": true,
+   "left": [],
+   "wm_set": []
+  },
+  {
+   "case": "line_count_preserved",
+   "pass": true
+  },
+  {
+   "case": "names_found",
+   "pass": true,
+   "names": [
+    "周星",
+    "姜美娟"
+   ]
+  }
+ ],
+ "deid_sample": "股东信息表\n【PERSON-001】                                  35\n周                                              \n      学                                          \n                       婷                         \n周\n学\n婷\n股东 【PERSON-001】\n【PERSON-001】  学       监事\n项目牵头负责人为公司首席技术官【PERSON-002】（联系方式：【MOBILE-001】）\n本项目由【COMPANY-001】组织实施。【COMPANY-004】\n【COMPANY-002】（“兔【COMPANY-005】”）成立于 2014\n自研 【BRAND-001】大模型，【BRAND-001】开源。\n【PERSON-002】 男 本科 技术\n毕业于【COMPANY-003】计算机系。\n纳税人识别号 【USCC-001】"
+}

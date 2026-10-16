@@ -24,6 +24,9 @@ R = os.path.join(ROOT, ".agent", "reports")
 
 SECTION = re.compile(r"^\s*(?:第[一二三四五六七八九十]+[章节]|[一二三四五六七八九十]+、|\d+(?:\.\d+)*\s+\S)")
 NUM = re.compile(r"\d{4,}")
+import sys as _sys
+_sys.path.insert(0, os.path.join(ROOT, "scripts"))
+from e2_deident import detect_watermark, remove_watermark  # noqa: E402
 
 
 def _nums(text):
@@ -51,12 +54,13 @@ def _norm_by_map(text, val2code):
     return text
 
 
-def check_doc(name, raw, deid, val2code):
+def check_doc(name, raw, deid, val2code, wm=None):
     fails = []
     if raw.count("\n") != deid.count("\n"):
         fails.append("line_count_mismatch")
     # 章节标题：先按映射归一 raw，再比文本（标识符被遮蔽导致的差异属合法）
-    if _sections(_norm_by_map(raw, val2code)) != _sections(deid):
+    baseline = remove_watermark(_norm_by_map(raw, val2code), wm)
+    if _sections(baseline) != _sections(deid):
         fails.append("sections_mismatch")
     raw_nums, deid_nums = _nums(raw), _nums(deid)
     from collections import Counter
@@ -76,13 +80,15 @@ def check_doc(name, raw, deid, val2code):
 
 def main():
     _, val2code = load_mapping()
+    _raws = {os.path.basename(f): open(f, encoding="utf-8", errors="replace").read() for f in glob.glob(os.path.join(RAW, "*.txt"))}
+    wm = detect_watermark(list(_raws.values()))
     rows = []
     for fp in sorted(glob.glob(os.path.join(RAW, "*.txt"))):
         name = os.path.basename(fp)
         raw = open(fp, encoding="utf-8", errors="replace").read()
         dd = os.path.join(DEID, name)
         deid = open(dd, encoding="utf-8", errors="replace").read() if os.path.exists(dd) else ""
-        rows.append(check_doc(name, raw, deid, val2code))
+        rows.append(check_doc(name, raw, deid, val2code, wm))
 
     # naming_proof
     clean_raw = "项目概述\n合计 ¥1,000,000\n联系人：张三 手机13800138000\n"

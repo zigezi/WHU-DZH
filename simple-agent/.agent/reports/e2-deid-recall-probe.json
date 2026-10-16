@@ -1,0 +1,15 @@
+{
+ "note": "P5a.92 召回探针（独立于映射表）",
+ "candidates": 153,
+ "watermark": [
+  "周",
+  "姚",
+  "婷",
+  "学",
+  "文",
+  "斌"
+ ],
+ "residual_count": 0,
+ "residual_sample": [],
+ "recall_clean": true
+}
