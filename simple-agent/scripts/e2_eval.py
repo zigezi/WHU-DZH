@@ -123,6 +123,13 @@ def evaluate(docs: dict, task_input: dict, ruleset: dict):
             miss = [s for s in r["required"] if s not in t]
             out.append(_mk(rid, "FAIL", detail=f"missing:{miss}", evidence=_evidence(t, miss[0])) if miss
                        else _mk(rid, "PASS", evidence=_evidence(t, r["required"][0])))
+        elif k == "structural_any":
+            t = docs.get(r.get("doc", ""), "".join(docs.values()))
+            if not t:
+                out.append(_mk(rid, "NA", detail="missing_doc")); continue
+            hit = any(s in t for s in r["required_any"])
+            out.append(_mk(rid, "PASS" if hit else "FAIL",
+                           detail="" if hit else "none_of:" + ",".join(r["required_any"])))
         elif k == "structural_template":
             t = docs.get(r["doc"], "")
             if not t:

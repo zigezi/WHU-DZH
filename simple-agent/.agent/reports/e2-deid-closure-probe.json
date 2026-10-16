@@ -1,0 +1,8 @@
+{
+ "note": "E2 变体闭包探针（a96 条款三）",
+ "entities": 169,
+ "residual": [],
+ "residual_count": 0,
+ "closure_clean": true,
+ "coverage_declaration": "闭包残留 0（量程：已入表实体之变体[全称/折叠/短名]；未入表实体不在本探针量程，由召回 fixture 与人工锚覆盖）"
+}

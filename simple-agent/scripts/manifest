@@ -56,6 +56,11 @@ mirror_leak_scan.py
 
 # —— E2 建设段（a83-86）——
 e2_deident.py
+e2_whitelist.json
+e2_variants.json
+e2_ruleset_v0.4.json
+e2_deid_fixtures.py
+e2_deid_closure_probe.py
 e2_deid_invariance.py
 assert_deid_invariance.py
 e2_deid_recall_fixture.py

@@ -1,11 +1,15 @@
 {
  "note": "P5a.88 §四 脱敏不变性机器断言（修正规格）",
- "mapping_values": 201,
+ "mapping_values": 169,
  "docs": [
   {
    "doc": "P1-01-揭榜申请书.txt",
-   "removed_nums": 7,
+   "removed_nums": 8,
    "added_nums": 0,
+   "sections": {
+    "raw": 8,
+    "deid": 8
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -15,6 +19,10 @@
    "doc": "P1-02-实施方案.txt",
    "removed_nums": 2,
    "added_nums": 0,
+   "sections": {
+    "raw": 16,
+    "deid": 16
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -22,8 +30,12 @@
   },
   {
    "doc": "P1-04-公共信用信息报告.txt",
-   "removed_nums": 4,
+   "removed_nums": 12,
    "added_nums": 0,
+   "sections": {
+    "raw": 11,
+    "deid": 11
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -33,6 +45,10 @@
    "doc": "P1-附件3-1-建设单位及牵头人简介.txt",
    "removed_nums": 0,
    "added_nums": 0,
+   "sections": {
+    "raw": 4,
+    "deid": 4
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -42,6 +58,10 @@
    "doc": "P1-附件3-2-经费概算.txt",
    "removed_nums": 0,
    "added_nums": 0,
+   "sections": {
+    "raw": 11,
+    "deid": 9
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -51,6 +71,10 @@
    "doc": "P2-01-申请书.txt",
    "removed_nums": 8,
    "added_nums": 0,
+   "sections": {
+    "raw": 8,
+    "deid": 8
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -60,6 +84,10 @@
    "doc": "P2-02-实施方案.txt",
    "removed_nums": 1,
    "added_nums": 0,
+   "sections": {
+    "raw": 34,
+    "deid": 27
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -67,8 +95,12 @@
   },
   {
    "doc": "P2-04-信用报告.txt",
-   "removed_nums": 20,
+   "removed_nums": 34,
    "added_nums": 0,
+   "sections": {
+    "raw": 135,
+    "deid": 93
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -76,8 +108,12 @@
   },
   {
    "doc": "P3-02-实施方案-72页长文.txt",
-   "removed_nums": 1,
+   "removed_nums": 13,
    "added_nums": 0,
+   "sections": {
+    "raw": 79,
+    "deid": 70
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],
@@ -85,8 +121,12 @@
   },
   {
    "doc": "P4-04-信用信息查询报告.txt",
-   "removed_nums": 25,
+   "removed_nums": 41,
    "added_nums": 0,
+   "sections": {
+    "raw": 132,
+    "deid": 99
+   },
    "unexplained": [],
    "missed_masking": [],
    "fails": [],

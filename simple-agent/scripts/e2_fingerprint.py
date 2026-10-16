@@ -21,6 +21,8 @@ def compute(ruleset_path):
         "unit_table_sha": _sha_file(os.path.join(SCRIPTS, "e2_unit_norm.py")),
         "eval_params_sha": _sha_file(os.path.join(SCRIPTS, "e2_eval_params.json")),
         "prompt_sha": _sha_file(os.path.join(SCRIPTS, "e2_prompt_v1.1.md")),
+        "whitelist_sha": _sha_file(os.path.join(SCRIPTS, "e2_whitelist.json")),
+        "variants_sha": _sha_file(os.path.join(SCRIPTS, "e2_variants.json")),
         "eval_version": json.load(open(os.path.join(SCRIPTS, "e2_eval_params.json"),
                                        encoding="utf-8")).get("ruleset_version", "?"),
         "prompt_version": "v1.1",

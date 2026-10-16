@@ -4,7 +4,7 @@
  "amount_extract": "前缀货币(¥)+后缀单位(元/万/亿/中文数字)；表头声明单位的裸数多列表 ' 尚未支持（待裁者冻结列/勾稽规则）",
  "unit_table_version": "e2-unit-v1",
  "redactor_version": "e2_deident-v2（两遍：上下文收集 + 全局替换）",
- "ruleset_version": "v0.3（a91 §二冻结）",
+ "ruleset_version": "v0.4（a96 A1 签署拆分）",
  "prompt_version": "v1.1（a91 §一冻结）",
  "frozen_at": "2026-10-16"
 }

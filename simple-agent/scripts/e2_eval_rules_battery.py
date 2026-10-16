@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from e2_eval import evaluate, load_ruleset  # noqa: E402
 
 R = os.path.join(ROOT, ".agent", "reports")
-RULESET = load_ruleset(os.path.join(ROOT, "scripts", "e2_ruleset_v0.3.json"))
+RULESET = load_ruleset(os.path.join(ROOT, "scripts", "e2_ruleset_v0.4.json"))
 
 TASK = {"unit_mult_yuan": 10000, "credit_report_validity_months": 3}
 
@@ -34,6 +34,7 @@ BASE = {
 
 EXPECT_BASE = {
  "R1-申请书": "PASS", "R1-实施方案": "PASS", "R1-信用报告": "PASS",
+ "R1-签署文本标签": "PASS", "R1-印章物理存在": "NA",
  "R2.1": "PASS", "R2.2": "PASS", "R3.1": "PASS", "R3.2a": "PASS", "R3.2b": "NA",
  "R3.3": "PASS", "R3.4": "PASS", "R3.5": "PASS", "R3.6": "PASS",
 }
@@ -68,6 +69,7 @@ def main():
         ("R3.4", mutate("实施方案", "阶段月份：2024-05-01", "阶段月份：2025-05-01")),
         ("R3.5", mutate("信用报告", "数据更新时间：2023-11-01", "数据更新时间：2023-01-01")),
         ("R3.6", mutate("实施方案", "场景名称：智慧园区", "场景名称：智慧园区X")),
+        ("R1-签署文本标签", mutate("申请书", "签署日期：2023-12-01", "日期：2023-12-01")),
     ]
     for rid, docs in negs:
         v = verd(docs).get(rid)

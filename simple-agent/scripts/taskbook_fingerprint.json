@@ -1,8 +1,10 @@
 {
- "ruleset_sha": "cdb1ac336414500e",
+ "ruleset_sha": "75b4224f3791cf2a",
  "unit_table_sha": "8d39d7b49cffaaa6",
- "eval_params_sha": "62d2edf130b370f2",
+ "eval_params_sha": "a7ae953e70a1547c",
  "prompt_sha": "32c79f5e972a6cbd",
- "eval_version": "v0.3（a91 §二冻结）",
+ "whitelist_sha": "667ae8893778844e",
+ "variants_sha": "4314b159b8f2b89a",
+ "eval_version": "v0.4（a96 A1 签署拆分）",
  "prompt_version": "v1.1"
 }
