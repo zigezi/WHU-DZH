@@ -1,0 +1,46 @@
+{
+ "note": "E2 评测器标定（provisional ruleset；缺陷注入夹具灵敏度/特异度）",
+ "eval_fingerprint": "62d2edf130b370f2",
+ "docs_total": 8,
+ "clean_bases": 7,
+ "specificity": 1.0,
+ "sensitivity_by_kind": {
+  "missing_section": {
+   "n": 10,
+   "flagged": 10,
+   "rate": 1.0
+  },
+  "dimension_conflict": {
+   "n": 10,
+   "flagged": 10,
+   "rate": 1.0
+  },
+  "number_inconsistent": {
+   "n": 4,
+   "flagged": 4,
+   "rate": 1.0
+  }
+ },
+ "fixtures": 34,
+ "synthetic_number_fixtures": 3,
+ "ruleset_provisional": {
+  "required_sections": [
+   "项目"
+  ],
+  "dimensions": [
+   {
+    "name": "风险-承诺",
+    "require": [
+     "风险"
+    ],
+    "forbid": [
+     "无风险"
+    ]
+   }
+  ],
+  "number_fields": [
+   "阶段总计",
+   "合计金额"
+  ]
+ }
+}

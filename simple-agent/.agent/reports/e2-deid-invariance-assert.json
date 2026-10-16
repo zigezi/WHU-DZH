@@ -1,0 +1,115 @@
+{
+ "note": "P5a.88 §四 脱敏不变性机器断言（修正规格）",
+ "mapping_values": 67,
+ "docs": [
+  {
+   "doc": "P1-01-揭榜申请书.txt",
+   "removed_nums": 7,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P1-02-实施方案.txt",
+   "removed_nums": 2,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P1-04-公共信用信息报告.txt",
+   "removed_nums": 4,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P1-附件3-1-建设单位及牵头人简介.txt",
+   "removed_nums": 0,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P1-附件3-2-经费概算.txt",
+   "removed_nums": 0,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P2-01-申请书.txt",
+   "removed_nums": 8,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P2-02-实施方案.txt",
+   "removed_nums": 1,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P2-04-信用报告.txt",
+   "removed_nums": 20,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P3-02-实施方案-72页长文.txt",
+   "removed_nums": 1,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  },
+  {
+   "doc": "P4-04-信用信息查询报告.txt",
+   "removed_nums": 25,
+   "added_nums": 0,
+   "unexplained": [],
+   "missed_masking": [],
+   "fails": [],
+   "pass": true
+  }
+ ],
+ "naming_proof": [
+  {
+   "case": "np_positive_clean",
+   "pass": true
+  },
+  {
+   "case": "np_neg_amount_tamper",
+   "pass": true
+  },
+  {
+   "case": "np_neg_line_deleted",
+   "pass": true
+  },
+  {
+   "case": "np_neg_missed_masking",
+   "pass": true
+  }
+ ],
+ "all_pass": true
+}

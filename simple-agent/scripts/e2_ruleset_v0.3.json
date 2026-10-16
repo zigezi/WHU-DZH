@@ -1,0 +1,41 @@
+{
+ "version": "v0.3",
+ "note": "冻结规则集（a89 §二 + a90 §二 + a91 §二）；内容来自裁者裁决，opencode 仅机械编码",
+ "templates": {
+  "申请书": {"required": ["填表声明", "第一部分", "第二部分", "第三部分"]},
+  "实施方案": {"required": ["场景需求理解", "建设单位", "合作模式", "实施计划", "经费预算"]},
+  "信用报告": {"variants": {"信用广东": ["基本信息"], "深圳信用网": ["基本信息"]}, "default": ["基本信息"]}
+ },
+ "rules": [
+  {"id": "R1-申请书", "kind": "structural", "doc": "申请书",
+   "required": ["填表声明", "第一部分", "第二部分", "第三部分"]},
+  {"id": "R1-实施方案", "kind": "structural", "doc": "实施方案",
+   "required": ["场景需求理解", "建设单位", "合作模式", "实施计划", "经费预算"]},
+  {"id": "R1-信用报告", "kind": "structural_template", "doc": "信用报告",
+   "variants": {"信用广东": ["基本信息"], "深圳信用网": ["基本信息"]}, "default": ["基本信息"]},
+
+  {"id": "R2.1", "kind": "table_equations", "doc": "概算",
+   "unit_param": "unit_mult_yuan",
+   "equations": [
+    {"lhs": "合计", "op": "eq", "rhs_sum": ["直接费用", "间接费用"]},
+    {"lhs": "小计", "op": "eq", "rhs_sum": ["财政资助", "自筹经费"]},
+    {"lhs": "自筹经费", "op": "ge", "rhs": "财政资助"}
+   ]},
+
+  {"id": "R2.2", "kind": "cross_doc_equal", "label": "项目预算",
+   "docs": ["申请书", "实施方案", "概算"], "on_missing": "NA"},
+
+  {"id": "R3.1", "kind": "cross_doc_equal", "label": "经费预算",
+   "docs": ["申请书", "实施方案"], "on_missing": "NA", "intra_doc_conflict": "FAIL"},
+  {"id": "R3.2a", "kind": "implication_count_zero", "if_doc": "申请书", "if_phrase": "知识产权",
+   "then_doc": "信用报告", "then_label": "严重失信主体信息"},
+  {"id": "R3.2b", "kind": "always_na",
+   "note": "申请期间未决知识产权纠纷之实质性审查超出文档可判定域（a90 §二），epoch-2+ 语义候选"},
+  {"id": "R3.3", "kind": "date_before", "a": "签署日期", "b": "建设周期"},
+  {"id": "R3.4", "kind": "range_contains", "outer": "建设周期", "inner": "阶段月份"},
+  {"id": "R3.5", "kind": "param_threshold_date", "param": "credit_report_validity_months",
+   "a": "数据更新时间", "b": "签署日期"},
+  {"id": "R3.6", "kind": "cross_doc_equal", "label": "场景名称",
+   "docs": ["申请书", "实施方案"], "on_missing": "NA"}
+ ]
+}

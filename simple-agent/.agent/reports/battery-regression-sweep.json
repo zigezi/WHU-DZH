@@ -1,7 +1,7 @@
 {
  "note": "P5a.77 §二.2 全量电池回归扫（零 token；注册表不变性断言）",
  "token": 0,
- "batteries": 15,
+ "batteries": 16,
  "firing_audit": true,
  "results": [
   {
@@ -18,6 +18,10 @@
   },
   {
    "file": "count_guard_battery.py",
+   "rc": 0
+  },
+  {
+   "file": "e2_eval_rules_battery.py",
    "rc": 0
   },
   {

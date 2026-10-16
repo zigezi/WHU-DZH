@@ -1,0 +1,8 @@
+{
+ "note": "P5a.91 §四 规则集 v0.3 逐规则 fixture 电池（≥1 正 1 负）",
+ "version": "v0.3",
+ "n": 25,
+ "passed": 25,
+ "deployed": true,
+ "fails": []
+}

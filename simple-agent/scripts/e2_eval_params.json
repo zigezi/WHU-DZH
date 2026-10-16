@@ -1,0 +1,10 @@
+{
+ "note": "E2 评测器仪器参数（冻结；版本化入指纹 — P5a.87 §四.2 / P5a.85 §二）",
+ "extractor": "pdftotext -layout（2026-10-16 普查确认：-layout 重抽 16 行同行模式 = 交付 txt 16 行；rawmode 仅 3 行）",
+ "amount_extract": "前缀货币(¥)+后缀单位(元/万/亿/中文数字)；表头声明单位的裸数多列表 ' 尚未支持（待裁者冻结列/勾稽规则）",
+ "unit_table_version": "e2-unit-v1",
+ "redactor_version": "e2_deident-v2（两遍：上下文收集 + 全局替换）",
+ "ruleset_version": "v0.3（a91 §二冻结）",
+ "prompt_version": "v1.1（a91 §一冻结）",
+ "frozen_at": "2026-10-16"
+}

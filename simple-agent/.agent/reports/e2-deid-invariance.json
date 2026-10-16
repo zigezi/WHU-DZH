@@ -1,0 +1,103 @@
+{
+ "note": "P5a.87 §二 脱敏结构不变性验证（naming_proof）",
+ "n": 3,
+ "passed": 3,
+ "all_pass": true,
+ "results": [
+  {
+   "check": "deterministic",
+   "pass": true
+  },
+  {
+   "check": "structure_preserved_all_docs",
+   "pass": true,
+   "per_doc": [
+    {
+     "doc": "P1-01-揭榜申请书.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P1-02-实施方案.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P1-04-公共信用信息报告.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P1-附件3-1-建设单位及牵头人简介.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P1-附件3-2-经费概算.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P2-01-申请书.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P2-02-实施方案.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P2-04-信用报告.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P3-02-实施方案-72页长文.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    },
+    {
+     "doc": "P4-04-信用信息查询报告.txt",
+     "lines_equal": true,
+     "amounts_equal": true,
+     "dates_equal": true,
+     "sections_equal": true,
+     "pass": true
+    }
+   ]
+  },
+  {
+   "check": "naming_proof_only_identifiers",
+   "pass": true,
+   "out": "联系人：【PERSON-001】 手机【MOBILE-001】 统一社会信用代码【USCC-001】 邮编：310000。合计 100 万元。"
+  }
+ ]
+}

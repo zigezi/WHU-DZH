@@ -36,3 +36,8 @@ build/
 # OS
 .DS_Store
 /github-token.txt
+
+# E2 corpus (PII; must stay out of repo — P5a.86 §二)
+E2File/
+/e2-corpus/
+*.pdf

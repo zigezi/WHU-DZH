@@ -160,6 +160,16 @@ class TraceStore:
             self._ensure_column("code_corpses", "schema_v", "TEXT")
             # P5a.82 §三：采集口径 v1 分层（signal/build/gray；gray 不计触发线/不进校准）
             self._ensure_column("code_corpses", "tier", "TEXT")
+            # P5a.81 §五 / P5a.86 §三.4：E2 新域尸体池（domain_pack="bid"）
+            self.conn.execute("""
+                CREATE TABLE IF NOT EXISTS e2_corpses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ts TEXT, op TEXT, command TEXT, exit_code INTEGER,
+                    error TEXT, death_class TEXT, source TEXT, capture TEXT,
+                    git_head TEXT, env_fingerprint TEXT, schema_v TEXT, tier TEXT,
+                    domain_pack TEXT
+                )
+            """)
             self.conn.commit()
 
     def _ensure_column(self, table: str, column: str, decl: str):

@@ -54,6 +54,22 @@ p5a36_failure_mine.py
 secret_mask.py
 mirror_leak_scan.py
 
+# —— E2 建设段（a83-86）——
+e2_deident.py
+e2_deid_invariance.py
+assert_deid_invariance.py
+e2_unit_norm.py
+e2_eval.py
+e2_eval_params.json
+e2_ruleset_provisional.json
+e2_ruleset_v0.3.json
+e2_prompt_v1.1.md
+e2_eval_rules_battery.py
+e2_fingerprint.py
+taskbook_fingerprint.json
+e2_defect_injector.py
+e2_eval_calibration.py
+
 # —— 分析 / 工具 ——
 family_stats.py
 freeze_precedents.py
