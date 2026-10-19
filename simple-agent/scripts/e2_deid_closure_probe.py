@@ -44,7 +44,8 @@ def main():
             if var == "unknown":
                 continue
             for fn, t in deid.items():
-                if var in t:
+                hit = (var in t) or (any(ch.isascii() and ch.isalpha() for ch in var) and var.lower() in t.lower())
+                if hit:
                     residual.append({"entity": val, "kind": kind, "variant": var, "file": fn})
                     break
     # a101 §四.3：代号紧邻中文字符且该字符属映射表人名 → 半遮蔽残留报警
@@ -61,8 +62,9 @@ def main():
     out = {"note": "E2 变体闭包探针（a96 条款三 + a101 §四.3 残留校验）",
            "entities": len(entities), "residual": residual[:50], "residual_count": len(residual),
            "closure_clean": not residual,
-           "coverage_declaration": "闭包残留 {}（量程：已入表实体之变体；未入表实体不在本探针量程，"
-                                   "由 fixture 与人工锚覆盖）".format(len(residual))}
+           "coverage_declaration": "闭包残留 {}（量程：已入表实体之变体[全称/折叠/短名/大小写折叠]；"
+                                   "**不覆盖**：未入表实体、引用块英文作者、域尾/电话碎片、表内嵌入——"
+                                   "由 fixture + 人工锚覆盖）".format(len(residual))}
     json.dump(out, open(os.path.join(R, "e2-deid-closure-probe.json"), "w"), ensure_ascii=False, indent=1)
     print(json.dumps({"entities": len(entities), "residual_count": len(residual),
                       "closure_clean": out["closure_clean"], "sample": residual[:15]},

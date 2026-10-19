@@ -1,7 +1,7 @@
 {
- "note": "E2 脱敏 fixture 电池",
- "n": 4,
- "passed": 4,
+ "note": "E2 脱敏 fixture 电池（(c) 核心路径；门套同源 a107）",
+ "n": 5,
+ "passed": 5,
  "deployed": true,
  "results": [
   {
@@ -10,27 +10,23 @@
    "masked_wrongly": []
   },
   {
-   "case": "recall_all_forms_masked",
+   "case": "recall_dict_case_insensitive",
    "pass": true,
    "leaks": []
   },
   {
-   "case": "watermark_suspended_no_overdelete",
+   "case": "ref_block_whole_masked",
    "pass": true,
-   "sign_kept": true,
-   "real_masked": true,
-   "no_overdelete": true,
-   "wm_registered": [
-    "周",
-    "婷",
-    "学"
-   ]
+   "ref_chars": 41
   },
   {
-   "case": "watermark_overlap_content_kept",
-   "pass": true,
-   "out_has": true
+   "case": "entity_pierces_whitelist",
+   "pass": true
+  },
+  {
+   "case": "watermark_delete_retired_no_char_loss",
+   "pass": true
   }
  ],
- "coverage_domain": "量程：合成埋件（精度白名单 / 召回全形态 / 水印共存·重合）；已知排除：真实语料中未入表实体之发现（由独立召回探针 + 人工锚覆盖）；水印探针量程=孤立+胶合残留"
+ "coverage_domain": "量程：锚定字典实体(含大小写/变体) + 确定 PII + REF 块 + 白名单击穿；不覆盖：未入表实体的发现（由推测层标记清单 + 人工校正覆盖）"
 }

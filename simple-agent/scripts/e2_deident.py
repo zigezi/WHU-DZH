@@ -50,6 +50,9 @@ NAME_CTX = re.compile(
 NAME_REV = re.compile(r"([\u4e00-\u9fa5]{2,4})[\s\u4e00-\u9fa5]{0,2}?(?:监事|董事|股东|总经理|董事长|CTO|首席技术官|经理|负责人)")
 NAME_CELL = re.compile(r"(?<![\u4e00-\u9fa5])([\u4e00-\u9fa5]{2,3})\s{2,}\d")
 NAME_GENDER = re.compile(r"(?<![\u4e00-\u9fa5])([\u4e00-\u9fa5]{2,3})[ \t　]+[男女](?![\u4e00-\u9fa5])")
+EMAIL_FRAG_AT = re.compile(r"[A-Za-z0-9._%+-]{2,}@")                 # 断行邮箱局部名@
+EMAIL_FRAG_ASCII = re.compile(r"[A-Za-z][A-Za-z0-9._-]{3,}")          # 性别行内的 ASCII 局部名
+GENDER_ROW = re.compile(r"[ \t　][男女][ \t　]")
 SURNAME = set("赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛范彭郎鲁韦昌马苗凤花方俞任袁柳唐罗薛伍余米贝姚孟高夏蔡田樊胡凌霍虞万支柯管卢莫房裘缪程邢翁储靳段富巫乌焦巴牧山谷车侯全班仰秋仲伊宫宁仇栾甘厉祖武符刘景詹龙叶幸司黎印白蒲从鄂索咸赖卓屠蒙池乔能苍双闻党翟谭贡劳姬申扶堵冉雍桑桂牛通边燕冀浦尚农温庄晏柴瞿阎连茹习宦艾容向古易慎戈廖庾居衡步都耿满弘匡国文寇广禄阙东欧沃利蔚越隆师巩聂晁勾敖融冷辛阚那简饶空曾沙养鞠须丰巢关蒯相查后荆红游竺权盖益桓徐邓萧钟雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计伏成戴谈宋茅庞熊纪舒屈项祝董梁杜阮蓝闵席季麻强贾路娄危江童颜郭梅盛林刁钟徐邱骆高夏蔡田樊胡凌霍虞万支柯")
 CN_STOP = set("男女码号年月日时分秒一二三四五六七八九十百千万亿元的是了在有和与及对为于项目第章节部分个件条款名单位")
 SUFFIX = ("有限公司", "股份有限公司", "集团", "研究院", "设计院", "事务所", "银行", "大学", "学院", "中心")
@@ -152,6 +155,12 @@ def collect_entities(texts):
             add_names(m.group(1))
         for m in NAME_GENDER.finditer(t):
             add_names(m.group(1))
+        for m in EMAIL_FRAG_AT.finditer(t):
+            ent["EMAIL"].add(m.group(0))
+        for ln in t.split("\n"):
+            if GENDER_ROW.search(ln):
+                for m in EMAIL_FRAG_ASCII.finditer(ln):
+                    ent["EMAIL"].add(m.group(0))
     # 变体闭包（已知长短名成对）：实体在文中出现 → 补其缩写（P5a.95 §四.2）
     var = json.load(open(os.path.join(ROOT, "scripts", "e2_variants.json"), encoding="utf-8")) if os.path.exists(os.path.join(ROOT, "scripts", "e2_variants.json")) else {}
     joined = "".join(texts)                          # 变体查**原文**（含空格名）
@@ -242,34 +251,161 @@ def deid_text(text, mapping, ent, wm, wl):
     return text
 
 
+
+
+# =========================================================================
+# P5a.108 (c) 最小遮蔽核心：只遮【锚定实体字典 + 确定 PII + REF 块】；
+# 推测层降级为「标记不遮蔽」（输出人工校正阅读清单）。
+# =========================================================================
+REF_HEAD = re.compile(r"^\s*(参考文献|References|Bibliography|引用文献)\s*$", re.I)
+CITE_LINE = re.compile(
+    r"^\s*(?:[\[(]?\d{1,3}[\])]?[\.\s]+)?"
+    r"(?:[A-Z][A-Za-z.\-]+[,\s]+){2,}.*(?:19|20)\d{2}\b")
+NAME_PAIR = re.compile(r"[A-Z][a-z]+[\s,]+[A-Z][a-z]+")
+YEAR = re.compile(r"(?:19|20)\d{2}")
+QUOTED = re.compile(r'"[^"]{8,}"')
+
+
+def _is_cite(ln):
+    s = ln.strip()
+    if not s:
+        return False
+    if REF_HEAD.match(s):
+        return True
+    if len(NAME_PAIR.findall(s)) >= 2:
+        return True
+    if QUOTED.search(s) and YEAR.search(s):
+        return True
+    if CITE_LINE.match(s):
+        return True
+    if s.lower().startswith("and ") and NAME_PAIR.search(s):
+        return True
+    return False
+REF_ALLOW = os.path.join(ROOT, ".agent", "local", "e2-refs-allowance.json")
+
+
+def load_entities():
+    p = os.path.join(ROOT, "scripts", "e2_entities.json")
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
+
+
+def mask_ref_blocks(text, ref_chars):
+    lines = text.split("\n")
+    out, in_block = [], False
+    for ln in lines:
+        s = ln.strip()
+        if REF_HEAD.match(ln):
+            in_block = True
+            ref_chars.update(ch for ch in ln if not ch.isspace())
+            out.append("【REFS-】")
+            continue
+        if in_block and s == "":
+            in_block = False
+            out.append(ln)
+            continue
+        cite = _is_cite(ln)
+        # 块内延续：无 CJK、非空、且不是新章节标题
+        continuation = in_block and s and not re.search(r"[\u4e00-\u9fa5]", s) and len(s) < 120
+        if cite or continuation:
+            if not in_block and cite:
+                ref_chars.update(ch for ch in ln if not ch.isspace())
+                out.append("【REFS-】")
+                in_block = True
+            else:
+                ref_chars.update(ch for ch in ln if not ch.isspace())
+                out.append("")
+        else:
+            out.append(ln)
+    return "\n".join(out)
+
+
+def _entity_pattern(value):
+    body = r"\s*".join(re.escape(ch) for ch in value)
+    return re.compile(body, re.IGNORECASE if re.search(r"[A-Za-z]", value) else 0)
+
+
+def mask_anchor(text, code, entities, wl, variants):
+    vals = []
+    for kind, arr in entities.items():
+        for v in arr:
+            if len(v) >= 2 and v not in wl:
+                vals.append((kind, v))
+    for full, abbr in variants.get("institution_abbrev", {}).items():
+        vals += [("COMPANY", full), ("COMPANY", abbr)]
+    for full, abbr in variants.get("product_alias", {}).items():
+        vals += [("PROJ", full), ("PROJ", abbr)]
+    vals.sort(key=lambda x: len(x[1]), reverse=True)
+    for kind, v in vals:
+        if v in wl:
+            continue
+
+        def _repl(m, _k=kind, _v=v):
+            return code(_k, _v) + "\n" * m.group(0).count("\n")
+        text = _entity_pattern(v).sub(_repl, text)
+    return text
+
+
+def core_deid(text, code, entities, wl, variants, ref_chars):
+    text = mask_ref_blocks(text, ref_chars)
+    text = mask_anchor(text, code, entities, wl, variants)
+    for kind, pat in PII:
+        text = pat.sub(lambda m: code(kind, m.group(0)), text)
+    return text
+
+
+def speculative_markers(texts, entities, wl):
+    ent = collect_entities(texts)
+    anchor = set()
+    for arr in entities.values():
+        anchor |= set(arr)
+    markers, seen = [], set()
+    for kind, arr in ent.items():
+        for v in arr:
+            if len(v) < 2 or v in wl or v in anchor:
+                continue
+            k = (kind, v)
+            if k not in seen:
+                seen.add(k); markers.append({"kind": kind, "candidate": v})
+    # 碎片类（域尾 / 孤立数字段）——推测层标记，供人工校正
+    FRAG_DOMAIN = re.compile(r"[A-Za-z0-9-]+\.(?:com|cn|net|org)\b", re.I)
+    FRAG_DIGITS = re.compile(r"(?<!\d)\d{5,8}(?!\d)")
+    for t in texts:
+        for m in FRAG_DOMAIN.finditer(t):
+            k = ("FRAGMENT", m.group(0))
+            if k not in seen:
+                seen.add(k); markers.append({"kind": "FRAGMENT", "candidate": m.group(0)})
+        for ln in t.split("\n"):
+            if GENDER_ROW.search(ln):
+                for m in FRAG_DIGITS.finditer(ln):
+                    k = ("FRAGMENT", m.group(0))
+                    if k not in seen:
+                        seen.add(k); markers.append({"kind": "FRAGMENT", "candidate": m.group(0)})
+    return markers
+
+
 def main():
     wl = load_whitelist()
+    entities = load_entities()
+    variants = json.load(open(os.path.join(ROOT, "scripts", "e2_variants.json"), encoding="utf-8"))
     os.makedirs(DEID, exist_ok=True); os.makedirs(LOCAL, exist_ok=True)
-    if os.path.exists(MAP):
-        import shutil
-        shutil.copy(MAP, MAP_V_ARCHIVE)
-        print("archived mapping v2 ->", MAP_V_ARCHIVE)
     files = sorted(f for f in os.listdir(RAW) if f.endswith(".txt"))
     raws = {fn: open(os.path.join(RAW, fn), encoding="utf-8", errors="replace").read() for fn in files}
-    texts = list(raws.values())
-    ent = collect_entities(texts)
-    wm = watermarks(texts)
-    mapping = {}
-    budget = []
+    mapping, ref_chars = {}, set()
     for fn in files:
-        out = deid_text(raws[fn], mapping, ent, wm, wl)
+        code = _masker(mapping)
+        out = core_deid(raws[fn], code, entities, wl, variants, ref_chars)
         open(os.path.join(DEID, fn), "w", encoding="utf-8").write(out)
-        ncodes = len(re.findall(r"【[A-Z]+-\d+】", out))
-        nchars = len(re.sub(r"\s", "", out)) or 1
-        budget.append({"file": fn, "codes": ncodes, "chars": nchars, "ratio": round(ncodes / nchars, 4)})
     json.dump(mapping, open(MAP, "w"), ensure_ascii=False, indent=1)
-    json.dump({"watermark_chars": sorted(wm)}, open(os.path.join(LOCAL, "e2-watermark.json"), "w"), ensure_ascii=False, indent=1)
-    flagged = [b for b in budget if b["ratio"] > BUDGET_RATIO_MAX]
-    print(json.dumps({"files": len(files),
-                      "entities": {k: len(v) for k, v in ent.items()},
-                      "watermark_chars": sorted(wm), "mapping_entries": len(mapping),
-                      "budget_ratio_max_allow": BUDGET_RATIO_MAX,
-                      "budget_flagged": flagged}, ensure_ascii=False, indent=1))
+    json.dump(sorted(ref_chars), open(REF_ALLOW, "w"), ensure_ascii=False, indent=1)
+    json.dump({"watermark_chars": []}, open(os.path.join(LOCAL, "e2-watermark.json"), "w"), ensure_ascii=False, indent=1)
+    markers = speculative_markers(list(raws.values()), entities, wl)
+    json.dump({"note": "推测层标记清单（不遮蔽；人工校正落成字典条目，a108 §三.1）",
+               "n": len(markers), "markers": markers},
+              open(os.path.join(LOCAL, "e2-review-markers.json"), "w"), ensure_ascii=False, indent=1)
+    print(json.dumps({"mode": "(c) minimal-core", "files": len(files),
+                      "entities": {k: len(v) for k, v in entities.items()},
+                      "mapping_entries": len(mapping), "ref_chars": len(ref_chars),
+                      "markers": len(markers)}, ensure_ascii=False, indent=1))
     return 0
 
 

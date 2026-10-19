@@ -28,6 +28,9 @@ def main():
     vals = [k.split("\x00", 1)[1] for k in mp]
     allowed_removed = set("".join(vals))
     wm = set(json.load(open(WM, encoding="utf-8"))["watermark_chars"]) if os.path.exists(WM) else set()
+    REF_ALLOW = os.path.join(ROOT, ".agent", "local", "e2-refs-allowance.json")
+    ref_chars = set(json.load(open(REF_ALLOW, encoding="utf-8"))) if os.path.exists(REF_ALLOW) else set()
+    allowed_removed |= ref_chars          # REF 整块遮蔽的字符由 REF 允差解释
 
     docs = []
     total_unexplained = 0

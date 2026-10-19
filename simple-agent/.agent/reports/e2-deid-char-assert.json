@@ -1,18 +1,11 @@
 {
  "note": "P5a.101 §四.1 字符级全量断言（水印删除挂起期）",
- "watermark": [
-  "周",
-  "姚",
-  "婷",
-  "学",
-  "文",
-  "斌"
- ],
+ "watermark": [],
  "docs": [
   {
    "doc": "P1-01-揭榜申请书.txt",
-   "removed_chars": 174,
-   "added_chars": 515,
+   "removed_chars": 142,
+   "added_chars": 192,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -20,8 +13,8 @@
   },
   {
    "doc": "P1-02-实施方案.txt",
-   "removed_chars": 125,
-   "added_chars": 602,
+   "removed_chars": 19,
+   "added_chars": 29,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -29,8 +22,8 @@
   },
   {
    "doc": "P1-04-公共信用信息报告.txt",
-   "removed_chars": 309,
-   "added_chars": 686,
+   "removed_chars": 105,
+   "added_chars": 100,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -38,8 +31,8 @@
   },
   {
    "doc": "P1-附件3-1-建设单位及牵头人简介.txt",
-   "removed_chars": 148,
-   "added_chars": 621,
+   "removed_chars": 73,
+   "added_chars": 111,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -47,8 +40,8 @@
   },
   {
    "doc": "P1-附件3-2-经费概算.txt",
-   "removed_chars": 2,
-   "added_chars": 11,
+   "removed_chars": 0,
+   "added_chars": 0,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -56,8 +49,8 @@
   },
   {
    "doc": "P2-01-申请书.txt",
-   "removed_chars": 210,
-   "added_chars": 573,
+   "removed_chars": 129,
+   "added_chars": 167,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -65,8 +58,8 @@
   },
   {
    "doc": "P2-02-实施方案.txt",
-   "removed_chars": 205,
-   "added_chars": 728,
+   "removed_chars": 85,
+   "added_chars": 121,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -74,8 +67,8 @@
   },
   {
    "doc": "P2-04-信用报告.txt",
-   "removed_chars": 1175,
-   "added_chars": 720,
+   "removed_chars": 506,
+   "added_chars": 566,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -83,8 +76,8 @@
   },
   {
    "doc": "P3-02-实施方案-72页长文.txt",
-   "removed_chars": 1228,
-   "added_chars": 4894,
+   "removed_chars": 1601,
+   "added_chars": 774,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},
@@ -92,8 +85,8 @@
   },
   {
    "doc": "P4-04-信用信息查询报告.txt",
-   "removed_chars": 1122,
-   "added_chars": 737,
+   "removed_chars": 521,
+   "added_chars": 598,
    "unexplained_removed": {},
    "unexplained_added": {},
    "watermark_deleted": {},

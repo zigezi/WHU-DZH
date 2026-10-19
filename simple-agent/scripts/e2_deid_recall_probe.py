@@ -50,13 +50,15 @@ def main():
         dd = os.path.join(DEID, fn)
         deid = open(dd, encoding="utf-8", errors="replace").read() if os.path.exists(dd) else ""
         for c in cand:
-            if c in deid:
+            hit = (c in deid) or (any(ch.isascii() and ch.isalpha() for ch in c) and c.lower() in deid.lower())
+            if hit:
                 residual.append({"file": fn, "token": c})
     out = {"note": "E2 独立召回探针",
            "candidates": len(cand), "residual_count": len(residual),
            "residual_sample": residual[:30], "recall_clean": not residual,
-           "coverage_declaration": "召回残留 {}（量程：PII 正则 + 公司全称/核心 + 姓氏表格格 + 长号；"
-                                   "未含特征者由人工锚覆盖）".format(len(residual))}
+           "coverage_declaration": "召回残留 {}（量程：PII 正则 + 公司全称/核心 + 姓氏表格格 + 长号 + 大小写折叠；"
+                                   "**不覆盖**：未入表实体的发现 / 引用块内英文作者 / 域尾与电话碎片 / 表内嵌入——"
+                                   "上述由推测层标记清单 + 人工校正覆盖；本残留即校正队列）".format(len(residual))}
     json.dump(out, open(os.path.join(R, "e2-deid-recall-probe.json"), "w"), ensure_ascii=False, indent=1)
     print(json.dumps({"candidates": len(cand), "residual_count": len(residual),
                       "recall_clean": out["recall_clean"], "sample": residual[:15]},

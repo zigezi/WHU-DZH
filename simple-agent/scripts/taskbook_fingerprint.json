@@ -3,8 +3,12 @@
  "unit_table_sha": "8d39d7b49cffaaa6",
  "eval_params_sha": "14ce06d3fac3720f",
  "prompt_sha": "32c79f5e972a6cbd",
- "whitelist_sha": "c41322173caec0e5",
+ "whitelist_sha": "4def98e8ee56831a",
  "variants_sha": "ed9c6fc6789c9766",
+ "redactor_sha": "4866ab976ee6b9ac",
+ "recall_probe_sha": "14d08fcd587a50a5",
+ "closure_probe_sha": "12395d017bf0066c",
+ "entities_sha": "c2781afc918af2d6",
  "eval_version": "v0.4（a96 A1 签署拆分）",
  "prompt_version": "v1.1"
 }
