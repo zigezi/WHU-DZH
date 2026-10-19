@@ -9,7 +9,7 @@
    "check": "naming_proof_failing_cmd_logged",
    "pass": true,
    "detail": {
-    "ts": "2026-10-16T17:49:17",
+    "ts": "2026-10-19T09:20:52",
     "op": "shell",
     "command": "false",
     "exit_code": 1,

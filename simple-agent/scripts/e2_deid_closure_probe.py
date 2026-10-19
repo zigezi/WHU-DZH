@@ -50,8 +50,8 @@ def main():
     out = {"note": "E2 变体闭包探针（a96 条款三）",
            "entities": len(entities), "residual": residual[:50], "residual_count": len(residual),
            "closure_clean": not residual,
-           "coverage_declaration": "闭包残留 {}（量程：已入表实体之变体[全称/折叠/短名]；"
-                                   "未入表实体不在本探针量程，由召回 fixture 与人工锚覆盖）".format(len(residual))}
+           "coverage_declaration": "闭包残留 {}（量程：已入表实体之变体；未入表实体不在本探针量程，"
+                                   "由 fixture 与人工锚覆盖）".format(len(residual))}
     json.dump(out, open(os.path.join(R, "e2-deid-closure-probe.json"), "w"), ensure_ascii=False, indent=1)
     print(json.dumps({"entities": len(entities), "residual_count": len(residual),
                       "closure_clean": out["closure_clean"], "sample": residual[:15]},
