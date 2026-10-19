@@ -49,6 +49,7 @@ NAME_CTX = re.compile(
     r"首席科学家|科学家|总工程师)[：:\s]*([\u4e00-\u9fa5]{2,4})")
 NAME_REV = re.compile(r"([\u4e00-\u9fa5]{2,4})[\s\u4e00-\u9fa5]{0,2}?(?:监事|董事|股东|总经理|董事长|CTO|首席技术官|经理|负责人)")
 NAME_CELL = re.compile(r"(?<![\u4e00-\u9fa5])([\u4e00-\u9fa5]{2,3})\s{2,}\d")
+NAME_GENDER = re.compile(r"(?<![\u4e00-\u9fa5])([\u4e00-\u9fa5]{2,3})[ \t　]+[男女](?![\u4e00-\u9fa5])")
 SURNAME = set("赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛范彭郎鲁韦昌马苗凤花方俞任袁柳唐罗薛伍余米贝姚孟高夏蔡田樊胡凌霍虞万支柯管卢莫房裘缪程邢翁储靳段富巫乌焦巴牧山谷车侯全班仰秋仲伊宫宁仇栾甘厉祖武符刘景詹龙叶幸司黎印白蒲从鄂索咸赖卓屠蒙池乔能苍双闻党翟谭贡劳姬申扶堵冉雍桑桂牛通边燕冀浦尚农温庄晏柴瞿阎连茹习宦艾容向古易慎戈廖庾居衡步都耿满弘匡国文寇广禄阙东欧沃利蔚越隆师巩聂晁勾敖融冷辛阚那简饶空曾沙养鞠须丰巢关蒯相查后荆红游竺权盖益桓徐邓萧钟雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计伏成戴谈宋茅庞熊纪舒屈项祝董梁杜阮蓝闵席季麻强贾路娄危江童颜郭梅盛林刁钟徐邱骆高夏蔡田樊胡凌霍虞万支柯")
 CN_STOP = set("男女码号年月日时分秒一二三四五六七八九十百千万亿元的是了在有和与及对为于项目第章节部分个件条款名单位")
 SUFFIX = ("有限公司", "股份有限公司", "集团", "研究院", "设计院", "事务所", "银行", "大学", "学院", "中心")
@@ -76,16 +77,24 @@ def _nameish(s):
 
 
 TRAIL_STOP = ("等", "人", "团队", "教授", "老师", "同志", "先生", "女士", "院士", "研究员",
-              "医生", "博士", "硕士", "同学", "主任", "经理", "总监", "总")
+              "医生", "博士", "硕士", "同学", "主任", "经理", "总监", "总", "简介", "介", "牵")
+BAD_END = set("于业技目牵介划项则的了在和与及")
+
+
+NON_NAME = {"毕业于", "项目技", "项目牵", "本项目", "项目", "技术", "公司", "简介", "管理", "基于", "产业"}
 
 
 def _name_clean(g):
-    """剥离尾随非名字符（等/团队/教授…），返回合格 2–3 字姓名或 None。"""
+    """剥离尾随非名字符（等/团队/教授/简介…），拒收普通词/坏尾，返回合格 2–3 字姓名或 None。"""
     for _ in range(2):
         for st in TRAIL_STOP:
             if g.endswith(st) and len(g) - len(st) in (2, 3):
                 g = g[:-len(st)]
-    return g if _nameish(g) else None
+    if not _nameish(g):
+        return None
+    if g in NON_NAME or g[-1] in BAD_END:
+        return None
+    return g
 
 
 def _clean_company(s):
@@ -122,25 +131,26 @@ def collect_entities(texts):
         nm = _name_clean(g[:4]) or _name_clean(g[:3]) or _name_clean(g[:2])
         if nm:
             ent["PERSON"].add(nm)
-    # COMPANY/PII/DOCNO/PROJ 在折叠文本；NAME 在原文（行/空分隔，避免跨行吞字）
+    # COMPANY/PROJ 在折叠文本（CJK，无数字粘连问题）；PII/DOCNO 在原文（防表格列数被拼成假长号）
     for f in folded:
-        for kind, pat in PII:
-            for m in pat.finditer(f):
-                ent[kind].add(m.group(0))
-        for pat in DOCNO:
-            for m in pat.finditer(f):
-                ent["DOCNO"].add(m.group(0))
         for m in COMPANY.finditer(f):
             ent["COMPANY"].add(_clean_company(m.group(1)))
         for m in PROJ_CN.finditer(f):
             ent["BRAND"].add(m.group(1))
-        # PROJ：仅词典（揭榜方项目/产品名），不用全局连字符正则（避免遮通用技术词，a95 §四.5/§二.4）
     for t in texts:
+        for kind, pat in PII:
+            for m in pat.finditer(t):
+                ent[kind].add(m.group(0))
+        for pat in DOCNO:
+            for m in pat.finditer(t):
+                ent["DOCNO"].add(m.group(0))
         for m in NAME_CTX.finditer(t):
             add_names(m.group(1))
         for m in NAME_REV.finditer(t):
             add_names(m.group(1))
         for m in NAME_CELL.finditer(t):
+            add_names(m.group(1))
+        for m in NAME_GENDER.finditer(t):
             add_names(m.group(1))
     # 变体闭包（已知长短名成对）：实体在文中出现 → 补其缩写（P5a.95 §四.2）
     var = json.load(open(os.path.join(ROOT, "scripts", "e2_variants.json"), encoding="utf-8")) if os.path.exists(os.path.join(ROOT, "scripts", "e2_variants.json")) else {}
@@ -151,6 +161,9 @@ def collect_entities(texts):
     for full, abbr in var.get("product_alias", {}).items():
         if full in joined:
             ent["PROJ"].add(full); ent["PROJ"].add(abbr)
+    for term in var.get("project_terms", []):
+        if term in joined:
+            ent["PROJ"].add(term)
     return ent
 
 
@@ -174,16 +187,12 @@ def watermarks(texts, min_count=6):
 SIGN_FIELD = re.compile(r"签[署字章]|盖章|法定代表人")
 
 
+WATERMARK_DELETE = False   # a101 §四.5：水印清除回炉，**只登记不删除**（防字符级越界删除）
+
+
 def remove_watermark(text, wm):
-    """清除水印字（含胶合，a95 §二.3）；**签署字段行永不删**（a93 §3.2 铁律）。行数守恒。"""
-    if not wm:
-        return text
-    out = []
-    for ln in text.split("\n"):
-        if SIGN_FIELD.search(ln):
-            out.append(ln); continue
-        out.append("".join(ch for ch in ln if ch not in wm))
-    return "\n".join(out)
+    """a101 §四.5：水印清除挂起——只登记（wm 写入 local/e2-watermark.json），不删除正文任何字符。"""
+    return text
 
 
 def _masker(mapping):

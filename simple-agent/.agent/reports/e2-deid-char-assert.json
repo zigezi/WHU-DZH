@@ -1,0 +1,105 @@
+{
+ "note": "P5a.101 §四.1 字符级全量断言（水印删除挂起期）",
+ "watermark": [
+  "周",
+  "姚",
+  "婷",
+  "学",
+  "文",
+  "斌"
+ ],
+ "docs": [
+  {
+   "doc": "P1-01-揭榜申请书.txt",
+   "removed_chars": 174,
+   "added_chars": 515,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P1-02-实施方案.txt",
+   "removed_chars": 125,
+   "added_chars": 602,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P1-04-公共信用信息报告.txt",
+   "removed_chars": 309,
+   "added_chars": 686,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P1-附件3-1-建设单位及牵头人简介.txt",
+   "removed_chars": 148,
+   "added_chars": 621,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P1-附件3-2-经费概算.txt",
+   "removed_chars": 2,
+   "added_chars": 11,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P2-01-申请书.txt",
+   "removed_chars": 210,
+   "added_chars": 573,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P2-02-实施方案.txt",
+   "removed_chars": 205,
+   "added_chars": 728,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P2-04-信用报告.txt",
+   "removed_chars": 1175,
+   "added_chars": 720,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P3-02-实施方案-72页长文.txt",
+   "removed_chars": 1228,
+   "added_chars": 4894,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  },
+  {
+   "doc": "P4-04-信用信息查询报告.txt",
+   "removed_chars": 1122,
+   "added_chars": 737,
+   "unexplained_removed": {},
+   "unexplained_added": {},
+   "watermark_deleted": {},
+   "pass": true
+  }
+ ],
+ "all_pass": true,
+ "coverage": "逐字多重集：removed 须由映射条目值解释；added 须为代号字面；水印删除须为 0"
+}

@@ -11,5 +11,15 @@
  "product_alias": {
   "Open-Sora Plan": "Open-Sora",
   "UniWorld-V2": "UniWorld"
- }
+ },
+ "project_terms": [
+  "VOLO",
+  "T2T-ViT",
+  "Open-Sora",
+  "Open-Sora Plan",
+  "UniWorld",
+  "UniWorld-V2",
+  "BGE-M3",
+  "BGE-Large-ZH"
+ ]
 }

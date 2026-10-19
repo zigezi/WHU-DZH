@@ -1,6 +1,6 @@
 {
  "note": "P5a.88 §四 脱敏不变性机器断言（修正规格）",
- "mapping_values": 169,
+ "mapping_values": 153,
  "docs": [
   {
    "doc": "P1-01-揭榜申请书.txt",
@@ -60,7 +60,7 @@
    "added_nums": 0,
    "sections": {
     "raw": 11,
-    "deid": 9
+    "deid": 11
    },
    "unexplained": [],
    "missed_masking": [],
@@ -86,7 +86,7 @@
    "added_nums": 0,
    "sections": {
     "raw": 34,
-    "deid": 27
+    "deid": 34
    },
    "unexplained": [],
    "missed_masking": [],
@@ -95,11 +95,11 @@
   },
   {
    "doc": "P2-04-信用报告.txt",
-   "removed_nums": 34,
+   "removed_nums": 32,
    "added_nums": 0,
    "sections": {
-    "raw": 135,
-    "deid": 93
+    "raw": 134,
+    "deid": 134
    },
    "unexplained": [],
    "missed_masking": [],
@@ -108,11 +108,11 @@
   },
   {
    "doc": "P3-02-实施方案-72页长文.txt",
-   "removed_nums": 13,
+   "removed_nums": 11,
    "added_nums": 0,
    "sections": {
     "raw": 79,
-    "deid": 70
+    "deid": 79
    },
    "unexplained": [],
    "missed_masking": [],
@@ -121,11 +121,11 @@
   },
   {
    "doc": "P4-04-信用信息查询报告.txt",
-   "removed_nums": 41,
+   "removed_nums": 39,
    "added_nums": 0,
    "sections": {
     "raw": 132,
-    "deid": 99
+    "deid": 132
    },
    "unexplained": [],
    "missed_masking": [],

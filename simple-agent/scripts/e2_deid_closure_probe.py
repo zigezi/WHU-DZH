@@ -47,7 +47,18 @@ def main():
                 if var in t:
                     residual.append({"entity": val, "kind": kind, "variant": var, "file": fn})
                     break
-    out = {"note": "E2 变体闭包探针（a96 条款三）",
+    # a101 §四.3：代号紧邻中文字符且该字符属映射表人名 → 半遮蔽残留报警
+    for kind, val in entities:
+        if kind != "PERSON" or len(val) < 2 or D._name_clean(val) is None:
+            continue
+        chars = {val[-1]}
+        for fn, t in deid.items():
+            for m in re.finditer(r"([\u4e00-\u9fa5])【[A-Z]+-\d+】|【[A-Z]+-\d+】([\u4e00-\u9fa5])", t):
+                ch = m.group(1) or m.group(2)
+                if ch in chars:
+                    residual.append({"entity": val, "kind": "adjacent_residue", "char": ch, "file": fn})
+
+    out = {"note": "E2 变体闭包探针（a96 条款三 + a101 §四.3 残留校验）",
            "entities": len(entities), "residual": residual[:50], "residual_count": len(residual),
            "closure_clean": not residual,
            "coverage_declaration": "闭包残留 {}（量程：已入表实体之变体；未入表实体不在本探针量程，"

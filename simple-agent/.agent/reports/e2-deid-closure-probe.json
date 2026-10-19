@@ -1,6 +1,6 @@
 {
- "note": "E2 变体闭包探针（a96 条款三）",
- "entities": 169,
+ "note": "E2 变体闭包探针（a96 条款三 + a101 §四.3 残留校验）",
+ "entities": 153,
  "residual": [],
  "residual_count": 0,
  "closure_clean": true,

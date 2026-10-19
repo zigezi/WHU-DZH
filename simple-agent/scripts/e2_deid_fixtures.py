@@ -37,6 +37,7 @@ WM_COEXIST = "\n".join([
     "签署页",
     "法定代表人：李明",
     "签署日期：2024-03-01",
+    "本项目文件与大学本科、档案管理、深度学习内容。",
     "婷","学","周","婷","学","周","婷","学","周","婷","学","周","婷","学","周","婷","学","周","婷","学","周",
     "李明",                                                    # 连续真名（甲名）
 ])
@@ -78,9 +79,12 @@ def main():
     out, _, wm = deid(WM_COEXIST)
     sign_kept = "签署日期：2024-03-01" in out and "法定代表人：" in out
     real_masked = "李明" not in out
-    wm_gone = all(c not in out for c in ("婷", "学", "周"))
-    checks.append({"case": "watermark_coexist", "pass": sign_kept and real_masked and wm_gone,
-                   "sign_kept": sign_kept, "real_masked": real_masked, "wm_gone": wm_gone, "wm": sorted(wm)})
+    # a101 §四.5：水印删除挂起——不要求清除；要求**不误删正文**（文件/大学/档案/深度学习完整）
+    no_overdelete = all(w in out for w in ("文件", "大学本科", "档案管理", "深度学习"))
+    checks.append({"case": "watermark_suspended_no_overdelete",
+                   "pass": sign_kept and real_masked and no_overdelete and bool(wm),
+                   "sign_kept": sign_kept, "real_masked": real_masked,
+                   "no_overdelete": no_overdelete, "wm_registered": sorted(wm)})
 
     # 4) 水印重合案：正文常用字不被误删
     out, _, _ = deid(WM_OVERLAP)

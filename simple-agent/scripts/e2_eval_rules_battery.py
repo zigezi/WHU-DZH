@@ -11,6 +11,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 from e2_eval import evaluate, load_ruleset  # noqa: E402
+from e2_normalize import locate_quote  # noqa: E402
 
 R = os.path.join(ROOT, ".agent", "reports")
 RULESET = load_ruleset(os.path.join(ROOT, "scripts", "e2_ruleset_v0.4.json"))
@@ -75,6 +76,14 @@ def main():
         v = verd(docs).get(rid)
         checks.append({"case": f"neg::{rid}", "pass": v == "FAIL", "got": v, "want": "FAIL"})
 
+    # a100 §二.2：quote 空白归一化定位（±1 空格 / 多空格 run / 全角空格 仍匹配）
+    doc = "01    合计（直接费用+间接费用）   100   110   210"
+    q1 = "01 合计（直接费用+间接费用） 100 110 210"      # 空格被折叠
+    q2 = "01  合计（直接费用+间接费用）    100  110  210" # 多空格 run
+    q3 = "01　合计（直接费用+间接费用）　100 110 210"  # 全角空格
+    checks.append({"case": "normalize_quote_plusminus_space", "pass": locate_quote(doc, q1)})
+    checks.append({"case": "normalize_quote_multispace_run", "pass": locate_quote(doc, q2)})
+    checks.append({"case": "normalize_quote_fullwidth_space", "pass": locate_quote(doc, q3)})
     # R3.2b：无论输入恒 NA（不得越权判 FAIL）
     v = verd(BASE).get("R3.2b")
     checks.append({"case": "R3.2b_always_na", "pass": v == "NA", "got": v})

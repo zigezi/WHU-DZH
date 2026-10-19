@@ -6,5 +6,11 @@
  "redactor_version": "e2_deident-v2（两遍：上下文收集 + 全局替换）",
  "ruleset_version": "v0.4（a96 A1 签署拆分）",
  "prompt_version": "v1.1（a91 §一冻结）",
- "frozen_at": "2026-10-16"
+ "frozen_at": "2026-10-16",
+ "quote_normalization": {
+  "fullwidth_to_halfwidth": "U+FF01–FF5E -> ASCII; U+3000 -> space",
+  "whitespace_fold": "space/tab/newline/fullwidth-space -> single ' '",
+  "trim": "strip leading/trailing",
+  "scope": "evidence-location only; never conclusion"
+ }
 }

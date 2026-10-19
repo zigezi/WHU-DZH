@@ -15,12 +15,12 @@
    "leaks": []
   },
   {
-   "case": "watermark_coexist",
+   "case": "watermark_suspended_no_overdelete",
    "pass": true,
    "sign_kept": true,
    "real_masked": true,
-   "wm_gone": true,
-   "wm": [
+   "no_overdelete": true,
+   "wm_registered": [
     "周",
     "婷",
     "学"
